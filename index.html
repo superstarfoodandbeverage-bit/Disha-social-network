@@ -7,40 +7,45 @@
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #F0F4F8; margin: 0; padding: 0; padding-bottom: 70px; }
         
-        /* Top Header matching image */
-        .top-header { background: #007bff; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-sun { display: flex; align-items: center; color: white; font-weight: bold; font-size: 22px; }
-        .logo-sun span { color: #ffeb3b; }
-        .header-divider { width: 1px; height: 25px; background: rgba(255,255,255,0.4); }
-        .logo-disha-text { color: white; font-weight: bold; font-size: 18px; line-height: 1.1; }
-        .logo-disha-sub { color: #e3f2fd; font-size: 10px; }
-        .right-badge { background: white; padding: 4px 10px; border-radius: 20px; color: #0056b3; font-weight: bold; font-size: 12px; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        /* Top Header - Exact Match to Your Reference Image */
+        .top-header { background: #007bff; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; color: white; }
+        .logo-container { display: flex; align-items: center; gap: 10px; }
+        .sun-logo { font-size: 22px; font-weight: bold; display: flex; align-items: center; gap: 4px; color: #ffeb3b; }
+        .header-divider { width: 1px; height: 26px; background: rgba(255,255,255,0.4); }
+        .disha-logo-area { display: flex; flex-direction: column; }
+        .disha-title { font-size: 20px; font-weight: bold; line-height: 1; color: #ffffff; }
+        .disha-subtitle { font-size: 10px; color: #e0f7fa; letter-spacing: 0.5px; }
+        
+        .right-badge { background: #ffffff; color: #007bff; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 
-        .container { padding: 10px; max-width: 500px; margin: auto; }
+        .container { padding: 12px; max-width: 500px; margin: auto; }
 
-        /* Profile Top Card matching image */
-        .profile-card { background: white; padding: 12px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        /* Profile Card with Custom Image Upload Support */
+        .profile-card { background: white; padding: 12px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .profile-left { display: flex; align-items: center; gap: 10px; }
-        .avatar { width: 45px; height: 45px; background: #3498db; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; position: relative; }
-        .status-dot { width: 9px; height: 9px; background: #2ecc71; border-radius: 50%; position: absolute; bottom: 1px; right: 1px; border: 2px solid white; }
+        
+        .avatar-box { width: 50px; height: 50px; background: #e0e0e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; cursor: pointer; border: 2px solid #007bff; }
+        .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
+        .avatar-box input { position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
+        .status-dot { width: 9px; height: 9px; background: #2ecc71; border-radius: 50%; position: absolute; bottom: 2px; right: 2px; border: 2px solid white; z-index: 2; }
+
         .profile-info h4 { margin: 0; font-size: 14px; color: #333; }
         .profile-info p { margin: 2px 0 4px 0; font-size: 11px; color: #7f8c8d; }
-        .member-tag { background: #e8f4fd; color: #f39c12; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: bold; display: inline-block; border: 1px solid #ffe0b2; }
+        .member-tag { background: #e8f4fd; color: #f39c12; padding: 2px 8px; border-radius: 10px; font-size: 9px; font-weight: bold; display: inline-block; border: 1px solid #ffe0b2; }
         
-        .profile-stats { display: flex; gap: 12px; text-align: center; border-left: 1px solid #eee; padding-left: 12px; }
-        .stat-box { font-size: 10px; color: #7f8c8d; }
-        .stat-box span { display: block; font-weight: bold; font-size: 12px; color: #2c3e50; }
+        .profile-stats { display: flex; gap: 10px; text-align: center; border-left: 1px solid #eee; padding-left: 10px; }
+        .stat-box { font-size: 9px; color: #7f8c8d; }
+        .stat-box span { display: block; font-weight: bold; font-size: 11px; color: #2c3e50; }
         .stat-box .earning { color: #27ae60; }
 
-        /* Banner matching image */
-        .banner { background: linear-gradient(135deg, #0288d1, #01579b); color: white; padding: 15px; border-radius: 12px; margin-bottom: 10px; position: relative; overflow: hidden; }
-        .banner h3 { margin: 0 0 4px 0; font-size: 16px; color: #ffeb3b; }
+        /* Banner */
+        .banner { background: linear-gradient(135deg, #0288d1, #01579b); color: white; padding: 15px; border-radius: 12px; margin-bottom: 12px; }
+        .banner h3 { margin: 0 0 4px 0; font-size: 15px; color: #ffeb3b; }
         .banner p { margin: 0; font-size: 11px; color: #f5f5f5; line-height: 1.3; }
 
         /* Menu Grid */
-        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
-        .menu-item { background: white; padding: 10px 6px; border-radius: 10px; text-align: center; text-decoration: none; color: white; font-size: 11px; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); cursor: pointer; border: none; }
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+        .menu-item { background: white; padding: 10px 6px; border-radius: 10px; text-align: center; color: white; font-size: 11px; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); cursor: pointer; border: none; }
         .menu-item span { font-size: 9px; opacity: 0.9; font-weight: normal; }
 
         .bg-home { background: #007bff; }
@@ -51,13 +56,13 @@
         .bg-profile { background: #00bcd4; }
 
         /* Flash Sale Section */
-        .flash-sale { background: white; padding: 10px; border-radius: 12px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .flash-sale { background: white; padding: 10px; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 12px; font-weight: bold; color: #333; }
         .section-header a { font-size: 11px; color: #007bff; text-decoration: none; }
         .product-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
         .product-card { min-width: 120px; background: #fafafa; border: 1px solid #eee; border-radius: 8px; padding: 6px; position: relative; }
         .discount-badge { position: absolute; top: 4px; left: 4px; background: #ff4757; color: white; font-size: 8px; padding: 2px 4px; border-radius: 4px; font-weight: bold; }
-        .product-img { width: 100%; height: 80px; background: #e0e0e0; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 4px; }
+        .product-img { width: 100%; height: 75px; background: #e0e0e0; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 4px; }
         .product-title { font-size: 10px; color: #333; margin: 0 0 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .product-price { font-size: 11px; font-weight: bold; color: #ff4757; margin: 0; }
         .product-old-price { font-size: 9px; color: #999; text-decoration: line-through; }
@@ -71,14 +76,14 @@
 </head>
 <body>
 
-    <!-- Top Header matching your reference image -->
+    <!-- Top Header Layout Fixed -->
     <div class="top-header">
-        <div class="logo-area">
-            <div class="logo-sun">☀️ <span>SUN</span></div>
+        <div class="logo-container">
+            <div class="sun-logo">☀️ SUN</div>
             <div class="header-divider"></div>
-            <div>
-                <div class="logo-disha-text">Disha</div>
-                <div class="logo-disha-sub">Social Network</div>
+            <div class="disha-logo-area">
+                <span class="disha-title">Disha</span>
+                <span class="disha-subtitle">Social Network</span>
             </div>
         </div>
         <div class="right-badge">
@@ -87,15 +92,17 @@
     </div>
 
     <div class="container">
-        <!-- Profile Top Card matching image -->
+        <!-- Profile Card with Image Uploader -->
         <div class="profile-card">
             <div class="profile-left">
-                <div class="avatar">
-                    🧑‍💻
+                <div class="avatar-box" title="ছবি পরিবর্তন করতে ক্লিক করুন">
+                    <img id="user-avatar-img" src="" alt="" style="display:none;">
+                    <span id="avatar-placeholder" style="font-size: 22px;">📷</span>
+                    <input type="file" accept="image/*" onchange="previewProfileImage(event)">
                     <div class="status-dot"></div>
                 </div>
                 <div class="profile-info">
-                    <h4 id="profile-name">Md. Rahim</h4>
+                    <h4 id="profile-name">ব্যবহারকারী</h4>
                     <p id="profile-id-text">ID: DSN000000</p>
                     <div class="member-tag">👑 Member</div>
                 </div>
@@ -107,7 +114,7 @@
             </div>
         </div>
 
-        <!-- Banner matching image -->
+        <!-- Banner -->
         <div class="banner">
             <h3>একসাথে এগিয়ে চলি সফলতার পথে</h3>
             <p>দিশা দেখাবে, সুযোগ তৈরি করবে, আপনার স্বপ্ন পূরণে পাশে থাকবে।</p>
@@ -167,11 +174,12 @@
 
     <script>
         let appData = JSON.parse(localStorage.getItem('disha_app_data')) || {
-            name: "Md. Rahim",
+            name: "ব্যবহারকারী",
             id: "DSN" + Math.floor(100000 + Math.random() * 900000),
             team: 0,
             earning: 0,
-            wallet: 0
+            wallet: 0,
+            avatar: ""
         };
 
         function updateUI() {
@@ -180,8 +188,27 @@
             document.getElementById('stat-team').innerText = appData.team;
             document.getElementById('stat-earning').innerText = "৳ " + appData.earning;
             document.getElementById('stat-wallet').innerText = "৳ " + appData.wallet;
+
+            if (appData.avatar) {
+                document.getElementById('user-avatar-img').src = appData.avatar;
+                document.getElementById('user-avatar-img').style.display = 'block';
+                document.getElementById('avatar-placeholder').style.display = 'none';
+            }
             
             localStorage.setItem('disha_app_data', JSON.stringify(appData));
+        }
+
+        // প্রোফাইল ছবি আপলোড এবং ব্রাউজারে সেভ করার লজিক
+        function previewProfileImage(event) {
+            let reader = new FileReader();
+            reader.onload = function() {
+                appData.avatar = reader.result;
+                updateUI();
+                alert("সফল! আপনার প্রোফাইল ছবি আপডেট করা হয়েছে।");
+            }
+            if(event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
         }
 
         function addTeamMember() {
@@ -189,7 +216,7 @@
             appData.earning += 50;
             appData.wallet += 50;
             updateUI();
-            alert("সফল! টিম মেম্বার ও কমিশন যোগ হয়েছে।");
+            alert("সফল! নতুন টিম মেম্বার যুক্ত হয়েছে।");
         }
 
         function addIncome() {
@@ -201,8 +228,9 @@
 
         function claimReward() {
             appData.wallet += 50;
+            appData.earning += 50;
             updateUI();
-            alert("সফল! রিওয়ার্ড পয়েন্ট ওয়ালেটে যুক্ত হয়েছে।");
+            alert("সফল! রিওয়ার্ড পয়েন্ট ব্যালেন্সে যোগ হয়েছে।");
         }
 
         function buyProduct(productName, price) {
@@ -220,7 +248,7 @@
                 alert("উত্তোলনের জন্য পর্যাপ্ত ব্যালেন্স নেই!");
                 return;
             }
-            alert("সফল! আপনার " + appData.wallet + " টাকা উত্তোলনের রিকোয়েস্ট পাঠানো হয়েছে।");
+            alert("সফল! আপনার " + appData.wallet + " টাকা উইথড্র রিকোয়েস্ট পাঠানো হয়েছে।");
             appData.wallet = 0;
             updateUI();
         }
