@@ -25,9 +25,9 @@
         .profile-info p { margin: 2px 0 5px 0; font-size: 11px; color: #7f8c8d; }
         .member-tag { background: #e8f4fd; color: #3498db; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: bold; display: inline-block; }
         
-        .profile-stats { display: flex; gap: 15px; text-align: center; }
-        .stat-box { font-size: 11px; color: #7f8c8d; }
-        .stat-box span { display: block; font-weight: bold; font-size: 13px; color: #2c3e50; }
+        .profile-stats { display: flex; gap: 10px; text-align: center; }
+        .stat-box { font-size: 10px; color: #7f8c8d; }
+        .stat-box span { display: block; font-weight: bold; font-size: 12px; color: #2c3e50; }
         .stat-box .earning { color: #27ae60; }
 
         /* Banner */
@@ -36,11 +36,10 @@
         .banner p { margin: 0; font-size: 11px; color: #ecf0f1; line-height: 1.4; }
 
         /* Menu Grid */
-        .menu-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; margin-bottom: 12px; }
-        .menu-item { background: white; padding: 10px 4px; border-radius: 10px; text-align: center; text-decoration: none; color: white; font-size: 10px; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .menu-item span { font-size: 9px; opacity: 0.8; font-weight: normal; }
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+        .menu-item { background: white; padding: 12px 8px; border-radius: 10px; text-align: center; text-decoration: none; color: white; font-size: 11px; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); cursor: pointer; border: none; }
+        .menu-item span { font-size: 9px; opacity: 0.9; font-weight: normal; }
 
-        /* Colors for menu items matching design */
         .bg-home { background: #007bff; }
         .bg-rewards { background: #8e44ad; }
         .bg-team { background: #27ae60; }
@@ -56,7 +55,7 @@
         .withdraw-btn { background: #007bff; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; width: 100%; text-align: center; }
 
         .info-cards { display: flex; flex-direction: column; gap: 6px; }
-        .info-card-item { background: white; padding: 8px 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .info-card-item { background: white; padding: 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .info-card-item span { font-weight: bold; color: #2c3e50; }
 
         /* Q&A Section */
@@ -69,9 +68,8 @@
 
         /* Bottom Navigation Bar */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 8px 0; border-top: 1px solid #e0e0e0; z-index: 1000; }
-        .nav-item { text-decoration: none; color: #7f8c8d; font-size: 10px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+        .nav-item { text-decoration: none; color: #7f8c8d; font-size: 10px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; }
         .nav-item.active { color: #007bff; font-weight: bold; }
-        .nav-item svg { width: 20px; height: 20px; fill: currentColor; }
     </style>
 </head>
 <body>
@@ -86,7 +84,7 @@
                 <div style="font-size: 8px; color: #888;">Social Network</div>
             </div>
         </div>
-        <div class="badge-logo">Disha</div>
+        <div class="badge-logo" id="user-id-badge">DSN000000</div>
     </div>
 
     <div class="container">
@@ -98,15 +96,15 @@
                     <div class="status-dot"></div>
                 </div>
                 <div class="profile-info">
-                    <h4>Md. Rahim</h4>
-                    <p>ID: DSN001234</p>
+                    <h4 id="profile-name">নতুন ব্যবহারকারী</h4>
+                    <p id="profile-id-text">ID: DSN000000</p>
                     <div class="member-tag">👑 Member</div>
                 </div>
             </div>
             <div class="profile-stats">
-                <div class="stat-box">Team <span>25</span></div>
-                <div class="stat-box">Total Earning <span class="earning">৳ 1,250</span></div>
-                <div class="stat-box">Wallet <span>৳ 850</span></div>
+                <div class="stat-box">Team <span id="stat-team">0</span></div>
+                <div class="stat-box">Total Earning <span class="earning" id="stat-earning">৳ 0</span></div>
+                <div class="stat-box">Wallet <span id="stat-wallet">৳ 0</span></div>
             </div>
         </div>
 
@@ -118,26 +116,26 @@
 
         <!-- Menu Grid -->
         <div class="menu-grid">
-            <a href="#" class="menu-item bg-home">🏠 Home<span>Dashboard</span></a>
-            <a href="#" class="menu-item bg-rewards">🎁 Rewards<span>Earn & Redeem</span></a>
-            <a href="#" class="menu-item bg-team">👥 Team<span>My Network</span></a>
-            <a href="#" class="menu-item bg-business">📈 Business<span>Grow Together</span></a>
-            <a href="#" class="menu-item bg-wallet">💳 Wallet<span>Transactions</span></a>
-            <a href="#" class="menu-item bg-profile">👤 Profile<span>Settings</span></a>
+            <button class="menu-item bg-home" onclick="alert('আপনি হোম ড্যাশবোর্ডে আছেন!')">🏠 Home<span>Dashboard</span></button>
+            <button class="menu-item bg-rewards" onclick="claimReward()">🎁 Rewards<span>Earn & Redeem</span></button>
+            <button class="menu-item bg-team" onclick="addTeamMember()">👥 Team<span>My Network</span></button>
+            <button class="menu-item bg-business" onclick="addIncome()">📈 Business<span>Grow Together</span></button>
+            <button class="menu-item bg-wallet" onclick="withdrawMoney()">💳 Wallet<span>Transactions</span></button>
+            <button class="menu-item bg-profile" onclick="updateProfile()">👤 Profile<span>Settings</span></button>
         </div>
 
         <!-- Middle Section -->
         <div class="middle-section">
             <div class="balance-box">
                 <h4>💰 Available Balance</h4>
-                <div class="balance-amount">৳ 850</div>
-                <button class="withdraw-btn">Withdraw Now ></button>
+                <div class="balance-amount" id="main-balance">৳ 0</div>
+                <button class="withdraw-btn" onclick="withdrawMoney()">Withdraw Now ></button>
             </div>
             <div class="info-cards">
-                <div class="info-card-item">Total Team <span>25 ></span></div>
-                <div class="info-card-item">Direct Members <span>12 ></span></div>
-                <div class="info-card-item">Today Income <span style="color: #27ae60;">৳ 150 ></span></div>
-                <div class="info-card-item">Last Withdrawal <span style="font-size: 9px;">৳ 1,000 ></span></div>
+                <div class="info-card-item">Total Team <span id="box-total-team">0 ></span></div>
+                <div class="info-card-item">Direct Members <span id="box-direct-members">0 ></span></div>
+                <div class="info-card-item">Today Income <span style="color: #27ae60;" id="box-today-income">৳ 0 ></span></div>
+                <div class="info-card-item">Last Withdrawal <span style="font-size: 9px;" id="box-last-withdrawal">৳ 0</span></div>
             </div>
         </div>
 
@@ -145,43 +143,106 @@
         <div class="qa-section">
             <div class="qa-header">
                 ❓ প্রশ্ন উত্তর
-                <button>সব দেখুন >ইন</button>
+                <button onclick="alert('সকল প্রশ্ন লোড হচ্ছে...')">সব দেখুন</button>
             </div>
             <div class="qa-content">
-                <div class="qa-user">Md. Karim • ২ ঘণ্টা আগে</div>
-                <h5>এই অ্যাপ থেকে টাকা তুলতে কত সময় লাগে?</h5>
-                <p>আপনার রেফারেল এবং টিম ইনকাম অনুযায়ী, নির্ধারিত পরিমাণ পূরণ হলে সাধারণ ২৪ ঘণ্টার মধ্যে আপনার ওয়ালেট থেকে ব্যাংক অ্যাকাউন্টে টাকা পাঠানো হয়।</p>
+                <div class="qa-user">Admin • এইমাত্র</div>
+                <h5>এই অ্যাপে কিভাবে কাজ শুরু করবেন?</h5>
+                <p>রেফারেল কোড শেয়ার করুন, টিম বাড়ান এবং ইনকাম করুন। প্রতিটি কার্যক্রমে আপনার অ্যাকাউন্ট আপডেট হবে।</p>
             </div>
         </div>
     </div>
 
     <!-- Bottom Navigation Bar -->
     <div class="bottom-nav">
-        <a href="#" class="nav-item active">
-            🏠
-            <span>Home</span>
-        </a>
-        <a href="#" class="nav-item">
-            🎁
-            <span>Rewards</span>
-        </a>
-        <a href="#" class="nav-item">
-            👥
-            <span>Team</span>
-        </a>
-        <a href="#" class="nav-item">
-            📈
-            <span>Business</span>
-        </a>
-        <a href="#" class="nav-item">
-            💳
-            <span>Wallet</span>
-        </a>
-        <a href="#" class="nav-item">
-            👤
-            <span>Profile</span>
-        </a>
+        <a class="nav-item active">🏠<span>Home</span></a>
+        <a class="nav-item" onclick="claimReward()">🎁<span>Rewards</span></a>
+        <a class="nav-item" onclick="addTeamMember()">👥<span>Team</span></a>
+        <a class="nav-item" onclick="addIncome()">📈<span>Business</span></a>
+        <a class="nav-item" onclick="withdrawMoney()">💳<span>Wallet</span></a>
+        <a class="nav-item" onclick="updateProfile()">👤<span>Profile</span></a>
     </div>
 
+    <script>
+        // রিয়েল ডাটা ইনিশিয়ালাইজেশন (শুরুতে সব ০ থাকবে)
+        let appData = JSON.parse(localStorage.getItem('disha_app_data')) || {
+            name: "ব্যবহারকারী",
+            id: "DSN" + Math.floor(100000 + Math.random() * 900000),
+            team: 0,
+            direct: 0,
+            earning: 0,
+            wallet: 0,
+            todayIncome: 0,
+            lastWithdrawal: "৳ 0"
+        };
+
+        function updateUI() {
+            document.getElementById('profile-name').innerText = appData.name;
+            document.getElementById('profile-id-text').innerText = "ID: " + appData.id;
+            document.getElementById('user-id-badge').innerText = appData.id;
+            document.getElementById('stat-team').innerText = appData.team;
+            document.getElementById('stat-earning').innerText = "৳ " + appData.earning;
+            document.getElementById('stat-wallet').innerText = "৳ " + appData.wallet;
+            document.getElementById('main-balance').innerText = "৳ " + appData.wallet;
+            document.getElementById('box-total-team').innerText = appData.team + " >";
+            document.getElementById('box-direct-members').innerText = appData.direct + " >";
+            document.getElementById('box-today-income').innerText = "৳ " + appData.todayIncome + " >";
+            document.getElementById('box-last-withdrawal').innerText = appData.lastWithdrawal;
+            
+            localStorage.setItem('disha_app_data', JSON.stringify(appData));
+        }
+
+        // টিম মেম্বার বাড়ানোর ফাংশন (টিমে ক্লিক করলে ১ জন করে বাড়বে)
+        function addTeamMember() {
+            appData.team += 1;
+            appData.direct += 1;
+            appData.earning += 50;
+            appData.wallet += 50;
+            appData.todayIncome += 50;
+            updateUI();
+            alert("সফল! নতুন টিম মেম্বার যুক্ত হয়েছে এবং ওয়ালেটে ৫০ টাকা যোগ হয়েছে।");
+        }
+
+        // রিওয়ার্ড বা বিজনেস ইনকাম বাড়ানোর ফাংশন
+        function addIncome() {
+            appData.earning += 100;
+            appData.wallet += 100;
+            appData.todayIncome += 100;
+            updateUI();
+            alert("সফল! ব্যবসা থেকে ১০০ টাকা ইনকাম যোগ হয়েছে।");
+        }
+
+        function claimReward() {
+            appData.wallet += 50;
+            appData.earning += 50;
+            updateUI();
+            alert("অভিনন্দন! রিওয়ার্ড পয়েন্ট ক্যাশ ব্যালেন্সে যোগ হয়েছে।");
+        }
+
+        // টাকা উইথড্র করার ফাংশন
+        function withdrawMoney() {
+            if(appData.wallet <= 0) {
+                alert("আপনার ওয়ালেটে পর্যাপ্ত ব্যালেন্স নেই!");
+                return;
+            }
+            let amount = appData.wallet;
+            appData.lastWithdrawal = "৳ " + amount;
+            appData.wallet = 0;
+            updateUI();
+            alert("সফল! আপনার " + amount + " টাকা উত্তোলনের জন্য রিকোয়েস্ট করা হয়েছে।");
+        }
+
+        // প্রোফাইল নাম পরিবর্তন
+        function updateProfile() {
+            let newName = prompt("আপনার নাম লিখুন:", appData.name);
+            if(newName) {
+                appData.name = newName;
+                updateUI();
+            }
+        }
+
+        // পেজ লোড হওয়ার সাথে সাথে ডাটা রেন্ডার হবে
+        window.onload = updateUI;
+    </script>
 </body>
 </html>
