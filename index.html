@@ -7,37 +7,40 @@
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #F0F4F8; margin: 0; padding: 0; padding-bottom: 70px; }
         
-        /* Top Header */
-        .top-header { background: #ffffff; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; }
-        .logo-area { display: flex; align-items: center; gap: 8px; }
-        .logo-sun { color: #f39c12; font-weight: bold; font-size: 20px; }
-        .logo-disha { color: #0056b3; font-weight: bold; font-size: 18px; }
-        .badge-logo { background: #e3f2fd; padding: 5px 10px; border-radius: 20px; color: #0056b3; font-weight: bold; font-size: 12px; }
+        /* Top Header matching image */
+        .top-header { background: #007bff; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-sun { display: flex; align-items: center; color: white; font-weight: bold; font-size: 22px; }
+        .logo-sun span { color: #ffeb3b; }
+        .header-divider { width: 1px; height: 25px; background: rgba(255,255,255,0.4); }
+        .logo-disha-text { color: white; font-weight: bold; font-size: 18px; line-height: 1.1; }
+        .logo-disha-sub { color: #e3f2fd; font-size: 10px; }
+        .right-badge { background: white; padding: 4px 10px; border-radius: 20px; color: #0056b3; font-weight: bold; font-size: 12px; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
 
-        .container { padding: 12px; max-width: 500px; margin: auto; }
+        .container { padding: 10px; max-width: 500px; margin: auto; }
 
-        /* Profile Top Card */
-        .profile-card { background: white; padding: 12px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        /* Profile Top Card matching image */
+        .profile-card { background: white; padding: 12px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .profile-left { display: flex; align-items: center; gap: 10px; }
-        .avatar { width: 50px; height: 50px; background: #3498db; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; position: relative; }
-        .status-dot { width: 10px; height: 10px; background: #2ecc71; border-radius: 50%; position: absolute; bottom: 2px; right: 2px; border: 2px solid white; }
-        .profile-info h4 { margin: 0; font-size: 15px; color: #333; }
-        .profile-info p { margin: 2px 0 5px 0; font-size: 11px; color: #7f8c8d; }
-        .member-tag { background: #e8f4fd; color: #3498db; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: bold; display: inline-block; }
+        .avatar { width: 45px; height: 45px; background: #3498db; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; position: relative; }
+        .status-dot { width: 9px; height: 9px; background: #2ecc71; border-radius: 50%; position: absolute; bottom: 1px; right: 1px; border: 2px solid white; }
+        .profile-info h4 { margin: 0; font-size: 14px; color: #333; }
+        .profile-info p { margin: 2px 0 4px 0; font-size: 11px; color: #7f8c8d; }
+        .member-tag { background: #e8f4fd; color: #f39c12; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: bold; display: inline-block; border: 1px solid #ffe0b2; }
         
-        .profile-stats { display: flex; gap: 10px; text-align: center; }
+        .profile-stats { display: flex; gap: 12px; text-align: center; border-left: 1px solid #eee; padding-left: 12px; }
         .stat-box { font-size: 10px; color: #7f8c8d; }
         .stat-box span { display: block; font-weight: bold; font-size: 12px; color: #2c3e50; }
         .stat-box .earning { color: #27ae60; }
 
-        /* Banner */
-        .banner { background: linear-gradient(135deg, #0056b3, #00838f); color: white; padding: 15px; border-radius: 12px; margin-bottom: 12px; }
-        .banner h3 { margin: 0 0 5px 0; font-size: 16px; color: #f1c40f; }
-        .banner p { margin: 0; font-size: 11px; color: #ecf0f1; line-height: 1.4; }
+        /* Banner matching image */
+        .banner { background: linear-gradient(135deg, #0288d1, #01579b); color: white; padding: 15px; border-radius: 12px; margin-bottom: 10px; position: relative; overflow: hidden; }
+        .banner h3 { margin: 0 0 4px 0; font-size: 16px; color: #ffeb3b; }
+        .banner p { margin: 0; font-size: 11px; color: #f5f5f5; line-height: 1.3; }
 
         /* Menu Grid */
-        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
-        .menu-item { background: white; padding: 12px 8px; border-radius: 10px; text-align: center; text-decoration: none; color: white; font-size: 11px; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); cursor: pointer; border: none; }
+        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
+        .menu-item { background: white; padding: 10px 6px; border-radius: 10px; text-align: center; text-decoration: none; color: white; font-size: 11px; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); cursor: pointer; border: none; }
         .menu-item span { font-size: 9px; opacity: 0.9; font-weight: normal; }
 
         .bg-home { background: #007bff; }
@@ -47,24 +50,18 @@
         .bg-wallet { background: #e91e63; }
         .bg-profile { background: #00bcd4; }
 
-        /* Middle Section: Balance & Quick Info */
-        .middle-section { display: grid; grid-template-columns: 1.2fr 1fr; gap: 10px; margin-bottom: 12px; }
-        .balance-box { background: white; padding: 12px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .balance-box h4 { margin: 0 0 5px 0; font-size: 12px; color: #2c3e50; display: flex; align-items: center; gap: 5px; }
-        .balance-amount { font-size: 20px; font-weight: bold; color: #007bff; margin: 5px 0 10px 0; }
-        .withdraw-btn { background: #007bff; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; width: 100%; text-align: center; }
-
-        .info-cards { display: flex; flex-direction: column; gap: 6px; }
-        .info-card-item { background: white; padding: 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .info-card-item span { font-weight: bold; color: #2c3e50; }
-
-        /* Q&A Section */
-        .qa-section { background: white; border-radius: 12px; padding: 12px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .qa-header { background: #007bff; color: white; padding: 8px 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: bold; margin-bottom: 10px; }
-        .qa-header button { background: white; color: #007bff; border: none; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; cursor: pointer; }
-        .qa-content h5 { margin: 0 0 5px 0; font-size: 12px; color: #333; }
-        .qa-content p { margin: 0; font-size: 11px; color: #666; line-height: 1.3; }
-        .qa-user { font-size: 10px; color: #999; margin-bottom: 5px; }
+        /* Flash Sale Section */
+        .flash-sale { background: white; padding: 10px; border-radius: 12px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 12px; font-weight: bold; color: #333; }
+        .section-header a { font-size: 11px; color: #007bff; text-decoration: none; }
+        .product-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+        .product-card { min-width: 120px; background: #fafafa; border: 1px solid #eee; border-radius: 8px; padding: 6px; position: relative; }
+        .discount-badge { position: absolute; top: 4px; left: 4px; background: #ff4757; color: white; font-size: 8px; padding: 2px 4px; border-radius: 4px; font-weight: bold; }
+        .product-img { width: 100%; height: 80px; background: #e0e0e0; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 4px; }
+        .product-title { font-size: 10px; color: #333; margin: 0 0 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .product-price { font-size: 11px; font-weight: bold; color: #ff4757; margin: 0; }
+        .product-old-price { font-size: 9px; color: #999; text-decoration: line-through; }
+        .buy-btn { background: #27ae60; color: white; border: none; width: 100%; padding: 4px; border-radius: 4px; font-size: 9px; font-weight: bold; margin-top: 4px; cursor: pointer; }
 
         /* Bottom Navigation Bar */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 8px 0; border-top: 1px solid #e0e0e0; z-index: 1000; }
@@ -74,21 +71,23 @@
 </head>
 <body>
 
-    <!-- Top Header -->
+    <!-- Top Header matching your reference image -->
     <div class="top-header">
         <div class="logo-area">
-            <span class="logo-sun">☀️ SUN</span>
-            <span style="color: #ccc;">|</span>
+            <div class="logo-sun">☀️ <span>SUN</span></div>
+            <div class="header-divider"></div>
             <div>
-                <div class="logo-disha">Disha</div>
-                <div style="font-size: 8px; color: #888;">Social Network</div>
+                <div class="logo-disha-text">Disha</div>
+                <div class="logo-disha-sub">Social Network</div>
             </div>
         </div>
-        <div class="badge-logo" id="user-id-badge">DSN000000</div>
+        <div class="right-badge">
+            🌐 Disha
+        </div>
     </div>
 
     <div class="container">
-        <!-- Profile Card -->
+        <!-- Profile Top Card matching image -->
         <div class="profile-card">
             <div class="profile-left">
                 <div class="avatar">
@@ -96,7 +95,7 @@
                     <div class="status-dot"></div>
                 </div>
                 <div class="profile-info">
-                    <h4 id="profile-name">নতুন ব্যবহারকারী</h4>
+                    <h4 id="profile-name">Md. Rahim</h4>
                     <p id="profile-id-text">ID: DSN000000</p>
                     <div class="member-tag">👑 Member</div>
                 </div>
@@ -108,7 +107,7 @@
             </div>
         </div>
 
-        <!-- Banner -->
+        <!-- Banner matching image -->
         <div class="banner">
             <h3>একসাথে এগিয়ে চলি সফলতার পথে</h3>
             <p>দিশা দেখাবে, সুযোগ তৈরি করবে, আপনার স্বপ্ন পূরণে পাশে থাকবে।</p>
@@ -116,7 +115,7 @@
 
         <!-- Menu Grid -->
         <div class="menu-grid">
-            <button class="menu-item bg-home" onclick="alert('আপনি হোম ড্যাশবোর্ডে আছেন!')">🏠 Home<span>Dashboard</span></button>
+            <button class="menu-item bg-home" onclick="alert('হোম ড্যাশবোর্ড')">🏠 Home<span>Dashboard</span></button>
             <button class="menu-item bg-rewards" onclick="claimReward()">🎁 Rewards<span>Earn & Redeem</span></button>
             <button class="menu-item bg-team" onclick="addTeamMember()">👥 Team<span>My Network</span></button>
             <button class="menu-item bg-business" onclick="addIncome()">📈 Business<span>Grow Together</span></button>
@@ -124,31 +123,34 @@
             <button class="menu-item bg-profile" onclick="updateProfile()">👤 Profile<span>Settings</span></button>
         </div>
 
-        <!-- Middle Section -->
-        <div class="middle-section">
-            <div class="balance-box">
-                <h4>💰 Available Balance</h4>
-                <div class="balance-amount" id="main-balance">৳ 0</div>
-                <button class="withdraw-btn" onclick="withdrawMoney()">Withdraw Now ></button>
+        <!-- Flash Sale Section -->
+        <div class="flash-sale">
+            <div class="section-header">
+                <span>⚡ Flash Sale & Products</span>
+                <a href="#" onclick="alert('সব প্রোডাক্ট দেখানো হচ্ছে...')">SHOP MORE ></a>
             </div>
-            <div class="info-cards">
-                <div class="info-card-item">Total Team <span id="box-total-team">0 ></span></div>
-                <div class="info-card-item">Direct Members <span id="box-direct-members">0 ></span></div>
-                <div class="info-card-item">Today Income <span style="color: #27ae60;" id="box-today-income">৳ 0 ></span></div>
-                <div class="info-card-item">Last Withdrawal <span style="font-size: 9px;" id="box-last-withdrawal">৳ 0</span></div>
-            </div>
-        </div>
-
-        <!-- Q&A Section -->
-        <div class="qa-section">
-            <div class="qa-header">
-                ❓ প্রশ্ন উত্তর
-                <button onclick="alert('সকল প্রশ্ন লোড হচ্ছে...')">সব দেখুন</button>
-            </div>
-            <div class="qa-content">
-                <div class="qa-user">Admin • এইমাত্র</div>
-                <h5>এই অ্যাপে কিভাবে কাজ শুরু করবেন?</h5>
-                <p>রেফারেল কোড শেয়ার করুন, টিম বাড়ান এবং ইনকাম করুন। প্রতিটি কার্যক্রমে আপনার অ্যাকাউন্ট আপডেট হবে।</p>
+            <div class="product-scroll">
+                <div class="product-card">
+                    <span class="discount-badge">50% Off</span>
+                    <div class="product-img">🧴</div>
+                    <p class="product-title">SUN Power White</p>
+                    <p class="product-price">৳ 120 <span class="product-old-price">৳ 200</span></p>
+                    <button class="buy-btn" onclick="buyProduct('SUN Power White', 120)">Buy Now</button>
+                </div>
+                <div class="product-card">
+                    <span class="discount-badge">63% Off</span>
+                    <div class="product-img">⌚</div>
+                    <p class="product-title">Smart Watch</p>
+                    <p class="product-price">৳ 699 <span class="product-old-price">৳ 1,899</span></p>
+                    <button class="buy-btn" onclick="buyProduct('Smart Watch', 699)">Buy Now</button>
+                </div>
+                <div class="product-card">
+                    <span class="discount-badge">69% Off</span>
+                    <div class="product-img">🔌</div>
+                    <p class="product-title">Data Cable</p>
+                    <p class="product-price">৳ 250 <span class="product-old-price">৳ 799</span></p>
+                    <button class="buy-btn" onclick="buyProduct('Data Cable', 250)">Buy Now</button>
+                </div>
             </div>
         </div>
     </div>
@@ -164,75 +166,65 @@
     </div>
 
     <script>
-        // রিয়েল ডাটা ইনিশিয়ালাইজেশন (শুরুতে সব ০ থাকবে)
         let appData = JSON.parse(localStorage.getItem('disha_app_data')) || {
-            name: "ব্যবহারকারী",
+            name: "Md. Rahim",
             id: "DSN" + Math.floor(100000 + Math.random() * 900000),
             team: 0,
-            direct: 0,
             earning: 0,
-            wallet: 0,
-            todayIncome: 0,
-            lastWithdrawal: "৳ 0"
+            wallet: 0
         };
 
         function updateUI() {
             document.getElementById('profile-name').innerText = appData.name;
             document.getElementById('profile-id-text').innerText = "ID: " + appData.id;
-            document.getElementById('user-id-badge').innerText = appData.id;
             document.getElementById('stat-team').innerText = appData.team;
             document.getElementById('stat-earning').innerText = "৳ " + appData.earning;
             document.getElementById('stat-wallet').innerText = "৳ " + appData.wallet;
-            document.getElementById('main-balance').innerText = "৳ " + appData.wallet;
-            document.getElementById('box-total-team').innerText = appData.team + " >";
-            document.getElementById('box-direct-members').innerText = appData.direct + " >";
-            document.getElementById('box-today-income').innerText = "৳ " + appData.todayIncome + " >";
-            document.getElementById('box-last-withdrawal').innerText = appData.lastWithdrawal;
             
             localStorage.setItem('disha_app_data', JSON.stringify(appData));
         }
 
-        // টিম মেম্বার বাড়ানোর ফাংশন (টিমে ক্লিক করলে ১ জন করে বাড়বে)
         function addTeamMember() {
             appData.team += 1;
-            appData.direct += 1;
             appData.earning += 50;
             appData.wallet += 50;
-            appData.todayIncome += 50;
             updateUI();
-            alert("সফল! নতুন টিম মেম্বার যুক্ত হয়েছে এবং ওয়ালেটে ৫০ টাকা যোগ হয়েছে।");
+            alert("সফল! টিম মেম্বার ও কমিশন যোগ হয়েছে।");
         }
 
-        // রিওয়ার্ড বা বিজনেস ইনকাম বাড়ানোর ফাংশন
         function addIncome() {
             appData.earning += 100;
             appData.wallet += 100;
-            appData.todayIncome += 100;
             updateUI();
-            alert("সফল! ব্যবসা থেকে ১০০ টাকা ইনকাম যোগ হয়েছে।");
+            alert("সফল! বিজনেস ইনকাম যোগ হয়েছে।");
         }
 
         function claimReward() {
             appData.wallet += 50;
-            appData.earning += 50;
             updateUI();
-            alert("অভিনন্দন! রিওয়ার্ড পয়েন্ট ক্যাশ ব্যালেন্সে যোগ হয়েছে।");
+            alert("সফল! রিওয়ার্ড পয়েন্ট ওয়ালেটে যুক্ত হয়েছে।");
         }
 
-        // টাকা উইথড্র করার ফাংশন
-        function withdrawMoney() {
-            if(appData.wallet <= 0) {
-                alert("আপনার ওয়ালেটে পর্যাপ্ত ব্যালেন্স নেই!");
+        function buyProduct(productName, price) {
+            if(appData.wallet < price) {
+                alert("ওয়ালেটে পর্যাপ্ত ব্যালেন্স নেই! দয়া করে টিম বা ব্যবসা থেকে আয় করুন।");
                 return;
             }
-            let amount = appData.wallet;
-            appData.lastWithdrawal = "৳ " + amount;
-            appData.wallet = 0;
+            appData.wallet -= price;
             updateUI();
-            alert("সফল! আপনার " + amount + " টাকা উত্তোলনের জন্য রিকোয়েস্ট করা হয়েছে।");
+            alert("সফল! আপনি " + productName + " অর্ডার করেছেন।");
         }
 
-        // প্রোফাইল নাম পরিবর্তন
+        function withdrawMoney() {
+            if(appData.wallet <= 0) {
+                alert("উত্তোলনের জন্য পর্যাপ্ত ব্যালেন্স নেই!");
+                return;
+            }
+            alert("সফল! আপনার " + appData.wallet + " টাকা উত্তোলনের রিকোয়েস্ট পাঠানো হয়েছে।");
+            appData.wallet = 0;
+            updateUI();
+        }
+
         function updateProfile() {
             let newName = prompt("আপনার নাম লিখুন:", appData.name);
             if(newName) {
@@ -241,7 +233,6 @@
             }
         }
 
-        // পেজ লোড হওয়ার সাথে সাথে ডাটা রেন্ডার হবে
         window.onload = updateUI;
     </script>
 </body>
