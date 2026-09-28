@@ -3,159 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>অনলাইন বিজনেস অ্যাপ (মাল্টি-রোল)</title>
+    <title>অনলাইন বিজনেস ও অর্ডার ম্যানেজমেন্ট সিস্টেম</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f4f7f6; color: #333; }
+        body { background-color: #f0f2f5; color: #333; }
         header { background: #007bff; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .mode-switch button { background: white; color: #007bff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-left: 5px; }
-        .mode-switch button.active { background: #ffc107; color: #000; }
-        .container { padding: 20px; max-width: 800px; margin: auto; }
+        .nav-btns button { background: white; color: #007bff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-left: 5px; }
+        .nav-btns button.active { background: #ffc107; color: #000; }
+        .container { padding: 20px; max-width: 900px; margin: auto; }
         
-        /* Customer View */
-        .product-card { background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; gap: 15px; align-items: center; }
-        .product-img { width: 100px; height: 100px; background: #ddd; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 12px; text-align: center; }
-        .product-details h3 { margin-bottom: 5px; color: #222; }
-        .product-details p { font-size: 14px; color: #666; margin-bottom: 5px; }
-        .price { color: #28a745; font-weight: bold; font-size: 16px; }
-        .size-badge { background: #e9ecef; padding: 2px 6px; border-radius: 4px; font-size: 12px; display: inline-block; margin-bottom: 5px; }
-        .buy-btn { background: #28a745; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; margin-top: 5px; }
-
-        /* Manager View */
-        .admin-panel { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .form-group input, .form-group textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-        .save-btn { background: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
-
+        /* Common styles */
+        .card { background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .btn { background: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-danger { background: #dc3545; }
+        .btn-warning { background: #ffc107; color: #000; }
+        .btn-info { background: #17a2b8; color: white; }
         .hidden { display: none; }
+
+        /* Product Grid */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
+        .product-item { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
+        .product-item img { width: 100px; height: 100px; object-fit: cover; border-radius: 6px; background: #ddd; margin-bottom: 10px; }
+        
+        /* Print Area */
+        @media print {
+            body * { visibility: hidden; }
+            #printableArea, #printableArea * { visibility: visible; }
+            #printableArea { position: absolute; left: 0; top: 0; width: 100%; }
+            .no-print { display: none; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h2>স্মার্ট শপ অ্যাপ</h2>
-        <div class="mode-switch">
-            <button id="custBtn" class="active" onclick="switchMode('customer')">কাস্টমার মোড</button>
-            <button id="mgrBtn" onclick="switchMode('manager')">ম্যানেজার মোড</button>
+        <h2>স্মার্ট শপ ম্যানেজমেন্ট</h2>
+        <div class="nav-btns">
+            <button id="btnCust" class="active" onclick="switchTab('customer')">কাস্টমার প্যানেল</button>
+            <button id="btnMgr" onclick="switchTab('manager')">ম্যানেজার প্যানেল</button>
+            <button id="btnAdmin" onclick="switchTab('admin')">অ্যাডমিন পারমিশন</button>
         </div>
     </header>
 
     <div class="container">
-        <!-- কাস্টমার প্যানেল -->
-        <div id="customerView">
-            <h3>পণ্যসমূহ</h3>
-            <hr style="margin: 10px 0 20px 0;">
-            <div id="productList">
-                <!-- ডায়নামিক প্রোডাক্ট এখানে লোড হবে -->
+
+        <!-- ১. কাস্টমার প্যানেল -->
+        <div id="customerPanel">
+            <h3>উপলব্ধ পণ্যসমূহ</h3>
+            <p style="margin-bottom: 15px; color: #666;">পছন্দমতো পণ্য কার্টে যোগ করে অর্ডার সেন্ট করুন।</p>
+            
+            <div class="product-grid" id="customerProductList">
+                <!-- ডাইনামিক প্রোডাক্ট লিস্ট -->
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <h3>আপনার শপিং কার্ট (Cart)</h3>
+                <div id="cartItems" style="margin: 10px 0;">কার্ট খালি আছে।</div>
+                <button class="btn" onclick="sendOrder()">অর্ডার সেন্ট করুন</button>
             </div>
         </div>
 
-        <!-- ম্যানেজার / অ্যাডমিন প্যানেল (যেখানে আপনি তথ্য বসাবেন) -->
-        <div id="managerView" class="hidden">
-            <div class="admin-panel">
-                <h3>নতুন পণ্য যুক্ত করুন (ম্যানেজার মোড)</h3>
-                <hr style="margin: 10px 0 15px 0;">
-                <div class="form-group">
-                    <label>প্রোডাক্টের নাম:</label>
-                    <input type="text" id="pName" placeholder="যেমন: প্রিমিয়াম কটন শার্ট">
-                </div>
-                <div class="form-group">
-                    <label>ছবির লিংক (Image URL):</label>
-                    <input type="text" id="pImg" placeholder="ছবির ডাইরেক্ট লিংক দিন">
-                </div>
-                <div class="form-group">
-                    <label>রেট / দাম (টাকা):</label>
-                    <input type="number" id="pPrice" placeholder="যেমন: ১২০০">
-                </div>
-                <div class="form-group">
-                    <label>সাইজ (Size):</label>
-                    <input type="text" id="pSize" placeholder="যেমন: M, L, XL">
-                </div>
-                <div class="form-group">
-                    <label>বিবরণ (Description):</label>
-                    <textarea id="pDesc" rows="3" placeholder="পণ্যের সংক্ষিপ্ত বিবরণ লিখুন..."></textarea>
-                </div>
-                <button class="save-btn" onclick="addProduct()">পণ্য লিস্টে যোগ করুন</button>
+        <!-- ২. ম্যানেজার প্যানেল -->
+        <div id="managerPanel" class="hidden">
+            <h3>ম্যানেজার অর্ডার ও প্রিন্ট প্যানেল</h3>
+            <p style="margin-bottom: 15px; color: #666;">অ্যাডমিনের অনুমতির পর প্রিন্ট করুন।</p>
+            <div id="managerOrderList">
+                কোনো নতুন অর্ডার নেই।
             </div>
         </div>
+
+        <!-- ৩. অ্যাডমিন প্যানেল -->
+        <div id="adminPanel" class="hidden">
+            <h3>অ্যাডমিন পারমিশন কন্ট্রোল</h3>
+            <p style="margin-bottom: 15px; color: #666;">ম্যানেজারকে প্রিন্ট করার অনুমতি দিন।</p>
+            <div id="adminOrderList">
+                অনুমতির জন্য কোনো অর্ডার অপেক্ষমাণ নেই।
+            </div>
+        </div>
+
+    </div>
+
+    <!-- প্রিন্ট মোড ভিউ করার জন্য মডাল বা সেকশন -->
+    <div id="viewModal" class="card hidden" style="border: 2px dashed #007bff; margin-top: 20px;">
+        <div id="printableArea">
+            <h2>কোম্পানির নাম: স্মার্ট শপ লিমিটেড</h2>
+            <p>অর্ডার মেমো / ইনভয়েস</p>
+            <hr style="margin: 10px 0;">
+            <div id="printDetails"></div>
+            <p id="printTimestamp" style="margin-top: 15px; font-weight: bold;"></p>
+        </div>
+        <button class="btn no-print" style="margin-top: 15px;" onclick="window.print()">সরাসরি প্রিন্ট করুন</button>
+        <button class="btn btn-danger no-print" style="margin-top: 15px;" onclick="closeView()">বন্ধ করুন</button>
     </div>
 
     <script>
-        // ডিফল্ট কিছু পণ্যের ডেটা
+        // ডেমো পণ্য তালিকা (ম্যানেজার এখান থেকে পণ্য দিতে পারেন বা ডিফল্ট থাকবে)
         let products = [
-            {
-                name: "মেনজ ক্যাজুয়াল শার্ট",
-                img: "",
-                price: 1250,
-                size: "L, XL",
-                desc: "১০০% প্রিমিয়াম কটন ফেব্রিক দিয়ে তৈরি আরামদায়ক শার্ট।"
-            }
+            { id: 1, name: "প্রিমিয়াম কটন শার্ট", price: 1250, size: "M, L, XL", img: "", desc: "আরামদায়ক কটন শার্ট" },
+            { id: 2, name: "মেনজ ক্যাজুয়াল শু", price: 2200, size: "40, 41, 42", img: "", desc: "টেকসই ও স্টাইলিশ জুতো" }
         ];
 
-        function switchMode(mode) {
-            if(mode === 'customer') {
-                document.getElementById('customerView').classList.remove('hidden');
-                document.getElementById('managerView').classList.add('hidden');
-                document.getElementById('custBtn').classList.add('active');
-                document.getElementById('mgrBtn').classList.remove('active');
-                renderProducts();
-            } else {
-                document.getElementById('customerView').classList.add('hidden');
-                document.getElementById('managerView').classList.remove('hidden');
-                document.getElementById('mgrBtn').classList.add('active');
-                document.getElementById('custBtn').classList.remove('active');
-            }
-        }
+        let cart = [];
+        let orders = []; // এখানে কাস্টমারের পাঠানো অর্ডার জমা হবে
 
-        function addProduct() {
-            let name = document.getElementById('pName').value;
-            let img = document.getElementById('pImg').value;
-            let price = document.getElementById('pPrice').value;
-            let size = document.getElementById('pSize').value;
-            let desc = document.getElementById('pDesc').value;
-
-            if(!name || !price) {
-                alert('অনুগ্রহ করে অন্তত নাম এবং দাম লিখুন!');
-                return;
-            }
-
-            products.push({ name, img, price, size, desc });
-            alert('সফলভাবে পণ্য যুক্ত হয়েছে!');
+        function switchTab(tab) {
+            document.getElementById('customerPanel').classList.add('hidden');
+            document.getElementById('managerPanel').classList.add('hidden');
+            document.getElementById('adminPanel').classList.add('hidden');
             
-            // ফর্ম ক্লিয়ার করা
-            document.getElementById('pName').value = '';
-            document.getElementById('pImg').value = '';
-            document.getElementById('pPrice').value = '';
-            document.getElementById('pSize').value = '';
-            document.getElementById('pDesc').value = '';
+            document.getElementById('btnCust').classList.remove('active');
+            document.getElementById('btnMgr').classList.remove('active');
+            document.getElementById('btnAdmin').classList.remove('active');
 
-            switchMode('customer');
+            if(tab === 'customer') {
+                document.getElementById('customerPanel').classList.remove('hidden');
+                document.getElementById('btnCust').classList.add('active');
+                renderCustomerProducts();
+            } else if(tab === 'manager') {
+                document.getElementById('managerPanel').classList.remove('hidden');
+                document.getElementById('btnMgr').classList.add('active');
+                renderManagerOrders();
+            } else if(tab === 'admin') {
+                document.getElementById('adminPanel').classList.remove('hidden');
+                document.getElementById('btnAdmin').classList.add('active');
+                renderAdminOrders();
+            }
         }
 
-        function renderProducts() {
-            let listHTML = '';
-            products.forEach((p, index) => {
-                listHTML += `
-                    <div class="product-card">
-                        <div class="product-img">
-                            ${p.img ? `<img src="${p.img}" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">` : 'ছবি নেই'}
-                        </div>
-                        <div class="product-details" style="flex: 1;">
-                            <h3>${p.name}</h3>
-                            <span class="size-badge">সাইজ: ${p.size || 'N/A'}</span>
-                            <p>${p.desc || 'কোনো বিবরণ নেই'}</p>
-                            <div class="price">৳ ${p.price}</div>
-                            <button class="buy-btn" onclick="alert('${p.name} অর্ডার করার জন্য কার্টে যোগ হয়েছে!')">অর্ডার করুন</button>
-                        </div>
+        function renderCustomerProducts() {
+            let html = '';
+            products.forEach(p => {
+                html += `
+                    <div class="product-item">
+                        <div style="font-size:12px; color:#777; background:#eee; height:100px; display:flex; align-items:center; justify-content:center; border-radius:6px; margin-bottom:8px;">প্রোডাক্ট ছবি</div>
+                        <h4>${p.name}</h4>
+                        <p style="font-size: 13px; color: #666;">সাইজ: ${p.size}</p>
+                        <p style="color: #28a745; font-weight: bold; margin: 5px 0;">৳ ${p.price}</p>
+                        <button class="btn" onclick="addToCart(${p.id})">কার্টে যোগ করুন</button>
                     </div>
                 `;
             });
-            document.getElementById('productList').innerHTML = listHTML;
+            document.getElementById('customerProductList').innerHTML = html;
         }
 
-        // প্রথমে পেজ লোড হলে কাস্টমার ভিউ দেখাবে
-        renderProducts();
+        function addToCart(id) {
+            let item = products.find(p => p.id === id);
+            cart.push(item);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            if(cart.length === 0) {
+                document.getElementById('cartItems').innerHTML = 'কার্ট খালি আছে।';
+                return;
+            }
+            let html = '<ul>';
+            let total = 0;
+            cart.forEach((c, idx) => {
+                html += `<li>${c.name} - ৳ ${c.price} <button onclick="removeFromCart(${idx})" style="color:red; border:none; background:none; cursor:pointer;">[బాদ দিন]</button></li>`;
+                total += c.price;
+            });
+            html += `</ul><p style="margin-top:10px; font-weight:bold;">মোট খরচ: ৳ ${total}</p>`;
+            document.getElementById('cartItems').innerHTML = html;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function sendOrder() {
+            if(cart.length === 0) {
+                alert('কার্টে কোনো পণ্য নেই!');
+                return;
+            }
+            let newOrder = {
+                id: Date.now(),
+                items: [...cart],
+                total: cart.reduce((sum, i) => sum + i.price, 0),
+                adminApproved: false,
+                status: 'অপেক্ষমাণ'
+            };
+            orders.push(newOrder);
+            cart = [];
+            updateCartUI();
+            alert('আপনার অর্ডারটি সফলভাবে ম্যানেজার ও অ্যাডমিনের কাছে সেন্ট করা হয়েছে!');
+        }
+
+        function renderManagerOrders() {
+            if(orders.length === 0) {
+                document.getElementById('managerOrderList').innerHTML = '<div class="card">কোনো অর্ডার নেই।</div>';
+                return;
+            }
+            let html = '';
+            orders.forEach(o => {
+                let itemsList = o.items.map(i => `${i.name} (৳ ${i.price})`).join(', ');
+                html += `
+                    <div class="card">
+                        <p><b>অর্ডার আইডি:</b> ${o.id}</p>
+                        <p><b>পণ্যসমূহ:</b> ${itemsList}</p>
+                        <p><b>মোট মূল্য:</b> ৳ ${o.total}</p>
+                        <p><b>অ্যাডমিন পারমিশন:</b> <span style="color: ${o.adminApproved ? 'green' : 'red'};">${o.adminApproved ? 'অনুমোদিত (Approved)' : 'অনুমতি বাকি'}</span></p>
+                        <br>
+                        ${o.adminApproved ? `<button class="btn btn-info" onclick="viewOrder(${o.id})">ভিউ ও প্রিন্ট করুন</button>` : '<span style="color:#666;">অ্যাডমিনের অনুমতির অপেক্ষায়...</span>'}
+                    </div>
+                `;
+            });
+            document.getElementById('managerOrderList').innerHTML = html;
+        }
+
+        function renderAdminOrders() {
+            if(orders.length === 0) {
+                document.getElementById('adminOrderList').innerHTML = '<div class="card">কোনো অর্ডার নেই।</div>';
+                return;
+            }
+            let html = '';
+            orders.forEach(o => {
+                let itemsList = o.items.map(i => `${i.name} (৳ ${i.price})`).join(', ');
+                html += `
+                    <div class="card">
+                        <p><b>অর্ডার আইডি:</b> ${o.id}</p>
+                        <p><b>পণ্যসমূহ:</b> ${itemsList}</p>
+                        <p><b>মোট মূল্য:</b> ৳ ${o.total}</p>
+                        <br>
+                        ${!o.adminApproved ? `<button class="btn btn-warning" onclick="approveOrder(${o.id})">অনুমতি দিন (Approve)</button>` : '<span style="color:green; font-weight:bold;">অনুমোদন দেওয়া হয়েছে</span>'}
+                    </div>
+                `;
+            });
+            document.getElementById('adminOrderList').innerHTML = html;
+        }
+
+        function approveOrder(id) {
+            let ord = orders.find(o => o.id === id);
+            if(ord) {
+                ord.adminApproved = true;
+                alert('অ্যাডমিন সফলভাবে অনুমতি দিয়েছেন!');
+                renderAdminOrders();
+            }
+        }
+
+        function viewOrder(id) {
+            let ord = orders.find(o => o.id === id);
+            if(ord) {
+                let itemsHtml = '<ul>';
+                ord.items.forEach(i => {
+                    itemsHtml += `<li>${i.name} - ৳ ${i.price}</li>`;
+                });
+                itemsHtml += `</ul>`;
+
+                document.getElementById('printDetails').innerHTML = `
+                    <p><b>অর্ডার আইডি:</b> ${ord.id}</p>
+                    <p><b>পণ্যের বিবরণ:</b></p>
+                    ${itemsHtml}
+                    <p style="margin-top: 10px;"><b>মোট বিল:</b> ৳ ${ord.total}</p>
+                `;
+
+                // প্রিন্ট করার সময় বা ভিউ করার সময় বর্তমান তারিখ ও সময় যোগ করা
+                let now = new Date();
+                let timeString = now.toLocaleString('bn-BD', { hour12: true });
+                document.getElementById('printTimestamp').innerText = `প্রিন্টের সময়: ${timeString}`;
+
+                document.getElementById('viewModal').classList.remove('hidden');
+            }
+        }
+
+        function closeView() {
+            document.getElementById('viewModal').classList.add('hidden');
+        }
+
+        // প্রথমে কাস্টমার প্যানেল চালু থাকবে
+        renderCustomerProducts();
     </script>
 </body>
 </html>
