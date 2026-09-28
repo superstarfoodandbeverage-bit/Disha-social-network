@@ -3,265 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SUN - Disha Social Network</title>
+    <title>অনলাইন বিজনেস অ্যাপ (মাল্টি-রোল)</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #F0F4F8; margin: 0; padding: 0; padding-bottom: 70px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f7f6; color: #333; }
+        header { background: #007bff; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .mode-switch button { background: white; color: #007bff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-left: 5px; }
+        .mode-switch button.active { background: #ffc107; color: #000; }
+        .container { padding: 20px; max-width: 800px; margin: auto; }
         
-        /* Top Header - Exact Match to Your Reference Image */
-        .top-header { background: #007bff; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; color: white; }
-        .logo-container { display: flex; align-items: center; gap: 10px; }
-        .sun-logo { font-size: 22px; font-weight: bold; display: flex; align-items: center; gap: 4px; color: #ffeb3b; }
-        .header-divider { width: 1px; height: 26px; background: rgba(255,255,255,0.4); }
-        .disha-logo-area { display: flex; flex-direction: column; }
-        .disha-title { font-size: 20px; font-weight: bold; line-height: 1; color: #ffffff; }
-        .disha-subtitle { font-size: 10px; color: #e0f7fa; letter-spacing: 0.5px; }
-        
-        .right-badge { background: #ffffff; color: #007bff; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        /* Customer View */
+        .product-card { background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; gap: 15px; align-items: center; }
+        .product-img { width: 100px; height: 100px; background: #ddd; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #777; font-size: 12px; text-align: center; }
+        .product-details h3 { margin-bottom: 5px; color: #222; }
+        .product-details p { font-size: 14px; color: #666; margin-bottom: 5px; }
+        .price { color: #28a745; font-weight: bold; font-size: 16px; }
+        .size-badge { background: #e9ecef; padding: 2px 6px; border-radius: 4px; font-size: 12px; display: inline-block; margin-bottom: 5px; }
+        .buy-btn { background: #28a745; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; margin-top: 5px; }
 
-        .container { padding: 12px; max-width: 500px; margin: auto; }
+        /* Manager View */
+        .admin-panel { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        .save-btn { background: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
 
-        /* Profile Card with Custom Image Upload Support */
-        .profile-card { background: white; padding: 12px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .profile-left { display: flex; align-items: center; gap: 10px; }
-        
-        .avatar-box { width: 50px; height: 50px; background: #e0e0e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; cursor: pointer; border: 2px solid #007bff; }
-        .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
-        .avatar-box input { position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
-        .status-dot { width: 9px; height: 9px; background: #2ecc71; border-radius: 50%; position: absolute; bottom: 2px; right: 2px; border: 2px solid white; z-index: 2; }
-
-        .profile-info h4 { margin: 0; font-size: 14px; color: #333; }
-        .profile-info p { margin: 2px 0 4px 0; font-size: 11px; color: #7f8c8d; }
-        .member-tag { background: #e8f4fd; color: #f39c12; padding: 2px 8px; border-radius: 10px; font-size: 9px; font-weight: bold; display: inline-block; border: 1px solid #ffe0b2; }
-        
-        .profile-stats { display: flex; gap: 10px; text-align: center; border-left: 1px solid #eee; padding-left: 10px; }
-        .stat-box { font-size: 9px; color: #7f8c8d; }
-        .stat-box span { display: block; font-weight: bold; font-size: 11px; color: #2c3e50; }
-        .stat-box .earning { color: #27ae60; }
-
-        /* Banner */
-        .banner { background: linear-gradient(135deg, #0288d1, #01579b); color: white; padding: 15px; border-radius: 12px; margin-bottom: 12px; }
-        .banner h3 { margin: 0 0 4px 0; font-size: 15px; color: #ffeb3b; }
-        .banner p { margin: 0; font-size: 11px; color: #f5f5f5; line-height: 1.3; }
-
-        /* Menu Grid */
-        .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
-        .menu-item { background: white; padding: 10px 6px; border-radius: 10px; text-align: center; color: white; font-size: 11px; font-weight: bold; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); cursor: pointer; border: none; }
-        .menu-item span { font-size: 9px; opacity: 0.9; font-weight: normal; }
-
-        .bg-home { background: #007bff; }
-        .bg-rewards { background: #8e44ad; }
-        .bg-team { background: #27ae60; }
-        .bg-business { background: #e67e22; }
-        .bg-wallet { background: #e91e63; }
-        .bg-profile { background: #00bcd4; }
-
-        /* Flash Sale Section */
-        .flash-sale { background: white; padding: 10px; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 12px; font-weight: bold; color: #333; }
-        .section-header a { font-size: 11px; color: #007bff; text-decoration: none; }
-        .product-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
-        .product-card { min-width: 120px; background: #fafafa; border: 1px solid #eee; border-radius: 8px; padding: 6px; position: relative; }
-        .discount-badge { position: absolute; top: 4px; left: 4px; background: #ff4757; color: white; font-size: 8px; padding: 2px 4px; border-radius: 4px; font-weight: bold; }
-        .product-img { width: 100%; height: 75px; background: #e0e0e0; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 4px; }
-        .product-title { font-size: 10px; color: #333; margin: 0 0 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .product-price { font-size: 11px; font-weight: bold; color: #ff4757; margin: 0; }
-        .product-old-price { font-size: 9px; color: #999; text-decoration: line-through; }
-        .buy-btn { background: #27ae60; color: white; border: none; width: 100%; padding: 4px; border-radius: 4px; font-size: 9px; font-weight: bold; margin-top: 4px; cursor: pointer; }
-
-        /* Bottom Navigation Bar */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 8px 0; border-top: 1px solid #e0e0e0; z-index: 1000; }
-        .nav-item { text-decoration: none; color: #7f8c8d; font-size: 10px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; }
-        .nav-item.active { color: #007bff; font-weight: bold; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <!-- Top Header Layout Fixed -->
-    <div class="top-header">
-        <div class="logo-container">
-            <div class="sun-logo">☀️ SUN</div>
-            <div class="header-divider"></div>
-            <div class="disha-logo-area">
-                <span class="disha-title">Disha</span>
-                <span class="disha-subtitle">Social Network</span>
-            </div>
+    <header>
+        <h2>স্মার্ট শপ অ্যাপ</h2>
+        <div class="mode-switch">
+            <button id="custBtn" class="active" onclick="switchMode('customer')">কাস্টমার মোড</button>
+            <button id="mgrBtn" onclick="switchMode('manager')">ম্যানেজার মোড</button>
         </div>
-        <div class="right-badge">
-            🌐 Disha
-        </div>
-    </div>
+    </header>
 
     <div class="container">
-        <!-- Profile Card with Image Uploader -->
-        <div class="profile-card">
-            <div class="profile-left">
-                <div class="avatar-box" title="ছবি পরিবর্তন করতে ক্লিক করুন">
-                    <img id="user-avatar-img" src="" alt="" style="display:none;">
-                    <span id="avatar-placeholder" style="font-size: 22px;">📷</span>
-                    <input type="file" accept="image/*" onchange="previewProfileImage(event)">
-                    <div class="status-dot"></div>
-                </div>
-                <div class="profile-info">
-                    <h4 id="profile-name">ব্যবহারকারী</h4>
-                    <p id="profile-id-text">ID: DSN000000</p>
-                    <div class="member-tag">👑 Member</div>
-                </div>
-            </div>
-            <div class="profile-stats">
-                <div class="stat-box">Team <span id="stat-team">0</span></div>
-                <div class="stat-box">Total Earning <span class="earning" id="stat-earning">৳ 0</span></div>
-                <div class="stat-box">Wallet <span id="stat-wallet">৳ 0</span></div>
+        <!-- কাস্টমার প্যানেল -->
+        <div id="customerView">
+            <h3>পণ্যসমূহ</h3>
+            <hr style="margin: 10px 0 20px 0;">
+            <div id="productList">
+                <!-- ডায়নামিক প্রোডাক্ট এখানে লোড হবে -->
             </div>
         </div>
 
-        <!-- Banner -->
-        <div class="banner">
-            <h3>একসাথে এগিয়ে চলি সফলতার পথে</h3>
-            <p>দিশা দেখাবে, সুযোগ তৈরি করবে, আপনার স্বপ্ন পূরণে পাশে থাকবে।</p>
-        </div>
-
-        <!-- Menu Grid -->
-        <div class="menu-grid">
-            <button class="menu-item bg-home" onclick="alert('হোম ড্যাশবোর্ড')">🏠 Home<span>Dashboard</span></button>
-            <button class="menu-item bg-rewards" onclick="claimReward()">🎁 Rewards<span>Earn & Redeem</span></button>
-            <button class="menu-item bg-team" onclick="addTeamMember()">👥 Team<span>My Network</span></button>
-            <button class="menu-item bg-business" onclick="addIncome()">📈 Business<span>Grow Together</span></button>
-            <button class="menu-item bg-wallet" onclick="withdrawMoney()">💳 Wallet<span>Transactions</span></button>
-            <button class="menu-item bg-profile" onclick="updateProfile()">👤 Profile<span>Settings</span></button>
-        </div>
-
-        <!-- Flash Sale Section -->
-        <div class="flash-sale">
-            <div class="section-header">
-                <span>⚡ Flash Sale & Products</span>
-                <a href="#" onclick="alert('সব প্রোডাক্ট দেখানো হচ্ছে...')">SHOP MORE ></a>
-            </div>
-            <div class="product-scroll">
-                <div class="product-card">
-                    <span class="discount-badge">50% Off</span>
-                    <div class="product-img">🧴</div>
-                    <p class="product-title">SUN Power White</p>
-                    <p class="product-price">৳ 120 <span class="product-old-price">৳ 200</span></p>
-                    <button class="buy-btn" onclick="buyProduct('SUN Power White', 120)">Buy Now</button>
+        <!-- ম্যানেজার / অ্যাডমিন প্যানেল (যেখানে আপনি তথ্য বসাবেন) -->
+        <div id="managerView" class="hidden">
+            <div class="admin-panel">
+                <h3>নতুন পণ্য যুক্ত করুন (ম্যানেজার মোড)</h3>
+                <hr style="margin: 10px 0 15px 0;">
+                <div class="form-group">
+                    <label>প্রোডাক্টের নাম:</label>
+                    <input type="text" id="pName" placeholder="যেমন: প্রিমিয়াম কটন শার্ট">
                 </div>
-                <div class="product-card">
-                    <span class="discount-badge">63% Off</span>
-                    <div class="product-img">⌚</div>
-                    <p class="product-title">Smart Watch</p>
-                    <p class="product-price">৳ 699 <span class="product-old-price">৳ 1,899</span></p>
-                    <button class="buy-btn" onclick="buyProduct('Smart Watch', 699)">Buy Now</button>
+                <div class="form-group">
+                    <label>ছবির লিংক (Image URL):</label>
+                    <input type="text" id="pImg" placeholder="ছবির ডাইরেক্ট লিংক দিন">
                 </div>
-                <div class="product-card">
-                    <span class="discount-badge">69% Off</span>
-                    <div class="product-img">🔌</div>
-                    <p class="product-title">Data Cable</p>
-                    <p class="product-price">৳ 250 <span class="product-old-price">৳ 799</span></p>
-                    <button class="buy-btn" onclick="buyProduct('Data Cable', 250)">Buy Now</button>
+                <div class="form-group">
+                    <label>রেট / দাম (টাকা):</label>
+                    <input type="number" id="pPrice" placeholder="যেমন: ১২০০">
                 </div>
+                <div class="form-group">
+                    <label>সাইজ (Size):</label>
+                    <input type="text" id="pSize" placeholder="যেমন: M, L, XL">
+                </div>
+                <div class="form-group">
+                    <label>বিবরণ (Description):</label>
+                    <textarea id="pDesc" rows="3" placeholder="পণ্যের সংক্ষিপ্ত বিবরণ লিখুন..."></textarea>
+                </div>
+                <button class="save-btn" onclick="addProduct()">পণ্য লিস্টে যোগ করুন</button>
             </div>
         </div>
-    </div>
-
-    <!-- Bottom Navigation Bar -->
-    <div class="bottom-nav">
-        <a class="nav-item active">🏠<span>Home</span></a>
-        <a class="nav-item" onclick="claimReward()">🎁<span>Rewards</span></a>
-        <a class="nav-item" onclick="addTeamMember()">👥<span>Team</span></a>
-        <a class="nav-item" onclick="addIncome()">📈<span>Business</span></a>
-        <a class="nav-item" onclick="withdrawMoney()">💳<span>Wallet</span></a>
-        <a class="nav-item" onclick="updateProfile()">👤<span>Profile</span></a>
     </div>
 
     <script>
-        let appData = JSON.parse(localStorage.getItem('disha_app_data')) || {
-            name: "ব্যবহারকারী",
-            id: "DSN" + Math.floor(100000 + Math.random() * 900000),
-            team: 0,
-            earning: 0,
-            wallet: 0,
-            avatar: ""
-        };
-
-        function updateUI() {
-            document.getElementById('profile-name').innerText = appData.name;
-            document.getElementById('profile-id-text').innerText = "ID: " + appData.id;
-            document.getElementById('stat-team').innerText = appData.team;
-            document.getElementById('stat-earning').innerText = "৳ " + appData.earning;
-            document.getElementById('stat-wallet').innerText = "৳ " + appData.wallet;
-
-            if (appData.avatar) {
-                document.getElementById('user-avatar-img').src = appData.avatar;
-                document.getElementById('user-avatar-img').style.display = 'block';
-                document.getElementById('avatar-placeholder').style.display = 'none';
+        // ডিফল্ট কিছু পণ্যের ডেটা
+        let products = [
+            {
+                name: "মেনজ ক্যাজুয়াল শার্ট",
+                img: "",
+                price: 1250,
+                size: "L, XL",
+                desc: "১০০% প্রিমিয়াম কটন ফেব্রিক দিয়ে তৈরি আরামদায়ক শার্ট।"
             }
+        ];
+
+        function switchMode(mode) {
+            if(mode === 'customer') {
+                document.getElementById('customerView').classList.remove('hidden');
+                document.getElementById('managerView').classList.add('hidden');
+                document.getElementById('custBtn').classList.add('active');
+                document.getElementById('mgrBtn').classList.remove('active');
+                renderProducts();
+            } else {
+                document.getElementById('customerView').classList.add('hidden');
+                document.getElementById('managerView').classList.remove('hidden');
+                document.getElementById('mgrBtn').classList.add('active');
+                document.getElementById('custBtn').classList.remove('active');
+            }
+        }
+
+        function addProduct() {
+            let name = document.getElementById('pName').value;
+            let img = document.getElementById('pImg').value;
+            let price = document.getElementById('pPrice').value;
+            let size = document.getElementById('pSize').value;
+            let desc = document.getElementById('pDesc').value;
+
+            if(!name || !price) {
+                alert('অনুগ্রহ করে অন্তত নাম এবং দাম লিখুন!');
+                return;
+            }
+
+            products.push({ name, img, price, size, desc });
+            alert('সফলভাবে পণ্য যুক্ত হয়েছে!');
             
-            localStorage.setItem('disha_app_data', JSON.stringify(appData));
+            // ফর্ম ক্লিয়ার করা
+            document.getElementById('pName').value = '';
+            document.getElementById('pImg').value = '';
+            document.getElementById('pPrice').value = '';
+            document.getElementById('pSize').value = '';
+            document.getElementById('pDesc').value = '';
+
+            switchMode('customer');
         }
 
-        // প্রোফাইল ছবি আপলোড এবং ব্রাউজারে সেভ করার লজিক
-        function previewProfileImage(event) {
-            let reader = new FileReader();
-            reader.onload = function() {
-                appData.avatar = reader.result;
-                updateUI();
-                alert("সফল! আপনার প্রোফাইল ছবি আপডেট করা হয়েছে।");
-            }
-            if(event.target.files[0]) {
-                reader.readAsDataURL(event.target.files[0]);
-            }
+        function renderProducts() {
+            let listHTML = '';
+            products.forEach((p, index) => {
+                listHTML += `
+                    <div class="product-card">
+                        <div class="product-img">
+                            ${p.img ? `<img src="${p.img}" style="width:100%; height:100%; object-fit:cover; border-radius:6px;">` : 'ছবি নেই'}
+                        </div>
+                        <div class="product-details" style="flex: 1;">
+                            <h3>${p.name}</h3>
+                            <span class="size-badge">সাইজ: ${p.size || 'N/A'}</span>
+                            <p>${p.desc || 'কোনো বিবরণ নেই'}</p>
+                            <div class="price">৳ ${p.price}</div>
+                            <button class="buy-btn" onclick="alert('${p.name} অর্ডার করার জন্য কার্টে যোগ হয়েছে!')">অর্ডার করুন</button>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('productList').innerHTML = listHTML;
         }
 
-        function addTeamMember() {
-            appData.team += 1;
-            appData.earning += 50;
-            appData.wallet += 50;
-            updateUI();
-            alert("সফল! নতুন টিম মেম্বার যুক্ত হয়েছে।");
-        }
-
-        function addIncome() {
-            appData.earning += 100;
-            appData.wallet += 100;
-            updateUI();
-            alert("সফল! বিজনেস ইনকাম যোগ হয়েছে।");
-        }
-
-        function claimReward() {
-            appData.wallet += 50;
-            appData.earning += 50;
-            updateUI();
-            alert("সফল! রিওয়ার্ড পয়েন্ট ব্যালেন্সে যোগ হয়েছে।");
-        }
-
-        function buyProduct(productName, price) {
-            if(appData.wallet < price) {
-                alert("ওয়ালেটে পর্যাপ্ত ব্যালেন্স নেই! দয়া করে টিম বা ব্যবসা থেকে আয় করুন।");
-                return;
-            }
-            appData.wallet -= price;
-            updateUI();
-            alert("সফল! আপনি " + productName + " অর্ডার করেছেন।");
-        }
-
-        function withdrawMoney() {
-            if(appData.wallet <= 0) {
-                alert("উত্তোলনের জন্য পর্যাপ্ত ব্যালেন্স নেই!");
-                return;
-            }
-            alert("সফল! আপনার " + appData.wallet + " টাকা উইথড্র রিকোয়েস্ট পাঠানো হয়েছে।");
-            appData.wallet = 0;
-            updateUI();
-        }
-
-        function updateProfile() {
-            let newName = prompt("আপনার নাম লিখুন:", appData.name);
-            if(newName) {
-                appData.name = newName;
-                updateUI();
-            }
-        }
-
-        window.onload = updateUI;
+        // প্রথমে পেজ লোড হলে কাস্টমার ভিউ দেখাবে
+        renderProducts();
     </script>
 </body>
 </html>
