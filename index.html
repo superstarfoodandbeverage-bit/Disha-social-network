@@ -3,23 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disha Social Network & Shop</title>
+    <title>SUN | Disha Social Network & Shop</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f0f2f5; color: #333; }
         
-        /* Header Banner Style matching Image */
-        header { 
-            background: linear-gradient(135deg, #0052D4, #4364F7, #6FB1FC); 
-            color: white; 
-            padding: 15px 20px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
+        /* টপ হেডার ব্যানার (ছবির আদলে তৈরি) */
+        .top-brand-header {
+            background: linear-gradient(135deg, #0052D4, #4364F7, #6FB1FC);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
-        .header-title { font-size: 18px; font-weight: bold; letter-spacing: 0.5px; display: flex; align-items: center; gap: 5px; }
-        .nav-btns button { background: white; color: #0052D4; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-left: 4px; font-size: 12px; }
+        .brand-logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .sun-logo {
+            background: #fff;
+            color: #ff8c00;
+            padding: 4px 8px;
+            font-weight: bold;
+            border-radius: 4px;
+            font-size: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .disha-title {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .disha-subtitle {
+            font-size: 11px;
+            opacity: 0.9;
+        }
+        .nav-btns button { background: white; color: #0052D4; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-left: 5px; }
         .nav-btns button.active { background: #ffc107; color: #000; }
         
         .container { padding: 15px; max-width: 900px; margin: auto; }
@@ -32,8 +54,19 @@
         .form-control { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; }
         .hidden { display: none; }
 
-        /* Profile Section matching Image */
-        .profile-box { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); margin-bottom: 15px; flex-wrap: wrap; gap: 15px; }
+        /* প্রোফাইল কার্ড ডিজাইন (ছবির হুবহু আদলে) */
+        .profile-box { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: white; 
+            padding: 15px; 
+            border-radius: 12px; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08); 
+            margin-bottom: 15px; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+        }
         .profile-left { display: flex; align-items: center; gap: 12px; }
         .avatar { width: 55px; height: 55px; background: #e0e0e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; position: relative; }
         .status-dot { width: 12px; height: 12px; background: #28a745; border: 2px solid white; border-radius: 50%; position: absolute; bottom: 2px; right: 2px; }
@@ -45,18 +78,20 @@
         .stat-item h4 { font-size: 15px; color: #333; margin-bottom: 2px; }
         .stat-item span { font-size: 11px; color: #666; }
 
-        /* Banner Box matching Image */
+        /* মূল ব্যানার ডিজাইন (ছবির লেখা ও কালার অনুযায়ী) */
         .promo-banner { 
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); 
+            background: linear-gradient(135deg, #134e5e, #2c5364); 
             color: white; 
             padding: 20px; 
             border-radius: 12px; 
             margin-bottom: 20px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
         }
-        .promo-banner h2 { font-size: 18px; color: #ffffff; margin-bottom: 5px; }
-        .promo-banner h2 span { color: #ffc107; }
-        .promo-banner p { font-size: 12px; color: #dcdcdc; line-height: 1.4; }
+        .promo-banner h2 { font-size: 21px; color: #ffffff; margin-bottom: 8px; font-weight: 700; }
+        .promo-banner h2 span { color: #ffeb3b; }
+        .promo-banner p { font-size: 13px; color: #e0e0e0; line-height: 1.5; }
 
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
         .product-item { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); text-align: center; }
@@ -71,8 +106,15 @@
 </head>
 <body>
 
-    <header>
-        <div class="header-title">🌞 SUN | <b>Disha</b> <span style="font-size: 11px; font-weight: normal; opacity: 0.9;">Social Network</span></div>
+    <!-- ছবির আদলে টপ হেডার ব্যানার[span_4](start_span)[span_4](end_span)[span_5](start_span)[span_5](end_span) -->
+    <header class="top-brand-header">
+        <div class="brand-logo-area">
+            <div class="sun-logo">☀️ SUN</div>
+            <div style="border-left: 1px solid rgba(255,255,255,0.5); padding-left: 12px;">
+                <div class="disha-title">Disha</div>
+                <div class="disha-subtitle">Social Network</div>
+            </div>
+        </div>
         <div class="nav-btns">
             <button id="btnCust" class="active" onclick="switchTab('customer')">হোম / শপ</button>
             <button id="btnMgr" onclick="openManagerLogin()">ম্যানেজার</button>
@@ -82,13 +124,21 @@
 
     <div class="container">
 
-        <!-- কাস্টমার প্যানেল -->
+        <!-- কাস্টমার সেকশন -->
         <div id="customerPanel">
             
-            <!-- আপনার দেওয়া ছবির স্টাইলের ড্যাশবোর্ড ও লগইন সেকশন -->
-            <div id="customerDashboard">
+            <!-- লগইন বক্স (লগইন করার আগে এটি দেখাবে) -->
+            <div id="customerAuthBox" class="card" style="max-width: 400px; margin: 30px auto; text-align: center; border-top: 4px solid #0052D4;">
+                <h3 style="color: #0052D4; margin-bottom: 5px;">কাস্টমার লগইন</h3>
+                <p style="font-size: 12px; color: #666; margin-bottom: 15px;">আপনার জিমেইল বা মোবাইল নম্বর দিয়ে প্রবেশ করুন</p>
+                <input type="text" id="custInput" class="form-control" placeholder="যেমন: 01700000000 বা email@gmail.com">
+                <button class="btn" style="width: 100%; margin-top: 10px; background: #0052D4;" onclick="loginCustomer()">প্রবেশ করুন</button>
+            </div>
+
+            <!-- মূল ড্যাশবোর্ড (লগইন করার পর ছবির ডিজাইনে শো করবে)[span_6](start_span)[span_6](end_span)[span_7](start_span)[span_7](end_span) -->
+            <div id="customerDashboard" class="hidden">
                 
-                <!-- প্রোফাইল কার্ড (ছবির আদলে)[span_2](start_span)[span_2](end_span) -->
+                <!-- ছবির উপরের প্রোফাইল কার্ড সেকশন[span_8](start_span)[span_8](end_span)[span_9](start_span)[span_9](end_span) -->
                 <div class="profile-box">
                     <div class="profile-left">
                         <div class="avatar">
@@ -115,39 +165,25 @@
                             <span>Wallet Balance</span>
                         </div>
                     </div>
-                    <div id="logoutBtnContainer" class="hidden">
-                        <button class="btn btn-danger" style="padding: 4px 10px; font-size: 11px;" onclick="logoutCustomer()">লগআউট</button>
-                    </div>
+                    <button class="btn btn-danger" style="padding: 4px 10px; font-size: 11px;" onclick="logoutCustomer()">লগআউট</button>
                 </div>
 
-                <!-- স্লোগান ব্যানার (ছবির আদলে)[span_3](start_span)[span_3](end_span) -->
+                <!-- ছবির নিচের স্লোগান ব্যানার সেকশন[span_10](start_span)[span_10](end_span)[span_11](start_span)[span_11](end_span) -->
                 <div class="promo-banner">
                     <h2>একসাথে এগিয়ে চলি <span>সফলতার পথে</span></h2>
                     <p>দিশা দেখাবে, সুযোগ তৈরি করবে, আপনার স্বপ্ন পূরণে পাশে থাকবে।</p>
                 </div>
 
-                <!-- লগইন বক্স (ব্যানারের ঠিক নিচে) -->
-                <div id="customerAuthBox" class="card" style="max-width: 100%; text-align: center; border-top: 4px solid #0052D4; margin-bottom: 20px;">
-                    <h3 style="color: #0052D4; margin-bottom: 5px;">কাস্টমার লগইন</h3>
-                    <p style="font-size: 12px; color: #666; margin-bottom: 10px;">আপনার জিমেইল বা মোবাইল নম্বর দিয়ে প্রবেশ করুন</p>
-                    <input type="text" id="custInput" class="form-control" placeholder="যেমন: 01700000000 বা email@gmail.com">
-                    <button class="btn" style="width: 100%; margin-top: 5px; background: #0052D4;" onclick="loginCustomer()">প্রবেশ করুন</button>
+                <h3>উপলব্ধ পণ্যসমূহ</h3>
+                <p style="margin-bottom: 15px; color: #666; font-size: 13px;">পছন্দমতো পণ্য কার্টে যোগ করে অর্ডার সেন্ট করুন।</p>
+                
+                <div class="product-grid" id="customerProductList"></div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3>আপনার শপিং কার্ট (Cart)</h3>
+                    <div id="cartItems" style="margin: 10px 0; font-size: 14px;">কার্ট খালি আছে।</div>
+                    <button class="btn" onclick="sendOrder()">অর্ডার সেন্ট করুন</button>
                 </div>
-
-                <!-- শপ সেকশন (লগইন করার পর সক্রিয় হবে) -->
-                <div id="shopSection" class="hidden">
-                    <h3>উপলব্ধ পণ্যসমূহ</h3>
-                    <p style="margin-bottom: 15px; color: #666; font-size: 13px;">পছন্দমতো পণ্য কার্টে যোগ করে অর্ডার সেন্ট করুন।</p>
-                    
-                    <div class="product-grid" id="customerProductList"></div>
-
-                    <div class="card" style="margin-top: 20px;">
-                        <h3>আপনার শপিং কার্ট (Cart)</h3>
-                        <div id="cartItems" style="margin: 10px 0; font-size: 14px;">কার্ট খালি আছে।</div>
-                        <button class="btn" onclick="sendOrder()">অর্ডার সেন্ট করুন</button>
-                    </div>
-                </div>
-
             </div>
 
         </div>
@@ -177,7 +213,7 @@
     <!-- প্রিন্ট মোড ভিউ করার জন্য মডাল -->
     <div id="viewModal" class="card hidden" style="border: 2px dashed #007bff; margin-top: 20px;">
         <div id="printableArea">
-            <h2>SUN Disha Social Network & Shop</h2>
+            <h2>SUN | Disha Social Network & Shop</h2>
             <p>অর্ডার মেমো / ইনভয়েস</p>
             <hr style="margin: 10px 0;">
             <div id="printDetails"></div>
@@ -213,18 +249,15 @@
             document.getElementById('profileNameDisp').innerText = val.includes('@') ? val.split('@')[0] : 'User: ' + val;
             document.getElementById('profileIdDisp').innerText = 'DSN' + Math.floor(100000 + Math.random() * 900000);
 
-            // লগইন সফল হলে লগইন বক্স লুকিয়ে শপ সেকশন ও লগআউট বাটন দেখাবে
             document.getElementById('customerAuthBox').classList.add('hidden');
-            document.getElementById('shopSection').classList.remove('hidden');
-            document.getElementById('logoutBtnContainer').classList.remove('hidden');
+            document.getElementById('customerDashboard').classList.remove('hidden');
             renderCustomerProducts();
         }
 
         function logoutCustomer() {
             currentCustomer = null;
             document.getElementById('custInput').value = '';
-            document.getElementById('shopSection').classList.add('hidden');
-            document.getElementById('logoutBtnContainer').classList.add('hidden');
+            document.getElementById('customerDashboard').classList.add('hidden');
             document.getElementById('customerAuthBox').classList.remove('hidden');
         }
 
