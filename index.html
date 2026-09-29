@@ -8,7 +8,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f0f2f5; color: #333; }
         
-        /* টপ হেডার ব্যানার (ছবির আদলে তৈরি) */
+        /* আপনার দেওয়া ছবির আদলে হুবহু হেডার ডিজাইন[span_2](start_span)[span_2](end_span) */
         .top-brand-header {
             background: linear-gradient(135deg, #0052D4, #4364F7, #6FB1FC);
             padding: 12px 20px;
@@ -21,40 +21,56 @@
         .brand-logo-area {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
-        .sun-logo {
-            background: #fff;
+        .sun-logo-box {
+            background: #ffffff;
             color: #ff8c00;
-            padding: 4px 8px;
+            padding: 5px 10px;
             font-weight: bold;
-            border-radius: 4px;
-            font-size: 16px;
+            border-radius: 6px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
-        .disha-title {
-            font-size: 20px;
-            font-weight: bold;
+        .disha-main-title {
+            font-size: 22px;
+            font-weight: 800;
             letter-spacing: 0.5px;
+            line-height: 1.1;
         }
-        .disha-subtitle {
+        .disha-sub-title {
             font-size: 11px;
-            opacity: 0.9;
+            opacity: 0.95;
+            letter-spacing: 0.3px;
         }
-        .nav-btns button { background: white; color: #0052D4; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-left: 5px; }
-        .nav-btns button.active { background: #ffc107; color: #000; }
-        
+        .right-side-logo {
+            background: white;
+            color: #0052D4;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+
+        .nav-bar { background: #fff; padding: 8px 15px; display: flex; justify-content: flex-end; gap: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+        .nav-bar button { background: #e9ecef; color: #333; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 13px; }
+        .nav-bar button.active { background: #0052D4; color: white; }
+
         .container { padding: 15px; max-width: 900px; margin: auto; }
         
         .card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
-        .btn { background: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .btn { background: #0052D4; color: white; border: none; padding: 9px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
         .btn-danger { background: #dc3545; }
         .btn-warning { background: #ffc107; color: #000; }
         .btn-info { background: #17a2b8; color: white; }
         .form-control { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; }
         .hidden { display: none; }
 
-        /* প্রোফাইল কার্ড ডিজাইন (ছবির হুবহু আদলে) */
+        /* প্রোফাইল কার্ড ডিজাইন[span_3](start_span)[span_3](end_span) */
         .profile-box { 
             display: flex; 
             justify-content: space-between; 
@@ -78,7 +94,7 @@
         .stat-item h4 { font-size: 15px; color: #333; margin-bottom: 2px; }
         .stat-item span { font-size: 11px; color: #666; }
 
-        /* মূল ব্যানার ডিজাইন (ছবির লেখা ও কালার অনুযায়ী) */
+        /* স্লোগান ব্যানার ডিজাইন[span_4](start_span)[span_4](end_span) */
         .promo-banner { 
             background: linear-gradient(135deg, #134e5e, #2c5364); 
             color: white; 
@@ -86,8 +102,6 @@
             border-radius: 12px; 
             margin-bottom: 20px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            position: relative;
-            overflow: hidden;
         }
         .promo-banner h2 { font-size: 21px; color: #ffffff; margin-bottom: 8px; font-weight: 700; }
         .promo-banner h2 span { color: #ffeb3b; }
@@ -106,39 +120,43 @@
 </head>
 <body>
 
-    <!-- ছবির আদলে টপ হেডার ব্যানার[span_4](start_span)[span_4](end_span)[span_5](start_span)[span_5](end_span) -->
+    <!-- আপনার দেওয়া ছবির আদਲੇ নিখুঁত টপ হেডার ব্যানার ও লোগো[span_5](start_span)[span_5](end_span) -->
     <header class="top-brand-header">
         <div class="brand-logo-area">
-            <div class="sun-logo">☀️ SUN</div>
-            <div style="border-left: 1px solid rgba(255,255,255,0.5); padding-left: 12px;">
-                <div class="disha-title">Disha</div>
-                <div class="disha-subtitle">Social Network</div>
+            <div class="sun-logo-box">☀️ SUN</div>
+            <div style="border-left: 2px solid rgba(255,255,255,0.4); padding-left: 12px;">
+                <div class="disha-main-title">Disha</div>
+                <div class="disha-sub-title">Social Network</div>
             </div>
         </div>
-        <div class="nav-btns">
-            <button id="btnCust" class="active" onclick="switchTab('customer')">হোম / শপ</button>
-            <button id="btnMgr" onclick="openManagerLogin()">ম্যানেজার</button>
-            <button id="btnAdmin" onclick="openAdminLogin()">অ্যাডমিন</button>
+        <div class="right-side-logo">
+            🌿 Disha
         </div>
     </header>
 
+    <div class="nav-bar">
+        <button id="btnCust" class="active" onclick="switchTab('customer')">হোম / শপ</button>
+        <button id="btnMgr" onclick="openManagerLogin()">ম্যানেজার</button>
+        <button id="btnAdmin" onclick="openAdminLogin()">অ্যাডমিন</button>
+    </div>
+
     <div class="container">
 
-        <!-- কাস্টমার সেকশন -->
+        <!-- কাস্টমার প্যানেল -->
         <div id="customerPanel">
             
-            <!-- লগইন বক্স (লগইন করার আগে এটি দেখাবে) -->
+            <!-- লগইন বক্স (লগইন করার আগে দেখাবে) -->
             <div id="customerAuthBox" class="card" style="max-width: 400px; margin: 30px auto; text-align: center; border-top: 4px solid #0052D4;">
                 <h3 style="color: #0052D4; margin-bottom: 5px;">কাস্টমার লগইন</h3>
                 <p style="font-size: 12px; color: #666; margin-bottom: 15px;">আপনার জিমেইল বা মোবাইল নম্বর দিয়ে প্রবেশ করুন</p>
                 <input type="text" id="custInput" class="form-control" placeholder="যেমন: 01700000000 বা email@gmail.com">
-                <button class="btn" style="width: 100%; margin-top: 10px; background: #0052D4;" onclick="loginCustomer()">প্রবেশ করুন</button>
+                <button class="btn" style="width: 100%; margin-top: 10px;" onclick="loginCustomer()">প্রবেশ করুন</button>
             </div>
 
-            <!-- মূল ড্যাশবোর্ড (লগইন করার পর ছবির ডিজাইনে শো করবে)[span_6](start_span)[span_6](end_span)[span_7](start_span)[span_7](end_span) -->
+            <!-- আপনার দেওয়া ছবির হুবহু ড্যাশবোর্ড লেআউট (লগইন করার পর শো করবে)[span_6](start_span)[span_6](end_span) -->
             <div id="customerDashboard" class="hidden">
                 
-                <!-- ছবির উপরের প্রোফাইল কার্ড সেকশন[span_8](start_span)[span_8](end_span)[span_9](start_span)[span_9](end_span) -->
+                <!-- ১. প্রোফাইল কার্ড (Team, Total Earning, Wallet Balance সহ)[span_7](start_span)[span_7](end_span) -->
                 <div class="profile-box">
                     <div class="profile-left">
                         <div class="avatar">
@@ -168,7 +186,7 @@
                     <button class="btn btn-danger" style="padding: 4px 10px; font-size: 11px;" onclick="logoutCustomer()">লগআউট</button>
                 </div>
 
-                <!-- ছবির নিচের স্লোগান ব্যানার সেকশন[span_10](start_span)[span_10](end_span)[span_11](start_span)[span_11](end_span) -->
+                <!-- ২. স্লোগান ব্যানার ("একসাথে এগিয়ে চলি সফলতার পথে")[span_8](start_span)[span_8](end_span) -->
                 <div class="promo-banner">
                     <h2>একসাথে এগিয়ে চলি <span>সফলতার পথে</span></h2>
                     <p>দিশা দেখাবে, সুযোগ তৈরি করবে, আপনার স্বপ্ন পূরণে পাশে থাকবে।</p>
