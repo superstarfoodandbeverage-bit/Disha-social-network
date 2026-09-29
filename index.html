@@ -3,25 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>সিকিউরড অনলাইন বিজনেস সিস্টেম</title>
+    <title>Disha Social Network & Shop</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f0f2f5; color: #333; }
-        header { background: #007bff; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .nav-btns button { background: white; color: #007bff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-left: 5px; }
+        
+        /* Header Banner Style from Image */
+        header { 
+            background: linear-gradient(135deg, #0052D4, #4364F7, #6FB1FC); 
+            color: white; 
+            padding: 15px 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .header-title { font-size: 22px; font-weight: bold; letter-spacing: 1px; }
+        .nav-btns button { background: white; color: #0052D4; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-left: 5px; }
         .nav-btns button.active { background: #ffc107; color: #000; }
+        
         .container { padding: 20px; max-width: 900px; margin: auto; }
         
-        .card { background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .btn { background: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        .btn { background: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
         .btn-danger { background: #dc3545; }
         .btn-warning { background: #ffc107; color: #000; }
         .btn-info { background: #17a2b8; color: white; }
-        .form-control { width: 100%; padding: 8px; margin: 8px 0; border: 1px solid #ccc; border-radius: 4px; }
+        .form-control { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; }
         .hidden { display: none; }
 
+        /* Profile Section matching Image */
+        .profile-box { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px 20px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        .profile-left { display: flex; align-items: center; gap: 15px; }
+        .avatar { width: 60px; height: 60px; background: #e0e0e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; position: relative; }
+        .status-dot { width: 12px; height: 12px; background: #28a745; border: 2px solid white; border-radius: 50%; position: absolute; bottom: 2px; right: 2px; }
+        .profile-info h3 { font-size: 18px; color: #222; margin-bottom: 2px; }
+        .profile-info p { font-size: 13px; color: #666; margin-bottom: 5px; }
+        .member-badge { background: #fff3cd; color: #856404; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: bold; display: inline-block; border: 1px solid #ffeeba; }
+        
+        .profile-stats { display: flex; gap: 25px; text-align: center; }
+        .stat-item h4 { font-size: 16px; color: #333; margin-bottom: 2px; }
+        .stat-item span { font-size: 12px; color: #666; }
+
+        /* Banner Box matching Image */
+        .promo-banner { 
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); 
+            color: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .promo-banner h2 { font-size: 22px; color: #ffffff; margin-bottom: 5px; }
+        .promo-banner h2 span { color: #ffc107; }
+        .promo-banner p { font-size: 13px; color: #dcdcdc; line-height: 1.5; }
+
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
-        .product-item { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
+        .product-item { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); text-align: center; }
         
         @media print {
             body * { visibility: hidden; }
@@ -34,29 +72,64 @@
 <body>
 
     <header>
-        <h2>স্মার্ট শপ সিকিউরড সিস্টেম</h2>
+        <div class="header-title">🌞 SUN | <b>Disha</b> <span style="font-size: 14px; font-weight: normal;">Social Network</span></div>
         <div class="nav-btns">
-            <button id="btnCust" class="active" onclick="switchTab('customer')">কাস্টমার প্যানেল</button>
-            <button id="btnMgr" onclick="openManagerLogin()">ম্যানেজার মোড</button>
-            <button id="btnAdmin" onclick="openAdminLogin()">অ্যাডমিন মোড</button>
+            <button id="btnCust" class="active" onclick="switchTab('customer')">হোম / শপ</button>
+            <button id="btnMgr" onclick="openManagerLogin()">ম্যানেজার</button>
+            <button id="btnAdmin" onclick="openAdminLogin()">অ্যাডমিন</button>
         </div>
     </header>
 
     <div class="container">
 
-        <!-- ১. কাস্টমার লগইন ও প্যানেল -->
+        <!-- ১. কাস্টমার লগইন স্ক্রিন -->
         <div id="customerAuthPanel" class="card" style="max-width: 400px; margin: 50px auto; text-align: center;">
             <h3>কাস্টমার লগইন</h3>
-            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">কেনাকাটা করতে জিমেইল বা মোবাইল নম্বর দিয়ে প্রবেশ করুন</p>
-            <input type="text" id="custInput" class="form-control" placeholder="জিমেইল অথবা মোবাইল নম্বর দিন">
-            <button class="btn" style="width: 100%; margin-top: 10px;" onclick="loginCustomer()">লগইন করে প্রবেশ করুন</button>
+            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">আপনার জিমেইল বা মোবাইল নম্বর দিয়ে প্রবেশ করুন</p>
+            <input type="text" id="custInput" class="form-control" placeholder="যেমন: 01700000000 বা email@gmail.com">
+            <button class="btn" style="width: 100%; margin-top: 10px;" onclick="loginCustomer()">প্রবেশ করুন</button>
         </div>
 
+        <!-- ২. কাস্টমার ড্যাশবোর্ড ও শপ প্যানেল -->
         <div id="customerPanel" class="hidden">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h3>উপলব্ধ পণ্যসমূহ</h3>
-                <button class="btn btn-danger" style="padding: 4px 8px; font-size: 12px;" onclick="logoutCustomer()">লগআউট</button>
+            
+            <!-- ছবির মতো প্রোফাইল সেকশন -->
+            <div class="profile-box">
+                <div class="profile-left">
+                    <div class="avatar">
+                        👨‍💻
+                        <div class="status-dot"></div>
+                    </div>
+                    <div class="profile-info">
+                        <h3 id="profileNameDisp">Md. Rahim</h3>
+                        <p>ID: <span id="profileIdDisp">DSN001234</span></p>
+                        <span class="member-badge">👑 Member</span>
+                    </div>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <h4>👥 25</h4>
+                        <span>Team</span>
+                    </div>
+                    <div class="stat-item">
+                        <h4 style="color: #28a745;">৳ 1,250</h4>
+                        <span>Total Earning</span>
+                    </div>
+                    <div class="stat-item">
+                        <h4 style="color: #007bff;">৳ 850</h4>
+                        <span>Wallet Balance</span>
+                    </div>
+                </div>
+                <button class="btn btn-danger" style="padding: 4px 10px; font-size: 12px;" onclick="logoutCustomer()">লগআউট</button>
             </div>
+
+            <!-- ছবির মতো ব্যানার সেকশন -->
+            <div class="promo-banner">
+                <h2>একসাথে এগিয়ে চলি <span>সফলতার পথে</span></h2>
+                <p>দিশা দেখাবে, সুযোগ তৈরি করবে, আপনার স্বপ্ন পূরণে পাশে থাকবে।</p>
+            </div>
+
+            <h3>উপলব্ধ পণ্যসমূহ</h3>
             <p style="margin-bottom: 15px; color: #666;">পছন্দমতো পণ্য কার্টে যোগ করে অর্ডার সেন্ট করুন।</p>
             
             <div class="product-grid" id="customerProductList"></div>
@@ -68,18 +141,17 @@
             </div>
         </div>
 
-        <!-- ২. ম্যানেজার প্যানেল -->
+        <!-- ৩. ম্যানেজার প্যানেল -->
         <div id="managerPanel" class="hidden">
             <h3>ম্যানেজার অর্ডার ও প্রিন্ট প্যানেল</h3>
             <p style="margin-bottom: 15px; color: #666;">অ্যাডমিনের অনুমতির পর প্রিন্ট করুন।</p>
             <div id="managerOrderList">কোনো নতুন অর্ডার নেই।</div>
         </div>
 
-        <!-- ৩. অ্যাডমিন প্যানেল -->
+        <!-- ৪. অ্যাডমিন প্যানেল -->
         <div id="adminPanel" class="hidden">
             <h3>অ্যাডমিন কন্ট্রোল প্যানেল</h3>
             
-            <!-- লগইন করা কাস্টমারদের তালিকা -->
             <div class="card" style="background: #e9ecef; margin-bottom: 20px;">
                 <h4>লগইন করা কাস্টমারদের তালিকা (রিয়েল-টাইম)</h4>
                 <div id="registeredCustomersList" style="margin-top: 10px; font-size: 14px;">কোনো কাস্টমার এখনো লগইন করেনি।</div>
@@ -94,7 +166,7 @@
     <!-- প্রিন্ট মোড ভিউ করার জন্য মডাল -->
     <div id="viewModal" class="card hidden" style="border: 2px dashed #007bff; margin-top: 20px;">
         <div id="printableArea">
-            <h2>কোম্পানির নাম: স্মার্ট শপ লিমিটেড</h2>
+            <h2>SUN Disha Social Network & Shop</h2>
             <p>অর্ডার মেমো / ইনভয়েস</p>
             <hr style="margin: 10px 0;">
             <div id="printDetails"></div>
@@ -112,7 +184,7 @@
 
         let cart = [];
         let orders = [];
-        let registeredCustomers = []; // অ্যাডমিন প্যানেলে দেখানোর জন্য কাস্টমার লিস্ট
+        let registeredCustomers = [];
         let currentCustomer = null;
 
         function loginCustomer() {
@@ -123,10 +195,13 @@
             }
             currentCustomer = val;
             
-            // যদি লিস্টে আগে থেকে না থাকে তবে যোগ হবে
             if(!registeredCustomers.includes(val)) {
                 registeredCustomers.push(val);
             }
+
+            // ড্যাশবোর্ডে নাম ও আইডি ডায়নামিক দেখানোর জন্য সেট করা
+            document.getElementById('profileNameDisp').innerText = val.includes('@') ? val.split('@')[0] : 'User: ' + val;
+            document.getElementById('profileIdDisp').innerText = 'DSN' + Math.floor(100000 + Math.random() * 900000);
 
             document.getElementById('customerAuthPanel').classList.add('hidden');
             document.getElementById('customerPanel').classList.remove('hidden');
@@ -318,6 +393,7 @@
             let ord = orders.find(o => o.id === id);
             if(ord) {
                 let itemsHtml = '<ul>';
+                ord.items.items = ord.items;
                 ord.items.forEach(i => {
                     itemsHtml += `<li>${i.name} - ৳ ${i.price}</li>`;
                 });
