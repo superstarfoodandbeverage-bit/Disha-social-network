@@ -8,107 +8,114 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f0f2f5; color: #333; }
         
-        /* আপনার দেওয়া ছবির আদলে হুবহু হেডার ডিজাইন[span_2](start_span)[span_2](end_span) */
+        /* আপনার দেওয়া ছবির হুবহু টপ হেডার ডিজাইন[span_2](start_span)[span_2](end_span) */
         .top-brand-header {
             background: linear-gradient(135deg, #0052D4, #4364F7, #6FB1FC);
-            padding: 12px 20px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
         }
-        .brand-logo-area {
+        .brand-logo-left {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        .sun-logo-box {
+        .sun-box {
             background: #ffffff;
             color: #ff8c00;
-            padding: 5px 10px;
-            font-weight: bold;
-            border-radius: 6px;
-            font-size: 15px;
+            padding: 6px 12px;
+            font-weight: 900;
+            border-radius: 8px;
+            font-size: 16px;
             display: flex;
             align-items: center;
             gap: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        .disha-main-title {
-            font-size: 22px;
-            font-weight: 800;
+        .disha-center-title {
+            font-size: 24px;
+            font-weight: 900;
             letter-spacing: 0.5px;
             line-height: 1.1;
         }
-        .disha-sub-title {
-            font-size: 11px;
+        .disha-center-sub {
+            font-size: 12px;
             opacity: 0.95;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.5px;
         }
-        .right-side-logo {
+        .right-disha-badge {
             background: white;
             color: #0052D4;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 6px 14px;
+            border-radius: 25px;
+            font-size: 13px;
             font-weight: bold;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .nav-bar { background: #fff; padding: 8px 15px; display: flex; justify-content: flex-end; gap: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
-        .nav-bar button { background: #e9ecef; color: #333; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 13px; }
+        .nav-bar { background: #fff; padding: 10px 20px; display: flex; justify-content: flex-end; gap: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+        .nav-bar button { background: #e9ecef; color: #333; border: none; padding: 7px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px; }
         .nav-bar button.active { background: #0052D4; color: white; }
 
-        .container { padding: 15px; max-width: 900px; margin: auto; }
+        .container { padding: 20px; max-width: 950px; margin: auto; }
         
-        .card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
-        .btn { background: #0052D4; color: white; border: none; padding: 9px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .card { background: white; padding: 20px; border-radius: 14px; margin-bottom: 20px; box-shadow: 0 3px 8px rgba(0,0,0,0.08); }
+        .btn { background: #0052D4; color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; }
         .btn-danger { background: #dc3545; }
         .btn-warning { background: #ffc107; color: #000; }
         .btn-info { background: #17a2b8; color: white; }
-        .form-control { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; }
         .hidden { display: none; }
 
-        /* প্রোফাইল কার্ড ডিজাইন[span_3](start_span)[span_3](end_span) */
+        /* আপনার দেওয়া ছবির হুবহু প্রোফাইল কার্ড[span_3](start_span)[span_3](end_span) */
         .profile-box { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             background: white; 
-            padding: 15px; 
-            border-radius: 12px; 
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08); 
-            margin-bottom: 15px; 
-            flex-wrap: wrap; 
-            gap: 15px; 
-        }
-        .profile-left { display: flex; align-items: center; gap: 12px; }
-        .avatar { width: 55px; height: 55px; background: #e0e0e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; position: relative; }
-        .status-dot { width: 12px; height: 12px; background: #28a745; border: 2px solid white; border-radius: 50%; position: absolute; bottom: 2px; right: 2px; }
-        .profile-info h3 { font-size: 16px; color: #222; margin-bottom: 2px; }
-        .profile-info p { font-size: 12px; color: #666; margin-bottom: 4px; }
-        .member-badge { background: #fff3cd; color: #856404; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: bold; display: inline-block; border: 1px solid #ffeeba; }
-        
-        .profile-stats { display: flex; gap: 20px; text-align: center; }
-        .stat-item h4 { font-size: 15px; color: #333; margin-bottom: 2px; }
-        .stat-item span { font-size: 11px; color: #666; }
-
-        /* স্লোগান ব্যানার ডিজাইন[span_4](start_span)[span_4](end_span) */
-        .promo-banner { 
-            background: linear-gradient(135deg, #134e5e, #2c5364); 
-            color: white; 
             padding: 20px; 
-            border-radius: 12px; 
+            border-radius: 14px; 
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08); 
             margin-bottom: 20px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            flex-wrap: wrap; 
+            gap: 20px; 
         }
-        .promo-banner h2 { font-size: 21px; color: #ffffff; margin-bottom: 8px; font-weight: 700; }
-        .promo-banner h2 span { color: #ffeb3b; }
-        .promo-banner p { font-size: 13px; color: #e0e0e0; line-height: 1.5; }
+        .profile-left { display: flex; align-items: center; gap: 15px; }
+        .avatar { width: 65px; height: 65px; background: #e0e0e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; position: relative; border: 2px solid #0052D4; }
+        .status-dot { width: 14px; height: 14px; background: #28a745; border: 2px solid white; border-radius: 50%; position: absolute; bottom: 2px; right: 2px; }
+        .profile-info h3 { font-size: 18px; color: #111; margin-bottom: 3px; font-weight: 700; }
+        .profile-info p { font-size: 13px; color: #555; margin-bottom: 6px; }
+        .member-badge { background: #fff3cd; color: #856404; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; display: inline-block; border: 1px solid #ffeeba; }
+        
+        .profile-stats { display: flex; gap: 30px; text-align: center; }
+        .stat-item h4 { font-size: 16px; color: #222; margin-bottom: 3px; font-weight: bold; }
+        .stat-item span { font-size: 12px; color: #666; }
 
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
-        .product-item { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); text-align: center; }
+        /* আপনার দেওয়া ছবির হুবহু স্লোগান ও পাহাড়ের ব্যাকগ্রাউন্ড ব্যানার[span_4](start_span)[span_4](end_span) */
+        .promo-banner { 
+            background: linear-gradient(135deg, rgba(19, 78, 94, 0.9), rgba(44, 83, 100, 0.95)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white; 
+            padding: 25px; 
+            border-radius: 14px; 
+            margin-bottom: 25px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .promo-content { max-width: 65%; }
+        .promo-banner h2 { font-size: 24px; color: #ffffff; margin-bottom: 10px; font-weight: 800; line-height: 1.3; }
+        .promo-banner h2 span { color: #ffeb3b; }
+        .promo-banner p { font-size: 13.5px; color: #e0e0e0; line-height: 1.6; }
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .product-item { background: white; padding: 20px; border-radius: 14px; box-shadow: 0 3px 8px rgba(0,0,0,0.08); text-align: center; }
         
         @media print {
             body * { visibility: hidden; }
@@ -120,16 +127,16 @@
 </head>
 <body>
 
-    <!-- আপনার দেওয়া ছবির আদਲੇ নিখুঁত টপ হেডার ব্যানার ও লোগো[span_5](start_span)[span_5](end_span) -->
+    <!-- হুবহু টপ হেডার (SUN এবং Disha লোগো)[span_5](start_span)[span_5](end_span) -->
     <header class="top-brand-header">
-        <div class="brand-logo-area">
-            <div class="sun-logo-box">☀️ SUN</div>
+        <div class="brand-logo-left">
+            <div class="sun-box">☀️ SUN</div>
             <div style="border-left: 2px solid rgba(255,255,255,0.4); padding-left: 12px;">
-                <div class="disha-main-title">Disha</div>
-                <div class="disha-sub-title">Social Network</div>
+                <div class="disha-center-title">Disha</div>
+                <div class="disha-center-sub">Social Network</div>
             </div>
         </div>
-        <div class="right-side-logo">
+        <div class="right-disha-badge">
             🌿 Disha
         </div>
     </header>
@@ -142,21 +149,12 @@
 
     <div class="container">
 
-        <!-- কাস্টমার প্যানেল -->
+        <!-- কাস্টমার প্যানেল ও ড্যাশবোর্ড -->
         <div id="customerPanel">
             
-            <!-- লগইন বক্স (লগইন করার আগে দেখাবে) -->
-            <div id="customerAuthBox" class="card" style="max-width: 400px; margin: 30px auto; text-align: center; border-top: 4px solid #0052D4;">
-                <h3 style="color: #0052D4; margin-bottom: 5px;">কাস্টমার লগইন</h3>
-                <p style="font-size: 12px; color: #666; margin-bottom: 15px;">আপনার জিমেইল বা মোবাইল নম্বর দিয়ে প্রবেশ করুন</p>
-                <input type="text" id="custInput" class="form-control" placeholder="যেমন: 01700000000 বা email@gmail.com">
-                <button class="btn" style="width: 100%; margin-top: 10px;" onclick="loginCustomer()">প্রবেশ করুন</button>
-            </div>
-
-            <!-- আপনার দেওয়া ছবির হুবহু ড্যাশবোর্ড লেআউট (লগইন করার পর শো করবে)[span_6](start_span)[span_6](end_span) -->
-            <div id="customerDashboard" class="hidden">
+            <div id="customerDashboard">
                 
-                <!-- ১. প্রোফাইল কার্ড (Team, Total Earning, Wallet Balance সহ)[span_7](start_span)[span_7](end_span) -->
+                <!-- ১. প্রোফাইল কার্ড (Md. Rahim, ID, Team, Earning, Balance)[span_6](start_span)[span_6](end_span) -->
                 <div class="profile-box">
                     <div class="profile-left">
                         <div class="avatar">
@@ -164,8 +162,8 @@
                             <div class="status-dot"></div>
                         </div>
                         <div class="profile-info">
-                            <h3 id="profileNameDisp">Md. Rahim</h3>
-                            <p>ID: <span id="profileIdDisp">DSN001234</span></p>
+                            <h3>Md. Rahim</h3>
+                            <p>ID: DSN001234</p>
                             <span class="member-badge">👑 Member</span>
                         </div>
                     </div>
@@ -183,23 +181,24 @@
                             <span>Wallet Balance</span>
                         </div>
                     </div>
-                    <button class="btn btn-danger" style="padding: 4px 10px; font-size: 11px;" onclick="logoutCustomer()">লগআউট</button>
                 </div>
 
-                <!-- ২. স্লোগান ব্যানার ("একসাথে এগিয়ে চলি সফলতার পথে")[span_8](start_span)[span_8](end_span) -->
+                <!-- ২. স্লোগান ব্যানার ("একসাথে এগিয়ে চলি সফলতার পথে")[span_7](start_span)[span_7](end_span) -->
                 <div class="promo-banner">
-                    <h2>একসাথে এগিয়ে চলি <span>সফলতার পথে</span></h2>
-                    <p>দিশা দেখাবে, সুযোগ তৈরি করবে, আপনার স্বপ্ন পূরণে পাশে থাকবে।</p>
+                    <div class="promo-content">
+                        <h2>একসাথে এগিয়ে চলি <span>সফলতার পথে</span></h2>
+                        <p>দিশা দেখাবে, সুযোগ তৈরি করবে, আপনার স্বপ্ন পূরণে পাশে থাকবে।</p>
+                    </div>
                 </div>
 
-                <h3>উপলব্ধ পণ্যসমূহ</h3>
-                <p style="margin-bottom: 15px; color: #666; font-size: 13px;">পছন্দমতো পণ্য কার্টে যোগ করে অর্ডার সেন্ট করুন।</p>
+                <h3 style="margin-bottom: 10px;">উপলব্ধ পণ্যসমূহ</h3>
+                <p style="margin-bottom: 20px; color: #666; font-size: 13.5px;">পছন্দমতো পণ্য কার্টে যোগ করে অর্ডার সেন্ট করুন।</p>
                 
                 <div class="product-grid" id="customerProductList"></div>
 
-                <div class="card" style="margin-top: 20px;">
+                <div class="card" style="margin-top: 25px;">
                     <h3>আপনার শপিং কার্ট (Cart)</h3>
-                    <div id="cartItems" style="margin: 10px 0; font-size: 14px;">কার্ট খালি আছে।</div>
+                    <div id="cartItems" style="margin: 12px 0; font-size: 14px;">কার্ট খালি আছে।</div>
                     <button class="btn" onclick="sendOrder()">অর্ডার সেন্ট করুন</button>
                 </div>
             </div>
@@ -216,12 +215,6 @@
         <!-- অ্যাডমিন প্যানেল -->
         <div id="adminPanel" class="hidden">
             <h3>অ্যাডমিন কন্ট্রোল প্যানেল</h3>
-            
-            <div class="card" style="background: #e9ecef; margin-bottom: 20px;">
-                <h4>লগইন করা কাস্টমারদের তালিকা (রিয়েল-টাইম)</h4>
-                <div id="registeredCustomersList" style="margin-top: 10px; font-size: 14px;">কোনো কাস্টমার এখনো লগইন করেনি।</div>
-            </div>
-
             <h4>অর্ডার পারমিশন কন্ট্রোল</h4>
             <div id="adminOrderList" style="margin-top: 10px;">অনুমতির জন্য কোনো অর্ডার নেই।</div>
         </div>
@@ -249,34 +242,66 @@
 
         let cart = [];
         let orders = [];
-        let registeredCustomers = [];
-        let currentCustomer = null;
 
-        function loginCustomer() {
-            let val = document.getElementById('custInput').value.trim();
-            if(!val) {
-                alert('দয়া করে আপনার জিমেইল বা মোবাইল নম্বর লিখুন!');
-                return;
-            }
-            currentCustomer = val;
-            
-            if(!registeredCustomers.includes(val)) {
-                registeredCustomers.push(val);
-            }
+        function renderCustomerProducts() {
+            let html = '';
+            products.forEach(p => {
+                html += `
+                    <div class="product-item">
+                        <div style="font-size:12px; color:#777; background:#f8f9fa; height:100px; display:flex; align-items:center; justify-content:center; border-radius:8px; margin-bottom:10px; border: 1px dashed #ccc;">প্রোডাক্ট ছবি</div>
+                        <h4 style="font-size: 16px; margin-bottom: 5px;">${p.name}</h4>
+                        <p style="font-size: 12.5px; color: #666; margin-bottom: 5px;">সাইজ: ${p.size}</p>
+                        <p style="color: #28a745; font-weight: bold; margin: 8px 0; font-size: 16px;">৳ ${p.price}</p>
+                        <button class="btn" style="padding: 7px 14px; font-size: 13px; width: 100%;" onclick="addToCart(${p.id})">কার্টে যোগ করুন</button>
+                    </div>
+                `;
+            });
+            document.getElementById('customerProductList').innerHTML = html;
+        }
+        renderCustomerProducts();
 
-            document.getElementById('profileNameDisp').innerText = val.includes('@') ? val.split('@')[0] : 'User: ' + val;
-            document.getElementById('profileIdDisp').innerText = 'DSN' + Math.floor(100000 + Math.random() * 900000);
-
-            document.getElementById('customerAuthBox').classList.add('hidden');
-            document.getElementById('customerDashboard').classList.remove('hidden');
-            renderCustomerProducts();
+        function addToCart(id) {
+            let item = products.find(p => p.id === id);
+            cart.push(item);
+            updateCartUI();
         }
 
-        function logoutCustomer() {
-            currentCustomer = null;
-            document.getElementById('custInput').value = '';
-            document.getElementById('customerDashboard').classList.add('hidden');
-            document.getElementById('customerAuthBox').classList.remove('hidden');
+        function updateCartUI() {
+            if(cart.length === 0) {
+                document.getElementById('cartItems').innerHTML = 'কার্ট খালি আছে।';
+                return;
+            }
+            let html = '<ul style="padding-left: 20px;">';
+            let total = 0;
+            cart.forEach((c, idx) => {
+                html += `<li style="margin-bottom: 5px;">${c.name} - ৳ ${c.price} <button onclick="removeFromCart(${idx})" style="color:red; border:none; background:none; cursor:pointer; font-size:12px; font-weight:bold;">[বাদ দিন]</button></li>`;
+                total += c.price;
+            });
+            html += `</ul><p style="margin-top:12px; font-weight:bold; font-size: 15px;">মোট খরচ: ৳ ${total}</p>`;
+            document.getElementById('cartItems').innerHTML = html;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function sendOrder() {
+            if(cart.length === 0) {
+                alert('কার্টে কোনো পণ্য নেই!');
+                return;
+            }
+            let newOrder = {
+                id: Date.now(),
+                customer: "Md. Rahim (DSN001234)",
+                items: [...cart],
+                total: cart.reduce((sum, i) => sum + i.price, 0),
+                adminApproved: false
+            };
+            orders.push(newOrder);
+            cart = [];
+            updateCartUI();
+            alert('আপনার অর্ডারটি সফলভাবে সেন্ট করা হয়েছে!');
         }
 
         function openManagerLogin() {
@@ -317,68 +342,7 @@
                 document.getElementById('adminPanel').classList.remove('hidden');
                 document.getElementById('btnAdmin').classList.add('active');
                 renderAdminOrders();
-                renderCustomersList();
             }
-        }
-
-        function renderCustomerProducts() {
-            let html = '';
-            products.forEach(p => {
-                html += `
-                    <div class="product-item">
-                        <div style="font-size:12px; color:#777; background:#eee; height:90px; display:flex; align-items:center; justify-content:center; border-radius:6px; margin-bottom:8px;">প্রোডাক্ট ছবি</div>
-                        <h4 style="font-size: 15px;">${p.name}</h4>
-                        <p style="font-size: 12px; color: #666;">সাইজ: ${p.size}</p>
-                        <p style="color: #28a745; font-weight: bold; margin: 5px 0; font-size: 15px;">৳ ${p.price}</p>
-                        <button class="btn" style="padding: 6px 12px; font-size: 13px;" onclick="addToCart(${p.id})">কার্টে যোগ করুন</button>
-                    </div>
-                `;
-            });
-            document.getElementById('customerProductList').innerHTML = html;
-        }
-
-        function addToCart(id) {
-            let item = products.find(p => p.id === id);
-            cart.push(item);
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            if(cart.length === 0) {
-                document.getElementById('cartItems').innerHTML = 'কার্ট খালি আছে।';
-                return;
-            }
-            let html = '<ul>';
-            let total = 0;
-            cart.forEach((c, idx) => {
-                html += `<li>${c.name} - ৳ ${c.price} <button onclick="removeFromCart(${idx})" style="color:red; border:none; background:none; cursor:pointer; font-size:12px;">[বাদ দিন]</button></li>`;
-                total += c.price;
-            });
-            html += `</ul><p style="margin-top:10px; font-weight:bold;">মোট খরচ: ৳ ${total}</p>`;
-            document.getElementById('cartItems').innerHTML = html;
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        function sendOrder() {
-            if(cart.length === 0) {
-                alert('কার্টে কোনো পণ্য নেই!');
-                return;
-            }
-            let newOrder = {
-                id: Date.now(),
-                customer: currentCustomer,
-                items: [...cart],
-                total: cart.reduce((sum, i) => sum + i.price, 0),
-                adminApproved: false
-            };
-            orders.push(newOrder);
-            cart = [];
-            updateCartUI();
-            alert('আপনার অর্ডারটি সফলভাবে সেন্ট করা হয়েছে!');
         }
 
         function renderManagerOrders() {
@@ -426,19 +390,6 @@
             document.getElementById('adminOrderList').innerHTML = html;
         }
 
-        function renderCustomersList() {
-            if(registeredCustomers.length === 0) {
-                document.getElementById('registeredCustomersList').innerHTML = 'কোনো কাস্টমার এখনো লগইন করেনি।';
-                return;
-            }
-            let html = '<ul>';
-            registeredCustomers.forEach((cust, idx) => {
-                html += `<li>(${idx + 1}) ${cust}</li>`;
-            });
-            html += '</ul>';
-            document.getElementById('registeredCustomersList').innerHTML = html;
-        }
-
         function approveOrder(id) {
             let ord = orders.find(o => o.id === id);
             if(ord) {
@@ -451,7 +402,7 @@
         function viewOrder(id) {
             let ord = orders.find(o => o.id === id);
             if(ord) {
-                let itemsHtml = '<ul>';
+                let itemsHtml = '<ul style="padding-left: 20px;">';
                 ord.items.forEach(i => {
                     itemsHtml += `<li>${i.name} - ৳ ${i.price}</li>`;
                 });
@@ -460,7 +411,7 @@
                 document.getElementById('printDetails').innerHTML = `
                     <p><b>অর্ডার আইডি:</b> ${ord.id}</p>
                     <p><b>কাস্টমার ইনফো:</b> ${ord.customer}</p>
-                    <p><b>পণ্যের বিবরণ:</b></p>
+                    <p style="margin-top: 8px;"><b>পণ্যের বিবরণ:</b></p>
                     ${itemsHtml}
                     <p style="margin-top: 10px;"><b>মোট বিল:</b> ৳ ${ord.total}</p>
                 `;
