@@ -8,7 +8,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f0f2f5; color: #333; }
         
-        /* Header Banner Style from Image */
+        /* Header Banner Style matching Image */
         header { 
             background: linear-gradient(135deg, #0052D4, #4364F7, #6FB1FC); 
             color: white; 
@@ -18,11 +18,11 @@
             align-items: center; 
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
-        .header-title { font-size: 22px; font-weight: bold; letter-spacing: 1px; }
-        .nav-btns button { background: white; color: #0052D4; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-left: 5px; }
+        .header-title { font-size: 18px; font-weight: bold; letter-spacing: 0.5px; display: flex; align-items: center; gap: 5px; }
+        .nav-btns button { background: white; color: #0052D4; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-left: 4px; font-size: 12px; }
         .nav-btns button.active { background: #ffc107; color: #000; }
         
-        .container { padding: 20px; max-width: 900px; margin: auto; }
+        .container { padding: 15px; max-width: 900px; margin: auto; }
         
         .card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
         .btn { background: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
@@ -33,32 +33,32 @@
         .hidden { display: none; }
 
         /* Profile Section matching Image */
-        .profile-box { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px 20px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
-        .profile-left { display: flex; align-items: center; gap: 15px; }
-        .avatar { width: 60px; height: 60px; background: #e0e0e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; position: relative; }
+        .profile-box { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); margin-bottom: 15px; flex-wrap: wrap; gap: 15px; }
+        .profile-left { display: flex; align-items: center; gap: 12px; }
+        .avatar { width: 55px; height: 55px; background: #e0e0e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; position: relative; }
         .status-dot { width: 12px; height: 12px; background: #28a745; border: 2px solid white; border-radius: 50%; position: absolute; bottom: 2px; right: 2px; }
-        .profile-info h3 { font-size: 18px; color: #222; margin-bottom: 2px; }
-        .profile-info p { font-size: 13px; color: #666; margin-bottom: 5px; }
-        .member-badge { background: #fff3cd; color: #856404; padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: bold; display: inline-block; border: 1px solid #ffeeba; }
+        .profile-info h3 { font-size: 16px; color: #222; margin-bottom: 2px; }
+        .profile-info p { font-size: 12px; color: #666; margin-bottom: 4px; }
+        .member-badge { background: #fff3cd; color: #856404; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: bold; display: inline-block; border: 1px solid #ffeeba; }
         
-        .profile-stats { display: flex; gap: 25px; text-align: center; }
-        .stat-item h4 { font-size: 16px; color: #333; margin-bottom: 2px; }
-        .stat-item span { font-size: 12px; color: #666; }
+        .profile-stats { display: flex; gap: 20px; text-align: center; }
+        .stat-item h4 { font-size: 15px; color: #333; margin-bottom: 2px; }
+        .stat-item span { font-size: 11px; color: #666; }
 
         /* Banner Box matching Image */
         .promo-banner { 
             background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); 
             color: white; 
-            padding: 25px; 
+            padding: 20px; 
             border-radius: 12px; 
             margin-bottom: 20px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        .promo-banner h2 { font-size: 22px; color: #ffffff; margin-bottom: 5px; }
+        .promo-banner h2 { font-size: 18px; color: #ffffff; margin-bottom: 5px; }
         .promo-banner h2 span { color: #ffc107; }
-        .promo-banner p { font-size: 13px; color: #dcdcdc; line-height: 1.5; }
+        .promo-banner p { font-size: 12px; color: #dcdcdc; line-height: 1.4; }
 
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
         .product-item { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); text-align: center; }
         
         @media print {
@@ -72,7 +72,7 @@
 <body>
 
     <header>
-        <div class="header-title">🌞 SUN | <b>Disha</b> <span style="font-size: 14px; font-weight: normal;">Social Network</span></div>
+        <div class="header-title">🌞 SUN | <b>Disha</b> <span style="font-size: 11px; font-weight: normal; opacity: 0.9;">Social Network</span></div>
         <div class="nav-btns">
             <button id="btnCust" class="active" onclick="switchTab('customer')">হোম / শপ</button>
             <button id="btnMgr" onclick="openManagerLogin()">ম্যানেজার</button>
@@ -82,73 +82,84 @@
 
     <div class="container">
 
-        <!-- ১. কাস্টমার লগইন স্ক্রিন -->
-        <div id="customerAuthPanel" class="card" style="max-width: 400px; margin: 50px auto; text-align: center;">
-            <h3>কাস্টমার লগইন</h3>
-            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">আপনার জিমেইল বা মোবাইল নম্বর দিয়ে প্রবেশ করুন</p>
-            <input type="text" id="custInput" class="form-control" placeholder="যেমন: 01700000000 বা email@gmail.com">
-            <button class="btn" style="width: 100%; margin-top: 10px;" onclick="loginCustomer()">প্রবেশ করুন</button>
-        </div>
-
-        <!-- ২. কাস্টমার ড্যাশবোর্ড ও শপ প্যানেল -->
-        <div id="customerPanel" class="hidden">
+        <!-- কাস্টমার প্যানেল -->
+        <div id="customerPanel">
             
-            <!-- ছবির মতো প্রোফাইল সেকশন -->
-            <div class="profile-box">
-                <div class="profile-left">
-                    <div class="avatar">
-                        👨‍💻
-                        <div class="status-dot"></div>
+            <!-- আপনার দেওয়া ছবির স্টাইলের ড্যাশবোর্ড ও লগইন সেকশন -->
+            <div id="customerDashboard">
+                
+                <!-- প্রোফাইল কার্ড (ছবির আদলে)[span_2](start_span)[span_2](end_span) -->
+                <div class="profile-box">
+                    <div class="profile-left">
+                        <div class="avatar">
+                            👨‍💻
+                            <div class="status-dot"></div>
+                        </div>
+                        <div class="profile-info">
+                            <h3 id="profileNameDisp">Md. Rahim</h3>
+                            <p>ID: <span id="profileIdDisp">DSN001234</span></p>
+                            <span class="member-badge">👑 Member</span>
+                        </div>
                     </div>
-                    <div class="profile-info">
-                        <h3 id="profileNameDisp">Md. Rahim</h3>
-                        <p>ID: <span id="profileIdDisp">DSN001234</span></p>
-                        <span class="member-badge">👑 Member</span>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <h4>👥 25</h4>
+                            <span>Team</span>
+                        </div>
+                        <div class="stat-item">
+                            <h4 style="color: #28a745;">৳ 1,250</h4>
+                            <span>Total Earning</span>
+                        </div>
+                        <div class="stat-item">
+                            <h4 style="color: #007bff;">৳ 850</h4>
+                            <span>Wallet Balance</span>
+                        </div>
+                    </div>
+                    <div id="logoutBtnContainer" class="hidden">
+                        <button class="btn btn-danger" style="padding: 4px 10px; font-size: 11px;" onclick="logoutCustomer()">লগআউট</button>
                     </div>
                 </div>
-                <div class="profile-stats">
-                    <div class="stat-item">
-                        <h4>👥 25</h4>
-                        <span>Team</span>
-                    </div>
-                    <div class="stat-item">
-                        <h4 style="color: #28a745;">৳ 1,250</h4>
-                        <span>Total Earning</span>
-                    </div>
-                    <div class="stat-item">
-                        <h4 style="color: #007bff;">৳ 850</h4>
-                        <span>Wallet Balance</span>
+
+                <!-- স্লোগান ব্যানার (ছবির আদলে)[span_3](start_span)[span_3](end_span) -->
+                <div class="promo-banner">
+                    <h2>একসাথে এগিয়ে চলি <span>সফলতার পথে</span></h2>
+                    <p>দিশা দেখাবে, সুযোগ তৈরি করবে, আপনার স্বপ্ন পূরণে পাশে থাকবে।</p>
+                </div>
+
+                <!-- লগইন বক্স (ব্যানারের ঠিক নিচে) -->
+                <div id="customerAuthBox" class="card" style="max-width: 100%; text-align: center; border-top: 4px solid #0052D4; margin-bottom: 20px;">
+                    <h3 style="color: #0052D4; margin-bottom: 5px;">কাস্টমার লগইন</h3>
+                    <p style="font-size: 12px; color: #666; margin-bottom: 10px;">আপনার জিমেইল বা মোবাইল নম্বর দিয়ে প্রবেশ করুন</p>
+                    <input type="text" id="custInput" class="form-control" placeholder="যেমন: 01700000000 বা email@gmail.com">
+                    <button class="btn" style="width: 100%; margin-top: 5px; background: #0052D4;" onclick="loginCustomer()">প্রবেশ করুন</button>
+                </div>
+
+                <!-- শপ সেকশন (লগইন করার পর সক্রিয় হবে) -->
+                <div id="shopSection" class="hidden">
+                    <h3>উপলব্ধ পণ্যসমূহ</h3>
+                    <p style="margin-bottom: 15px; color: #666; font-size: 13px;">পছন্দমতো পণ্য কার্টে যোগ করে অর্ডার সেন্ট করুন।</p>
+                    
+                    <div class="product-grid" id="customerProductList"></div>
+
+                    <div class="card" style="margin-top: 20px;">
+                        <h3>আপনার শপিং কার্ট (Cart)</h3>
+                        <div id="cartItems" style="margin: 10px 0; font-size: 14px;">কার্ট খালি আছে।</div>
+                        <button class="btn" onclick="sendOrder()">অর্ডার সেন্ট করুন</button>
                     </div>
                 </div>
-                <button class="btn btn-danger" style="padding: 4px 10px; font-size: 12px;" onclick="logoutCustomer()">লগআউট</button>
+
             </div>
 
-            <!-- ছবির মতো ব্যানার সেকশন -->
-            <div class="promo-banner">
-                <h2>একসাথে এগিয়ে চলি <span>সফলতার পথে</span></h2>
-                <p>দিশা দেখাবে, সুযোগ তৈরি করবে, আপনার স্বপ্ন পূরণে পাশে থাকবে।</p>
-            </div>
-
-            <h3>উপলব্ধ পণ্যসমূহ</h3>
-            <p style="margin-bottom: 15px; color: #666;">পছন্দমতো পণ্য কার্টে যোগ করে অর্ডার সেন্ট করুন।</p>
-            
-            <div class="product-grid" id="customerProductList"></div>
-
-            <div class="card" style="margin-top: 20px;">
-                <h3>আপনার শপিং কার্ট (Cart)</h3>
-                <div id="cartItems" style="margin: 10px 0;">কার্ট খালি আছে।</div>
-                <button class="btn" onclick="sendOrder()">অর্ডার সেন্ট করুন</button>
-            </div>
         </div>
 
-        <!-- ৩. ম্যানেজার প্যানেল -->
+        <!-- ম্যানেজার প্যানেল -->
         <div id="managerPanel" class="hidden">
             <h3>ম্যানেজার অর্ডার ও প্রিন্ট প্যানেল</h3>
             <p style="margin-bottom: 15px; color: #666;">অ্যাডমিনের অনুমতির পর প্রিন্ট করুন।</p>
             <div id="managerOrderList">কোনো নতুন অর্ডার নেই।</div>
         </div>
 
-        <!-- ৪. অ্যাডমিন প্যানেল -->
+        <!-- অ্যাডমিন প্যানেল -->
         <div id="adminPanel" class="hidden">
             <h3>অ্যাডমিন কন্ট্রোল প্যানেল</h3>
             
@@ -199,20 +210,22 @@
                 registeredCustomers.push(val);
             }
 
-            // ড্যাশবোর্ডে নাম ও আইডি ডায়নামিক দেখানোর জন্য সেট করা
             document.getElementById('profileNameDisp').innerText = val.includes('@') ? val.split('@')[0] : 'User: ' + val;
             document.getElementById('profileIdDisp').innerText = 'DSN' + Math.floor(100000 + Math.random() * 900000);
 
-            document.getElementById('customerAuthPanel').classList.add('hidden');
-            document.getElementById('customerPanel').classList.remove('hidden');
+            // লগইন সফল হলে লগইন বক্স লুকিয়ে শপ সেকশন ও লগআউট বাটন দেখাবে
+            document.getElementById('customerAuthBox').classList.add('hidden');
+            document.getElementById('shopSection').classList.remove('hidden');
+            document.getElementById('logoutBtnContainer').classList.remove('hidden');
             renderCustomerProducts();
         }
 
         function logoutCustomer() {
             currentCustomer = null;
             document.getElementById('custInput').value = '';
-            document.getElementById('customerPanel').classList.add('hidden');
-            document.getElementById('customerAuthPanel').classList.remove('hidden');
+            document.getElementById('shopSection').classList.add('hidden');
+            document.getElementById('logoutBtnContainer').classList.add('hidden');
+            document.getElementById('customerAuthBox').classList.remove('hidden');
         }
 
         function openManagerLogin() {
@@ -234,7 +247,6 @@
         }
 
         function switchTab(tab) {
-            document.getElementById('customerAuthPanel').classList.add('hidden');
             document.getElementById('customerPanel').classList.add('hidden');
             document.getElementById('managerPanel').classList.add('hidden');
             document.getElementById('adminPanel').classList.add('hidden');
@@ -244,11 +256,7 @@
             document.getElementById('btnAdmin').classList.remove('active');
 
             if(tab === 'customer') {
-                if(currentCustomer) {
-                    document.getElementById('customerPanel').classList.remove('hidden');
-                } else {
-                    document.getElementById('customerAuthPanel').classList.remove('hidden');
-                }
+                document.getElementById('customerPanel').classList.remove('hidden');
                 document.getElementById('btnCust').classList.add('active');
             } else if(tab === 'manager') {
                 document.getElementById('managerPanel').classList.remove('hidden');
@@ -267,11 +275,11 @@
             products.forEach(p => {
                 html += `
                     <div class="product-item">
-                        <div style="font-size:12px; color:#777; background:#eee; height:100px; display:flex; align-items:center; justify-content:center; border-radius:6px; margin-bottom:8px;">প্রোডাক্ট ছবি</div>
-                        <h4>${p.name}</h4>
-                        <p style="font-size: 13px; color: #666;">সাইজ: ${p.size}</p>
-                        <p style="color: #28a745; font-weight: bold; margin: 5px 0;">৳ ${p.price}</p>
-                        <button class="btn" onclick="addToCart(${p.id})">কার্টে যোগ করুন</button>
+                        <div style="font-size:12px; color:#777; background:#eee; height:90px; display:flex; align-items:center; justify-content:center; border-radius:6px; margin-bottom:8px;">প্রোডাক্ট ছবি</div>
+                        <h4 style="font-size: 15px;">${p.name}</h4>
+                        <p style="font-size: 12px; color: #666;">সাইজ: ${p.size}</p>
+                        <p style="color: #28a745; font-weight: bold; margin: 5px 0; font-size: 15px;">৳ ${p.price}</p>
+                        <button class="btn" style="padding: 6px 12px; font-size: 13px;" onclick="addToCart(${p.id})">কার্টে যোগ করুন</button>
                     </div>
                 `;
             });
@@ -292,7 +300,7 @@
             let html = '<ul>';
             let total = 0;
             cart.forEach((c, idx) => {
-                html += `<li>${c.name} - ৳ ${c.price} <button onclick="removeFromCart(${idx})" style="color:red; border:none; background:none; cursor:pointer;">[বাদ দিন]</button></li>`;
+                html += `<li>${c.name} - ৳ ${c.price} <button onclick="removeFromCart(${idx})" style="color:red; border:none; background:none; cursor:pointer; font-size:12px;">[বাদ দিন]</button></li>`;
                 total += c.price;
             });
             html += `</ul><p style="margin-top:10px; font-weight:bold;">মোট খরচ: ৳ ${total}</p>`;
@@ -393,7 +401,6 @@
             let ord = orders.find(o => o.id === id);
             if(ord) {
                 let itemsHtml = '<ul>';
-                ord.items.items = ord.items;
                 ord.items.forEach(i => {
                     itemsHtml += `<li>${i.name} - ৳ ${i.price}</li>`;
                 });
