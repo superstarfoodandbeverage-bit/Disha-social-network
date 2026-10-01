@@ -144,8 +144,7 @@
             <div class="disha-center-title">Disha</div>
             <div class="disha-center-sub">Social Network</div>
         </div>
-        <!-- আপনার দেওয়া লোগো সরাসরি এখানে বসানো হয়েছে -->
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAA..." alt="Disha Logo" class="right-disha-logo">
+        <img src="1000012933.png" alt="Disha Logo" class="right-disha-logo">
     </header>
 
     <div class="nav-bar">
@@ -262,14 +261,14 @@
 
     </div>
 
-    <!-- প্রিন্ট মোড মডাল -->
+    <!-- প্রিন্ট মোড মডাল (ভিউ ও প্রিন্ট অপশন সহ) -->
     <div id="viewModal" class="card hidden" style="border: 2px dashed #007bff; margin-top: 20px;">
-        <div id="printableArea">
-            <h2>SUN | Disha Social Network & Shop</h2>
-            <p>অর্ডার মেমো / ইনভয়েস</p>
+        <div id="printableArea" style="padding: 10px;">
+            <h2 style="font-size: 18px; color: #0052D4;">SUN | Disha Social Network</h2>
+            <p style="font-size: 13px; color: #555;">অর্ডার মেমো / ইনভয়েস</p>
             <hr style="margin: 10px 0;">
             <div id="printDetails"></div>
-            <p id="printTimestamp" style="margin-top: 15px; font-weight: bold;"></p>
+            <p id="printTimestamp" style="margin-top: 15px; font-weight: bold; font-size: 12px;"></p>
         </div>
         <button class="btn no-print" style="margin-top: 15px;" onclick="window.print()">সরাসরি প্রিন্ট করুন</button>
         <button class="btn btn-danger no-print" style="margin-top: 15px;" onclick="closeView()">বন্ধ করুন</button>
@@ -463,7 +462,7 @@
                         <p style="margin-top: 5px;"><b>মোট মূল্য:</b> ৳ ${o.total}</p>
                         <p style="color: green; font-weight: bold; margin-top: 5px;">স্ট্যাটাস: অনুমোদিত (Approved)</p>
                         <br>
-                        <button class="btn btn-info" onclick="viewOrder(${o.id})">🖨️ চেক ও প্রিন্ট করুন</button>
+                        <button class="btn btn-info" onclick="viewOrder(${o.id})">👁️ ভিউ ও প্রিন্ট করুন</button>
                     </div>
                 `;
             });
