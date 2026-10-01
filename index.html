@@ -46,17 +46,14 @@
             opacity: 0.95;
             letter-spacing: 0.5px;
         }
-        .right-disha-badge {
-            background: white;
-            color: #0052D4;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
+        /* ডানপাশে লোগো স্টাইল */
+        .right-disha-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
 
         .nav-bar { background: #fff; padding: 10px 20px; display: flex; justify-content: flex-end; gap: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
@@ -72,6 +69,11 @@
         .btn-warning { background: #ffc107; color: #000; }
         .btn-info { background: #17a2b8; color: white; }
         .hidden { display: none; }
+
+        /* ফর্ম ইনপুট স্টাইল */
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 5px; color: #444; }
+        .form-control { width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
 
         /* প্রোফাইল কার্ড */
         .profile-box { 
@@ -113,7 +115,7 @@
         .promo-banner h2 span { color: #ffeb3b; }
         .promo-banner p { font-size: 13.5px; color: #e0e0e0; line-height: 1.6; }
 
-        /* প্রোডাক্ট গ্রিড ও ডিসকাউন্ট ডিজাইন */
+        /* প্রোডাক্ট গ্রিড */
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
         .product-item { background: white; padding: 18px; border-radius: 14px; box-shadow: 0 3px 8px rgba(0,0,0,0.08); text-align: left; position: relative; }
         .discount-badge { position: absolute; top: 12px; right: 12px; background: #dc3545; color: white; padding: 3px 8px; font-size: 11px; font-weight: bold; border-radius: 6px; }
@@ -142,9 +144,8 @@
             <div class="disha-center-title">Disha</div>
             <div class="disha-center-sub">Social Network</div>
         </div>
-        <div class="right-disha-badge">
-            🌿 Disha
-        </div>
+        <!-- এখানে আপনার দেওয়া লোগো যুক্ত করা হয়েছে[span_1](start_span)[span_1](end_span) -->
+        <img src="1000012933.png" alt="Disha Logo" class="right-disha-logo">
     </header>
 
     <div class="nav-bar">
@@ -155,6 +156,7 @@
 
     <div class="container">
 
+        <!-- কাস্টমার প্যানেল -->
         <div id="customerPanel">
             <div id="customerDashboard">
                 
@@ -196,12 +198,14 @@
                 </div>
 
                 <h3 style="margin-bottom: 5px;">উপলব্ধ পণ্যসমূহ</h3>
-                <p style="margin-bottom: 20px; color: #666; font-size: 13.5px;">পছন্দমতো পণ্য দেখে অর্ডার নাও বাটনে ক্লিক করে একাধিক পণ্য কার্টে যোগ করুন।</p>
+                <p style="margin-bottom: 20px; color: #666; font-size: 13.5px;">পছন্দমতো পণ্য দেখে "অর্ডার নাও" বাটনে ক্লিক করে একাধিক পণ্য কার্টে যোগ করুন।</p>
                 
-                <!-- প্রোডাক্ট ক্যাটালগ গ্রিড -->
-                <div class="product-grid" id="customerProductList"></div>
+                <!-- প্রোডাক্ট গ্রিড -->
+                <div class="product-grid" id="customerProductList">
+                    <p id="noProductMsg" style="color: #777; font-size: 14px;">বর্তমানে কোনো পণ্য নেই। অ্যাডমিন প্যানেল থেকে নতুন পণ্য যোগ করুন।</p>
+                </div>
 
-                <!-- কার্ট ও অর্ডার செন্ট সেকশন -->
+                <!-- কার্ট ও অর্ডার সেন্ট সেকশন -->
                 <div class="card" style="margin-top: 25px;">
                     <h3>আপনার শপিং কার্ট (একাধিক পণ্য)</h3>
                     <div id="cartItems" style="margin: 12px 0; font-size: 14px;">কার্ট খালি আছে।</div>
@@ -210,18 +214,46 @@
             </div>
         </div>
 
-        <!-- ম্যানেজার প্যানেল -->
+        <!-- ম্যানেজার প্যানেল (শুধু অর্ডার চেক ও প্রিন্ট) -->
         <div id="managerPanel" class="hidden">
-            <h3>ম্যানেজার অর্ডার ও প্রিন্ট প্যানেল</h3>
-            <p style="margin-bottom: 15px; color: #666;">অ্যাডমিনের অনুমতির পর প্রিন্ট করুন।</p>
-            <div id="managerOrderList">কোনো নতুন অর্ডার নেই।</div>
+            <div class="card">
+                <h3>🖨️ ম্যানেজার অর্ডার প্রিন্ট ও চেক প্যানেল</h3>
+                <p style="margin-bottom: 15px; color: #666;">অ্যাডমিনের অনুমোদিত অর্ডারগুলো এখানে দেখতে এবং প্রিন্ট করতে পারবেন।</p>
+                <div id="managerOrderList">কোনো অর্ডার নেই।</div>
+            </div>
         </div>
 
-        <!-- অ্যাডমিন প্যানেল -->
+        <!-- অ্যাডমিন প্যানেল (প্রোডাক্ট যোগ ও অর্ডার অনুমোদন) -->
         <div id="adminPanel" class="hidden">
-            <h3>অ্যাডমিন কন্ট্রোল প্যানেল</h3>
-            <h4>অর্ডার পারমিশন কন্ট্রোল</h4>
-            <div id="adminOrderList" style="margin-top: 10px;">অনুমতির জন্য কোনো অর্ডার নেই।</div>
+            <div class="card" style="border: 2px solid #0052D4;">
+                <h3 style="color: #0052D4; margin-bottom: 15px;">➕ নতুন পণ্য যোগ করুন (Add Product)</h3>
+                <div class="form-group">
+                    <label>পণ্যের নাম:</label>
+                    <input type="text" id="pName" class="form-control" placeholder="যেমন: প্রিমিয়াম শার্ট">
+                </div>
+                <div class="form-group">
+                    <label>বর্তমান মূল্য (৳):</label>
+                    <input type="number" id="pPrice" class="form-control" placeholder="যেমন: ১২৫০">
+                </div>
+                <div class="form-group">
+                    <label>আগের/কাটা মূল্য (৳):</label>
+                    <input type="number" id="pOldPrice" class="form-control" placeholder="যেমন: ১৬০০">
+                </div>
+                <div class="form-group">
+                    <label>ছাড় (Discount):</label>
+                    <input type="text" id="pDiscount" class="form-control" placeholder="যেমন: ২১% ছাড়">
+                </div>
+                <div class="form-group">
+                    <label>সাইজসমূহ:</label>
+                    <input type="text" id="pSize" class="form-control" placeholder="যেমন: M, L, XL বা Free Size">
+                </div>
+                <button class="btn btn-success" onclick="addNewProduct()">পণ্য লিস্টে প্রকাশ করুন</button>
+            </div>
+
+            <div class="card">
+                <h3>👑 অ্যাডমিন অর্ডার পারমিশন কন্ট্রোল</h3>
+                <div id="adminOrderList" style="margin-top: 10px;">অনুমতির জন্য কোনো অর্ডার নেই।</div>
+            </div>
         </div>
 
     </div>
@@ -240,18 +272,16 @@
     </div>
 
     <script>
-        // একাধিক পণ্যের তালিকা (রেট, সাইজ ও ছাড়সহ)
-        let products = [
-            { id: 1, name: "প্রিমিয়াম কটন শার্ট", price: 1250, oldPrice: 1600, discount: "২১% ছাড়", size: "M, L, XL" },
-            { id: 2, name: "মেনজ ক্যাজুয়াল শু", price: 2200, oldPrice: 2800, discount: "২১% ছাড়", size: "40, 41, 42" },
-            { id: 3, name: "স্টাইলিশ রিস্ট ওয়াচ", price: 950, oldPrice: 1300, discount: "২৭% ছাড়", size: "Free Size" },
-            { id: 4, name: "লেদার ফোল্ড ওয়ালেট", price: 450, oldPrice: 600, discount: "২৫% ছাড়", size: "Standard" }
-        ];
-
+        let products = [];
         let cart = [];
         let orders = [];
 
         function renderCustomerProducts() {
+            let container = document.getElementById('customerProductList');
+            if(products.length === 0) {
+                container.innerHTML = '<p style="color: #777; font-size: 14px;">বর্তমানে কোনো পণ্য নেই। অ্যাডমিন প্যানেল থেকে নতুন পণ্য যোগ করুন।</p>';
+                return;
+            }
             let html = '';
             products.forEach(p => {
                 html += `
@@ -268,9 +298,42 @@
                     </div>
                 `;
             });
-            document.getElementById('customerProductList').innerHTML = html;
+            container.innerHTML = html;
         }
-        renderCustomerProducts();
+
+        function addNewProduct() {
+            let name = document.getElementById('pName').value;
+            let price = document.getElementById('pPrice').value;
+            let oldPrice = document.getElementById('pOldPrice').value;
+            let discount = document.getElementById('pDiscount').value;
+            let size = document.getElementById('pSize').value;
+
+            if(!name || !price) {
+                alert('দয়া করে অন্তত পণ্যের নাম এবং বর্তমান মূল্য দিন!');
+                return;
+            }
+
+            let newP = {
+                id: Date.now(),
+                name: name,
+                price: Number(price),
+                oldPrice: Number(oldPrice) || 0,
+                discount: discount || 'বিশেষ ছাড়',
+                size: size || 'Standard'
+            };
+
+            products.push(newP);
+            renderCustomerProducts();
+            
+            document.getElementById('pName').value = '';
+            document.getElementById('pPrice').value = '';
+            document.getElementById('pOldPrice').value = '';
+            document.getElementById('pDiscount').value = '';
+            document.getElementById('pSize').value = '';
+
+            alert('পণ্যটি সফলভাবে যোগ করা হয়েছে!');
+            switchTab('customer');
+        }
 
         function addToCart(id) {
             let item = products.find(p => p.id === id);
@@ -300,7 +363,7 @@
 
         function sendOrder() {
             if(cart.length === 0) {
-                alert('কার্টে কোনো পণ্য যোগ করা হয়নি! দয়া করে আগে "অর্ডার নাও" এ ক্লিক করুন।');
+                alert('কার্টে কোনো পণ্য যোগ করা হয়নি!');
                 return;
             }
             let newOrder = {
@@ -313,7 +376,7 @@
             orders.push(newOrder);
             cart = [];
             updateCartUI();
-            alert('আপনার একাধিক পণ্যের অর্ডারটি সফলভাবে সেন্ট করা হয়েছে!');
+            alert('আপনার অর্ডারটি সফলভাবে সেন্ট করা হয়েছে!');
         }
 
         function openManagerLogin() {
@@ -358,22 +421,23 @@
         }
 
         function renderManagerOrders() {
-            if(orders.length === 0) {
-                document.getElementById('managerOrderList').innerHTML = '<div class="card">কোনো অর্ডার নেই।</div>';
+            let approvedOrders = orders.filter(o => o.adminApproved);
+            if(approvedOrders.length === 0) {
+                document.getElementById('managerOrderList').innerHTML = '<p style="color: #666; font-size: 14px;">অ্যাডমিন কর্তৃক অনুমোদিত কোনো নতুন অর্ডার নেই।</p>';
                 return;
             }
             let html = '';
-            orders.forEach(o => {
+            approvedOrders.forEach(o => {
                 let itemsList = o.items.map(i => `${i.name} (সাইজ: ${i.size}) - ৳ ${i.price}`).join('<br>');
                 html += `
-                    <div class="card">
+                    <div class="card" style="border: 1px solid #17a2b8; margin-top: 10px;">
                         <p><b>অর্ডার আইডি:</b> ${o.id}</p>
                         <p><b>কাস্টমার:</b> ${o.customer}</p>
                         <p style="margin-top: 5px;"><b>পণ্যসমূহ:</b><br>${itemsList}</p>
                         <p style="margin-top: 5px;"><b>মোট মূল্য:</b> ৳ ${o.total}</p>
-                        <p><b>স্ট্যাটাস:</b> <span style="color: ${o.adminApproved ? 'green' : 'red'};">${o.adminApproved ? 'অনুমোদিত' : 'অনুমতি বাকি'}</span></p>
+                        <p style="color: green; font-weight: bold; margin-top: 5px;">স্ট্যাটাস: অনুমোদিত (Approved)</p>
                         <br>
-                        ${o.adminApproved ? `<button class="btn btn-info" onclick="viewOrder(${o.id})">ভিউ ও প্রিন্ট করুন</button>` : '<span style="color:#666;">অ্যাডমিনের অনুমতির অপেক্ষায়...</span>'}
+                        <button class="btn btn-info" onclick="viewOrder(${o.id})">🖨️ চেক ও প্রিন্ট করুন</button>
                     </div>
                 `;
             });
@@ -382,15 +446,14 @@
 
         function renderAdminOrders() {
             if(orders.length === 0) {
-                document.getElementById('adminOrderList').innerHTML = '<div class="card">কোনো অর্ডার নেই।</div>';
+                document.getElementById('adminOrderList').innerHTML = '<p style="color: #666; font-size: 14px;">কোনো অর্ডার নেই।</p>';
                 return;
             }
             let html = '';
-            orders.orders?.forEach ? orders.forEach(o => {}) : null;
             orders.forEach(o => {
                 let itemsList = o.items.map(i => `${i.name} - ৳ ${i.price}`).join(', ');
                 html += `
-                    <div class="card">
+                    <div class="card" style="border: 1px solid #ddd; margin-top: 10px;">
                         <p><b>অর্ডার আইডি:</b> ${o.id}</p>
                         <p><b>কাস্টমার:</b> ${o.customer}</p>
                         <p><b>পণ্যসমূহ:</b> ${itemsList}</p>
@@ -407,7 +470,7 @@
             let ord = orders.find(o => o.id === id);
             if(ord) {
                 ord.adminApproved = true;
-                alert('অ্যাডমিন সফলভাবে অনুমতি দিয়েছেন!');
+                alert('অ্যাডমিন সফলভাবে অনুমতি দিয়েছেন! এখন ম্যানেজার প্যানেলে প্রিন্ট করার জন্য দেখা যাবে।');
                 renderAdminOrders();
             }
         }
