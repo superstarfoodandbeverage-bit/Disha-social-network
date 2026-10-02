@@ -29,6 +29,7 @@
             object-fit: cover; 
             border: 2px solid white; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            background: #fff;
         }
 
         /* সার্চ বার */
@@ -81,7 +82,7 @@
         .current-price { color: #28a745; font-weight: bold; font-size: 15px; }
         .old-price { text-decoration: line-through; color: #999; font-size: 12px; }
 
-        /* জলছাপ (DISHA নামে আপডেট করা হয়েছে) */
+        /* জলছাপ */
         #printableArea { position: relative; padding: 15px; overflow: hidden; }
         .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 55px; font-weight: 900; color: rgba(0, 82, 212, 0.06); pointer-events: none; z-index: 0; white-space: nowrap; letter-spacing: 5px; }
         .invoice-content { position: relative; z-index: 1; }
@@ -102,12 +103,12 @@
 </head>
 <body>
 
-    <!-- হেডার (সঠিক লোগো ফাইল সহ) -->
+    <!-- হেডার -->
     <header class="top-brand-header">
         <div class="disha-center-area">
             <div class="disha-center-title">Disha Mart</div>
         </div>
-        <img src="1000012933_3.png" alt="Disha Logo" class="right-disha-logo">
+        <img id="brandLogoImg" src="1000012933_3.png" alt="Disha Logo" class="right-disha-logo">
     </header>
 
     <!-- সার্চ বার -->
@@ -126,7 +127,7 @@
 
     <div class="container">
 
-        <!-- কাস্টমার অথেন্টিকেশন (লগইন/রেজিস্ট্রেশন) পেজ -->
+        <!-- কাস্টমার অথেন্টিকেশন পেজ -->
         <div id="authSection" class="card">
             <h3 id="authTitle" style="color: #0052D4; margin-bottom: 15px;">👤 কাস্টমার অ্যাকাউন্ট লগইন</h3>
             
@@ -140,7 +141,7 @@
                     <input type="password" id="loginPass" class="form-control" placeholder="পাসওয়ার্ড দিন">
                 </div>
                 <button class="btn btn-success" style="width: 100%; margin-bottom: 10px;" onclick="loginCustomer()">লগইন করুন</button>
-                <p style="font-size: 13px; text-align: center;">অ্যাকাউন্ট নেই? <span style="color: #0052D4; cursor: pointer; font-weight: bold;" onclick="toggleAuthMode('register')">রেজিস্ট्रেশন করুন</span></p>
+                <p style="font-size: 13px; text-align: center;">অ্যাকাউন্ট নেই? <span style="color: #0052D4; cursor: pointer; font-weight: bold;" onclick="toggleAuthMode('register')">রেজিস্ট্রেশন করুন</span></p>
             </div>
 
             <div id="registerFormDiv" class="hidden">
@@ -190,8 +191,6 @@
             </div>
             <button class="btn btn-danger" style="padding: 4px 10px; font-size: 11px; margin-bottom: 15px;" onclick="logoutCustomer()">লগআউট</button>
 
-            <!-- ক্যাটাগরি সেকশন বাদ দেওয়া হয়েছে -->
-
             <div class="section-title-wrapper" style="margin-top: 5px;">
                 <div class="section-title">উপলব্ধ পণ্যসমূহ</div>
             </div>
@@ -218,6 +217,16 @@
         <!-- অ্যাডমিন প্যানেল -->
         <div id="adminPanel" class="hidden">
             
+            <!-- গ্যালারি থেকে লোগো পরিবর্তনের অপশন -->
+            <div class="card" style="border: 2px solid #0052D4; background: #f0f4f8;">
+                <h3 style="color: #0052D4; margin-bottom: 10px; font-size: 15px;">🖼️ অ্যাপ লোগো পরিবর্তন করুন</h3>
+                <div class="form-group">
+                    <label>গ্যালারি থেকে লোগো সিলেক্ট করুন:</label>
+                    <input type="file" id="logoFile" class="form-control" accept="image/*">
+                </div>
+                <button class="btn" onclick="updateAppLogo()">লোগো আপডেট করুন</button>
+            </div>
+
             <div class="card" style="border: 2px solid #ffc107; background: #fffdf5;">
                 <h3 style="color: #b58100; margin-bottom: 10px; font-size: 15px;">🔑 পাসওয়ার্ড সেটিংস (ম্যানেজার ও অ্যাডমিন)</h3>
                 <div class="form-group">
@@ -291,6 +300,20 @@
         let products = [];
         let cart = [];
         let orders = [];
+
+        function updateAppLogo() {
+            let fileInput = document.getElementById('logoFile');
+            if(fileInput.files && fileInput.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('brandLogoImg').src = e.target.result;
+                    alert('লোগো সফলভাবে আপডেট করা হয়েছে!');
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                alert('দয়া করে গ্যালারি থেকে একটি লোগো ছবি সিলেক্ট করুন!');
+            }
+        }
 
         function toggleAuthMode(mode) {
             if(mode === 'register') {
@@ -626,7 +649,7 @@
                     </div>
                 `;
             });
-            container.innerHTML = html;
+            document.getElementById('adminOrderList').innerHTML = html;
         }
 
         function approveOrder(id) {
