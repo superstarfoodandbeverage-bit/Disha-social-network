@@ -21,7 +21,7 @@
         .disha-center-area { text-align: left; flex-grow: 1; }
         .disha-center-title { font-size: 22px; font-weight: 900; letter-spacing: 0.5px; }
         
-        /* লোগো ডিজাইন সেম রেখে বড় করা হয়েছে */
+        /* লোগো ডিজাইন */
         .right-disha-logo { 
             width: 52px; 
             height: 52px; 
@@ -50,13 +50,8 @@
         .btn-info { background: #17a2b8; color: white; }
         .hidden { display: none; }
 
-        /* ক্যাটাগরি গ্রিড */
         .section-title-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .section-title { font-size: 16px; font-weight: 700; color: #222; }
-        .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
-        .category-item { background: white; padding: 10px 5px; border-radius: 10px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.04); cursor: pointer; }
-        .category-icon-box { width: 50px; height: 50px; background: #f0f4f8; border-radius: 50%; margin: 0 auto 6px auto; display: flex; align-items: center; justify-content: center; font-size: 22px; border: 1px solid #e2e8f0; }
-        .category-name { font-size: 11.5px; font-weight: 600; color: #444; }
 
         /* ফর্ম ইনপুট */
         .form-group { margin-bottom: 12px; }
@@ -86,9 +81,9 @@
         .current-price { color: #28a745; font-weight: bold; font-size: 15px; }
         .old-price { text-decoration: line-through; color: #999; font-size: 12px; }
 
-        /* জলছাপ */
+        /* জলছাপ (DISHA নামে আপডেট করা হয়েছে) */
         #printableArea { position: relative; padding: 15px; overflow: hidden; }
-        .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 60px; font-weight: 900; color: rgba(0, 82, 212, 0.06); pointer-events: none; z-index: 0; white-space: nowrap; letter-spacing: 5px; }
+        .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 55px; font-weight: 900; color: rgba(0, 82, 212, 0.06); pointer-events: none; z-index: 0; white-space: nowrap; letter-spacing: 5px; }
         .invoice-content { position: relative; z-index: 1; }
 
         /* নিচের নেভিগেশন বার */
@@ -107,12 +102,12 @@
 </head>
 <body>
 
-    <!-- হেডার (ঢাকা, বাংলাদেশ বাদ দেওয়া হয়েছে এবং লোগো বড় করা হয়েছে) -->
+    <!-- হেডার (সঠিক লোগো ফাইল সহ) -->
     <header class="top-brand-header">
         <div class="disha-center-area">
             <div class="disha-center-title">Disha Mart</div>
         </div>
-        <img src="1000012933.png" alt="Disha Logo" class="right-disha-logo">
+        <img src="1000012933_3.png" alt="Disha Logo" class="right-disha-logo">
     </header>
 
     <!-- সার্চ বার -->
@@ -145,7 +140,7 @@
                     <input type="password" id="loginPass" class="form-control" placeholder="পাসওয়ার্ড দিন">
                 </div>
                 <button class="btn btn-success" style="width: 100%; margin-bottom: 10px;" onclick="loginCustomer()">লগইন করুন</button>
-                <p style="font-size: 13px; text-align: center;">অ্যাকাউন্ট নেই? <span style="color: #0052D4; cursor: pointer; font-weight: bold;" onclick="toggleAuthMode('register')">রেজিস্ট্রেশন করুন</span></p>
+                <p style="font-size: 13px; text-align: center;">অ্যাকাউন্ট নেই? <span style="color: #0052D4; cursor: pointer; font-weight: bold;" onclick="toggleAuthMode('register')">রেজিস্ট्रেশন করুন</span></p>
             </div>
 
             <div id="registerFormDiv" class="hidden">
@@ -195,23 +190,14 @@
             </div>
             <button class="btn btn-danger" style="padding: 4px 10px; font-size: 11px; margin-bottom: 15px;" onclick="logoutCustomer()">লগআউট</button>
 
-            <div class="section-title-wrapper">
-                <div class="section-title">Shop By Category</div>
-                <div class="see-all" style="font-size: 13px; color: #0052D4;">See All ></div>
-            </div>
-            <div class="category-grid">
-                <div class="category-item"><div class="category-icon-box">🌾</div><div class="category-name">Food Staples</div></div>
-                <div class="category-item"><div class="category-icon-box">💄</div><div class="category-name">Beauty Care</div></div>
-                <div class="category-item"><div class="category-icon-box">🧃</div><div class="category-name">Beverages</div></div>
-                <div class="category-item"><div class="category-icon-box">🧼</div><div class="category-name">Household</div></div>
-            </div>
+            <!-- ক্যাটাগরি সেকশন বাদ দেওয়া হয়েছে -->
 
-            <div class="section-title-wrapper" style="margin-top: 15px;">
+            <div class="section-title-wrapper" style="margin-top: 5px;">
                 <div class="section-title">উপলব্ধ পণ্যসমূহ</div>
             </div>
             
             <div class="product-grid" id="customerProductList">
-                <p style="color: #777; font-size: 13px; grid-column: span 2;">বর্তমানে কোনো পণ্য নেই।</p>
+                <p style="color: #777; font-size: 13px; grid-column: span 2;">বর্তমানে কোনো পণ্য নেই। অ্যাডমিন প্যানেল থেকে পণ্য যোগ করুন।</p>
             </div>
 
             <div class="card" style="margin-top: 20px;">
@@ -232,7 +218,6 @@
         <!-- অ্যাডমিন প্যানেল -->
         <div id="adminPanel" class="hidden">
             
-            <!-- পাসওয়ার্ড পরিবর্তন প্যানেল (অ্যাডমিন বা ম্যানেজার নিজের মতো পাসওয়ার্ড সেট করতে পারবেন) -->
             <div class="card" style="border: 2px solid #ffc107; background: #fffdf5;">
                 <h3 style="color: #b58100; margin-bottom: 10px; font-size: 15px;">🔑 পাসওয়ার্ড সেটিংস (ম্যানেজার ও অ্যাডমিন)</h3>
                 <div class="form-group">
@@ -272,12 +257,12 @@
 
     </div>
 
-    <!-- ভিউ ও প্রিন্ট মোড মডাল -->
+    <!-- প্রিন্ট মোড মডাল -->
     <div id="viewModal" class="card hidden" style="border: 2px dashed #007bff; margin-top: 15px;">
         <div id="printableArea">
-            <div class="watermark">SUN</div>
+            <div class="watermark">DISHA</div>
             <div class="invoice-content">
-                <h2 style="font-size: 16px; color: #0052D4;">Disha Social Network</h2>
+                <h2 style="font-size: 16px; color: #0052D4;">Disha Mart & Affiliate</h2>
                 <p style="font-size: 12px; color: #555;">অর্ডার মেমো / ইনভয়েস</p>
                 <hr style="margin: 8px 0;">
                 <div id="printDetails" style="font-size: 13px;"></div>
@@ -293,13 +278,11 @@
     <!-- নিচের ফিক্সড নেভিগেশন বার -->
     <div class="bottom-nav">
         <div class="bottom-nav-item active" onclick="switchTab('customer')"><span>🏠</span>Mart Home</div>
-        <div class="bottom-nav-item" onclick="alert('ক্যাটাগরি পেজ')"><span>📂</span>Categories</div>
-        <div class="bottom-nav-item" onclick="alert('কার্ট পেজ')"><span>🛒</span>Cart</div>
+        <div class="bottom-nav-item" onclick="alert('কার্ট অপশন')"><span>🛒</span>Cart</div>
         <div class="bottom-nav-item" onclick="openManagerLogin()"><span>⚙️</span>Manager</div>
     </div>
 
     <script>
-        // সিকিউরিটি পাসওয়ার্ড (ম্যানেজার ও অ্যাডমিন নিজের মতো পরিবর্তন করতে পারবেন)
         let managerPassword = "m123";
         let adminPassword = "a123";
 
@@ -393,7 +376,7 @@
         function renderCustomerProducts() {
             let container = document.getElementById('customerProductList');
             if(products.length === 0) {
-                container.innerHTML = '<p style="color: #777; font-size: 13px; grid-column: span 2;">বর্তমানে কোনো পণ্য নেই।</p>';
+                container.innerHTML = '<p style="color: #777; font-size: 13px; grid-column: span 2;">বর্তমানে কোনো পণ্য নেই। অ্যাডমিন প্যানেল থেকে পণ্য যোগ করুন।</p>';
                 return;
             }
             let html = '';
