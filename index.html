@@ -269,6 +269,12 @@
                 <button class="btn btn-danger" style="font-size: 11px; padding: 4px 8px;" onclick="logoutStaff()">অ্যাডমিন লগআউট</button>
             </div>
 
+            <div class="card" style="border: 2px solid #dc3545; background: #fff5f5;">
+                <h3 style="color: #dc3545; margin-bottom: 10px; font-size: 15px;">🧹 সম্পূর্ণ ডাটা রিসেট (পয়েন্ট ও অর্ডার শূন্য করুন)</h3>
+                <p style="font-size: 12px; color: #666; margin-bottom: 10px;">সব কাস্টমারের পয়েন্ট 0 করতে এবং পুরোনো অর্ডার/প্রোডাক্ট মুছে ফেলতে নিচের বাটনে ক্লিক করুন:</p>
+                <button class="btn btn-danger" onclick="hardResetSystem()">সব ডেটা রিসেট করুন (00)</button>
+            </div>
+
             <div class="card" style="border: 2px solid #ff5e00; background: #fffaf0;">
                 <h3 style="color: #ff5e00; margin-bottom: 10px; font-size: 15px;">🖼️ অ্যাপের ভেতরের লোগো পরিবর্তন করুন</h3>
                 <div class="form-group">
@@ -380,11 +386,6 @@
             let savedOrders = localStorage.getItem('disha_orders');
             if(savedOrders) { 
                 orders = JSON.parse(savedOrders); 
-                orders.forEach((o, index) => {
-                    if(!o.invoiceNo || o.invoiceNo === 'undefined' || o.invoiceNo === 'N/A') {
-                        o.invoiceNo = 'INV-' + (9102601 + index);
-                    }
-                });
             }
 
             let activeCustPhone = localStorage.getItem('disha_active_customer');
@@ -402,6 +403,36 @@
 
             renderCustomerProducts();
         };
+
+        function hardResetSystem() {
+            if(confirm('সতর্কতা: সমস্ত কাস্টমারের পয়েন্ট শূন্য (0) হয়ে যাবে এবং সব অর্ডার ও প্রোডাক্ট মুছে যাবে। আপনি কি নিশ্চিত?')) {
+                customers.forEach(c => {
+                    c.rewardPoints = 0;
+                    c.totalOrdersCount = 0;
+                });
+                localStorage.setItem('disha_customers', JSON.stringify(customers));
+                
+                orders = [];
+                localStorage.removeItem('disha_orders');
+
+                products = [];
+                localStorage.removeItem('disha_products');
+
+                if(currentCustomer) {
+                    currentCustomer.rewardPoints = 0;
+                    currentCustomer.totalOrdersCount = 0;
+                    updateCustomerDashboard();
+                }
+
+                renderAdminCustomers();
+                renderAdminProductList();
+                renderAdminOrders();
+                renderManagerOrders();
+                renderCustomerProducts();
+
+                alert('সফলভাবে সমস্ত পয়েন্ট, অর্ডার এবং প্রোডাক্ট রিসেট করে 0 করা হয়েছে!');
+            }
+        }
 
         function updateAppLogo() {
             let fileInput = document.getElementById('logoFile');
@@ -564,16 +595,20 @@
             let oldPrice = document.getElementById('pOldPrice').value.trim();
             let discount = document.getElementById('pDiscount').value.trim();
             let size = document.getElementById('pSize').value.trim();
-            let imageFile = document.getElementById('pImageFile').files[0];
+            let imageFileInput = document.getElementById('pImageFile');
 
-            if(!name || !price) { alert('নাম ও মূল্য দিন!'); return; }
+            if(!name || !price) { alert('দয়া করে অন্তত পণ্যের নাম ও বর্তমান মূল্য দিন!'); return; }
 
-            if(imageFile) {
+            if(imageFileInput.files && imageFileInput.files[0]) {
                 let reader = new FileReader();
                 reader.onload = function(e) { 
                     processProductSave(editId, name, price, oldPrice, discount, size, e.target.result); 
                 };
-                reader.readAsDataURL(imageFile);
+                reader.onerror = function() {
+                    alert('ছবি পড়তে সমস্যা হয়েছে। ছবি ছাড়াই সেভ করার চেষ্টা করা হচ্ছে।');
+                    processProductSave(editId, name, price, oldPrice, discount, size, '');
+                };
+                reader.readAsDataURL(imageFileInput.files[0]);
             } else {
                 let existingImage = editId !== "" ? (products.find(prod => String(prod.id) === String(editId))?.image || '') : '';
                 processProductSave(editId, name, price, oldPrice, discount, size, existingImage);
