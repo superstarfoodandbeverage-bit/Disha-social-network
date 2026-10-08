@@ -743,7 +743,7 @@
             currentCustomer.totalOrdersCount += 1;
 
             let newOrder = {
-                id: Date.now(), 
+                id: String(Date.now()), 
                 customerName: currentCustomer.name, 
                 customerId: currentCustomer.id,
                 customerPhone: currentCustomer.phone, 
@@ -836,7 +836,11 @@
             if(appOrders.length === 0) { container.innerHTML = '<p>ম্যানেজার মোডে অনুমোদিত কোনো অর্ডার নেই।</p>'; return; }
             let html = '';
             appOrders.forEach(o => {
-                html += `<div class="card" style="border: 1px solid #17a2b8;"><p><b>গ্রাহক:</b> ${o.customerName} (${o.total}৳)</p><button class="btn btn-info" style="margin-top:8px;" onclick="viewOrder(${o.id})">🔍 ভিউ চেক করুন ও প্রিন্ট করুন</button></div>`;
+                html += `<div class="card" style="border: 1px solid #17a2b8;">
+                    <p><b>গ্রাহক:</b> ${o.customerName}</p>
+                    <p>মোট: ${o.total} টাকা, অগ্রিম: ${o.advance || 0} টাকা, ক্যাশ অন ডেলিভারি: ${o.due || 0} টাকা</p>
+                    <button class="btn btn-info" style="margin-top:8px;" onclick="viewOrder('${o.id}')">🔍 ভিউ চেক করুন ও প্রিন্ট করুন</button>
+                </div>`;
             });
             container.innerHTML = html;
         }
@@ -851,7 +855,8 @@
             orders.forEach(o => {
                 let isApproved = o.adminApproved === true;
                 html += `<div class="card" style="border: 1px solid #ddd;">
-                    Customer: ${o.customerName} - Total: ${o.total}৳ <br>
+                    Customer: ${o.customerName} <br>
+                    মোট: ${o.total} টাকা | অগ্রিম: ${o.advance || 0} টাকা | ক্যাশ অন ডেলিভারি: ${o.due || 0} টাকা <br>
                     ${!isApproved ? `<button class="btn btn-warning" style="margin-top:6px;" onclick="approveOrder('${o.id}')">অ্যাডমিন অ্যাপ্রুভ দিন</button>` : '<b style="color:green; display:inline-block; margin-top:6px;">অ্যাডমিন কর্তৃক অনুমোদিত (ম্যানেজার মোডে পাঠানো হয়েছে)</b>'}
                 </div>`;
             });
@@ -896,9 +901,9 @@
                     <hr style="margin: 6px 0;">
                     <p style="margin-bottom: 4px;"><b>পণ্যের বিবরণ:</b></p>${itemsHtml}
                     <p style="margin-top: 8px;"><b>পেমেন্ট মাধ্যম:</b> ${paymentText}</p>
-                    <p style="margin-top: 4px;"><b>অগ্রিম (Advance):</b> ৳ ${advanceVal}</p>
-                    <p style="margin-top: 4px;"><b>ডিউ (Due):</b> ৳ ${dueVal}</p>
-                    <p style="margin-top: 6px; font-weight: bold; color: #0052D4;">মোট মূল্য: ৳ ${ord.total}</p>
+                    <p style="margin-top: 4px;"><b>মোট:</b> ${ord.total} টাকা</p>
+                    <p style="margin-top: 4px;"><b>অগ্রিম:</b> ${advanceVal} টাকা</p>
+                    <p style="margin-top: 4px; font-weight: bold; color: #d9534f;"><b>ক্যাশ অন ডেলিভারি:</b> ${dueVal} টাকা</p>
                 `;
                 
                 document.getElementById('viewModal').classList.remove('hidden');
