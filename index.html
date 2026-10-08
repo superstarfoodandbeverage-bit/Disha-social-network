@@ -17,7 +17,7 @@
             color: white;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
-        .disha-left-area { font-size: 16px; font-weight: bold; display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+        .disha-left-area { font-size: 16px; font-weight: bold; display: flex; align-items: center; gap: 5px; flex-shrink: 0; cursor: pointer; }
         .disha-center-area { text-align: center; flex-grow: 1; padding: 0 10px; }
         .disha-center-title { font-size: 18px; font-weight: 900; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .right-disha-logo { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.2); background: #fff; flex-shrink: 0; }
@@ -132,15 +132,15 @@
 <body>
 
     <header class="top-brand-header">
-        <div class="disha-left-area"><span>☀️</span> Sun</div>
+        <div class="disha-left-area" onclick="switchTab('customer')"><span>🏠</span> হোম</div>
         <div class="disha-center-area"><div class="disha-center-title">Disha social network</div></div>
-        <img id="brandLogoImg" src="1000012933_3.png" alt="Disha Logo" class="right-disha-logo">
+        <img id="brandLogoImg" src="" alt="Disha Logo" class="right-disha-logo">
     </header>
 
     <div class="search-container">
         <div class="search-box">
             <span>🔍</span>
-            <input type="text" placeholder="Search in Sun Product...">
+            <input type="text" placeholder="Search in Home...">
         </div>
     </div>
 
@@ -165,7 +165,7 @@
                     <input type="password" id="loginPass" class="form-control" placeholder="পাসওয়ার্ড দিন">
                 </div>
                 <button class="btn btn-success" style="width: 100%; margin-bottom: 10px;" onclick="loginCustomer()">লগইন করুন</button>
-                <p style="font-size: 13px; text-align: center;">একাউন্ট নেই? <span style="color: #0052D4; cursor: pointer; font-weight: bold;" onclick="toggleAuthMode('register')">রেজিস্ট্রেশন করুন</span></p>
+                <p style="font-size: 13px; text-align: center;">একাউন্ট নেই? <span style="color: #0052D4; cursor: pointer; font-weight: bold;" onclick="toggleAuthMode('register')">রেজিস্ট्रেশন করুন</span></p>
             </div>
 
             <div id="registerFormDiv" class="hidden">
@@ -197,7 +197,7 @@
         <!-- কাস্টমার ড্যাশবোর্ড -->
         <div id="customerPanel" class="hidden">
             <div class="inner-app-header">
-                <img id="innerCustomLogoImg" src="1000012933_3.png" alt="Inner Logo" class="inner-header-logo">
+                <img id="innerCustomLogoImg" src="" alt="Inner Logo" class="inner-header-logo">
             </div>
 
             <div class="profile-box-modern">
@@ -322,11 +322,11 @@
 
     <div id="viewModal" class="card hidden" style="border: 2px dashed #0052D4; margin-top: 15px;">
         <h3 style="color: #0052D4; margin-bottom: 10px;">🔍 ম্যানেজার ভিউ চেক প্যানেল</h3>
-        <p style="font-size: 12px; color: #555; margin-bottom: 10px;">সব তথ্য ঠিক থাকলে নিচে প্রিন্ট করুন:</p>
+        <p style="font-size: 12px; color: #555; margin-bottom: 10px;">সব ঠিক থাকলে নিচে প্রিন্ট করুন:</p>
         <div id="printableArea">
-            <div class="watermark">SUN PRODUCT</div>
+            <div class="watermark">HOME</div>
             <div class="invoice-content">
-                <h2 style="font-size: 16px; color: #0052D4;">☀️ Sun product</h2>
+                <h2 style="font-size: 16px; color: #0052D4;">🏠 Home</h2>
                 <p id="printInvoiceNo" style="font-size: 13px; font-weight: bold; color: #ff5e00; margin-top: 2px;"></p>
                 <p id="printTimestamp" style="font-weight: bold; font-size: 11px; color: #555; margin-top: 2px;"></p>
                 <hr style="margin: 8px 0;">
@@ -358,10 +358,18 @@
 
         window.onload = function() {
             let savedLogo = localStorage.getItem('disha_app_logo');
-            if(savedLogo) { document.getElementById('brandLogoImg').src = savedLogo; }
+            if(savedLogo) { 
+                document.getElementById('brandLogoImg').src = savedLogo; 
+            } else {
+                document.getElementById('brandLogoImg').src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><circle cx="25" cy="25" r="23" fill="%230052D4"/><text x="25" y="30" font-size="14" fill="white" text-anchor="middle">LOGO</text></svg>';
+            }
 
             let savedInnerLogo = localStorage.getItem('disha_inner_app_logo');
-            if(savedInnerLogo) { document.getElementById('innerCustomLogoImg').src = savedInnerLogo; }
+            if(savedInnerLogo) { 
+                document.getElementById('innerCustomLogoImg').src = savedInnerLogo; 
+            } else {
+                document.getElementById('innerCustomLogoImg').src = document.getElementById('brandLogoImg').src;
+            }
 
             let savedProducts = localStorage.getItem('disha_products');
             if(savedProducts) { products = JSON.parse(savedProducts); }
@@ -370,7 +378,15 @@
             if(savedCustomers) { customers = JSON.parse(savedCustomers); }
 
             let savedOrders = localStorage.getItem('disha_orders');
-            if(savedOrders) { orders = JSON.parse(savedOrders); }
+            if(savedOrders) { 
+                orders = JSON.parse(savedOrders); 
+                // পুরনো অর্ডারগুলোতে ইনভয়েস নম্বর না থাকলে স্বয়ংক্রিয়ভাবে তৈরি করে নেওয়া যাতে অ্যাপ্রুভ করতে সমস্যা না হয়
+                orders.forEach((o, index) => {
+                    if(!o.invoiceNo || o.invoiceNo === 'undefined' || o.invoiceNo === 'N/A') {
+                        o.invoiceNo = 'INV-' + (9102601 + index);
+                    }
+                });
+            }
 
             let activeCustPhone = localStorage.getItem('disha_active_customer');
             if(activeCustPhone) {
@@ -400,7 +416,7 @@
                 };
                 reader.readAsDataURL(fileInput.files[0]);
             } else {
-                alert('দয়া করে একটি লোগো ছবি সিলেক্ট করুন!');
+                alert('দয়া করে প্রথমে ফাইল থেকে একটি লোগো ছবি সিলেক্ট করুন!');
             }
         }
 
@@ -666,20 +682,11 @@
             currentCustomer.rewardPoints += earnedReward;
             currentCustomer.totalOrdersCount += 1;
 
-            let now = new Date();
-            let day = now.getDate();
-            let month = now.getMonth() + 1;
-            let year = String(now.getFullYear()).slice(-2);
-            let datePrefix = `${day}${month}${year}`;
-            
-            let todayOrders = orders.filter(o => o.datePrefix === datePrefix);
-            let serialNum = todayOrders.length + 1;
-            let invoiceNo = `${datePrefix}${String(serialNum).padStart(2, '0')}`;
+            let invoiceNo = 'INV-' + Math.floor(100000 + Math.random() * 900000);
 
             let newOrder = {
                 id: Date.now(), 
                 invoiceNo: invoiceNo,
-                datePrefix: datePrefix,
                 customerName: currentCustomer.name, 
                 customerId: currentCustomer.id,
                 customerPhone: currentCustomer.phone, 
@@ -687,7 +694,7 @@
                 affiliate: currentCustomer.affiliateRef || 'None',
                 items: [...cart], 
                 total: orderTotal, 
-                orderTime: now.toLocaleString(),
+                orderTime: new Date().toLocaleString(),
                 adminApproved: false
             };
 
@@ -783,7 +790,7 @@
             if(orders.length === 0) { container.innerHTML = '<p>অর্ডার নেই।</p>'; return; }
             let html = '';
             orders.forEach(o => {
-                let invDisplay = o.invoiceNo ? o.invoiceNo : 'N/A';
+                let invDisplay = (o.invoiceNo && o.invoiceNo !== 'undefined') ? o.invoiceNo : 'INV-9102600';
                 html += `<div class="card" style="border: 1px solid #ddd;">Invoice No: ${invDisplay} - Customer: ${o.customerName} - Total: ${o.total}৳ <br>${!o.adminApproved ? `<button class="btn btn-warning" style="margin-top:6px;" onclick="approveOrder(${o.id})">অ্যাডমিন অ্যাপ্রুভ দিন</button>` : '<b style="color:green; display:inline-block; margin-top:6px;">অ্যাডমিন কর্তৃক অনুমোদিত (ম্যানেজার মোডে পাঠানো হয়েছে)</b>'}</div>`;
             });
             container.innerHTML = html;
@@ -793,10 +800,13 @@
             let o = orders.find(ord => ord.id === id);
             if(o) { 
                 o.adminApproved = true; 
+                if(!o.invoiceNo || o.invoiceNo === 'undefined') {
+                    o.invoiceNo = 'INV-' + Math.floor(100000 + Math.random() * 900000);
+                }
                 localStorage.setItem('disha_orders', JSON.stringify(orders)); 
                 renderAdminOrders(); 
                 renderManagerOrders();
-                alert('অর্ডারটি সফলভাবে অ্যাপ্রুভ করা হয়েছে এবং ম্যানেজার মোডে যোগ করা হয়েছে!'); 
+                alert('অর্ডারটি সফলভাবে অ্যাপ্রুভ করা হয়েছে এবং ম্যানেজার মোডে পাঠানো হয়েছে!'); 
             }
         }
 
@@ -807,7 +817,7 @@
                 ord.items.forEach(i => { itemsHtml += `<li>${i.name} - ৳ ${i.price}</li>`; });
                 itemsHtml += '</ul>';
                 
-                document.getElementById('printInvoiceNo').innerText = `Invoice No: ${ord.invoiceNo || 'N/A'}`;
+                document.getElementById('printInvoiceNo').innerText = `Invoice No: ${ord.invoiceNo || 'INV-9102600'}`;
                 document.getElementById('printTimestamp').innerText = `সময়: ${ord.orderTime}`;
                 
                 document.getElementById('printDetails').innerHTML = `
