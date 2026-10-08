@@ -182,6 +182,10 @@
                     <input type="password" id="regPass" class="form-control" placeholder="পাসওয়ার্ড দিন">
                 </div>
                 <div class="form-group">
+                    <label>ঠিকানা:</label>
+                    <input type="text" id="regAddress" class="form-control" placeholder="আপনার ঠিকানা লিখুন">
+                </div>
+                <div class="form-group">
                     <label>এফিলিয়েট আইডি (যদি থাকে):</label>
                     <input type="text" id="regAffiliate" class="form-control" placeholder="যেমন: 1681646 (ঐচ্ছিক)">
                 </div>
@@ -278,7 +282,7 @@
             </div>
 
             <div class="card" style="border: 2px solid #17a2b8;">
-                <h3 style="color: #17a2b8; margin-bottom: 10px; font-size: 15px;">👥 রেজিস্টার্ড কাস্টমার তালিকা (আইডি ও পয়েন্ট সহ)</h3>
+                <h3 style="color: #17a2b8; margin-bottom: 10px; font-size: 15px;">👥 রেজিস্টার্ড কাস্টমার তালিকা</h3>
                 <div id="adminCustomerList" style="font-size: 13px;">কোনো কাস্টমার নেই।</div>
             </div>
 
@@ -316,11 +320,11 @@
         <div id="printableArea">
             <div class="watermark">SUN PRODUCT</div>
             <div class="invoice-content">
-                <h2 style="font-size: 16px; color: #0052D4;">Sun Product & Affiliate</h2>
-                <p style="font-size: 12px; color: #555;">অর্ডার মেমো / ইনভয়েস</p>
+                <h2 style="font-size: 16px; color: #0052D4;">☀️ Sun product</h2>
+                <p id="printInvoiceNo" style="font-size: 13px; font-weight: bold; color: #ff5e00; margin-top: 2px;"></p>
+                <p id="printTimestamp" style="font-weight: bold; font-size: 11px; color: #555; margin-top: 2px;"></p>
                 <hr style="margin: 8px 0;">
                 <div id="printDetails" style="font-size: 13px;"></div>
-                <p id="printTimestamp" style="margin-top: 12px; font-weight: bold; font-size: 11px;"></p>
             </div>
         </div>
         <div style="margin-top: 12px; display: flex; gap: 8px;" class="no-print">
@@ -424,13 +428,14 @@
             let name = document.getElementById('regName').value.trim();
             let phone = document.getElementById('regPhone').value.trim();
             let pass = document.getElementById('regPass').value.trim();
+            let address = document.getElementById('regAddress').value.trim();
             let affiliate = document.getElementById('regAffiliate').value.trim();
 
-            if(!name || !phone || !pass) { alert('সব ফিল্ড পূরণ করুন!'); return; }
+            if(!name || !phone || !pass || !address) { alert('সব ফিল্ড (নাম, মোবাইল, পাসওয়ার্ড, ঠিকানা) পূরণ করুন!'); return; }
             if(customers.some(c => c.phone === phone)) { alert('এই নম্বরে ইতিমধ্যে অ্যাকাউন্ট আছে!'); return; }
 
             let uniqueId = affiliate || ("16" + Math.floor(10000 + Math.random() * 90000));
-            let newCust = { id: uniqueId, name: name, phone: phone, pass: pass, affiliateRef: affiliate || 'None', rewardPoints: 0, totalOrdersCount: 0 };
+            let newCust = { id: uniqueId, name: name, phone: phone, pass: pass, address: address, affiliateRef: affiliate || 'None', rewardPoints: 0, totalOrdersCount: 0 };
 
             customers.push(newCust);
             localStorage.setItem('disha_customers', JSON.stringify(customers));
@@ -646,14 +651,29 @@
             currentCustomer.rewardPoints += earnedReward;
             currentCustomer.totalOrdersCount += 1;
 
+            // তারিখের ওপর ভিত্তি করে ইনভয়েস নম্বর তৈরি (যেমন: INV-9102601)
+            let now = new Date();
+            let day = now.getDate();
+            let month = now.getMonth() + 1;
+            let year = String(now.getFullYear()).slice(-2); // বছরের শেষ ২ ডিজিট (যেমন: 26)
+            let datePrefix = `${day}${month}${year}`; // যেমন: 91026 (৯ অক্টোবর ২৬)
+            
+            let todayOrders = orders.filter(o => o.datePrefix === datePrefix);
+            let serialNum = todayOrders.length + 1;
+            let invoiceNo = `INV-${datePrefix}${String(serialNum).padStart(2, '0')}`;
+
             let newOrder = {
                 id: Date.now(), 
+                invoiceNo: invoiceNo,
+                datePrefix: datePrefix,
                 customerName: currentCustomer.name, 
                 customerId: currentCustomer.id,
                 customerPhone: currentCustomer.phone, 
+                customerAddress: currentCustomer.address || 'দেয়া হয়নি',
                 affiliate: currentCustomer.affiliateRef,
                 items: [...cart], 
                 total: orderTotal, 
+                orderTime: now.toLocaleString(),
                 adminApproved: false
             };
 
@@ -669,7 +689,7 @@
             cart = []; 
             updateCartUI(); 
             updateCustomerDashboard();
-            alert(`অর্ডার সফলভাবে কনফার্ম হয়েছে এবং অ্যাডমিন প্যানেলে পাঠানো হয়েছে! আপনি ${earnedReward} রিওয়ার্ড পয়েন্ট পেয়েছেন।`);
+            alert(`অর্ডার সফলভাবে কনফার্ম হয়েছে (${invoiceNo})! আপনি ${earnedReward} রিওয়ার্ড পয়েন্ট পেয়েছেন।`);
         }
 
         function openManagerLogin() { 
@@ -725,8 +745,8 @@
             let container = document.getElementById('adminCustomerList');
             if(!container) return;
             if(customers.length === 0) { container.innerHTML = '<p>কাস্টমার নেই।</p>'; return; }
-            let html = '<table style="width:100%; border-collapse:collapse;" border="1"><tr><th style="padding:6px;">আইডি</th><th>নাম</th><th>পয়েন্ট</th></tr>';
-            customers.forEach(c => { html += `<tr><td style="padding:6px; font-weight:bold; color:#ff5e00;">${c.id}</td><td style="padding:6px;">${c.name}</td><td style="padding:6px; color:#28a745; font-weight:bold;">${c.rewardPoints} Pt</td></tr>`; });
+            let html = '<table style="width:100%; border-collapse:collapse;" border="1"><tr><th style="padding:6px;">আইডি</th><th>নাম</th><th>মোবাইল</th><th>ঠিকানা</th><th>পয়েন্ট</th></tr>';
+            customers.forEach(c => { html += `<tr><td style="padding:6px; font-weight:bold; color:#ff5e00;">${c.id}</td><td style="padding:6px;">${c.name}</td><td style="padding:6px;">${c.phone}</td><td style="padding:6px;">${c.address || ''}</td><td style="padding:6px; color:#28a745; font-weight:bold;">${c.rewardPoints} Pt</td></tr>`; });
             container.innerHTML = html + '</table>';
         }
 
@@ -737,7 +757,7 @@
             if(appOrders.length === 0) { container.innerHTML = '<p>ম্যানেজার মোডে অনুমোদিত কোনো অর্ডার নেই।</p>'; return; }
             let html = '';
             appOrders.forEach(o => {
-                html += `<div class="card" style="border: 1px solid #17a2b8;"><p><b>অর্ডার আইডি:</b> ${o.id}</p><p><b>গ্রাহক:</b> ${o.customerName} (${o.total}৳)</p><button class="btn btn-info" style="margin-top:8px;" onclick="viewOrder(${o.id})">🔍 ভিউ চেক করুন ও প্রিন্ট করুন</button></div>`;
+                html += `<div class="card" style="border: 1px solid #17a2b8;"><p><b>ইনভয়েস:</b> ${o.invoiceNo}</p><p><b>গ্রাহক:</b> ${o.customerName} (${o.total}৳)</p><button class="btn btn-info" style="margin-top:8px;" onclick="viewOrder(${o.id})">🔍 ভিউ চেক করুন ও প্রিন্ট করুন</button></div>`;
             });
             container.innerHTML = html;
         }
@@ -748,7 +768,7 @@
             if(orders.length === 0) { container.innerHTML = '<p>অর্ডার নেই।</p>'; return; }
             let html = '';
             orders.forEach(o => {
-                html += `<div class="card" style="border: 1px solid #ddd;">ID: ${o.id} - Customer: ${o.customerName} - Total: ${o.total}৳ <br>${!o.adminApproved ? `<button class="btn btn-warning" style="margin-top:6px;" onclick="approveOrder(${o.id})">অ্যাডমিন অ্যাপ্রুভ দিন</button>` : '<b style="color:green; display:inline-block; margin-top:6px;">অ্যাডমিন কর্তৃক অনুমোদিত (ম্যানেজার মোডে পাঠানো হয়েছে)</b>'}</div>`;
+                html += `<div class="card" style="border: 1px solid #ddd;">Invoice: ${o.invoiceNo} - Customer: ${o.customerName} - Total: ${o.total}৳ <br>${!o.adminApproved ? `<button class="btn btn-warning" style="margin-top:6px;" onclick="approveOrder(${o.id})">অ্যাডমিন অ্যাপ্রুভ দিন</button>` : '<b style="color:green; display:inline-block; margin-top:6px;">অ্যাডমিন কর্তৃক অনুমোদিত (ম্যানেজার মোডে পাঠানো হয়েছে)</b>'}</div>`;
             });
             container.innerHTML = html;
         }
@@ -769,8 +789,19 @@
                 let itemsHtml = '<ul>';
                 ord.items.forEach(i => { itemsHtml += `<li>${i.name} - ৳ ${i.price}</li>`; });
                 itemsHtml += '</ul>';
-                document.getElementById('printDetails').innerHTML = `<p><b>অর্ডার আইডি:</b> ${ord.id}</p><p><b>গ্রাহকের নাম:</b> ${ord.customerName}</p><p><b>মোবাইল:</b> ${ord.customerPhone}</p><p style="margin-top:5px;"><b>পণ্যসমূহ:</b></p>${itemsHtml}<p style="margin-top:8px; font-weight:bold; color:#0052D4;">মোট মূল্য: ৳ ${ord.total}</p>`;
-                document.getElementById('printTimestamp').innerText = `সময়: ${new Date().toLocaleString()}`;
+                
+                document.getElementById('printInvoiceNo').innerText = `Invoice Number: ${ord.invoiceNo}`;
+                document.getElementById('printTimestamp').innerText = `সময়: ${ord.orderTime}`;
+                
+                document.getElementById('printDetails').innerHTML = `
+                    <p style="margin-bottom: 4px;"><b>গ্রাহকের নাম:</b> ${ord.customerName}</p>
+                    <p style="margin-bottom: 4px;"><b>মোবাইল নম্বর:</b> ${ord.customerPhone}</p>
+                    <p style="margin-bottom: 8px;"><b>ঠিকানা:</b> ${ord.customerAddress}</p>
+                    <hr style="margin: 6px 0;">
+                    <p style="margin-bottom: 4px;"><b>পণ্যের বিবরণ:</b></p>${itemsHtml}
+                    <p style="margin-top: 8px; font-weight: bold; color: #0052D4;">মোট মূল্য: ৳ ${ord.total}</p>
+                `;
+                
                 document.getElementById('viewModal').classList.remove('hidden');
                 window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
             }
