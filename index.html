@@ -387,13 +387,14 @@
             if(fileInput.files && fileInput.files[0]) {
                 let reader = new FileReader();
                 reader.onload = function(e) {
-                    localStorage.setItem('disha_app_logo', e.target.result);
-                    document.getElementById('brandLogoImg').src = e.target.result;
-                    alert('বাইরের লোগো আপডেট ও সেভ হয়েছে!');
+                    let base64Image = e.target.result;
+                    localStorage.setItem('disha_app_logo', base64Image);
+                    document.getElementById('brandLogoImg').src = base64Image;
+                    alert('বাইরের লোগো সফলভাবে আপডেট ও সেভ হয়েছে!');
                 };
                 reader.readAsDataURL(fileInput.files[0]);
             } else {
-                alert('দয়া করে ছবি সিলেক্ট করুন!');
+                alert('দয়া করে একটি লোগো ছবি সিলেক্ট করুন!');
             }
         }
 
@@ -651,16 +652,16 @@
             currentCustomer.rewardPoints += earnedReward;
             currentCustomer.totalOrdersCount += 1;
 
-            // তারিখের ওপর ভিত্তি করে ইনভয়েস নম্বর তৈরি (যেমন: INV-9102601)
+            // তারিখ এবং সিরিয়াল নম্বর দিয়ে ইনভয়েস তৈরি (INV ছাড়া, যেমন: 9102601)
             let now = new Date();
             let day = now.getDate();
             let month = now.getMonth() + 1;
-            let year = String(now.getFullYear()).slice(-2); // বছরের শেষ ২ ডিজিট (যেমন: 26)
-            let datePrefix = `${day}${month}${year}`; // যেমন: 91026 (৯ অক্টোবর ২৬)
+            let year = String(now.getFullYear()).slice(-2);
+            let datePrefix = `${day}${month}${year}`;
             
             let todayOrders = orders.filter(o => o.datePrefix === datePrefix);
             let serialNum = todayOrders.length + 1;
-            let invoiceNo = `INV-${datePrefix}${String(serialNum).padStart(2, '0')}`;
+            let invoiceNo = `${datePrefix}${String(serialNum).padStart(2, '0')}`;
 
             let newOrder = {
                 id: Date.now(), 
@@ -670,7 +671,7 @@
                 customerId: currentCustomer.id,
                 customerPhone: currentCustomer.phone, 
                 customerAddress: currentCustomer.address || 'দেয়া হয়নি',
-                affiliate: currentCustomer.affiliateRef,
+                affiliate: currentCustomer.affiliateRef || 'None',
                 items: [...cart], 
                 total: orderTotal, 
                 orderTime: now.toLocaleString(),
@@ -689,7 +690,7 @@
             cart = []; 
             updateCartUI(); 
             updateCustomerDashboard();
-            alert(`অর্ডার সফলভাবে কনফার্ম হয়েছে (${invoiceNo})! আপনি ${earnedReward} রিওয়ার্ড পয়েন্ট পেয়েছেন।`);
+            alert(`অর্ডার সফলভাবে কনফার্ম হয়েছে (Invoice No: ${invoiceNo})! আপনি ${earnedReward} রিওয়ার্ড পয়েন্ট পেয়েছেন।`);
         }
 
         function openManagerLogin() { 
@@ -757,7 +758,7 @@
             if(appOrders.length === 0) { container.innerHTML = '<p>ম্যানেজার মোডে অনুমোদিত কোনো অর্ডার নেই।</p>'; return; }
             let html = '';
             appOrders.forEach(o => {
-                html += `<div class="card" style="border: 1px solid #17a2b8;"><p><b>ইনভয়েস:</b> ${o.invoiceNo}</p><p><b>গ্রাহক:</b> ${o.customerName} (${o.total}৳)</p><button class="btn btn-info" style="margin-top:8px;" onclick="viewOrder(${o.id})">🔍 ভিউ চেক করুন ও প্রিন্ট করুন</button></div>`;
+                html += `<div class="card" style="border: 1px solid #17a2b8;"><p><b>Invoice No:</b> ${o.invoiceNo}</p><p><b>গ্রাহক:</b> ${o.customerName} (${o.total}৳)</p><button class="btn btn-info" style="margin-top:8px;" onclick="viewOrder(${o.id})">🔍 ভিউ চেক করুন ও প্রিন্ট করুন</button></div>`;
             });
             container.innerHTML = html;
         }
@@ -768,7 +769,7 @@
             if(orders.length === 0) { container.innerHTML = '<p>অর্ডার নেই।</p>'; return; }
             let html = '';
             orders.forEach(o => {
-                html += `<div class="card" style="border: 1px solid #ddd;">Invoice: ${o.invoiceNo} - Customer: ${o.customerName} - Total: ${o.total}৳ <br>${!o.adminApproved ? `<button class="btn btn-warning" style="margin-top:6px;" onclick="approveOrder(${o.id})">অ্যাডমিন অ্যাপ্রুভ দিন</button>` : '<b style="color:green; display:inline-block; margin-top:6px;">অ্যাডমিন কর্তৃক অনুমোদিত (ম্যানেজার মোডে পাঠানো হয়েছে)</b>'}</div>`;
+                html += `<div class="card" style="border: 1px solid #ddd;">Invoice No: ${o.invoiceNo} - Customer: ${o.customerName} - Total: ${o.total}৳ <br>${!o.adminApproved ? `<button class="btn btn-warning" style="margin-top:6px;" onclick="approveOrder(${o.id})">অ্যাডমিন অ্যাপ্রুভ দিন</button>` : '<b style="color:green; display:inline-block; margin-top:6px;">অ্যাডমিন কর্তৃক অনুমোদিত (ম্যানেজার মোডে পাঠানো হয়েছে)</b>'}</div>`;
             });
             container.innerHTML = html;
         }
@@ -790,7 +791,7 @@
                 ord.items.forEach(i => { itemsHtml += `<li>${i.name} - ৳ ${i.price}</li>`; });
                 itemsHtml += '</ul>';
                 
-                document.getElementById('printInvoiceNo').innerText = `Invoice Number: ${ord.invoiceNo}`;
+                document.getElementById('printInvoiceNo').innerText = `Invoice No: ${ord.invoiceNo}`;
                 document.getElementById('printTimestamp').innerText = `সময়: ${ord.orderTime}`;
                 
                 document.getElementById('printDetails').innerHTML = `
