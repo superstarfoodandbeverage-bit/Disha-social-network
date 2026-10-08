@@ -193,9 +193,9 @@
                 <p style="font-size: 13px; text-align: center;">ইতিমধ্যে অ্যাকাউন্ট আছে? <span style="color: #0052D4; cursor: pointer; font-weight: bold;" onclick="toggleAuthMode('login')">লগইন করুন</span></p>
             </div>
 
-            <!-- আপনার দেওয়া ব্যানার ছবিটি এখানে যুক্ত করা হলো -->
+            <!-- লগইন পেজ ব্যানার সেকশন -->
             <div class="login-banner" style="text-align: center; margin-top: 15px;">
-                <img src="1000013491_2.png" alt="Disha Social Network Banner" style="max-width: 100%; height: auto; border-radius: 8px;">
+                <img id="loginBannerImg" src="1000013491_3.png" alt="Disha Social Network Banner" style="max-width: 100%; height: auto; border-radius: 8px;">
             </div>
         </div>
 
@@ -293,6 +293,16 @@
                 <button class="btn btn-danger" onclick="hardResetSystem()">সব ডেটা রিসেট করুন (00)</button>
             </div>
 
+            <!-- লগইন পেজ ব্যানার পরিবর্তনের অপশন -->
+            <div class="card" style="border: 2px solid #28a745; background: #f4faf4;">
+                <h3 style="color: #28a745; margin-bottom: 10px; font-size: 15px;">🖼️ লগইন পেজ ব্যানার পরিবর্তন করুন</h3>
+                <div class="form-group">
+                    <label>নতুন ব্যানার ছবি সিলেক্ট করুন:</label>
+                    <input type="file" id="loginBannerFile" class="form-control" accept="image/*">
+                </div>
+                <button class="btn btn-success" onclick="updateLoginBanner()">ব্যানার আপডেট ও সেভ করুন</button>
+            </div>
+
             <div class="card" style="border: 2px solid #ff5e00; background: #fffaf0;">
                 <h3 style="color: #ff5e00; margin-bottom: 10px; font-size: 15px;">🖼️ অ্যাপের ভেতরের লোগো পরিবর্তন করুন</h3>
                 <div class="form-group">
@@ -380,6 +390,13 @@
         let orders = [];
 
         window.onload = function() {
+            // সেভ করা লগইন ব্যানার লোড করা
+            let savedBanner = localStorage.getItem('disha_login_banner');
+            if(savedBanner) {
+                let bannerImg = document.getElementById('loginBannerImg');
+                if(bannerImg) bannerImg.src = savedBanner;
+            }
+
             let savedLogo = localStorage.getItem('disha_app_logo');
             if(savedLogo) { 
                 document.getElementById('brandLogoImg').src = savedLogo; 
@@ -420,6 +437,24 @@
 
             renderCustomerProducts();
         };
+
+        // লগইন ব্যানার আপডেট ফাংশন
+        function updateLoginBanner() {
+            let fileInput = document.getElementById('loginBannerFile');
+            if(fileInput.files && fileInput.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    let base64Image = e.target.result;
+                    localStorage.setItem('disha_login_banner', base64Image);
+                    let bannerImg = document.getElementById('loginBannerImg');
+                    if(bannerImg) bannerImg.src = base64Image;
+                    alert('লগইন পেজের ব্যানার সফলভাবে আপডেট ও সেভ হয়েছে!');
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                alert('দয়া করে প্রথমে একটি ব্যানার ছবি সিলেক্ট করুন!');
+            }
+        }
 
         function hardResetSystem() {
             if(confirm('সতর্কতা: সমস্ত কাস্টমারের পয়েন্ট শূন্য (0) হয়ে যাবে এবং সব অর্ডার ও প্রোডাক্ট মুছে যাবে। আপনি কি নিশ্চিত?')) {
