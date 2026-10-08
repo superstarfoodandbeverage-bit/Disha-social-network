@@ -114,7 +114,7 @@
         </div>
     </div>
 
-    <!-- টপ নেভ বার (লগইন না থাকলে শুধু ম্যানেজার/অ্যাডমিন লগইন বাটন দেখাবে, লগইন করলে লুকিয়ে যাবে) -->
+    <!-- টপ নেভ বার -->
     <div class="nav-bar" id="topNavBar">
         <button id="btnMgr" onclick="openManagerLogin()">ম্যানেজার</button>
         <button id="btnAdmin" onclick="openAdminLogin()">অ্যাডমিন</button>
@@ -168,7 +168,7 @@
                     <div class="avatar">👤</div>
                     <div class="profile-info">
                         <h3 id="profileCustName">Md. Rahim</h3>
-                        <p>আইডি: <b id="profileCustId" style="color: #0052D4;">DSN1001</b></p>
+                        <p>আইডি (এফিলিয়েট কোড): <b id="profileCustId" style="color: #0052D4;">DSN1001</b></p>
                         <p style="font-size: 11px; color: #28a745;">এফিলিয়েট লিংক: <span id="profileAffLink" style="font-weight: bold;">...</span></p>
                         <span class="member-badge">👑 প্রিমিয়াম মেম্বার</span>
                     </div>
@@ -225,6 +225,16 @@
                     <input type="file" id="logoFile" class="form-control" accept="image/*">
                 </div>
                 <button class="btn" onclick="updateAppLogo()">লোগো আপডেট করুন</button>
+            </div>
+
+            <!-- রিওয়ার্ড পয়েন্ট সেটিংস -->
+            <div class="card" style="border: 2px solid #e67e22; background: #fffaf0;">
+                <h3 style="color: #e67e22; margin-bottom: 10px; font-size: 15px;">⭐ রিওয়ার্ড পয়েন্ট সেটিংস</h3>
+                <div class="form-group">
+                    <label>প্রতি ১০০ টাকায় কত পয়েন্ট দিতে চান?:</label>
+                    <input type="number" id="rewardRateInput" class="form-control" value="5" placeholder="যেমন: 5">
+                </div>
+                <button class="btn btn-warning" onclick="updateRewardRate()">পয়েন্ট রেট সেভ করুন</button>
             </div>
 
             <div class="card" style="border: 2px solid #ffc107; background: #fffdf5;">
@@ -294,6 +304,7 @@
     <script>
         let managerPassword = "m123";
         let adminPassword = "a123";
+        let rewardPointsPer100 = 5; // ডিফল্ট পয়েন্ট রেট
 
         let customers = []; 
         let currentCustomer = null; 
@@ -322,6 +333,16 @@
             } else {
                 alert('দয়া করে গ্যালারি থেকে একটি লোগো ছবি সিলেক্ট করুন!');
             }
+        }
+
+        function updateRewardRate() {
+            let rate = document.getElementById('rewardRateInput').value.trim();
+            if(!rate || isNaN(rate)) { 
+                alert('দয়া করে সঠিক সংখ্যা লিখুন!'); 
+                return; 
+            }
+            rewardPointsPer100 = Number(rate);
+            alert('রিওয়ার্ড পয়েন্ট রেট সফলভাবে আপডেট করা হয়েছে! এখন থেকে প্রতি ১০০ টাকায় ' + rewardPointsPer100 + ' পয়েন্ট যোগ হবে।');
         }
 
         function toggleAuthMode(mode) {
@@ -354,7 +375,7 @@
             }
 
             let serialNum = 1000 + customers.length + 1;
-            let uniqueId = "DSN" + serialNum;
+            let uniqueId = "DSN" + serialNum; // এফিলিয়েট কোড ফরম্যাট
 
             let newCust = {
                 id: uniqueId,
@@ -367,7 +388,7 @@
             };
 
             customers.push(newCust);
-            alert('রেজিস্ট্রেশন সফল হয়েছে! এখন আপনার মোবাইল ও পাসওয়ার্ড দিয়ে লগইন করুন।');
+            alert('রেজিস্ট্রেশন সফল হয়েছে! আপনার এফিলিয়েট কোড হলো: ' + uniqueId);
             toggleAuthMode('login');
         }
 
@@ -381,7 +402,6 @@
                 document.getElementById('authSection').classList.add('hidden');
                 document.getElementById('customerPanel').classList.remove('hidden');
                 
-                // কাস্টমার লগইন করার পর ম্যানেজার/অ্যাডমিন বাটনগুলো সম্পূর্ণ লুকিয়ে ফেলা হবে
                 document.getElementById('topNavBar').classList.add('hidden');
                 document.getElementById('bottomManagerNav').classList.add('hidden');
 
@@ -398,7 +418,6 @@
             document.getElementById('customerPanel').classList.add('hidden');
             document.getElementById('authSection').classList.remove('hidden');
             
-            // কাস্টমার লগআউট করলে আবার নরমাল স্ক্রিন বাটন ফিরিয়ে আনা হবে
             document.getElementById('topNavBar').classList.remove('hidden');
             document.getElementById('bottomManagerNav').classList.remove('hidden');
 
@@ -407,7 +426,6 @@
         }
 
         function logoutStaff() {
-            // ম্যানেজার বা অ্যাডমিন প্যানেল থেকে বের হয়ে আবার হোম পেজে আসার জন্য
             switchTab('customer');
         }
 
@@ -521,7 +539,9 @@
             if(cart.length === 0) { alert('কার্টে কোনো পণ্য নেই!'); return; }
             
             let orderTotal = cart.reduce((sum, i) => sum + i.price, 0);
-            let earnedReward = Math.floor(orderTotal / 100) * 5;
+            
+            // অ্যাডমিন প্যানেল থেকে সেট করা রেট অনুযায়ী পয়েন্ট হিসাব
+            let earnedReward = Math.floor(orderTotal / 100) * rewardPointsPer100;
             currentCustomer.rewardPoints += earnedReward;
             currentCustomer.totalOrdersCount += 1;
 
