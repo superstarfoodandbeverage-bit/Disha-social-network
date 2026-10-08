@@ -186,7 +186,7 @@
                     <input type="text" id="regAddress" class="form-control" placeholder="আপনার ঠিকানা লিখুন">
                 </div>
                 <div class="form-group">
-                    <label>এফিলিয়েট আইডি (যদি থাকে):</label>
+                    <label>এফিলিয়েট আইডি (রেফারেন্স, যদি থাকে):</label>
                     <input type="text" id="regAffiliate" class="form-control" placeholder="যেমন: 1681646 (ঐচ্ছিক)">
                 </div>
                 <button class="btn" style="width: 100%; margin-bottom: 10px;" onclick="registerCustomer()">রেজিস্ট্রেশন সম্পন্ন করুন</button>
@@ -195,7 +195,7 @@
 
             <!-- লগইন পেজ ব্যানার সেকশন -->
             <div class="login-banner" style="text-align: center; margin-top: 15px;">
-                <img id="loginBannerImg" src="1000013491_3.png" alt="Disha Social Network Banner" style="max-width: 100%; height: auto; border-radius: 8px;">
+                <img id="loginBannerImg" src="" alt="Disha Social Network Banner" style="max-width: 100%; height: auto; border-radius: 8px;">
             </div>
         </div>
 
@@ -293,6 +293,21 @@
                 <button class="btn btn-danger" onclick="hardResetSystem()">সব ডেটা রিসেট করুন (00)</button>
             </div>
 
+            <!-- এফিলিয়েট বোনাস পয়েন্ট কাস্টমাইজ করার অপশন -->
+            <div class="card" style="border: 2px solid #ff8c00; background: #fffaf0;">
+                <h3 style="color: #ff8c00; margin-bottom: 10px; font-size: 15px;">💰 এফিলিয়েট বোনাস পয়েন্ট সেট করুন</h3>
+                <p style="font-size: 12px; color: #666; margin-bottom: 10px;">রেফার করলে কে কত পয়েন্ট পাবে তা নির্ধারণ করুন:</p>
+                <div class="form-group">
+                    <label>রেফারকারী (যিনি যুক্ত করেছেন) পয়েন্ট:</label>
+                    <input type="number" id="adminAffiliateBonusForReferrer" class="form-control" value="5">
+                </div>
+                <div class="form-group">
+                    <label>নতুন ব্যবহারকারী (যিনি যুক্ত হয়েছেন) পয়েন্ট:</label>
+                    <input type="number" id="adminAffiliateBonusForNewUser" class="form-control" value="2">
+                </div>
+                <button class="btn" style="background: #ff8c00;" onclick="saveAffiliateBonusSettings()">বোনাস সেটিংস সেভ করুন</button>
+            </div>
+
             <!-- লগইন পেজ ব্যানার পরিবর্তনের অপশন -->
             <div class="card" style="border: 2px solid #28a745; background: #f4faf4;">
                 <h3 style="color: #28a745; margin-bottom: 10px; font-size: 15px;">🖼️ লগইন পেজ ব্যানার পরিবর্তন করুন</h3>
@@ -322,8 +337,8 @@
             </div>
 
             <div class="card" style="border: 2px solid #17a2b8;">
-                <h3 style="color: #17a2b8; margin-bottom: 10px; font-size: 15px;">👥 রেজিস্টার্ড কাস্টমার তালিকা</h3>
-                <div id="adminCustomerList" style="font-size: 13px;">কোনো কাস্টমার নেই।</div>
+                <h3 style="color: #17a2b8; margin-bottom: 10px; font-size: 15px;">👥 রেজিস্টার্ড কাস্টমার তালিকা (পাসওয়ার্ডসহ)</h3>
+                <div id="adminCustomerList" style="font-size: 13px; overflow-x: auto;">কোনো কাস্টমার নেই।</div>
             </div>
 
             <div class="card" style="border: 2px solid #0052D4;" id="productFormCard">
@@ -382,6 +397,9 @@
         let managerPassword = "m123";
         let adminPassword = "a123";
         let rewardPointsPer100 = 5;
+        
+        let affiliateBonusForReferrer = 5; 
+        let affiliateBonusForNewUser = 2; 
 
         let customers = []; 
         let currentCustomer = null; 
@@ -390,11 +408,22 @@
         let orders = [];
 
         window.onload = function() {
-            // সেভ করা লগইন ব্যানার লোড করা
+            let savedReferrerBonus = localStorage.getItem('disha_referrer_bonus');
+            if(savedReferrerBonus !== null) affiliateBonusForReferrer = Number(savedReferrerBonus);
+            let savedNewUserBonus = localStorage.getItem('disha_new_user_bonus');
+            if(savedNewUserBonus !== null) affiliateBonusForNewUser = Number(savedNewUserBonus);
+
+            let refInput = document.getElementById('adminAffiliateBonusForReferrer');
+            let newObjInput = document.getElementById('adminAffiliateBonusForNewUser');
+            if(refInput) refInput.value = affiliateBonusForReferrer;
+            if(newObjInput) newObjInput.value = affiliateBonusForNewUser;
+
             let savedBanner = localStorage.getItem('disha_login_banner');
             if(savedBanner) {
                 let bannerImg = document.getElementById('loginBannerImg');
                 if(bannerImg) bannerImg.src = savedBanner;
+            } else {
+                document.getElementById('loginBannerImg').src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="150"><rect width="600" height="150" fill="%230052D4"/><text x="300" y="75" font-size="24" fill="white" text-anchor="middle">Disha Social Network</text></svg>';
             }
 
             let savedLogo = localStorage.getItem('disha_app_logo');
@@ -438,7 +467,19 @@
             renderCustomerProducts();
         };
 
-        // লগইন ব্যানার আপডেট ফাংশন
+        function saveAffiliateBonusSettings() {
+            let refBonus = Number(document.getElementById('adminAffiliateBonusForReferrer').value) || 0;
+            let newUserBonus = Number(document.getElementById('adminAffiliateBonusForNewUser').value) || 0;
+
+            affiliateBonusForReferrer = refBonus;
+            affiliateBonusForNewUser = newUserBonus;
+
+            localStorage.setItem('disha_referrer_bonus', refBonus);
+            localStorage.setItem('disha_new_user_bonus', newUserBonus);
+
+            alert('এফিলিয়েট বোনাস সেটিংস সফলভাবে সেভ করা হয়েছে!');
+        }
+
         function updateLoginBanner() {
             let fileInput = document.getElementById('loginBannerFile');
             if(fileInput.files && fileInput.files[0]) {
@@ -539,12 +580,36 @@
             if(!name || !phone || !pass || !address) { alert('সব ফিল্ড পূরণ করুন!'); return; }
             if(customers.some(c => c.phone === phone)) { alert('এই নম্বরে ইতিমধ্যে অ্যাকাউন্ট আছে!'); return; }
 
-            let uniqueId = affiliate || ("16" + Math.floor(10000 + Math.random() * 90000));
-            let newCust = { id: uniqueId, name: name, phone: phone, pass: pass, address: address, affiliateRef: affiliate || 'None', rewardPoints: 0, totalOrdersCount: 0 };
+            let uniqueId = "16" + Math.floor(10000 + Math.random() * 90000);
+            let initialPoints = 0;
+            let referrerMsg = "";
+
+            if(affiliate) {
+                let referrer = customers.find(c => String(c.id) === String(affiliate));
+                if(referrer) {
+                    referrer.rewardPoints += affiliateBonusForReferrer;
+                    initialPoints += affiliateBonusForNewUser;
+                    referrerMsg = ` এবং এফিলিয়েট বোনাস সফলভাবে যোগ করা হয়েছে!`;
+                } else {
+                    alert('সতর্কতা: প্রদত্ত এফিলিয়েট আইডিটি সঠিক নয়, তবে আপনার অ্যাকাউন্ট তৈরি হচ্ছে।');
+                }
+            }
+
+            let newCust = { 
+                id: uniqueId, 
+                name: name, 
+                phone: phone, 
+                pass: pass, 
+                address: address, 
+                affiliateRef: affiliate || 'None', 
+                rewardPoints: initialPoints, 
+                totalOrdersCount: 0 
+            };
 
             customers.push(newCust);
             localStorage.setItem('disha_customers', JSON.stringify(customers));
-            alert('রেজিস্ট্রেশন সফল! আপনার আইডি: ' + uniqueId);
+            
+            alert('রেজিস্ট্রেশন সফল! আপনার আইডি: ' + uniqueId + referrerMsg);
             toggleAuthMode('login');
         }
 
@@ -862,9 +927,33 @@
             let container = document.getElementById('adminCustomerList');
             if(!container) return;
             if(customers.length === 0) { container.innerHTML = '<p>কাস্টমার নেই।</p>'; return; }
-            let html = '<table style="width:100%; border-collapse:collapse;" border="1"><tr><th style="padding:6px;">আইডি</th><th>নাম</th><th>মোবাইল</th><th>ঠিকানা</th><th>পয়েন্ট</th></tr>';
-            customers.forEach(c => { html += `<tr><td style="padding:6px; font-weight:bold; color:#ff5e00;">${c.id}</td><td style="padding:6px;">${c.name}</td><td style="padding:6px;">${c.phone}</td><td style="padding:6px;">${c.address || ''}</td><td style="padding:6px; color:#28a745; font-weight:bold;">${c.rewardPoints} Pt</td></tr>`; });
+            let html = '<table style="width:100%; border-collapse:collapse;" border="1"><tr><th style="padding:6px;">আইডি</th><th>নাম</th><th>মোবাইল</th><th>পাসওয়ার্ড</th><th>পয়েন্ট</th><th>অ্যাকশন</th></tr>';
+            customers.forEach(c => { 
+                html += `<tr>
+                    <td style="padding:6px; font-weight:bold; color:#ff5e00;">${c.id}</td>
+                    <td style="padding:6px;">${c.name}</td>
+                    <td style="padding:6px;">${c.phone}</td>
+                    <td style="padding:6px; color:#d9534f; font-weight:bold;">${c.pass}</td>
+                    <td style="padding:6px; color:#28a745; font-weight:bold;">${c.rewardPoints} Pt</td>
+                    <td style="padding:6px; text-align:center;">
+                        <button class="btn btn-warning" style="padding: 2px 5px; font-size: 10px;" onclick="adminResetCustomerPassword('${c.phone}')">পাসওয়ার্ড পরিবর্তন</button>
+                    </td>
+                </tr>`; 
+            });
             container.innerHTML = html + '</table>';
+        }
+
+        function adminResetCustomerPassword(phone) {
+            let newPass = prompt("এই কাস্টমারের জন্য নতুন পাসওয়ার্ড দিন:");
+            if(newPass !== null && newPass.trim() !== "") {
+                let cust = customers.find(c => c.phone === phone);
+                if(cust) {
+                    cust.pass = newPass.trim();
+                    localStorage.setItem('disha_customers', JSON.stringify(customers));
+                    alert(cust.name + '-এর পাসওয়ার্ড সফলভাবে পরিবর্তন করা হয়েছে!');
+                    renderAdminCustomers();
+                }
+            }
         }
 
         function renderManagerOrders() {
