@@ -243,7 +243,13 @@
             <div class="card" style="margin-top: 20px;">
                 <h3 style="font-size: 15px; margin-bottom: 8px;">আপনার শপিং কার্ট</h3>
                 <div id="cartItems" style="margin: 8px 0; font-size: 13px;">কার্ট খালি আছে।</div>
-                <button class="btn btn-success" style="width: 100%;" onclick="sendOrder()">অর্ডার কনফার্ম করুন</button>
+                
+                <div class="form-group" style="margin-top: 12px;">
+                    <label>ডেলিভারির ঠিকানা:</label>
+                    <input type="text" id="cartDeliveryAddress" class="form-control" placeholder="আপনার পূর্ণ ঠিকানা লিখুন">
+                </div>
+
+                <button class="btn btn-success" style="width: 100%; margin-top: 8px;" onclick="sendOrder()">অর্ডার কনফার্ম করুন</button>
             </div>
         </div>
 
@@ -334,7 +340,7 @@
     </div>
 
     <div class="bottom-nav">
-        <div class="bottom-nav-item active" onclick="switchTab('customer')"><span>☀️</span>Sun Product</div>
+        <div class="bottom-nav-item active" onclick="switchTab('customer')"><span>🏠</span>হোম</div>
         <div class="bottom-nav-item" onclick="alert('কার্ট অপশন')"><span>🛒</span>Cart</div>
         <div class="bottom-nav-item" id="bottomManagerNav" onclick="openManagerLogin()"><span>⚙️</span>Manager</div>
     </div>
@@ -483,6 +489,9 @@
             document.getElementById('profileCustName').innerText = currentCustomer.name;
             document.getElementById('profileCustId').innerText = currentCustomer.id;
             document.getElementById('statReward').innerText = currentCustomer.rewardPoints + " Pt";
+            if(currentCustomer.address) {
+                document.getElementById('cartDeliveryAddress').value = currentCustomer.address;
+            }
         }
 
         function renderCustomerProducts() {
@@ -647,12 +656,16 @@
             if(cart.length === 0) { alert('কার্ট খালি আছে!'); return; }
             if(!currentCustomer) { alert('দয়া করে আগে লগইন করুন!'); return; }
 
+            let deliveryAddress = document.getElementById('cartDeliveryAddress').value.trim();
+            if(!deliveryAddress) { alert('দয়া করে ডেলিভারির ঠিকানা লিখুন!'); return; }
+
+            currentCustomer.address = deliveryAddress;
+
             let orderTotal = cart.reduce((sum, i) => sum + i.price, 0);
             let earnedReward = Math.floor(orderTotal / 100) * rewardPointsPer100;
             currentCustomer.rewardPoints += earnedReward;
             currentCustomer.totalOrdersCount += 1;
 
-            // তারিখ এবং সিরিয়াল নম্বর দিয়ে ইনভয়েস তৈরি (INV ছাড়া, যেমন: 9102601)
             let now = new Date();
             let day = now.getDate();
             let month = now.getMonth() + 1;
@@ -670,7 +683,7 @@
                 customerName: currentCustomer.name, 
                 customerId: currentCustomer.id,
                 customerPhone: currentCustomer.phone, 
-                customerAddress: currentCustomer.address || 'দেয়া হয়নি',
+                customerAddress: deliveryAddress,
                 affiliate: currentCustomer.affiliateRef || 'None',
                 items: [...cart], 
                 total: orderTotal, 
@@ -691,6 +704,7 @@
             updateCartUI(); 
             updateCustomerDashboard();
             alert(`অর্ডার সফলভাবে কনফার্ম হয়েছে (Invoice No: ${invoiceNo})! আপনি ${earnedReward} রিওয়ার্ড পয়েন্ট পেয়েছেন।`);
+            renderAdminOrders();
         }
 
         function openManagerLogin() { 
@@ -758,7 +772,7 @@
             if(appOrders.length === 0) { container.innerHTML = '<p>ম্যানেজার মোডে অনুমোদিত কোনো অর্ডার নেই।</p>'; return; }
             let html = '';
             appOrders.forEach(o => {
-                html += `<div class="card" style="border: 1px solid #17a2b8;"><p><b>Invoice No:</b> ${o.invoiceNo}</p><p><b>গ্রাহক:</b> ${o.customerName} (${o.total}৳)</p><button class="btn btn-info" style="margin-top:8px;" onclick="viewOrder(${o.id})">🔍 ভিউ চেক করুন ও প্রিন্ট করুন</button></div>`;
+                html += `<div class="card" style="border: 1px solid #17a2b8;"><p><b>Invoice No:</b> ${o.invoiceNo || 'N/A'}</p><p><b>গ্রাহক:</b> ${o.customerName} (${o.total}৳)</p><button class="btn btn-info" style="margin-top:8px;" onclick="viewOrder(${o.id})">🔍 ভিউ চেক করুন ও প্রিন্ট করুন</button></div>`;
             });
             container.innerHTML = html;
         }
@@ -769,7 +783,8 @@
             if(orders.length === 0) { container.innerHTML = '<p>অর্ডার নেই।</p>'; return; }
             let html = '';
             orders.forEach(o => {
-                html += `<div class="card" style="border: 1px solid #ddd;">Invoice No: ${o.invoiceNo} - Customer: ${o.customerName} - Total: ${o.total}৳ <br>${!o.adminApproved ? `<button class="btn btn-warning" style="margin-top:6px;" onclick="approveOrder(${o.id})">অ্যাডমিন অ্যাপ্রুভ দিন</button>` : '<b style="color:green; display:inline-block; margin-top:6px;">অ্যাডমিন কর্তৃক অনুমোদিত (ম্যানেজার মোডে পাঠানো হয়েছে)</b>'}</div>`;
+                let invDisplay = o.invoiceNo ? o.invoiceNo : 'N/A';
+                html += `<div class="card" style="border: 1px solid #ddd;">Invoice No: ${invDisplay} - Customer: ${o.customerName} - Total: ${o.total}৳ <br>${!o.adminApproved ? `<button class="btn btn-warning" style="margin-top:6px;" onclick="approveOrder(${o.id})">অ্যাডমিন অ্যাপ্রুভ দিন</button>` : '<b style="color:green; display:inline-block; margin-top:6px;">অ্যাডমিন কর্তৃক অনুমোদিত (ম্যানেজার মোডে পাঠানো হয়েছে)</b>'}</div>`;
             });
             container.innerHTML = html;
         }
@@ -780,6 +795,7 @@
                 o.adminApproved = true; 
                 localStorage.setItem('disha_orders', JSON.stringify(orders)); 
                 renderAdminOrders(); 
+                renderManagerOrders();
                 alert('অর্ডারটি সফলভাবে অ্যাপ্রুভ করা হয়েছে এবং ম্যানেজার মোডে যোগ করা হয়েছে!'); 
             }
         }
@@ -791,7 +807,7 @@
                 ord.items.forEach(i => { itemsHtml += `<li>${i.name} - ৳ ${i.price}</li>`; });
                 itemsHtml += '</ul>';
                 
-                document.getElementById('printInvoiceNo').innerText = `Invoice No: ${ord.invoiceNo}`;
+                document.getElementById('printInvoiceNo').innerText = `Invoice No: ${ord.invoiceNo || 'N/A'}`;
                 document.getElementById('printTimestamp').innerText = `সময়: ${ord.orderTime}`;
                 
                 document.getElementById('printDetails').innerHTML = `
