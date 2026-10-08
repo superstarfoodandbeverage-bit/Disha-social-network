@@ -76,6 +76,9 @@
             font-size: 10px;
             font-weight: 600;
             color: #333;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
         }
         .service-icon { font-size: 20px; margin-bottom: 4px; display: block; }
 
@@ -220,19 +223,60 @@
             </div>
 
             <div class="section-title-wrapper" style="margin-bottom: 8px;">
-                <div class="section-title" style="font-size: 14px;">আমাদের ডিজিটাল সেবাসমূহ</div>
+                <div class="section-title" style="font-size: 14px;">ফিচার ও ক্যাটাগরিসমূহ</div>
             </div>
+            
+            <!-- ১০টি ঘরযুক্ত গ্রিড (বিজনেস পেজ, দিশা টিভি, প্রশ্ন-উত্তর এবং নতুন প্রোডাক্ট/ক্যাটাগরির জন্য) -->
             <div class="services-grid">
-                <div class="service-item"><span class="service-icon">📱</span>মোবাইল রিচার্জ</div>
-                <div class="service-item"><span class="service-icon">📦</span>ড্রাইভ প্যাক</div>
-                <div class="service-item"><span class="service-icon">🛒</span>অনলাইন শপ</div>
-                <div class="service-item"><span class="service-icon">💳</span>রিসেলিং শপ</div>
-                <div class="service-item"><span class="service-icon">🤝</span>ট্রেড ব্যাংক</div>
-                <div class="service-item"><span class="service-icon">📄</span>ডিজিটাল পেপার</div>
-                <div class="service-item"><span class="service-icon">📺</span>লাইভ টিভি</div>
-                <div class="service-item"><span class="service-icon">🌙</span>ইসলামিক ফিচার</div>
-                <div class="service-item"><span class="service-icon">👥</span>ক্রাউড বিজনেস</div>
-                <div class="service-item"><span class="service-icon">⭐</span>বিজনেস ক্লাব</div>
+                <!-- ১. বিজনেস পেজ লিংক (ফলো বাটনসহ) -->
+                <a href="https://facebook.com/YOUR_PAGE_LINK" target="_blank" class="service-item">
+                    <span class="service-icon">👍</span>বিজনেস পেজ
+                </a>
+                
+                <!-- ২. দিশা টিভি -->
+                <a href="https://your-channel-link.com" target="_blank" class="service-item">
+                    <span class="service-icon">📺</span>Disha TV
+                </a>
+                
+                <!-- ৩. প্রশ্ন ও উত্তর পর্ব -->
+                <div class="service-item" onclick="openFAQModal()">
+                    <span class="service-icon">❓</span>প্রশ্ন ও উত্তর
+                </div>
+
+                <!-- ৪. নতুন প্রোডাক্ট / অফার ১ -->
+                <div class="service-item" onclick="alert('নতুন প্রোডাক্ট ক্যাটাগরি ১')">
+                    <span class="service-icon">🔥</span>নতুন অফার
+                </div>
+
+                <!-- ৫. নতুন প্রোডাক্ট / ক্যাটাগরি ২ -->
+                <div class="service-item" onclick="alert('নতুন প্রোডাক্ট ক্যাটাগরি ২')">
+                    <span class="service-icon">🛍️</span>বিশেষ পণ্য
+                </div>
+
+                <!-- ৬. অতিরিক্ত ক্যাটাগরি ৩ -->
+                <div class="service-item" onclick="alert('ক্যাটাগরি ৩')">
+                    <span class="service-icon">📦</span>ড্রাইভ প্যাক
+                </div>
+
+                <!-- ৭. অতিরিক্ত ক্যাটাগরি ৪ -->
+                <div class="service-item" onclick="alert('ক্যাটাগরি ৪')">
+                    <span class="service-icon">⭐</span>সেরা ডিল
+                </div>
+
+                <!-- ৮. অতিরিক্ত ক্যাটাগরি ৫ -->
+                <div class="service-item" onclick="alert('ক্যাটাগরি ৫')">
+                    <span class="service-icon">📱</span>রিচার্জ প্যাক
+                </div>
+
+                <!-- ৯. অতিরিক্ত ক্যাটাগরি ৬ -->
+                <div class="service-item" onclick="alert('ক্যাটাগরি ৬')">
+                    <span class="service-icon">🤝</span>ট্রেড ক্লাব
+                </div>
+
+                <!-- ১০. অতিরিক্ত ক্যাটাগরি ৭ -->
+                <div class="service-item" onclick="alert('ক্যাটাগরি ৭')">
+                    <span class="service-icon">🌙</span>ইসলামিক কর্নার
+                </div>
             </div>
 
             <button class="btn btn-danger" style="padding: 4px 10px; font-size: 11px; margin-bottom: 12px;" onclick="logoutCustomer()">লগআউট</button>
@@ -369,6 +413,18 @@
 
     </div>
 
+    <!-- প্রশ্ন-উত্তর (FAQ) পপআপ ম্যালডাল -->
+    <div id="faqModal" class="card hidden" style="border: 2px solid #17a2b8; margin-top: 15px;">
+        <h3 style="color: #17a2b8; margin-bottom: 10px;">❓ প্রশ্ন ও উত্তর পর্ব (FAQ)</h3>
+        <p style="font-size: 13px; color: #555; margin-bottom: 10px;">এখানে আপনার ব্যবসার সাধারণ প্রশ্ন ও উত্তরগুলো দেখতে পাবেন:</p>
+        <div style="font-size: 13px; line-height: 1.6;">
+            <p><b>প্রশ্ন ১: অ্যাপে কীভাবে পয়েন্ট পাবো?</b><br>উত্তর: অর্ডার করার মাধ্যমে এবং নতুন বন্ধুকে রেফার করার মাধ্যমে পয়েন্ট পাওয়া যায়।</p>
+            <hr style="margin: 8px 0;">
+            <p><b>প্রশ্ন ২: অর্ডার কিভাবে কনফার্ম হয়?</b><br>উত্তর: কার্টে পণ্য যোগ করে ঠিকানা ও পেমেন্ট সিলেক্ট করে অর্ডার কনফার্ম করলে তা অ্যাডমিনের কাছে যায়।</p>
+        </div>
+        <button class="btn btn-danger" style="margin-top: 12px; width: 100%;" onclick="closeFAQModal()">বন্ধ করুন</button>
+    </div>
+
     <div id="viewModal" class="card hidden" style="border: 2px dashed #0052D4; margin-top: 15px;">
         <h3 style="color: #0052D4; margin-bottom: 10px;">🔍 ম্যানেজার ভিউ চেক প্যানেল</h3>
         <p style="font-size: 12px; color: #555; margin-bottom: 10px;">সব ঠিক থাকলে নিচে প্রিন্ট করুন:</p>
@@ -466,6 +522,15 @@
 
             renderCustomerProducts();
         };
+
+        function openFAQModal() {
+            document.getElementById('faqModal').classList.remove('hidden');
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        function closeFAQModal() {
+            document.getElementById('faqModal').classList.add('hidden');
+        }
 
         function saveAffiliateBonusSettings() {
             let refBonus = Number(document.getElementById('adminAffiliateBonusForReferrer').value) || 0;
@@ -901,6 +966,7 @@
             document.getElementById('managerPanel').classList.add('hidden');
             document.getElementById('adminPanel').classList.add('hidden');
             document.getElementById('viewModal').classList.add('hidden');
+            document.getElementById('faqModal').classList.add('hidden');
 
             if(tab === 'customer') {
                 if(currentCustomer) {
