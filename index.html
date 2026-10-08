@@ -830,6 +830,8 @@
         function renderManagerOrders() {
             let container = document.getElementById('managerOrderList');
             if(!container) return;
+            let savedOrders = localStorage.getItem('disha_orders');
+            if(savedOrders) { orders = JSON.parse(savedOrders); }
             let appOrders = orders.filter(o => o.adminApproved === true);
             if(appOrders.length === 0) { container.innerHTML = '<p>ম্যানেজার মোডে অনুমোদিত কোনো অর্ডার নেই।</p>'; return; }
             let html = '';
@@ -842,6 +844,8 @@
         function renderAdminOrders() {
             let container = document.getElementById('adminOrderList');
             if(!container) return;
+            let savedOrders = localStorage.getItem('disha_orders');
+            if(savedOrders) { orders = JSON.parse(savedOrders); }
             if(orders.length === 0) { container.innerHTML = '<p>অর্ডার নেই।</p>'; return; }
             let html = '';
             orders.forEach(o => {
@@ -855,6 +859,9 @@
         }
 
         function approveOrder(id) {
+            let savedOrders = localStorage.getItem('disha_orders');
+            if(savedOrders) { orders = JSON.parse(savedOrders); }
+            
             let o = orders.find(ord => String(ord.id) === String(id));
             if(o) { 
                 o.adminApproved = true; 
@@ -868,6 +875,8 @@
         }
 
         function viewOrder(id) {
+            let savedOrders = localStorage.getItem('disha_orders');
+            if(savedOrders) { orders = JSON.parse(savedOrders); }
             let ord = orders.find(o => String(o.id) === String(id));
             if(ord) {
                 let itemsHtml = '<ul>';
