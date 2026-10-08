@@ -8,7 +8,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f4f6f9; color: #333; }
         
-        /* হেডার ডিজাইন এবং লোগো পজিশনিং */
+        /* হেডার ডিজাইন (তিনটি অংশ: বাম পাশ, মাঝের টেক্সট এবং ডান পাশের লোগো) */
         .top-brand-header {
             background: linear-gradient(135deg, #0052D4, #4364F7);
             padding: 12px 15px;
@@ -18,8 +18,31 @@
             color: white;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
-        .disha-center-area { text-align: left; flex-grow: 1; }
-        .disha-center-title { font-size: 22px; font-weight: 900; letter-spacing: 0.5px; }
+        
+        /* বাম পাশের অংশ */
+        .disha-left-area {
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-shrink: 0;
+        }
+
+        /* মাঝখানের অংশ */
+        .disha-center-area { 
+            text-align: center; 
+            flex-grow: 1; 
+            padding: 0 10px;
+        }
+        .disha-center-title { 
+            font-size: 18px; 
+            font-weight: 900; 
+            letter-spacing: 0.5px; 
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
         
         /* ডান পাশের লোগো স্টাইল */
         .right-disha-logo { 
@@ -31,7 +54,6 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             background: #fff;
             flex-shrink: 0;
-            margin-left: 10px;
         }
 
         /* সার্চ বার */
@@ -107,8 +129,11 @@
 
     <!-- হেডার -->
     <header class="top-brand-header">
+        <div class="disha-left-area">
+            <span>☀️</span> Sun
+        </div>
         <div class="disha-center-area">
-            <div class="disha-center-title">Disha Mart</div>
+            <div class="disha-center-title">Disha social network</div>
         </div>
         <img id="brandLogoImg" src="1000012933_3.png" alt="Disha Logo" class="right-disha-logo">
     </header>
@@ -662,7 +687,7 @@
                     </div>
                 `;
             });
-            document.getElementById('adminOrderList').innerHTML = html;
+            container.innerHTML = html;
         }
 
         function approveOrder(id) {
