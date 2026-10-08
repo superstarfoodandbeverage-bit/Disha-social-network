@@ -113,7 +113,7 @@
         .old-price { text-decoration: line-through; color: #999; font-size: 11px; }
 
         #printableArea { position: relative; padding: 15px; overflow: hidden; background: #fff; }
-        .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 55px; font-weight: 900; color: rgba(0, 82, 212, 0.06); pointer-events: none; z-index: 0; white-space: nowrap; letter-spacing: 5px; }
+        .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 45px; font-weight: 900; color: rgba(0, 82, 212, 0.06); pointer-events: none; z-index: 0; white-space: nowrap; letter-spacing: 3px; }
         .invoice-content { position: relative; z-index: 1; }
 
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 8px 0; box-shadow: -2px -2px 8px rgba(0,0,0,0.1); z-index: 99; }
@@ -249,6 +249,19 @@
                     <input type="text" id="cartDeliveryAddress" class="form-control" placeholder="আপনার পূর্ণ ঠিকানা লিখুন">
                 </div>
 
+                <div class="form-group">
+                    <label>পেমেন্ট পদ্ধতি:</label>
+                    <select id="cartPaymentMethod" class="form-control">
+                        <option value="Cash on Delivery">ক্যাশ অন ডেলিভারি (Cash on Delivery)</option>
+                        <option value="Paid">অগ্রিম পরিশোধিত (Paid)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>অগ্রিম প্রদান (৳):</label>
+                    <input type="number" id="cartAdvance" class="form-control" value="0" placeholder="অগ্রিম কত টাকা দিয়েছেন">
+                </div>
+
                 <button class="btn btn-success" style="width: 100%; margin-top: 8px;" onclick="sendOrder()">অর্ডার কনফার্ম করুন</button>
             </div>
         </div>
@@ -330,11 +343,10 @@
         <h3 style="color: #0052D4; margin-bottom: 10px;">🔍 ম্যানেজার ভিউ চেক প্যানেল</h3>
         <p style="font-size: 12px; color: #555; margin-bottom: 10px;">সব ঠিক থাকলে নিচে প্রিন্ট করুন:</p>
         <div id="printableArea">
-            <div class="watermark">HOME</div>
+            <div class="watermark">Sun product</div>
             <div class="invoice-content">
-                <h2 style="font-size: 16px; color: #0052D4;">🏠 Home</h2>
-                <p id="printInvoiceNo" style="font-size: 13px; font-weight: bold; color: #ff5e00; margin-top: 2px;"></p>
-                <p id="printTimestamp" style="font-weight: bold; font-size: 11px; color: #555; margin-top: 2px;"></p>
+                <h2 style="font-size: 16px; color: #0052D4;">Sun product</h2>
+                <p id="printTimestamp" style="font-weight: bold; font-size: 11px; color: #555; margin-top: 4px;"></p>
                 <hr style="margin: 8px 0;">
                 <div id="printDetails" style="font-size: 13px;"></div>
             </div>
@@ -717,18 +729,21 @@
             let deliveryAddress = document.getElementById('cartDeliveryAddress').value.trim();
             if(!deliveryAddress) { alert('ডেলিভারির ঠিকানা লিখুন!'); return; }
 
+            let paymentMethod = document.getElementById('cartPaymentMethod').value;
+            let advanceAmount = Number(document.getElementById('cartAdvance').value) || 0;
+
             currentCustomer.address = deliveryAddress;
 
             let orderTotal = cart.reduce((sum, i) => sum + i.price, 0);
+            let dueAmount = orderTotal - advanceAmount;
+            if(dueAmount < 0) dueAmount = 0;
+
             let earnedReward = Math.floor(orderTotal / 100) * rewardPointsPer100;
             currentCustomer.rewardPoints += earnedReward;
             currentCustomer.totalOrdersCount += 1;
 
-            let invoiceNo = 'INV-' + Math.floor(100000 + Math.random() * 900000);
-
             let newOrder = {
                 id: Date.now(), 
-                invoiceNo: invoiceNo,
                 customerName: currentCustomer.name, 
                 customerId: currentCustomer.id,
                 customerPhone: currentCustomer.phone, 
@@ -736,6 +751,9 @@
                 affiliate: currentCustomer.affiliateRef || 'None',
                 items: [...cart], 
                 total: orderTotal, 
+                paymentMethod: paymentMethod,
+                advance: advanceAmount,
+                due: dueAmount,
                 orderTime: new Date().toLocaleString(),
                 adminApproved: false
             };
@@ -752,7 +770,7 @@
             cart = []; 
             updateCartUI(); 
             updateCustomerDashboard();
-            alert(`অর্ডার সফলভাবে কনফার্ম হয়েছে! (Invoice No: ${invoiceNo})`);
+            alert(`অর্ডার সফলভাবে কনফার্ম হয়েছে!`);
             renderAdminOrders();
         }
 
@@ -816,7 +834,7 @@
             if(appOrders.length === 0) { container.innerHTML = '<p>ম্যানেজার মোডে অনুমোদিত কোনো অর্ডার নেই।</p>'; return; }
             let html = '';
             appOrders.forEach(o => {
-                html += `<div class="card" style="border: 1px solid #17a2b8;"><p><b>Invoice No:</b> ${o.invoiceNo || 'N/A'}</p><p><b>গ্রাহক:</b> ${o.customerName} (${o.total}৳)</p><button class="btn btn-info" style="margin-top:8px;" onclick="viewOrder(${o.id})">🔍 ভিউ চেক করুন ও প্রিন্ট করুন</button></div>`;
+                html += `<div class="card" style="border: 1px solid #17a2b8;"><p><b>গ্রাহক:</b> ${o.customerName} (${o.total}৳)</p><button class="btn btn-info" style="margin-top:8px;" onclick="viewOrder(${o.id})">🔍 ভিউ চেক করুন ও প্রিন্ট করুন</button></div>`;
             });
             container.innerHTML = html;
         }
@@ -827,11 +845,10 @@
             if(orders.length === 0) { container.innerHTML = '<p>অর্ডার নেই।</p>'; return; }
             let html = '';
             orders.forEach(o => {
-                let invDisplay = (o.invoiceNo && o.invoiceNo !== 'undefined') ? o.invoiceNo : 'INV-9102600';
                 let isApproved = o.adminApproved === true;
                 html += `<div class="card" style="border: 1px solid #ddd;">
-                    Invoice No: ${invDisplay} - Customer: ${o.customerName} - Total: ${o.total}৳ <br>
-                    ${!isApproved ? `<button class="btn btn-warning" style="margin-top:6px;" onclick="approveOrder(${o.id})">অ্যাডমিন অ্যাপ্রুভ দিন</button>` : '<b style="color:green; display:inline-block; margin-top:6px;">অ্যাডমিন কর্তৃক অনুমোদিত (ম্যানেজার মোডে পাঠানো হয়েছে)</b>'}
+                    Customer: ${o.customerName} - Total: ${o.total}৳ <br>
+                    ${!isApproved ? `<button class="btn btn-warning" style="margin-top:6px;" onclick="approveOrder('${o.id}')">অ্যাডমিন অ্যাপ্রুভ দিন</button>` : '<b style="color:green; display:inline-block; margin-top:6px;">অ্যাডমিন কর্তৃক অনুমোদিত (ম্যানেজার মোডে পাঠানো হয়েছে)</b>'}
                 </div>`;
             });
             container.innerHTML = html;
@@ -841,9 +858,6 @@
             let o = orders.find(ord => String(ord.id) === String(id));
             if(o) { 
                 o.adminApproved = true; 
-                if(!o.invoiceNo || o.invoiceNo === 'undefined') {
-                    o.invoiceNo = 'INV-' + Math.floor(100000 + Math.random() * 900000);
-                }
                 localStorage.setItem('disha_orders', JSON.stringify(orders)); 
                 renderAdminOrders(); 
                 renderManagerOrders();
@@ -860,16 +874,22 @@
                 ord.items.forEach(i => { itemsHtml += `<li>${i.name} - ৳ ${i.price}</li>`; });
                 itemsHtml += '</ul>';
                 
-                document.getElementById('printInvoiceNo').innerText = `Invoice No: ${ord.invoiceNo || 'INV-9102600'}`;
                 document.getElementById('printTimestamp').innerText = `সময়: ${ord.orderTime || ''}`;
                 
+                let paymentText = ord.paymentMethod || 'Cash on Delivery';
+                let advanceVal = ord.advance !== undefined ? ord.advance : 0;
+                let dueVal = ord.due !== undefined ? ord.due : ord.total;
+
                 document.getElementById('printDetails').innerHTML = `
                     <p style="margin-bottom: 4px;"><b>গ্রাহকের নাম:</b> ${ord.customerName}</p>
                     <p style="margin-bottom: 4px;"><b>মোবাইল নম্বর:</b> ${ord.customerPhone || ''}</p>
                     <p style="margin-bottom: 8px;"><b>ঠিকানা:</b> ${ord.customerAddress || ''}</p>
                     <hr style="margin: 6px 0;">
                     <p style="margin-bottom: 4px;"><b>পণ্যের বিবরণ:</b></p>${itemsHtml}
-                    <p style="margin-top: 8px; font-weight: bold; color: #0052D4;">মোট মূল্য: ৳ ${ord.total}</p>
+                    <p style="margin-top: 8px;"><b>পেমেন্ট মাধ্যম:</b> ${paymentText}</p>
+                    <p style="margin-top: 4px;"><b>অগ্রিম (Advance):</b> ৳ ${advanceVal}</p>
+                    <p style="margin-top: 4px;"><b>ডিউ (Due):</b> ৳ ${dueVal}</p>
+                    <p style="margin-top: 6px; font-weight: bold; color: #0052D4;">মোট মূল্য: ৳ ${ord.total}</p>
                 `;
                 
                 document.getElementById('viewModal').classList.remove('hidden');
