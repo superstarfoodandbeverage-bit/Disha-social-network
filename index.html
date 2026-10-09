@@ -543,9 +543,10 @@
         <div class="bottom-nav-item" id="bottomManagerNav" onclick="openManagerLogin()"><span>⚙️</span>Manager</div>
     </div>
 
-    <!-- Firebase SDK & Initialization -->
+    <!-- Firebase SDK & Firestore Realtime Setup -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyBK2hZ9evaDdYEzMk057xmSumj2htFcBsM",
@@ -557,7 +558,25 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        console.log("Firebase Connected Successfully for Disha Mart!");
+        const db = getFirestore(app);
+
+        // Global variables synced with Firestore
+        window.db = db;
+        window.colRefOrders = collection(db, "orders");
+        window.colRefProducts = collection(db, "products");
+        window.colRefCustomers = collection(db, "customers");
+        window.colRefSettings = collection(db, "settings");
+
+        window.firebaseTools = {
+            addDoc, getDocs, doc, setDoc, updateDoc, deleteDoc, onSnapshot, collection
+        };
+
+        console.log("Firebase Firestore Connected Successfully!");
+        
+        // Trigger initial real-time sync listeners after load
+        if(window.initFirebaseRealtimeSync) {
+            window.initFirebaseRealtimeSync();
+        }
     </script>
 
     <script>
@@ -573,6 +592,40 @@
         let cart = [];
         let orders = [];
         let quizAnswers = [];
+
+        window.initFirebaseRealtimeSync = function() {
+            if(!window.db) return;
+            const { onSnapshot, collection } = window.firebaseTools;
+
+            // রিয়েল-টাইম প্রোডাক্ট সিংক
+            onSnapshot(collection(window.db, "products"), (snapshot) => {
+                products = [];
+                snapshot.forEach(docSnap => {
+                    products.push({ id: docSnap.id, ...docSnap.data() });
+                });
+                renderCustomerProducts();
+                renderAdminProductList();
+            });
+
+            // রিয়েল-টাইম অর্ডার সিংক (যেকোনো মোবাইল থেকে অর্ডার দিলে সাথে সাথে অ্যাডমিন ও ম্যানেজার প্যানেলে আসবে)
+            onSnapshot(collection(window.db, "orders"), (snapshot) => {
+                orders = [];
+                snapshot.forEach(docSnap => {
+                    orders.push({ id: docSnap.id, ...docSnap.data() });
+                });
+                renderAdminOrders();
+                renderManagerOrders();
+            });
+
+            // রিয়েল-টাইম কাস্টমার সিংক
+            onSnapshot(collection(window.db, "customers"), (snapshot) => {
+                customers = [];
+                snapshot.forEach(docSnap => {
+                    customers.push({ id: docSnap.id, ...docSnap.data() });
+                });
+                renderAdminCustomers();
+            });
+        };
 
         window.onload = function() {
             let savedMgrPass = localStorage.getItem('disha_manager_password');
@@ -607,20 +660,11 @@
 
             loadBigBannerCards();
 
-            let savedProducts = localStorage.getItem('disha_products');
-            if(savedProducts) { products = JSON.parse(savedProducts); }
-
-            let savedCustomers = localStorage.getItem('disha_customers');
-            if(savedCustomers) { customers = JSON.parse(savedCustomers); }
-
-            let savedOrders = localStorage.getItem('disha_orders');
-            if(savedOrders) { orders = JSON.parse(savedOrders); }
-
             let savedAnswers = localStorage.getItem('disha_quiz_answers');
             if(savedAnswers) { quizAnswers = JSON.parse(savedAnswers); }
 
             let activeCustPhone = localStorage.getItem('disha_active_customer');
-            if(activeCustPhone) {
+            if(activeCustPhone && customers.length > 0) {
                 let found = customers.find(c => c.phone === activeCustPhone);
                 if(found) {
                     currentCustomer = found;
@@ -634,7 +678,6 @@
 
             loadCustomerQuiz();
             loadCustomerIslamic();
-            renderCustomerProducts();
             renderTopWinners();
             renderAdminCustomerAnswers();
         };
@@ -888,7 +931,7 @@
             }
         }
 
-        function registerCustomer() {
+        async function registerCustomer() {
             let name = document.getElementById('regName').value.trim();
             let phone = document.getElementById('regPhone').value.trim();
             let pass = document.getElementById('regPass').value.trim();
@@ -905,8 +948,13 @@
                 if(ref) { ref.rewardPoints += affiliateBonusForReferrer; pts += affiliateBonusForNewUser; }
             }
 
-            customers.push({ id: uniqueId, name, phone, pass, address, affiliateRef: affiliate || 'None', rewardPoints: pts, totalOrdersCount: 0 });
-            localStorage.setItem('disha_customers', JSON.stringify(customers));
+            let newCust = { id: uniqueId, name, phone, pass, address, affiliateRef: affiliate || 'None', rewardPoints: pts, totalOrdersCount: 0 };
+            
+            if(window.db) {
+                const { setDoc, doc } = window.firebaseTools;
+                await setDoc(doc(window.db, "customers", phone), newCust);
+            }
+
             alert('রেজিস্ট্রেশন সফল! আপনার আইডি: ' + uniqueId);
             toggleAuthMode('login');
         }
@@ -956,7 +1004,7 @@
                     <div class="product-name">${p.name}</div>
                     <div class="product-size">সাইজ: <b>${p.size || ''}</b></div>
                     <div class="price-box"><span class="current-price">৳ ${p.price}</span></div>
-                    <button class="btn" style="padding: 5px; font-size:11px; width:100%;" onclick="addToCart(${p.id})">🛒 অর্ডার নাও</button>
+                    <button class="btn" style="padding: 5px; font-size:11px; width:100%;" onclick="addToCart('${p.id}')">🛒 অর্ডার নাও</button>
                 </div>`;
             });
             container.innerHTML = html;
@@ -968,12 +1016,12 @@
             if(products.length === 0) { container.innerHTML = 'পণ্য নেই।'; return; }
             let html = '<table width="100%" border="1" style="border-collapse:collapse;"><tr><th>নাম</th><th>মূল্য</th><th>অ্যাকশন</th></tr>';
             products.forEach(p => {
-                html += `<tr><td>${p.name}</td><td>৳ ${p.price}</td><td><button class="btn btn-danger" style="padding:2px 5px; font-size:10px;" onclick="deleteProduct(${p.id})">ডিলিট</button></td></tr>`;
+                html += `<tr><td>${p.name}</td><td>৳ ${p.price}</td><td><button class="btn btn-danger" style="padding:2px 5px; font-size:10px;" onclick="deleteProduct('${p.id}')">ডিলিট</button></td></tr>`;
             });
             container.innerHTML = html + '</table>';
         }
 
-        function saveOrUpdateProduct() {
+        async function saveOrUpdateProduct() {
             let editId = document.getElementById('editProductId').value;
             let name = document.getElementById('pName').value.trim();
             let price = document.getElementById('pPrice').value.trim();
@@ -986,33 +1034,33 @@
 
             if(file) {
                 let reader = new FileReader();
-                reader.onload = e => saveProd(editId, name, price, oldPrice, discount, size, e.target.result);
+                reader.onload = async e => await saveProdToCloud(editId, name, price, oldPrice, discount, size, e.target.result);
                 reader.readAsDataURL(file);
             } else {
                 let img = editId !== "" ? (products.find(p => String(p.id) === String(editId))?.image || '') : '';
-                saveProd(editId, name, price, oldPrice, discount, size, img);
+                await saveProdToCloud(editId, name, price, oldPrice, discount, size, img);
             }
         }
 
-        function saveProd(editId, name, price, oldPrice, discount, size, img) {
-            if(editId !== "") {
-                let p = products.find(prod => String(prod.id) === String(editId));
-                if(p) { p.name = name; p.price = Number(price); p.image = img; }
-            } else {
-                products.push({ id: Date.now(), name, price: Number(price), oldPrice: Number(oldPrice)||0, discount, size, image: img });
+        async function saveProdToCloud(editId, name, price, oldPrice, discount, size, img) {
+            if(window.db) {
+                const { addDoc, setDoc, doc, collection } = window.firebaseTools;
+                let prodData = { name, price: Number(price), oldPrice: Number(oldPrice)||0, discount, size, image: img };
+                if(editId !== "") {
+                    await setDoc(doc(window.db, "products", String(editId)), prodData);
+                } else {
+                    await addDoc(collection(window.db, "products"), prodData);
+                }
             }
-            localStorage.setItem('disha_products', JSON.stringify(products));
             alert('পণ্য সেভ হয়েছে!');
             resetProductForm();
-            renderCustomerProducts();
-            renderAdminProductList();
         }
 
-        function deleteProduct(id) {
-            products = products.filter(p => String(p.id) !== String(id));
-            localStorage.setItem('disha_products', JSON.stringify(products));
-            renderCustomerProducts();
-            renderAdminProductList();
+        async function deleteProduct(id) {
+            if(window.db) {
+                const { deleteDoc, doc } = window.firebaseTools;
+                await deleteDoc(doc(window.db, "products", String(id)));
+            }
         }
 
         function resetProductForm() {
@@ -1038,7 +1086,7 @@
             container.innerHTML = html + `</ul><b>মোট: ৳ ${total}</b>`;
         }
 
-        function sendOrder() {
+        async function sendOrder() {
             if(cart.length === 0) { alert('কার্ট খালি!'); return; }
             if(!currentCustomer) { alert('লগইন করুন!'); return; }
             let address = document.getElementById('cartDeliveryAddress').value.trim();
@@ -1059,12 +1107,15 @@
                 adminApproved: false,
                 orderTime: new Date().toLocaleString()
             };
-            orders.push(newOrd);
-            localStorage.setItem('disha_orders', JSON.stringify(orders));
+
+            if(window.db) {
+                const { setDoc, doc } = window.firebaseTools;
+                await setDoc(doc(window.db, "orders", newOrd.id), newOrd);
+            }
+
             cart = [];
             updateCartUI();
             alert('অর্ডার সফল হয়েছে!');
-            renderAdminOrders();
         }
 
         function openManagerLogin() {
@@ -1137,9 +1188,16 @@
             c.innerHTML = html;
         }
 
-        function approveOrder(id) {
+        async function approveOrder(id) {
             let o = orders.find(ord => String(ord.id) === String(id));
-            if(o) { o.adminApproved = true; localStorage.setItem('disha_orders', JSON.stringify(orders)); renderAdminOrders(); renderManagerOrders(); alert('অ্যাপ্রুভ করা হয়েছে!'); }
+            if(o) {
+                o.adminApproved = true;
+                if(window.db) {
+                    const { updateDoc, doc } = window.firebaseTools;
+                    await updateDoc(doc(window.db, "orders", String(id)), { adminApproved: true });
+                }
+                alert('অ্যাপ্রুভ করা হয়েছে!');
+            }
         }
 
         function viewOrder(id) {
