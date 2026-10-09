@@ -204,7 +204,6 @@
                 <p style="font-size: 13px; text-align: center;">ইতিমধ্যে অ্যাকাউন্ট আছে? <span style="color: #0052D4; cursor: pointer; font-weight: bold;" onclick="toggleAuthMode('login')">লগইন করুন</span></p>
             </div>
 
-            <!-- লগইন পেজ ব্যানার সেকশন -->
             <div class="login-banner" style="text-align: center; margin-top: 15px;">
                 <img id="loginBannerImg" src="" alt="Disha Social Network Banner" style="max-width: 100%; height: auto; border-radius: 8px;">
             </div>
@@ -234,31 +233,25 @@
                 <div class="section-title" style="font-size: 14px;">মেনু ও ক্যাটাগরিসমূহ</div>
             </div>
             
-            <!-- ১০টি ঘরযুক্ত গ্রিড -->
             <div class="services-grid">
-                <!-- ১. E-Mart 365 পেজ লিংক -->
                 <a href="https://www.facebook.com/share/1H4hKr9LsL/" target="_blank" class="service-item">
                     <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><circle cx='50' cy='50' r='48' fill='%237b2cbf'/><text x='50' y='55' font-size='26' fill='white' text-anchor='middle' font-weight='bold'>E-Mart</text></svg>" alt="E-Mart 365" class="service-icon" id="emartLogoIcon">
                     E-Mart 365
                 </a>
                 
-                <!-- ২. দিশা টিভি -->
                 <a href="https://your-channel-link.com" target="_blank" class="service-item">
                     <span class="service-icon" style="display:flex;align-items:center;justify-content:center;font-size:16px;">📺</span>Disha TV
                     <span class="service-subtext">(সবার কথা বলে)</span>
                 </a>
                 
-                <!-- ৩. প্রশ্ন ও উত্তর পর্ব -->
                 <div class="service-item" onclick="openFAQModal()">
                     <span class="service-icon" style="display:flex;align-items:center;justify-content:center;font-size:16px;">❓</span>প্রশ্ন ও উত্তর
                 </div>
 
-                <!-- ৪. ইসলামিক অপশন -->
                 <div class="service-item" onclick="openIslamicModal()">
                     <span class="service-icon" style="display:flex;align-items:center;justify-content:center;font-size:16px;">🌙</span>ইসলামিক কর্নার
                 </div>
 
-                <!-- ৫ থেকে ১০: ৬টি নতুন প্রদর্শনী প্রোডাক্ট স্লট -->
                 <div class="service-item" id="dispBox0" onclick="alert('নতুন প্রোডাক্ট ১')"><img id="dImg0" class="service-icon" src="" alt="Img"><span id="dName0">নতুন প্রোডাক্ট ১</span></div>
                 <div class="service-item" id="dispBox1" onclick="alert('নতুন প্রোডাক্ট ২')"><img id="dImg1" class="service-icon" src="" alt="Img"><span id="dName1">নতুন প্রোডাক্ট ২</span></div>
                 <div class="service-item" id="dispBox2" onclick="alert('নতুন প্রোডাক্ট ৩')"><img id="dImg2" class="service-icon" src="" alt="Img"><span id="dName2">নতুন প্রোডাক্ট ৩</span></div>
@@ -267,7 +260,6 @@
                 <div class="service-item" id="dispBox5" onclick="alert('নতুন প্রোডাক্ট ৬')"><img id="dImg5" class="service-icon" src="" alt="Img"><span id="dName5">নতুন প্রোডাক্ট ৬</span></div>
             </div>
 
-            <!-- মাসিক সেরা ৩ বিজয়ী কাস্টমার ডিসপ্লে সেকশন -->
             <div class="top-winners-section">
                 <h3 style="font-size: 14px; color: #ff5e00; margin-bottom: 4px;">🏆 এই মাসের সেরা ৩ বিজয়ী কাস্টমার (Top 1, 2, 3)</h3>
                 <div class="winners-grid" id="displayWinnersGrid"></div>
@@ -325,7 +317,20 @@
                 <button class="btn btn-danger" style="font-size: 11px; padding: 4px 8px;" onclick="logoutStaff()">অ্যাডমিন লগআউট</button>
             </div>
 
-            <!-- প্রশ্ন ও উত্তর (কুইজ) সেট এবং উত্তর দেখার প্যানেল -->
+            <!-- নতুন: পাসওয়ার্ড পরিবর্তনের প্যানেল -->
+            <div class="card" style="border: 2px solid #d9534f; background: #fff8f8;">
+                <h3 style="color: #d9534f; margin-bottom: 10px; font-size: 15px;">🔐 পাসওয়ার্ড পরিবর্তন করুন</h3>
+                <div class="form-group">
+                    <label>নতুন ম্যানেজার পাসওয়ার্ড:</label>
+                    <input type="text" id="newMgrPassInput" class="form-control" placeholder="ম্যানেজার নতুন পাসওয়ার্ড">
+                </div>
+                <div class="form-group">
+                    <label>নতুন অ্যাডমিন পাসওয়ার্ড:</label>
+                    <input type="text" id="newAdminPassInput" class="form-control" placeholder="অ্যাডমিন নতুন পাসওয়ার্ড">
+                </div>
+                <button class="btn btn-danger" style="width: 100%;" onclick="updatePasswords()">পাসওয়ার্ড সেভ করুন</button>
+            </div>
+
             <div class="card" style="border: 2px solid #17a2b8; background: #f0fbfc;">
                 <h3 style="color: #17a2b8; margin-bottom: 10px; font-size: 15px;">❓ প্রশ্ন ও উত্তর (কুইজ) ম্যানেজমেন্ট</h3>
                 <div class="form-group">
@@ -340,7 +345,6 @@
                 </div>
             </div>
 
-            <!-- ইসলামিক কর্নার কনটেন্ট আপডেট প্যানেল -->
             <div class="card" style="border: 2px solid #28a745; background: #f4faf4;">
                 <h3 style="color: #28a745; margin-bottom: 10px; font-size: 15px;">🌙 ইসলামিক কর্নার কনটেন্ট আপডেট</h3>
                 <div class="form-group">
@@ -355,7 +359,6 @@
                 <button class="btn btn-danger" onclick="hardResetSystem()">সব ডেটা রিসেট করুন (00)</button>
             </div>
 
-            <!-- E-Mart 365 লোগো পরিবর্তনের অপশন -->
             <div class="card" style="border: 2px solid #7b2cbf; background: #faf5ff;">
                 <h3 style="color: #7b2cbf; margin-bottom: 10px; font-size: 15px;">🖼️ E-Mart 365 লোগো পরিবর্তন করুন</h3>
                 <div class="form-group">
@@ -365,14 +368,12 @@
                 <button class="btn" style="background: #7b2cbf;" onclick="updateEmartLogo()">E-Mart লোগো সেভ করুন</button>
             </div>
 
-            <!-- হোমপেজের ৬টি প্রদর্শনী স্লট আপডেট করার অপশন -->
             <div class="card" style="border: 2px solid #0052D4; background: #f0f4f8;">
                 <h3 style="color: #0052D4; margin-bottom: 10px; font-size: 15px;">🖼️ হোমপেজের ৬টি প্রদর্শনী প্রোডাক্ট স্লট আপডেট করুন</h3>
                 <div id="adminDisplaySlotsForm"></div>
                 <button class="btn" style="margin-top: 10px; width: 100%;" onclick="saveDisplaySlots()">প্রদর্শনী স্লটগুলো সেভ করুন</button>
             </div>
 
-            <!-- মাসিক সেরা ৩ কাস্টমার (1, 2, 3) ছবি ও নাম আপলোড সেকশন -->
             <div class="card" style="border: 2px solid #ff5e00; background: #fffaf0;">
                 <h3 style="color: #ff5e00; margin-bottom: 10px; font-size: 15px;">🏆 প্রতি মাসের সেরা ৩ বিজয়ী কাস্টমার (১ম, ২য়, ৩য়) আপডেট করুন</h3>
                 
@@ -397,7 +398,6 @@
                 <button class="btn" style="background: #ff5e00; width: 100%;" onclick="saveMonthlyWinners()">সেরা ৩ বিজয়ী সেভ ও আপডেট করুন</button>
             </div>
 
-            <!-- এফিলিয়েট বোনাস পয়েন্ট কাস্টমাইজ করার অপশন -->
             <div class="card" style="border: 2px solid #ff8c00; background: #fffaf0;">
                 <h3 style="color: #ff8c00; margin-bottom: 10px; font-size: 15px;">💰 এফিলিয়েট বোনাস পয়েন্ট সেট করুন</h3>
                 <div class="form-group">
@@ -411,7 +411,6 @@
                 <button class="btn" style="background: #ff8c00;" onclick="saveAffiliateBonusSettings()">বোনাস সেটিংস সেভ করুন</button>
             </div>
 
-            <!-- লগইন পেজ ব্যানার পরিবর্তনের অপশন -->
             <div class="card" style="border: 2px solid #28a745; background: #f4faf4;">
                 <h3 style="color: #28a745; margin-bottom: 10px; font-size: 15px;">🖼️ লগইন পেজ ব্যানার পরিবর্তন করুন</h3>
                 <div class="form-group">
@@ -535,6 +534,11 @@
         let quizAnswers = [];
 
         window.onload = function() {
+            let savedMgrPass = localStorage.getItem('disha_manager_password');
+            if(savedMgrPass) managerPassword = savedMgrPass;
+            let savedAdminPass = localStorage.getItem('disha_admin_password');
+            if(savedAdminPass) adminPassword = savedAdminPass;
+
             let savedReferrerBonus = localStorage.getItem('disha_referrer_bonus');
             if(savedReferrerBonus !== null) affiliateBonusForReferrer = Number(savedReferrerBonus);
             let savedNewUserBonus = localStorage.getItem('disha_new_user_bonus');
@@ -607,7 +611,30 @@
             renderAdminCustomerAnswers();
         };
 
-        // প্রশ্ন ও উত্তর ম্যানেজমেন্ট ফাংশন
+        // পাসওয়ার্ড আপডেট করার ফাংশন
+        function updatePasswords() {
+            let newMgr = document.getElementById('newMgrPassInput').value.trim();
+            let newAdmin = document.getElementById('newAdminPassInput').value.trim();
+
+            if(!newMgr && !newAdmin) {
+                alert('দয়া করে অন্তত একটি পাসওয়ার্ড লিখুন!');
+                return;
+            }
+
+            if(newMgr) {
+                managerPassword = newMgr;
+                localStorage.setItem('disha_manager_password', newMgr);
+            }
+            if(newAdmin) {
+                adminPassword = newAdmin;
+                localStorage.setItem('disha_admin_password', newAdmin);
+            }
+
+            document.getElementById('newMgrPassInput').value = '';
+            document.getElementById('newAdminPassInput').value = '';
+            alert('পাসওয়ার্ড সফলভাবে পরিবর্তন ও সেভ করা হয়েছে!');
+        }
+
         function saveAdminQuizQuestion() {
             let qText = document.getElementById('adminQuizQuestionInput').value.trim();
             if(!qText) { alert('দয়া করে প্রশ্ন লিখুন!'); return; }
@@ -654,7 +681,7 @@
             let html = '';
             quizAnswers.forEach((qa, idx) => {
                 html += `<div style="border-bottom:1px solid #ddd; padding:6px 0;">
-                    <b>গ্রাহক:</b> ${qa.name || qa.customerName} (আইডি: ${qa.customerId})<br>
+                    <b>গ্রাহক:</b> ${qa.customerName} (আইডি: ${qa.customerId})<br>
                     <b>প্রশ্ন:</b> ${qa.question}<br>
                     <b>উত্তর:</b> <span style="color:#0052D4; font-weight:bold;">${qa.answer}</span><br>
                     <button class="btn btn-warning" style="padding:2px 5px; font-size:10px; margin-top:4px;" onclick="declareWinner('${qa.customerName}')">বিজয়ী ঘোষণা করুন</button>
@@ -667,7 +694,6 @@
             alert(winnerName + '-কে আজকের প্রশ্ন-উত্তর পর্বের সঠিক উত্তরদাতা হিসেবে চিহ্নিত করা হয়েছে! আপনি চাইলে তাকে "সেরা ৩ বিজয়ী" সেকশনে নাম যুক্ত করে দিতে পারেন।');
         }
 
-        // ইসলামিক কর্নার ফাংশন
         function saveAdminIslamicContent() {
             let content = document.getElementById('adminIslamicContentInput').value.trim();
             if(!content) { alert('দয়া করে কিছু লিখুন!'); return; }
