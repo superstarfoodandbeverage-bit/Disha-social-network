@@ -237,9 +237,10 @@
             
             <!-- ১০টি ঘরযুক্ত গ্রিড -->
             <div class="services-grid">
-                <!-- ১. E-Mart 365 পেজ লিংক -->
+                <!-- ১. E-Mart 365 পেজ লিংক (আপনার দেওয়া লোগোসহ) -->
                 <a href="https://www.facebook.com/share/1H4hKr9LsL/" target="_blank" class="service-item">
-                    <span class="service-icon" style="display:flex;align-items:center;justify-content:center;font-size:16px;">👍</span>E-Mart 365
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><circle cx='50' cy='50' r='48' fill='%237b2cbf'/><text x='50' y='55' font-size='26' fill='white' text-anchor='middle' font-weight='bold'>E-Mart</text></svg>" alt="E-Mart 365" class="service-icon" id="emartLogoIcon">
+                    E-Mart 365
                 </a>
                 
                 <!-- ২. দিশা টিভি -->
@@ -331,7 +332,17 @@
                 <button class="btn btn-danger" onclick="hardResetSystem()">সব ডেটা রিসেট করুন (00)</button>
             </div>
 
-            <!-- নতুন: হোমপেজের ৬টি প্রদর্শনী স্লট আপডেট করার অপশন -->
+            <!-- E-Mart 365 লোগো পরিবর্তনের অপশন -->
+            <div class="card" style="border: 2px solid #7b2cbf; background: #faf5ff;">
+                <h3 style="color: #7b2cbf; margin-bottom: 10px; font-size: 15px;">🖼️ E-Mart 365 লোগো পরিবর্তন করুন</h3>
+                <div class="form-group">
+                    <label>লোগো ছবি সিলেক্ট করুন:</label>
+                    <input type="file" id="emartLogoFile" class="form-control" accept="image/*">
+                </div>
+                <button class="btn" style="background: #7b2cbf;" onclick="updateEmartLogo()">E-Mart লোগো সেভ করুন</button>
+            </div>
+
+            <!-- হোমপেজের ৬টি প্রদর্শনী স্লট আপডেট করার অপশন -->
             <div class="card" style="border: 2px solid #0052D4; background: #f0f4f8;">
                 <h3 style="color: #0052D4; margin-bottom: 10px; font-size: 15px;">🖼️ হোমপেজের ৬টি প্রদর্শনী প্রোডাক্ট স্লট আপডেট করুন</h3>
                 <div id="adminDisplaySlotsForm"></div>
@@ -521,6 +532,13 @@
                 document.getElementById('innerCustomLogoImg').src = document.getElementById('brandLogoImg').src;
             }
 
+            // E-Mart লোগো লোড
+            let savedEmartLogo = localStorage.getItem('disha_emart_logo');
+            if(savedEmartLogo) {
+                let el = document.getElementById('emartLogoIcon');
+                if(el) el.src = savedEmartLogo;
+            }
+
             let savedProducts = localStorage.getItem('disha_products');
             if(savedProducts) { products = JSON.parse(savedProducts); }
 
@@ -532,6 +550,7 @@
                 orders = JSON.parse(savedOrders); 
             }
 
+            // কাস্টমার লগইন সেভ চেক (অটো লগইন)
             let activeCustPhone = localStorage.getItem('disha_active_customer');
             if(activeCustPhone) {
                 let found = customers.find(c => c.phone === activeCustPhone);
@@ -550,6 +569,22 @@
             renderCustomerProducts();
             renderTopWinners();
         };
+
+        function updateEmartLogo() {
+            let fileInput = document.getElementById('emartLogoFile');
+            if(fileInput.files && fileInput.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    localStorage.setItem('disha_emart_logo', e.target.result);
+                    let el = document.getElementById('emartLogoIcon');
+                    if(el) el.src = e.target.result;
+                    alert('E-Mart 365 লোগো সফলভাবে আপডেট ও সেভ হয়েছে!');
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                alert('দয়া করে প্রথমে একটি ছবি সিলেক্ট করুন!');
+            }
+        }
 
         // অ্যাডমিন প্যানেলে ৬টি স্লটের ফর্ম রেন্ডার করার ফাংশন
         function renderAdminDisplaySlotsForm() {
