@@ -61,6 +61,38 @@
         .wallet-title { font-size: 10px; opacity: 0.9; }
         .wallet-btn-text { font-size: 11px; font-weight: bold; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 6px; display: inline-block; margin-top: 2px; }
 
+        /* লগইন ডায়লগ বক্সের নিচে চমৎকার বড় E-Mart 365 এবং Disha TV বাটন সেকশন */
+        .login-bottom-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .feature-big-btn {
+            background: linear-gradient(135deg, #0052D4, #4364F7);
+            color: white;
+            padding: 16px 10px;
+            border-radius: 12px;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,82,212,0.25);
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            border: none;
+            transition: transform 0.2s;
+        }
+        .feature-big-btn.emart-btn {
+            background: linear-gradient(135deg, #ff5e00, #ff8c00);
+            box-shadow: 0 4px 10px rgba(255,94,0,0.25);
+        }
+        .feature-big-btn:active { transform: scale(0.97); }
+        .feature-big-icon { font-size: 24px; }
+
         /* পাশাপাশি ৩টি খাড়া বক্স */
         .big-cards-container {
             display: grid;
@@ -218,6 +250,18 @@
 
             <div class="login-banner" style="text-align: center; margin-top: 15px;">
                 <img id="loginBannerImg" src="" alt="Disha Social Network Banner" style="max-width: 100%; height: auto; border-radius: 8px;">
+            </div>
+
+            <!-- লগইন ডায়লগ বক্সের ঠিক নিচে বড় ও সুন্দর E-Mart 365 এবং Disha TV বাটন সেকশন -->
+            <div class="login-bottom-features">
+                <a href="https://your-emart-link.com" target="_blank" class="feature-big-btn emart-btn">
+                    <span class="feature-big-icon">🛒</span>
+                    <span>E-Mart 365</span>
+                </a>
+                <button class="feature-big-btn" onclick="openDishaTVModal()">
+                    <span class="feature-big-icon">📺</span>
+                    <span>Disha TV</span>
+                </button>
             </div>
         </div>
 
@@ -457,6 +501,16 @@
 
     </div>
 
+    <!-- Disha TV পপআপ মোডাল -->
+    <div id="dishaTVModal" class="card hidden" style="border: 2px solid #ff5e00; margin-top: 15px;">
+        <h3 style="color: #ff5e00; margin-bottom: 10px;">📺 Disha TV - লাইভ চ্যানেল</h3>
+        <p style="font-size: 13px; color: #666; margin-bottom: 10px;">এখানে আপনার পছন্দের টিভি চ্যানেল বা লাইভ স্ট্রিম দেখতে পাবেন।</p>
+        <div style="width: 100%; height: 220px; background: #000; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; margin-bottom: 12px;">
+            <p>📺 লাইভ টিভি প্লেয়ার লোড হচ্ছে...</p>
+        </div>
+        <button class="btn btn-danger" style="width: 100%;" onclick="closeDishaTVModal()">বন্ধ করুন</button>
+    </div>
+
     <!-- প্রশ্ন-উত্তর পপআপ মোডাল -->
     <div id="faqModal" class="card hidden" style="border: 2px solid #17a2b8; margin-top: 15px;">
         <h3 style="color: #17a2b8; margin-bottom: 10px;">❓ আজকের প্রশ্ন ও উত্তর পর্ব</h3>
@@ -621,6 +675,14 @@
                 alert('পাশাপাশি ৩টি বক্সের ছবি সফলভাবে সেভ হয়েছে!');
                 loadBigBannerCards();
             }
+        }
+
+        function openDishaTVModal() {
+            document.getElementById('dishaTVModal').classList.remove('hidden');
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+        function closeDishaTVModal() {
+            document.getElementById('dishaTVModal').classList.add('hidden');
         }
 
         function updatePasswords() {
@@ -1021,6 +1083,7 @@
             document.getElementById('adminPanel').classList.add('hidden');
             document.getElementById('viewModal').classList.add('hidden');
             document.getElementById('faqModal').classList.add('hidden');
+            document.getElementById('dishaTVModal').classList.add('hidden');
             document.getElementById('islamicModal').classList.add('hidden');
 
             if(tab === 'customer') {
