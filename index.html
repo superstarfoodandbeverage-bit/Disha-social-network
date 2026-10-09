@@ -83,7 +83,6 @@
         .service-icon { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin: 0 auto 3px auto; display: block; background: #eee; border: 1px solid #ddd; }
         .service-subtext { font-size: 8px; color: #666; display: block; margin-top: 2px; }
 
-        /* মাসিক সেরা ৩ বিজয়ী সেকশন ডিজাইন */
         .top-winners-section { background: white; padding: 12px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); text-align: center; }
         .winners-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
         .winner-card { background: #fdf8f0; border: 1px solid #ff8c00; padding: 8px; border-radius: 8px; text-align: center; position: relative; }
@@ -237,7 +236,7 @@
             
             <!-- ১০টি ঘরযুক্ত গ্রিড -->
             <div class="services-grid">
-                <!-- ১. E-Mart 365 পেজ লিংক (আপনার দেওয়া লোগোসহ) -->
+                <!-- ১. E-Mart 365 পেজ লিংক -->
                 <a href="https://www.facebook.com/share/1H4hKr9LsL/" target="_blank" class="service-item">
                     <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><circle cx='50' cy='50' r='48' fill='%237b2cbf'/><text x='50' y='55' font-size='26' fill='white' text-anchor='middle' font-weight='bold'>E-Mart</text></svg>" alt="E-Mart 365" class="service-icon" id="emartLogoIcon">
                     E-Mart 365
@@ -255,7 +254,7 @@
                 </div>
 
                 <!-- ৪. ইসলামিক অপশন -->
-                <div class="service-item" onclick="alert('ইসলামিক কর্নার সেকশন')">
+                <div class="service-item" onclick="openIslamicModal()">
                     <span class="service-icon" style="display:flex;align-items:center;justify-content:center;font-size:16px;">🌙</span>ইসলামিক কর্নার
                 </div>
 
@@ -326,9 +325,33 @@
                 <button class="btn btn-danger" style="font-size: 11px; padding: 4px 8px;" onclick="logoutStaff()">অ্যাডমিন লগআউট</button>
             </div>
 
+            <!-- প্রশ্ন ও উত্তর (কুইজ) সেট এবং উত্তর দেখার প্যানেল -->
+            <div class="card" style="border: 2px solid #17a2b8; background: #f0fbfc;">
+                <h3 style="color: #17a2b8; margin-bottom: 10px; font-size: 15px;">❓ প্রশ্ন ও উত্তর (কুইজ) ম্যানেজমেন্ট</h3>
+                <div class="form-group">
+                    <label>কাস্টমারদের জন্য নতুন প্রশ্ন লিখুন:</label>
+                    <textarea id="adminQuizQuestionInput" class="form-control" rows="3" placeholder="এখানে আজকের প্রশ্নটি লিখুন..."></textarea>
+                </div>
+                <button class="btn btn-info" style="width: 100%; margin-bottom: 15px;" onclick="saveAdminQuizQuestion()">প্রশ্ন প্রকাশ করুন</button>
+
+                <h4 style="font-size: 14px; margin-bottom: 8px; color: #333;">📥 কাস্টমারদের জমা দেওয়া উত্তরসমূহ:</h4>
+                <div id="adminCustomerAnswersList" style="font-size: 13px; max-height: 200px; overflow-y: auto; background: #fff; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+                    কোনো উত্তর জমা পড়েনি।
+                </div>
+            </div>
+
+            <!-- ইসলামিক কর্নার কনটেন্ট আপডেট প্যানেল -->
+            <div class="card" style="border: 2px solid #28a745; background: #f4faf4;">
+                <h3 style="color: #28a745; margin-bottom: 10px; font-size: 15px;">🌙 ইসলামিক কর্নার কনটেন্ট আপডেট</h3>
+                <div class="form-group">
+                    <label>ইসলামিক কর্নারে প্রদর্শনের জন্য লেখা বা মাসয়ালা লিখুন:</label>
+                    <textarea id="adminIslamicContentInput" class="form-control" rows="4" placeholder="কুরআনের আয়াত, হাদিস বা ইসলামিক টিপস লিখুন..."></textarea>
+                </div>
+                <button class="btn btn-success" style="width: 100%;" onclick="saveAdminIslamicContent()">ইসলামিক কর্নার আপডেট করুন</button>
+            </div>
+
             <div class="card" style="border: 2px solid #dc3545; background: #fff5f5;">
                 <h3 style="color: #dc3545; margin-bottom: 10px; font-size: 15px;">🧹 সম্পূর্ণ ডাটা রিসেট (পয়েন্ট ও অর্ডার শূন্য করুন)</h3>
-                <p style="font-size: 12px; color: #666; margin-bottom: 10px;">সব কাস্টমারের পয়েন্ট 0 করতে এবং পুরোনো অর্ডার/প্রোডাক্ট মুছে ফেলতে নিচের বাটনে ক্লিক করুন:</p>
                 <button class="btn btn-danger" onclick="hardResetSystem()">সব ডেটা রিসেট করুন (00)</button>
             </div>
 
@@ -449,16 +472,27 @@
 
     </div>
 
-    <!-- প্রশ্ন-উত্তর (FAQ) পপআপ ম্যালডাল -->
+    <!-- প্রশ্ন-উত্তর (FAQ / Quiz) পপআপ মোডাল -->
     <div id="faqModal" class="card hidden" style="border: 2px solid #17a2b8; margin-top: 15px;">
-        <h3 style="color: #17a2b8; margin-bottom: 10px;">❓ প্রশ্ন ও উত্তর পর্ব (FAQ)</h3>
-        <p style="font-size: 13px; color: #555; margin-bottom: 10px;">এখানে আপনার ব্যবসার সাধারণ প্রশ্ন ও উত্তরগুলো দেখতে পাবেন:</p>
-        <div style="font-size: 13px; line-height: 1.6;">
-            <p><b>প্রশ্ন ১: অ্যাপে কীভাবে পয়েন্ট পাবো?</b><br>উত্তর: অর্ডার করার মাধ্যমে এবং নতুন বন্ধুকে রেফার করার মাধ্যমে পয়েন্ট পাওয়া যায়।</p>
-            <hr style="margin: 8px 0;">
-            <p><b>প্রশ্ন ২: অর্ডার কিভাবে কনফার্ম হয়?</b><br>উত্তর: কার্টে পণ্য যোগ করে ঠিকানা ও পেমেন্ট সিলেক্ট করে অর্ডার কনফার্ম করলে তা অ্যাডমিনের কাছে যায়।</p>
+        <h3 style="color: #17a2b8; margin-bottom: 10px;">❓ আজকের প্রশ্ন ও উত্তর পর্ব</h3>
+        <div id="customerQuizDisplay" style="font-size: 14px; margin-bottom: 12px; font-weight: bold; color: #333;">
+            অ্যাডমিন এখনও কোনো প্রশ্ন সেট করেননি।
         </div>
-        <button class="btn btn-danger" style="margin-top: 12px; width: 100%;" onclick="closeFAQModal()">বন্ধ করুন</button>
+        <div class="form-group">
+            <label>আপনার উত্তর লিখুন:</label>
+            <textarea id="customerAnswerInput" class="form-control" rows="3" placeholder="আপনার উত্তর এখানে লিখুন..."></textarea>
+        </div>
+        <button class="btn btn-success" style="width: 100%; margin-bottom: 8px;" onclick="submitCustomerAnswer()">উত্তর জমা দিন</button>
+        <button class="btn btn-danger" style="width: 100%;" onclick="closeFAQModal()">বন্ধ করুন</button>
+    </div>
+
+    <!-- ইসলামিক কর্নার পপআপ মোডাল -->
+    <div id="islamicModal" class="card hidden" style="border: 2px solid #28a745; margin-top: 15px;">
+        <h3 style="color: #28a745; margin-bottom: 10px;">🌙 ইসলামিক কর্নার</h3>
+        <div id="customerIslamicDisplay" style="font-size: 14px; line-height: 1.6; margin-bottom: 15px; color: #333; background: #f4faf4; padding: 10px; border-radius: 6px;">
+            ইসলামিক তথ্য লোড হচ্ছে...
+        </div>
+        <button class="btn btn-danger" style="width: 100%;" onclick="closeIslamicModal()">বন্ধ করুন</button>
     </div>
 
     <div id="viewModal" class="card hidden" style="border: 2px dashed #0052D4; margin-top: 15px;">
@@ -498,6 +532,7 @@
         let products = [];
         let cart = [];
         let orders = [];
+        let quizAnswers = [];
 
         window.onload = function() {
             let savedReferrerBonus = localStorage.getItem('disha_referrer_bonus');
@@ -532,7 +567,6 @@
                 document.getElementById('innerCustomLogoImg').src = document.getElementById('brandLogoImg').src;
             }
 
-            // E-Mart লোগো লোড
             let savedEmartLogo = localStorage.getItem('disha_emart_logo');
             if(savedEmartLogo) {
                 let el = document.getElementById('emartLogoIcon');
@@ -546,11 +580,11 @@
             if(savedCustomers) { customers = JSON.parse(savedCustomers); }
 
             let savedOrders = localStorage.getItem('disha_orders');
-            if(savedOrders) { 
-                orders = JSON.parse(savedOrders); 
-            }
+            if(savedOrders) { orders = JSON.parse(savedOrders); }
 
-            // কাস্টমার লগইন সেভ চেক (অটো লগইন)
+            let savedAnswers = localStorage.getItem('disha_quiz_answers');
+            if(savedAnswers) { quizAnswers = JSON.parse(savedAnswers); }
+
             let activeCustPhone = localStorage.getItem('disha_active_customer');
             if(activeCustPhone) {
                 let found = customers.find(c => c.phone === activeCustPhone);
@@ -564,11 +598,100 @@
                 }
             }
 
+            loadCustomerQuiz();
+            loadCustomerIslamic();
             renderAdminDisplaySlotsForm();
             renderCustomerDisplaySlots();
             renderCustomerProducts();
             renderTopWinners();
+            renderAdminCustomerAnswers();
         };
+
+        // প্রশ্ন ও উত্তর ম্যানেজমেন্ট ফাংশন
+        function saveAdminQuizQuestion() {
+            let qText = document.getElementById('adminQuizQuestionInput').value.trim();
+            if(!qText) { alert('দয়া করে প্রশ্ন লিখুন!'); return; }
+            localStorage.setItem('disha_active_quiz', qText);
+            alert('প্রশ্ন সফলভাবে সেট করা হয়েছে!');
+            loadCustomerQuiz();
+        }
+
+        function loadCustomerQuiz() {
+            let q = localStorage.getItem('disha_active_quiz') || 'অ্যাডমিন এখনও কোনো প্রশ্ন সেট করেননি।';
+            let display = document.getElementById('customerQuizDisplay');
+            if(display) display.innerText = q;
+            let adminInput = document.getElementById('adminQuizQuestionInput');
+            if(adminInput) adminInput.value = localStorage.getItem('disha_active_quiz') || '';
+        }
+
+        function submitCustomerAnswer() {
+            if(!currentCustomer) { alert('দয়া করে আগে লগইন করুন!'); return; }
+            let ansText = document.getElementById('customerAnswerInput').value.trim();
+            let currentQ = localStorage.getItem('disha_active_quiz');
+            if(!currentQ) { alert('বর্তমানে কোনো প্রশ্ন নেই!'); return; }
+            if(!ansText) { alert('দয়া করে আপনার উত্তর লিখুন!'); return; }
+
+            let submission = {
+                customerName: currentCustomer.name,
+                customerId: currentCustomer.id,
+                customerPhone: currentCustomer.phone,
+                question: currentQ,
+                answer: ansText,
+                time: new Date().toLocaleString()
+            };
+
+            quizAnswers.push(submission);
+            localStorage.setItem('disha_quiz_answers', JSON.stringify(quizAnswers));
+            document.getElementById('customerAnswerInput').value = '';
+            alert('আপনার উত্তর সফলভাবে জমা হয়েছে!');
+            closeFAQModal();
+        }
+
+        function renderAdminCustomerAnswers() {
+            let container = document.getElementById('adminCustomerAnswersList');
+            if(!container) return;
+            if(quizAnswers.length === 0) { container.innerHTML = 'কোনো উত্তর জমা পড়েনি।'; return; }
+            let html = '';
+            quizAnswers.forEach((qa, idx) => {
+                html += `<div style="border-bottom:1px solid #ddd; padding:6px 0;">
+                    <b>গ্রাহক:</b> ${qa.name || qa.customerName} (আইডি: ${qa.customerId})<br>
+                    <b>প্রশ্ন:</b> ${qa.question}<br>
+                    <b>উত্তর:</b> <span style="color:#0052D4; font-weight:bold;">${qa.answer}</span><br>
+                    <button class="btn btn-warning" style="padding:2px 5px; font-size:10px; margin-top:4px;" onclick="declareWinner('${qa.customerName}')">বিজয়ী ঘোষণা করুন</button>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function declareWinner(winnerName) {
+            alert(winnerName + '-কে আজকের প্রশ্ন-উত্তর পর্বের সঠিক উত্তরদাতা হিসেবে চিহ্নিত করা হয়েছে! আপনি চাইলে তাকে "সেরা ৩ বিজয়ী" সেকশনে নাম যুক্ত করে দিতে পারেন।');
+        }
+
+        // ইসলামিক কর্নার ফাংশন
+        function saveAdminIslamicContent() {
+            let content = document.getElementById('adminIslamicContentInput').value.trim();
+            if(!content) { alert('দয়া করে কিছু লিখুন!'); return; }
+            localStorage.setItem('disha_islamic_content', content);
+            alert('ইসলামিক কর্নার সফলভাবে আপডেট হয়েছে!');
+            loadCustomerIslamic();
+        }
+
+        function loadCustomerIslamic() {
+            let c = localStorage.getItem('disha_islamic_content') || 'বিসমিল্লাহির রহমানির রাহিম। ইসলামিক কর্নারে স্বাগতম। শীঘ্রই ইসলামিক মাসয়ালা ও টিপস যুক্ত করা হবে।';
+            let display = document.getElementById('customerIslamicDisplay');
+            if(display) display.innerText = c;
+            let adminInput = document.getElementById('adminIslamicContentInput');
+            if(adminInput) adminInput.value = localStorage.getItem('disha_islamic_content') || '';
+        }
+
+        function openIslamicModal() {
+            document.getElementById('islamicModal').classList.remove('hidden');
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        function closeIslamicModal() {
+            document.getElementById('islamicModal').classList.add('hidden');
+        }
 
         function updateEmartLogo() {
             let fileInput = document.getElementById('emartLogoFile');
@@ -586,7 +709,6 @@
             }
         }
 
-        // অ্যাডমিন প্যানেলে ৬টি স্লটের ফর্ম রেন্ডার করার ফাংশন
         function renderAdminDisplaySlotsForm() {
             let container = document.getElementById('adminDisplaySlotsForm');
             if(!container) return;
@@ -612,7 +734,6 @@
             container.innerHTML = html;
         }
 
-        // হোমপেজে ৬টি স্লট দেখানোর ফাংশন
         function renderCustomerDisplaySlots() {
             let slots = JSON.parse(localStorage.getItem('disha_display_slots')) || [];
             for(let i=0; i<6; i++) {
@@ -632,7 +753,6 @@
             }
         }
 
-        // প্রদর্শনী স্লটগুলো সেভ করার ফাংশন
         function saveDisplaySlots() {
             let slots = JSON.parse(localStorage.getItem('disha_display_slots')) || [{},{},{},{},{},{}];
             let pending = 0;
@@ -671,7 +791,6 @@
             }
         }
 
-        // মাসিক সেরা ৩ বিজয়ী সেভ করার ফাংশন
         function saveMonthlyWinners() {
             let name1 = document.getElementById('winner1Name').value.trim();
             let name2 = document.getElementById('winner2Name').value.trim();
@@ -734,7 +853,6 @@
             }
         }
 
-        // হোমপেজে বিজয়ী ৩ জনকে রেন্ডার করার ফাংশন
         function renderTopWinners() {
             let container = document.getElementById('displayWinnersGrid');
             if(!container) return;
@@ -1195,6 +1313,9 @@
                 renderAdminProductList(); 
                 renderAdminOrders(); 
                 renderAdminDisplaySlotsForm();
+                renderAdminCustomerAnswers();
+                loadCustomerQuiz();
+                loadCustomerIslamic();
             } else if(pass !== null) { alert('ভুল পাসওয়ার্ড!'); }
         }
 
@@ -1205,6 +1326,7 @@
             document.getElementById('adminPanel').classList.add('hidden');
             document.getElementById('viewModal').classList.add('hidden');
             document.getElementById('faqModal').classList.add('hidden');
+            document.getElementById('islamicModal').classList.add('hidden');
 
             if(tab === 'customer') {
                 if(currentCustomer) {
@@ -1225,6 +1347,9 @@
                 renderAdminProductList();
                 renderAdminOrders();
                 renderAdminDisplaySlotsForm();
+                renderAdminCustomerAnswers();
+                loadCustomerQuiz();
+                loadCustomerIslamic();
             }
         }
 
