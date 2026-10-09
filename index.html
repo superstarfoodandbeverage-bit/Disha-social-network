@@ -560,7 +560,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Global variables synced with Firestore
         window.db = db;
         window.colRefOrders = collection(db, "orders");
         window.colRefProducts = collection(db, "products");
@@ -573,7 +572,6 @@
 
         console.log("Firebase Firestore Connected Successfully!");
         
-        // Trigger initial real-time sync listeners after load
         if(window.initFirebaseRealtimeSync) {
             window.initFirebaseRealtimeSync();
         }
@@ -597,7 +595,6 @@
             if(!window.db) return;
             const { onSnapshot, collection } = window.firebaseTools;
 
-            // রিয়েল-টাইম প্রোডাক্ট সিংক
             onSnapshot(collection(window.db, "products"), (snapshot) => {
                 products = [];
                 snapshot.forEach(docSnap => {
@@ -607,7 +604,6 @@
                 renderAdminProductList();
             });
 
-            // রিয়েল-টাইম অর্ডার সিংক (যেকোনো মোবাইল থেকে অর্ডার দিলে সাথে সাথে অ্যাডমিন ও ম্যানেজার প্যানেলে আসবে)
             onSnapshot(collection(window.db, "orders"), (snapshot) => {
                 orders = [];
                 snapshot.forEach(docSnap => {
@@ -617,7 +613,6 @@
                 renderManagerOrders();
             });
 
-            // রিয়েল-টাইম কাস্টমার সিংক
             onSnapshot(collection(window.db, "customers"), (snapshot) => {
                 customers = [];
                 snapshot.forEach(docSnap => {
@@ -664,16 +659,18 @@
             if(savedAnswers) { quizAnswers = JSON.parse(savedAnswers); }
 
             let activeCustPhone = localStorage.getItem('disha_active_customer');
-            if(activeCustPhone && customers.length > 0) {
-                let found = customers.find(c => c.phone === activeCustPhone);
-                if(found) {
-                    currentCustomer = found;
-                    document.getElementById('authSection').classList.add('hidden');
-                    document.getElementById('customerPanel').classList.remove('hidden');
-                    document.getElementById('topNavBar').classList.add('hidden');
-                    document.getElementById('bottomManagerNav').classList.add('hidden');
-                    updateCustomerDashboard();
-                }
+            if(activeCustPhone) {
+                setTimeout(() => {
+                    let found = customers.find(c => c.phone === activeCustPhone);
+                    if(found) {
+                        currentCustomer = found;
+                        document.getElementById('authSection').classList.add('hidden');
+                        document.getElementById('customerPanel').classList.remove('hidden');
+                        document.getElementById('topNavBar').classList.add('hidden');
+                        document.getElementById('bottomManagerNav').classList.add('hidden');
+                        updateCustomerDashboard();
+                    }
+                }, 1000);
             }
 
             loadCustomerQuiz();
