@@ -80,7 +80,16 @@
             text-decoration: none;
             display: block;
         }
-        .service-icon { font-size: 20px; margin-bottom: 4px; display: block; }
+        .service-icon { font-size: 20px; margin-bottom: 2px; display: block; }
+        .service-subtext { font-size: 8px; color: #666; display: block; margin-top: 2px; }
+
+        /* মাসিক সেরা ৩ বিজয়ী সেকশন ডিজাইন */
+        .top-winners-section { background: white; padding: 12px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); text-align: center; }
+        .winners-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+        .winner-card { background: #fdf8f0; border: 1px solid #ff8c00; padding: 8px; border-radius: 8px; text-align: center; position: relative; }
+        .winner-badge { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); background: #ff5e00; color: white; font-size: 9px; font-weight: bold; padding: 1px 6px; border-radius: 4px; }
+        .winner-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #ff8c00; margin: 8px auto 4px auto; display: block; background: #ddd; }
+        .winner-name { font-size: 11px; font-weight: bold; color: #222; }
 
         .search-container { background: #0052D4; padding: 0 15px 12px 15px; }
         .search-box { background: white; display: flex; align-items: center; padding: 8px 12px; border-radius: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
@@ -226,16 +235,17 @@
                 <div class="section-title" style="font-size: 14px;">ফিচার ও ক্যাটাগরিসমূহ</div>
             </div>
             
-            <!-- ১০টি ঘরযুক্ত গ্রিড (বিজনেস পেজ, দিশা টিভি, প্রশ্ন-উত্তর এবং নতুন প্রোডাক্ট/ক্যাটাগরির জন্য) -->
+            <!-- ১০টি ঘরযুক্ত গ্রিড -->
             <div class="services-grid">
-                <!-- ১. বিজনেস পেজ লিংক (ফলো বাটনসহ) -->
-                <a href="https://facebook.com/YOUR_PAGE_LINK" target="_blank" class="service-item">
-                    <span class="service-icon">👍</span>বিজনেস পেজ
+                <!-- ১. E-Mart 365 পেজ লিংক -->
+                <a href="https://www.facebook.com/share/1H4hKr9LsL/" target="_blank" class="service-item">
+                    <span class="service-icon">👍</span>E-Mart 365
                 </a>
                 
                 <!-- ২. দিশা টিভি -->
                 <a href="https://your-channel-link.com" target="_blank" class="service-item">
                     <span class="service-icon">📺</span>Disha TV
+                    <span class="service-subtext">(সবার কথা বলে)</span>
                 </a>
                 
                 <!-- ৩. প্রশ্ন ও উত্তর পর্ব -->
@@ -243,39 +253,21 @@
                     <span class="service-icon">❓</span>প্রশ্ন ও উত্তর
                 </div>
 
-                <!-- ৪. নতুন প্রোডাক্ট / অফার ১ -->
-                <div class="service-item" onclick="alert('নতুন প্রোডাক্ট ক্যাটাগরি ১')">
-                    <span class="service-icon">🔥</span>নতুন অফার
-                </div>
+                <!-- ৪ থেকে ১০: অন্যান্য শর্টকাট বা ক্যাটাগরি -->
+                <div class="service-item" onclick="alert('নতুন অফার সেকশন')"><span class="service-icon">🔥</span>নতুন অফার</div>
+                <div class="service-item" onclick="alert('বিশেষ পণ্য সেকশন')"><span class="service-icon">🛍️</span>বিশেষ পণ্য</div>
+                <div class="service-item" onclick="alert('ড্রাইভ প্যাক')"><span class="service-icon">📦</span>ড্রাইভ প্যাক</div>
+                <div class="service-item" onclick="alert('সেরা ডিল')"><span class="service-icon">⭐</span>সেরা ডিল</div>
+                <div class="service-item" onclick="alert('রিচার্জ প্যাক')"><span class="service-icon">📱</span>রিচার্জ প্যাক</div>
+                <div class="service-item" onclick="alert('ট্রেড ক্লাব')"><span class="service-icon">🤝</span>ট্রেড ক্লাব</div>
+                <div class="service-item" onclick="alert('ইসলামিক কর্নার')"><span class="service-icon">🌙</span>ইসলামিক কর্নার</div>
+            </div>
 
-                <!-- ৫. নতুন প্রোডাক্ট / ক্যাটাগরি ২ -->
-                <div class="service-item" onclick="alert('নতুন প্রোডাক্ট ক্যাটাগরি ২')">
-                    <span class="service-icon">🛍️</span>বিশেষ পণ্য
-                </div>
-
-                <!-- ৬. অতিরিক্ত ক্যাটাগরি ৩ -->
-                <div class="service-item" onclick="alert('ক্যাটাগরি ৩')">
-                    <span class="service-icon">📦</span>ড্রাইভ প্যাক
-                </div>
-
-                <!-- ৭. অতিরিক্ত ক্যাটাগরি ৪ -->
-                <div class="service-item" onclick="alert('ক্যাটাগরি ৪')">
-                    <span class="service-icon">⭐</span>সেরা ডিল
-                </div>
-
-                <!-- ৮. অতিরিক্ত ক্যাটাগরি ৫ -->
-                <div class="service-item" onclick="alert('ক্যাটাগরি ৫')">
-                    <span class="service-icon">📱</span>রিচার্জ প্যাক
-                </div>
-
-                <!-- ৯. অতিরিক্ত ক্যাটাগরি ৬ -->
-                <div class="service-item" onclick="alert('ক্যাটাগরি ৬')">
-                    <span class="service-icon">🤝</span>ট্রেড ক্লাব
-                </div>
-
-                <!-- ১০. অতিরিক্ত ক্যাটাগরি ৭ -->
-                <div class="service-item" onclick="alert('ক্যাটাগরি ৭')">
-                    <span class="service-icon">🌙</span>ইসলামিক কর্নার
+            <!-- মাসিক সেরা ৩ বিজয়ী কাস্টমার ডিসপ্লে সেকশন -->
+            <div class="top-winners-section">
+                <h3 style="font-size: 14px; color: #ff5e00; margin-bottom: 4px;">🏆 এই মাসের সেরা ৩ বিজয়ী কাস্টমার (Top 1, 2, 3)</h3>
+                <div class="winners-grid" id="displayWinnersGrid">
+                    <!-- ডাইনামিকালি লোড হবে -->
                 </div>
             </div>
 
@@ -337,10 +329,37 @@
                 <button class="btn btn-danger" onclick="hardResetSystem()">সব ডেটা রিসেট করুন (00)</button>
             </div>
 
+            <!-- নতুন: মাসিক সেরা ৩ কাস্টমার (1, 2, 3) ছবি ও নাম আপলোড সেকশন -->
+            <div class="card" style="border: 2px solid #ff5e00; background: #fffaf0;">
+                <h3 style="color: #ff5e00; margin-bottom: 10px; font-size: 15px;">🏆 প্রতি মাসের সেরা ৩ বিজয়ী কাস্টমার (১ম, ২য়, ৩য়) আপডেট করুন</h3>
+                
+                <!-- বিজয়ী ১ -->
+                <div style="background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ddd;">
+                    <label style="font-weight: bold; color: #ff5e00;">১ম স্থান অধিকারী (Top 1):</label>
+                    <div class="form-group" style="margin-top: 5px;"><label>নাম:</label><input type="text" id="winner1Name" class="form-control" placeholder="১ম বিজয়ী কাস্টমারের নাম"></div>
+                    <div class="form-group"><label>ছবি:</label><input type="file" id="winner1File" class="form-control" accept="image/*"></div>
+                </div>
+
+                <!-- বিজয়ী ২ -->
+                <div style="background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ddd;">
+                    <label style="font-weight: bold; color: #ff5e00;">২য় স্থান অধিকারী (Top 2):</label>
+                    <div class="form-group" style="margin-top: 5px;"><label>নাম:</label><input type="text" id="winner2Name" class="form-control" placeholder="২য় বিজয়ী কাস্টমারের নাম"></div>
+                    <div class="form-group"><label>ছবি:</label><input type="file" id="winner2File" class="form-control" accept="image/*"></div>
+                </div>
+
+                <!-- বিজয়ী ৩ -->
+                <div style="background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ddd;">
+                    <label style="font-weight: bold; color: #ff5e00;">৩য় স্থান অধিকারী (Top 3):</label>
+                    <div class="form-group" style="margin-top: 5px;"><label>নাম:</label><input type="text" id="winner3Name" class="form-control" placeholder="৩য় বিজয়ী কাস্টমারের নাম"></div>
+                    <div class="form-group"><label>ছবি:</label><input type="file" id="winner3File" class="form-control" accept="image/*"></div>
+                </div>
+
+                <button class="btn" style="background: #ff5e00; width: 100%;" onclick="saveMonthlyWinners()">সেরা ৩ বিজয়ী সেভ ও আপডেট করুন</button>
+            </div>
+
             <!-- এফিলিয়েট বোনাস পয়েন্ট কাস্টমাইজ করার অপশন -->
             <div class="card" style="border: 2px solid #ff8c00; background: #fffaf0;">
                 <h3 style="color: #ff8c00; margin-bottom: 10px; font-size: 15px;">💰 এফিলিয়েট বোনাস পয়েন্ট সেট করুন</h3>
-                <p style="font-size: 12px; color: #666; margin-bottom: 10px;">রেফার করলে কে কত পয়েন্ট পাবে তা নির্ধারণ করুন:</p>
                 <div class="form-group">
                     <label>রেফারকারী (যিনি যুক্ত করেছেন) পয়েন্ট:</label>
                     <input type="number" id="adminAffiliateBonusForReferrer" class="form-control" value="5">
@@ -521,7 +540,97 @@
             }
 
             renderCustomerProducts();
+            renderTopWinners();
         };
+
+        // মাসিক সেরা ৩ বিজয়ী সেভ করার ফাংশন
+        function saveMonthlyWinners() {
+            let name1 = document.getElementById('winner1Name').value.trim();
+            let name2 = document.getElementById('winner2Name').value.trim();
+            let name3 = document.getElementById('winner3Name').value.trim();
+
+            let file1 = document.getElementById('winner1File').files[0];
+            let file2 = document.getElementById('winner2File').files[0];
+            let file3 = document.getElementById('winner3File').files[0];
+
+            let winnersData = JSON.parse(localStorage.getItem('disha_top_winners')) || [{}, {}, {}];
+
+            if(name1) winnersData[0].name = name1;
+            if(name2) winnersData[1].name = name2;
+            if(name3) winnersData[2].name = name3;
+
+            let pendingImages = 0;
+            if(file1) pendingImages++;
+            if(file2) pendingImages++;
+            if(file3) pendingImages++;
+
+            if(pendingImages === 0) {
+                localStorage.setItem('disha_top_winners', JSON.stringify(winnersData));
+                alert('বিজয়ী কাস্টমারদের তথ্য সফলভাবে সেভ হয়েছে!');
+                renderTopWinners();
+                return;
+            }
+
+            if(file1) {
+                let r1 = new FileReader();
+                r1.onload = function(e) {
+                    winnersData[0].img = e.target.result;
+                    checkDone();
+                };
+                r1.readAsDataURL(file1);
+            }
+            if(file2) {
+                let r2 = new FileReader();
+                r2.onload = function(e) {
+                    winnersData[1].img = e.target.result;
+                    checkDone();
+                };
+                r2.readAsDataURL(file2);
+            }
+            if(file3) {
+                let r3 = new FileReader();
+                r3.onload = function(e) {
+                    winnersData[2].img = e.target.result;
+                    checkDone();
+                };
+                r3.readAsDataURL(file3);
+            }
+
+            function checkDone() {
+                pendingImages--;
+                if(pendingImages <= 0) {
+                    localStorage.setItem('disha_top_winners', JSON.stringify(winnersData));
+                    alert('বিজয়ী কাস্টমারদের ছবি ও নাম সফলভাবে সেভ হয়েছে!');
+                    renderTopWinners();
+                }
+            }
+        }
+
+        // হোমপেজে বিজয়ী ৩ জনকে রেন্ডার করার ফাংশন
+        function renderTopWinners() {
+            let container = document.getElementById('displayWinnersGrid');
+            if(!container) return;
+            let winners = JSON.parse(localStorage.getItem('disha_top_winners')) || [
+                {name: '১ম বিজয়ী', img: ''},
+                {name: '২য় বিজয়ী', img: ''},
+                {name: '৩য় বিজয়ী', img: ''}
+            ];
+
+            let html = '';
+            let badges = ['1st Place', '2nd Place', '3rd Place'];
+            for(let i=0; i<3; i++) {
+                let w = winners[i] || {name: 'বিজয়ী', img: ''};
+                let imgTag = w.img ? `<img src="${w.img}" class="winner-img">` : `<div class="winner-img" style="display:flex;align-items:center;justify-content:center;font-size:10px;color:#888;">ছবি নেই</div>`;
+                html += `
+                    <div class="winner-card">
+                        <div class="winner-badge">${badges[i]}</div>
+                        ${imgTag}
+                        <div class="winner-name">${w.name || 'অপেক্ষা করুন'}</div>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
 
         function openFAQModal() {
             document.getElementById('faqModal').classList.remove('hidden');
