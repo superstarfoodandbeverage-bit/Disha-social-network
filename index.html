@@ -61,7 +61,6 @@
         .wallet-title { font-size: 10px; opacity: 0.9; }
         .wallet-btn-text { font-size: 11px; font-weight: bold; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 6px; display: inline-block; margin-top: 2px; }
 
-        /* লগইন ডায়লগ বক্সের নিচে আরও অনেক বড়, আকর্ষণীয় ও মোটা ফন্টের E-Mart 365 এবং Disha TV বাটন */
         .login-bottom-features {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -93,7 +92,6 @@
         .feature-big-btn:active { transform: scale(0.96); }
         .feature-big-icon { font-size: 32px; }
 
-        /* পাশাপাশি ৩টি খাড়া বক্স */
         .big-cards-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -126,7 +124,6 @@
             object-fit: cover;
         }
 
-        /* বিজয়ী কার্ডের ছবির সাইজ পাসপোর্ট সাইজের মতো ছোট ও গোছানো */
         .top-winners-section { background: white; padding: 12px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); text-align: center; }
         .winners-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
         .winner-card { background: #fdf8f0; border: 1px solid #ff8c00; padding: 8px; border-radius: 8px; text-align: center; position: relative; }
@@ -252,7 +249,6 @@
                 <img id="loginBannerImg" src="" alt="Disha Social Network Banner" style="max-width: 100%; height: auto; border-radius: 8px;">
             </div>
 
-            <!-- লগইন ডায়লগ বক্সের ঠিক নিচে বড় ও আকর্ষণীয় E-Mart 365 এবং Disha TV বাটন সেকশন -->
             <div class="login-bottom-features">
                 <a href="https://www.facebook.com/share/1H4hKr9LsL/" target="_blank" class="feature-big-btn emart-btn">
                     <span class="feature-big-icon">🛒</span>
@@ -289,23 +285,19 @@
                 <div class="section-title" style="font-size: 14px;">মেনু ও ক্যাটাগরিসমূহ</div>
             </div>
             
-            <!-- পাশাপাশি ৩টি খাড়া বক্স -->
             <div class="big-cards-container">
-                <!-- বক্স ১ -->
                 <a href="https://www.facebook.com/share/1H4hKr9LsL/" target="_blank" class="big-card-item">
                     <div class="big-card-img-box">
                         <img id="bannerCardImg0" src="" alt="বক্স ১">
                     </div>
                 </a>
                 
-                <!-- বক্স ২ -->
                 <a href="https://your-channel-link.com" target="_blank" class="big-card-item">
                     <div class="big-card-img-box">
                         <img id="bannerCardImg1" src="" alt="বক্স ২">
                     </div>
                 </a>
                 
-                <!-- বক্স ৩ (প্রশ্ন ও উত্তর মোডাল ওপেন হবে) -->
                 <div class="big-card-item" onclick="openFAQModal()">
                     <div class="big-card-img-box">
                         <img id="bannerCardImg2" src="" alt="বক্স ৩">
@@ -324,7 +316,6 @@
                 <div class="section-title" style="font-size: 14px;">আমাদের জনপ্রিয় প্রোডাক্টসমূহ</div>
             </div>
             
-            <!-- কাস্টমারদের জন্য প্রোডাক্ট তালিকা নিচে সাজানো থাকবে -->
             <div class="product-grid" id="customerProductList">
                 <p style="color: #777; font-size: 13px; grid-column: span 2;">বর্তমানে কোনো পণ্য নেই।</p>
             </div>
@@ -384,7 +375,6 @@
                 <button class="btn btn-danger" style="width: 100%;" onclick="updatePasswords()">পাসওয়ার্ড সেভ করুন</button>
             </div>
 
-            <!-- পাশাপাশি ৩টি বক্সের ছবি আপলোড প্যানেল -->
             <div class="card" style="border: 2px solid #7b2cbf; background: #faf5ff;">
                 <h3 style="color: #7b2cbf; margin-bottom: 10px; font-size: 15px;">🖼️ হোমপেজের পাশাপাশি ৩টি বক্সের ছবি পরিবর্তন</h3>
                 
@@ -553,6 +543,23 @@
         <div class="bottom-nav-item" id="bottomManagerNav" onclick="openManagerLogin()"><span>⚙️</span>Manager</div>
     </div>
 
+    <!-- Firebase SDK & Initialization -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyBK2hZ9evaDdYEzMk057xmSumj2htFcBsM",
+          authDomain: "disha-mart.firebaseapp.com",
+          projectId: "disha-mart",
+          storageBucket: "disha-mart.firebasestorage.app",
+          messagingSenderId: "981866268656",
+          appId: "1:981866268656:web:6303b49d80dafdbda67f35"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        console.log("Firebase Connected Successfully for Disha Mart!");
+    </script>
+
     <script>
         let managerPassword = "m123";
         let adminPassword = "a123";
@@ -668,6 +675,7 @@
 
             if(pending === 0) {
                 alert('দয়া করে অন্তত একটি ছবি সিলেক্ট করুন!');
+                return;
             }
 
             function finishCardSave(data) {
