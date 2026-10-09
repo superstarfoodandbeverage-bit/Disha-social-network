@@ -69,7 +69,7 @@
         }
         .service-item {
             background: white;
-            padding: 10px 4px;
+            padding: 8px 4px;
             border-radius: 10px;
             text-align: center;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
@@ -80,7 +80,7 @@
             text-decoration: none;
             display: block;
         }
-        .service-icon { font-size: 20px; margin-bottom: 2px; display: block; }
+        .service-icon { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; margin: 0 auto 3px auto; display: block; background: #eee; border: 1px solid #ddd; }
         .service-subtext { font-size: 8px; color: #666; display: block; margin-top: 2px; }
 
         /* মাসিক সেরা ৩ বিজয়ী সেকশন ডিজাইন */
@@ -232,43 +232,45 @@
             </div>
 
             <div class="section-title-wrapper" style="margin-bottom: 8px;">
-                <div class="section-title" style="font-size: 14px;">ফিচার ও ক্যাটাগরিসমূহ</div>
+                <div class="section-title" style="font-size: 14px;">মেনু ও ক্যাটাগরিসমূহ</div>
             </div>
             
             <!-- ১০টি ঘরযুক্ত গ্রিড -->
             <div class="services-grid">
                 <!-- ১. E-Mart 365 পেজ লিংক -->
                 <a href="https://www.facebook.com/share/1H4hKr9LsL/" target="_blank" class="service-item">
-                    <span class="service-icon">👍</span>E-Mart 365
+                    <span class="service-icon" style="display:flex;align-items:center;justify-content:center;font-size:16px;">👍</span>E-Mart 365
                 </a>
                 
                 <!-- ২. দিশা টিভি -->
                 <a href="https://your-channel-link.com" target="_blank" class="service-item">
-                    <span class="service-icon">📺</span>Disha TV
+                    <span class="service-icon" style="display:flex;align-items:center;justify-content:center;font-size:16px;">📺</span>Disha TV
                     <span class="service-subtext">(সবার কথা বলে)</span>
                 </a>
                 
                 <!-- ৩. প্রশ্ন ও উত্তর পর্ব -->
                 <div class="service-item" onclick="openFAQModal()">
-                    <span class="service-icon">❓</span>প্রশ্ন ও উত্তর
+                    <span class="service-icon" style="display:flex;align-items:center;justify-content:center;font-size:16px;">❓</span>প্রশ্ন ও উত্তর
                 </div>
 
-                <!-- ৪ থেকে ১০: অন্যান্য শর্টকাট বা ক্যাটাগরি -->
-                <div class="service-item" onclick="alert('নতুন অফার সেকশন')"><span class="service-icon">🔥</span>নতুন অফার</div>
-                <div class="service-item" onclick="alert('বিশেষ পণ্য সেকশন')"><span class="service-icon">🛍️</span>বিশেষ পণ্য</div>
-                <div class="service-item" onclick="alert('ড্রাইভ প্যাক')"><span class="service-icon">📦</span>ড্রাইভ প্যাক</div>
-                <div class="service-item" onclick="alert('সেরা ডিল')"><span class="service-icon">⭐</span>সেরা ডিল</div>
-                <div class="service-item" onclick="alert('রিচার্জ প্যাক')"><span class="service-icon">📱</span>রিচার্জ প্যাক</div>
-                <div class="service-item" onclick="alert('ট্রেড ক্লাব')"><span class="service-icon">🤝</span>ট্রেড ক্লাব</div>
-                <div class="service-item" onclick="alert('ইসলামিক কর্নার')"><span class="service-icon">🌙</span>ইসলামিক কর্নার</div>
+                <!-- ৪. ইসলামিক অপশন -->
+                <div class="service-item" onclick="alert('ইসলামিক কর্নার সেকশন')">
+                    <span class="service-icon" style="display:flex;align-items:center;justify-content:center;font-size:16px;">🌙</span>ইসলামিক কর্নার
+                </div>
+
+                <!-- ৫ থেকে ১০: ৬টি নতুন প্রদর্শনী প্রোডাক্ট স্লট -->
+                <div class="service-item" id="dispBox0" onclick="alert('নতুন প্রোডাক্ট ১')"><img id="dImg0" class="service-icon" src="" alt="Img"><span id="dName0">নতুন প্রোডাক্ট ১</span></div>
+                <div class="service-item" id="dispBox1" onclick="alert('নতুন প্রোডাক্ট ২')"><img id="dImg1" class="service-icon" src="" alt="Img"><span id="dName1">নতুন প্রোডাক্ট ২</span></div>
+                <div class="service-item" id="dispBox2" onclick="alert('নতুন প্রোডাক্ট ৩')"><img id="dImg2" class="service-icon" src="" alt="Img"><span id="dName2">নতুন প্রোডাক্ট ৩</span></div>
+                <div class="service-item" id="dispBox3" onclick="alert('নতুন প্রোডাক্ট ৪')"><img id="dImg3" class="service-icon" src="" alt="Img"><span id="dName3">নতুন প্রোডাক্ট ৪</span></div>
+                <div class="service-item" id="dispBox4" onclick="alert('নতুন প্রোডাক্ট ৫')"><img id="dImg4" class="service-icon" src="" alt="Img"><span id="dName4">নতুন প্রোডাক্ট ৫</span></div>
+                <div class="service-item" id="dispBox5" onclick="alert('নতুন প্রোডাক্ট ৬')"><img id="dImg5" class="service-icon" src="" alt="Img"><span id="dName5">নতুন প্রোডাক্ট ৬</span></div>
             </div>
 
             <!-- মাসিক সেরা ৩ বিজয়ী কাস্টমার ডিসপ্লে সেকশন -->
             <div class="top-winners-section">
                 <h3 style="font-size: 14px; color: #ff5e00; margin-bottom: 4px;">🏆 এই মাসের সেরা ৩ বিজয়ী কাস্টমার (Top 1, 2, 3)</h3>
-                <div class="winners-grid" id="displayWinnersGrid">
-                    <!-- ডাইনামিকালি লোড হবে -->
-                </div>
+                <div class="winners-grid" id="displayWinnersGrid"></div>
             </div>
 
             <button class="btn btn-danger" style="padding: 4px 10px; font-size: 11px; margin-bottom: 12px;" onclick="logoutCustomer()">লগআউট</button>
@@ -329,25 +331,29 @@
                 <button class="btn btn-danger" onclick="hardResetSystem()">সব ডেটা রিসেট করুন (00)</button>
             </div>
 
-            <!-- নতুন: মাসিক সেরা ৩ কাস্টমার (1, 2, 3) ছবি ও নাম আপলোড সেকশন -->
+            <!-- নতুন: হোমপেজের ৬টি প্রদর্শনী স্লট আপডেট করার অপশন -->
+            <div class="card" style="border: 2px solid #0052D4; background: #f0f4f8;">
+                <h3 style="color: #0052D4; margin-bottom: 10px; font-size: 15px;">🖼️ হোমপেজের ৬টি প্রদর্শনী প্রোডাক্ট স্লট আপডেট করুন</h3>
+                <div id="adminDisplaySlotsForm"></div>
+                <button class="btn" style="margin-top: 10px; width: 100%;" onclick="saveDisplaySlots()">প্রদর্শনী স্লটগুলো সেভ করুন</button>
+            </div>
+
+            <!-- মাসিক সেরা ৩ কাস্টমার (1, 2, 3) ছবি ও নাম আপলোড সেকশন -->
             <div class="card" style="border: 2px solid #ff5e00; background: #fffaf0;">
                 <h3 style="color: #ff5e00; margin-bottom: 10px; font-size: 15px;">🏆 প্রতি মাসের সেরা ৩ বিজয়ী কাস্টমার (১ম, ২য়, ৩য়) আপডেট করুন</h3>
                 
-                <!-- বিজয়ী ১ -->
                 <div style="background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ddd;">
                     <label style="font-weight: bold; color: #ff5e00;">১ম স্থান অধিকারী (Top 1):</label>
                     <div class="form-group" style="margin-top: 5px;"><label>নাম:</label><input type="text" id="winner1Name" class="form-control" placeholder="১ম বিজয়ী কাস্টমারের নাম"></div>
                     <div class="form-group"><label>ছবি:</label><input type="file" id="winner1File" class="form-control" accept="image/*"></div>
                 </div>
 
-                <!-- বিজয়ী ২ -->
                 <div style="background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ddd;">
                     <label style="font-weight: bold; color: #ff5e00;">২য় স্থান অধিকারী (Top 2):</label>
                     <div class="form-group" style="margin-top: 5px;"><label>নাম:</label><input type="text" id="winner2Name" class="form-control" placeholder="২য় বিজয়ী কাস্টমারের নাম"></div>
                     <div class="form-group"><label>ছবি:</label><input type="file" id="winner2File" class="form-control" accept="image/*"></div>
                 </div>
 
-                <!-- বিজয়ী ৩ -->
                 <div style="background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ddd;">
                     <label style="font-weight: bold; color: #ff5e00;">৩য় স্থান অধিকারী (Top 3):</label>
                     <div class="form-group" style="margin-top: 5px;"><label>নাম:</label><input type="text" id="winner3Name" class="form-control" placeholder="৩য় বিজয়ী কাস্টমারের নাম"></div>
@@ -539,9 +545,96 @@
                 }
             }
 
+            renderAdminDisplaySlotsForm();
+            renderCustomerDisplaySlots();
             renderCustomerProducts();
             renderTopWinners();
         };
+
+        // অ্যাডমিন প্যানেলে ৬টি স্লটের ফর্ম রেন্ডার করার ফাংশন
+        function renderAdminDisplaySlotsForm() {
+            let container = document.getElementById('adminDisplaySlotsForm');
+            if(!container) return;
+            let slots = JSON.parse(localStorage.getItem('disha_display_slots')) || [
+                {name: 'নতুন প্রোডাক্ট ১', img: ''},
+                {name: 'নতুন প্রোডাক্ট ২', img: ''},
+                {name: 'নতুন প্রোডাক্ট ৩', img: ''},
+                {name: 'নতুন প্রোডাক্ট ৪', img: ''},
+                {name: 'নতুন প্রোডাক্ট ৫', img: ''},
+                {name: 'নতুন প্রোডাক্ট ৬', img: ''}
+            ];
+
+            let html = '';
+            for(let i=0; i<6; i++) {
+                html += `
+                    <div style="background:#fff; padding:8px; border-radius:6px; margin-bottom:8px; border:1px solid #ddd;">
+                        <label style="font-size:12px; font-weight:bold; color:#0052D4;">স্লট ${i+1}:</label>
+                        <input type="text" id="slotName${i}" class="form-control" value="${slots[i].name || ''}" placeholder="নাম দিন" style="margin:4px 0;">
+                        <input type="file" id="slotFile${i}" class="form-control" accept="image/*">
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        // হোমপেজে ৬টি স্লট দেখানোর ফাংশন
+        function renderCustomerDisplaySlots() {
+            let slots = JSON.parse(localStorage.getItem('disha_display_slots')) || [];
+            for(let i=0; i<6; i++) {
+                let s = slots[i] || {name: `নতুন প্রোডাক্ট ${i+1}`, img: ''};
+                let nameEl = document.getElementById(`dName${i}`);
+                let imgEl = document.getElementById(`dImg${i}`);
+                if(nameEl) nameEl.innerText = s.name;
+                if(imgEl) {
+                    if(s.img) {
+                        imgEl.src = s.img;
+                        imgEl.style.display = 'block';
+                    } else {
+                        imgEl.src = '';
+                        imgEl.style.display = 'none';
+                    }
+                }
+            }
+        }
+
+        // প্রদর্শনী স্লটগুলো সেভ করার ফাংশন
+        function saveDisplaySlots() {
+            let slots = JSON.parse(localStorage.getItem('disha_display_slots')) || [{},{},{},{},{},{}];
+            let pending = 0;
+
+            for(let i=0; i<6; i++) {
+                let name = document.getElementById(`slotName${i}`).value.trim();
+                if(name) slots[i].name = name;
+                let file = document.getElementById(`slotFile${i}`).files[0];
+                if(file) {
+                    pending++;
+                    let reader = new FileReader();
+                    reader.onload = (function(index) {
+                        return function(e) {
+                            slots[index].img = e.target.result;
+                            checkFinished();
+                        };
+                    })(i);
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            if(pending === 0) {
+                localStorage.setItem('disha_display_slots', JSON.stringify(slots));
+                alert('প্রদর্শনী স্লটগুলো সফলভাবে আপডেট ও সেভ হয়েছে!');
+                renderCustomerDisplaySlots();
+            }
+
+            function checkFinished() {
+                pending--;
+                if(pending <= 0) {
+                    localStorage.setItem('disha_display_slots', JSON.stringify(slots));
+                    alert('প্রদর্শনী স্লটগুলোর ছবি ও নাম সফলভাবে আপডেট ও সেভ হয়েছে!');
+                    renderCustomerDisplaySlots();
+                    renderAdminDisplaySlotsForm();
+                }
+            }
+        }
 
         // মাসিক সেরা ৩ বিজয়ী সেভ করার ফাংশন
         function saveMonthlyWinners() {
@@ -1066,6 +1159,7 @@
                 renderAdminCustomers(); 
                 renderAdminProductList(); 
                 renderAdminOrders(); 
+                renderAdminDisplaySlotsForm();
             } else if(pass !== null) { alert('ভুল পাসওয়ার্ড!'); }
         }
 
@@ -1095,6 +1189,7 @@
                 renderAdminCustomers();
                 renderAdminProductList();
                 renderAdminOrders();
+                renderAdminDisplaySlotsForm();
             }
         }
 
