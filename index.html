@@ -1209,7 +1209,21 @@
                 window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
             }
         }
-        function closeView() { document.getElementById('viewModal').classList.add('hidden'); }
+     
+   function closeView() { document.getElementById('viewModal').classList.add('hidden'); }
+     // Firebase Config & Initialization
+  const firebaseConfig = {
+    apiKey: "AIzaSyBK2hZ9evaDdYEzMk@57xmSumj2htFcBsM",
+    authDomain: "disha-mart.firebaseapp.com",
+    projectId: "disha-mart",
+    storageBucket: "disha-mart.firebasestorage.app",
+    messagingSenderId: "981866268656",
+    appId: "1:981866268656:web:2168a37cf6d25c50a67f35"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+        
     </script>
 </body>
 </html>
