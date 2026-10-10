@@ -1153,76 +1153,102 @@
             }
         }
 
-        function renderAdminCustomers() {
-            let c = document.getElementById('adminCustomerList');
-            if(!c) return;
-            if(customers.length === 0) { c.innerHTML = 'কাস্টমার নেই।'; return; }
-            let html = '<table width="100%" border="1" style="border-collapse:collapse;"><tr><th>নাম</th><th>মোবাইল</th><th>পাসওয়ার্ড</th></tr>';
-            customers.forEach(cu => { html += `<tr><td>${cu.name}</td><td>${cu.phone}</td><td style="color:red;">${cu.pass}</td></tr>`; });
-            c.innerHTML = html + '</table>';
-        }
+        // ১. রেজিস্টার্ড কাস্টমার তালিকায় 'পয়েন্ট' কলামসহ রেন্ডার করার কোড
+function renderAdminCustomers() {
+    let c = document.getElementById('adminCustomerList');
+    if(!c) return;
+    if(customers.length === 0) { c.innerHTML = 'কাস্টমার নেই'; return; }
+    
+    let html = '<table width="100%" border="1" style="border-collapse:collapse; text-align:left;"><tr><th>নাম</th><th>মোবাইল</th><th>পাসওয়ার্ড</th><th>পয়েন্ট</th></tr>';
+    customers.forEach(cu => { 
+        html += `<tr><td>${cu.name || ''}</td><td>${cu.phone || ''}</td><td>${cu.password || ''}</td><td>${cu.points || 0}</td></tr>`;
+    });
+    c.innerHTML = html + '</table>';
+}
 
-        function renderManagerOrders() {
-            let c = document.getElementById('managerOrderList');
-            if(!c) return;
-            let appO = orders.filter(o => o.adminApproved === true);
-            if(appO.length === 0) { c.innerHTML = 'অনুমোদিত অর্ডার নেই।'; return; }
-            let html = '';
-            appO.forEach(o => {
-                html += `<div class="card"><b>ইনভয়েস: #${o.id}</b><br>গ্রাহক: ${o.customerName}<br><button class="btn btn-info" onclick="viewOrder('${o.id}')">প্রিন্ট ভিউ</button></div>`;
-            });
-            c.innerHTML = html;
-        }
+// ২. প্রোডাক্ট তালিকায় এডিট এবং ডিলিট বাটনসহ রেন্ডার করার কোড
+function renderProducts() {
+    let container = document.getElementById('productList');
+    if(!container) return;
+    if(products.length === 0) { container.innerHTML = 'পণ্য নেই।'; return; }
+    
+    let html = '';
+    products.forEach(p => {
+        html += `
+            <div class="product-card" style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+                <p><b>পণ্যের নাম:</b> ${p.name}</p>
+                <p><b>মূল্য:</b> ৳${p.price}</p>
+                <div style="margin-top: 8px;">
+                    <button onclick="editProduct('${p.id}')" style="background: #ff9800; color: white; border: none; padding: 5px 12px; border-radius: 3px; cursor: pointer; margin-right: 5px;">এডিট</button>
+                    <button onclick="deleteProduct('${p.id}')" style="background: #f44336; color: white; border: none; padding: 5px 12px; border-radius: 3px; cursor: pointer;">ডিলিট</button>
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
 
-        function renderAdminOrders() {
-            let c = document.getElementById('adminOrderList');
-            if(!c) return;
-            if(orders.length === 0) { c.innerHTML = 'অর্ডার নেই।'; return; }
-            let html = '';
-            orders.forEach(o => {
-                html += `<div class="card">Invoice: #${o.id} - মোট: ৳ ${o.total}<br>${!o.adminApproved ? `<button class="btn btn-warning" onclick="approveOrder('${o.id}')">অ্যাপ্রুভ দিন</button>` : '<b style="color:green;">অ্যাপ্রুভড</b>'}</div>`;
-            });
-            c.innerHTML = html;
+// প্রোডাক্ট এডিট ফাংশন
+function editProduct(id) {
+    let p = products.find(prod => String(prod.id) === String(id));
+    if(!p) return;
+    let newName = prompt("নতুন পণ্যের নাম লিখুন:", p.name);
+    let newPrice = prompt("নতুন মূল্য লিখুন:", p.price);
+    if(newName && newPrice) {
+        p.name = newName;
+        p.price = newPrice;
+        if(window.db) {
+            db.collection("products").doc(String(id)).update({
+                name: newName,
+                price: newPrice
+            }).then(() => alert("প্রোডাক্ট আপডেট হয়েছে!"));
         }
+        renderProducts();
+    }
+}
 
-        async function approveOrder(id) {
-            let o = orders.find(ord => String(ord.id) === String(id));
-            if(o) {
-                o.adminApproved = true;
-                if(window.db) {
-                    const { updateDoc, doc } = window.firebaseTools;
-                    await updateDoc(doc(window.db, "orders", String(id)), { adminApproved: true });
-                }
-                alert('অ্যাপ্রুভ করা হয়েছে!');
-            }
+// প্রোডাক্ট ডিলিট ফাংশন
+function deleteProduct(id) {
+    if(confirm("আপনি কি নিশ্চিত এই প্রোডাক্টটি ডিলিট করতে চান?")) {
+        products = products.filter(p => String(p.id) !== String(id));
+        if(window.db) {
+            db.collection("products").doc(String(id)).delete().then(() => alert("প্রোডাক্ট ডিলিট হয়েছে!"));
         }
+        renderProducts();
+    }
+}
 
-        function viewOrder(id) {
-            let ord = orders.find(o => String(o.id) === String(id));
-            if(ord) {
-                let itemsHtml = '<ul>';
-                ord.items.forEach(i => { itemsHtml += `<li>${i.name} - ৳ ${i.price}</li>`; });
-                itemsHtml += '</ul>';
-                document.getElementById('printTimestamp').innerHTML = `ইনভয়েস: #${ord.id}<br>সময়: ${ord.orderTime}`;
-                document.getElementById('printDetails').innerHTML = `নাম: ${ord.customerName}<br>ঠিকানা: ${ord.customerAddress}<br>${itemsHtml}<b>মোট: ৳ ${ord.total}</b>`;
-                document.getElementById('viewModal').classList.remove('hidden');
-                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-            }
-        }
-     
-   function closeView() { document.getElementById('viewModal').classList.add('hidden'); }
-     // Firebase Config & Initialization
-  const firebaseConfig = {
+function closeView() { 
+    document.getElementById('viewModal').classList.add('hidden'); 
+}
+
+// ৩. ফায়ারবেস কনফিগারেশন এবং রিয়েল-টাইম সেটআপ
+const firebaseConfig = {
     apiKey: "AIzaSyBK2hZ9evaDdYEzMk@57xmSumj2htFcBsM",
     authDomain: "disha-mart.firebaseapp.com",
     projectId: "disha-mart",
     storageBucket: "disha-mart.firebasestorage.app",
     messagingSenderId: "981866268656",
     appId: "1:981866268656:web:2168a37cf6d25c50a67f35"
-  };
+};
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+window.db = db;
+
+// রিয়েল-টাইমে ডেটা সিংক করার লিসেনার
+db.collection("customers").onSnapshot((snapshot) => {
+    customers = [];
+    snapshot.forEach((doc) => customers.push({ id: doc.id, ...doc.data() }));
+    renderAdminCustomers();
+});
+
+db.collection("products").onSnapshot((snapshot) => {
+    products = [];
+    snapshot.forEach((doc) => products.push({ id: doc.id, ...doc.data() }));
+    renderProducts();
+});
+
         
     </script>
 </body>
