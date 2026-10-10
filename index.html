@@ -1153,7 +1153,7 @@
             }
         }
 
-        // ১. রেজিস্টার্ড কাস্টমার তালিকায় 'পয়েন্ট' কলামসহ রেন্ডার করার কোড
+        // ১. রেজিস্টার্ড কাস্টমার তালিকা রেন্ডার (পাসওয়ার্ড ও পয়েন্টসহ)
 function renderAdminCustomers() {
     let c = document.getElementById('adminCustomerList');
     if(!c) return;
@@ -1161,31 +1161,69 @@ function renderAdminCustomers() {
     
     let html = '<table width="100%" border="1" style="border-collapse:collapse; text-align:left;"><tr><th>নাম</th><th>মোবাইল</th><th>পাসওয়ার্ড</th><th>পয়েন্ট</th></tr>';
     customers.forEach(cu => { 
-        html += `<tr><td>${cu.name || ''}</td><td>${cu.phone || ''}</td><td>${cu.password || ''}</td><td>${cu.points || 0}</td></tr>`;
+        html += `<tr>
+            <td>${cu.name || cu.username || ''}</td>
+            <td>${cu.phone || cu.mobile || ''}</td>
+            <td style="color: red; font-weight: bold;">${cu.password || ''}</td>
+            <td>${cu.points || 0}</td>
+        </tr>`;
     });
     c.innerHTML = html + '</table>';
 }
 
-// ২. প্রোডাক্ট তালিকায় এডিট এবং ডিলিট বাটনসহ রেন্ডার করার কোড
+// ২. প্রোডাক্ট তালিকা রেন্ডার (এডিট ও ডিলিট বাটনসহ)
 function renderProducts() {
     let container = document.getElementById('productList');
     if(!container) return;
     if(products.length === 0) { container.innerHTML = 'পণ্য নেই।'; return; }
     
-    let html = '';
+    let html = '<table width="100%" border="1" style="border-collapse:collapse; text-align:left;"><tr><th>নাম</th><th>মূল্য</th><th>অ্যাকশন</th></tr>';
     products.forEach(p => {
         html += `
-            <div class="product-card" style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
-                <p><b>পণ্যের নাম:</b> ${p.name}</p>
-                <p><b>মূল্য:</b> ৳${p.price}</p>
-                <div style="margin-top: 8px;">
-                    <button onclick="editProduct('${p.id}')" style="background: #ff9800; color: white; border: none; padding: 5px 12px; border-radius: 3px; cursor: pointer; margin-right: 5px;">এডিট</button>
-                    <button onclick="deleteProduct('${p.id}')" style="background: #f44336; color: white; border: none; padding: 5px 12px; border-radius: 3px; cursor: pointer;">ডিলিট</button>
-                </div>
-            </div>
+            <tr>
+                <td>${p.name || ''}</td>
+                <td>৳${p.price || ''}</td>
+                <td>
+                    <button onclick="editProduct('${p.id}')" style="background: #ff9800; color: white; border: none; padding: 3px 8px; border-radius: 3px; cursor: pointer; margin-right: 5px;">এডিট</button>
+                    <button onclick="deleteProduct('${p.id}')" style="background: #f44336; color: white; border: none; padding: 3px 8px; border-radius: 3px; cursor: pointer;">ডিলিট</button>
+                </td>
+            </tr>
         `;
     });
-    container.innerHTML = html;
+    container.innerHTML = html + '</table>';
+}
+
+// ৩. নতুন প্রোডাক্ট ডাটাবেসে সরাসরি সেভ করার ফাংশন (ফর্ম সাবমিটের সাথে যুক্ত করতে হবে)
+function saveProductToFirestore(event) {
+    if(event) event.preventDefault();
+    
+    // আপনার ফর্মের ইনপুট ফিল্ডের আইডি অনুযায়ী এখানে নামগুলো মিল থাকতে হবে
+    let nameInput = document.querySelector('input[placeholder*="পণ্যের নাম"]') || document.getElementById('productName');
+    let priceInput = document.querySelector('input[placeholder*="বর্তমান মূল্য"]') || document.getElementById('productPrice');
+    
+    let name = nameInput ? nameInput.value : '';
+    let price = priceInput ? priceInput.value : '';
+
+    if(!name || !price) {
+        alert("দয়া করে পণ্যের নাম এবং মূল্য লিখুন!");
+        return;
+    }
+
+    if(window.db) {
+        db.collection("products").add({
+            name: name,
+            price: price,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        .then(() => {
+            alert("পণ্য সফলভাবে সেভ হয়েছে!");
+            if(nameInput) nameInput.value = '';
+            if(priceInput) priceInput.value = '';
+        })
+        .catch((error) => {
+            alert("সেভ করতে সমস্যা হয়েছে: " + error.message);
+        });
+    }
 }
 
 // প্রোডাক্ট এডিট ফাংশন
@@ -1195,26 +1233,21 @@ function editProduct(id) {
     let newName = prompt("নতুন পণ্যের নাম লিখুন:", p.name);
     let newPrice = prompt("নতুন মূল্য লিখুন:", p.price);
     if(newName && newPrice) {
-        p.name = newName;
-        p.price = newPrice;
         if(window.db) {
             db.collection("products").doc(String(id)).update({
                 name: newName,
                 price: newPrice
             }).then(() => alert("প্রোডাক্ট আপডেট হয়েছে!"));
         }
-        renderProducts();
     }
 }
 
 // প্রোডাক্ট ডিলিট ফাংশন
 function deleteProduct(id) {
     if(confirm("আপনি কি নিশ্চিত এই প্রোডাক্টটি ডিলিট করতে চান?")) {
-        products = products.filter(p => String(p.id) !== String(id));
         if(window.db) {
             db.collection("products").doc(String(id)).delete().then(() => alert("প্রোডাক্ট ডিলিট হয়েছে!"));
         }
-        renderProducts();
     }
 }
 
@@ -1222,7 +1255,7 @@ function closeView() {
     document.getElementById('viewModal').classList.add('hidden'); 
 }
 
-// ৩. ফায়ারবেস কনফিগারেশন এবং রিয়েল-টাইম সেটআপ
+// ৪. ফায়ারবেস কনফিগারেশন এবং রিয়েল-টাইম লাইভ লিসেনার
 const firebaseConfig = {
     apiKey: "AIzaSyBK2hZ9evaDdYEzMk@57xmSumj2htFcBsM",
     authDomain: "disha-mart.firebaseapp.com",
@@ -1232,24 +1265,29 @@ const firebaseConfig = {
     appId: "1:981866268656:web:2168a37cf6d25c50a67f35"
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 const db = firebase.firestore();
 window.db = db;
 
-// রিয়েল-টাইমে ডেটা সিংক করার লিসেনার
+// কাস্টমার এবং প্রোডাক্টের রিয়েল-টাইম লাইভ সিংক
 db.collection("customers").onSnapshot((snapshot) => {
     customers = [];
-    snapshot.forEach((doc) => customers.push({ id: doc.id, ...doc.data() }));
+    snapshot.forEach((doc) => {
+        customers.push({ id: doc.id, ...doc.data() });
+    });
     renderAdminCustomers();
 });
 
 db.collection("products").onSnapshot((snapshot) => {
     products = [];
-    snapshot.forEach((doc) => products.push({ id: doc.id, ...doc.data() }));
+    snapshot.forEach((doc) => {
+        products.push({ id: doc.id, ...doc.data() });
+    });
     renderProducts();
 });
 
-        
     </script>
 </body>
 </html>
