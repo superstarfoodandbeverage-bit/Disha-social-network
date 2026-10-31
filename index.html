@@ -1159,13 +1159,13 @@ function renderAdminCustomers() {
     if(!c) return;
     if(customers.length === 0) { c.innerHTML = 'কাস্টমার নেই'; return; }
     
-    let html = '<table width="100%" border="1" style="border-collapse:collapse; text-align:left;"><tr><th>নাম</th><th>মোবাইল</th><th>পাসওয়ার্ড</th><th>পয়েন্ট</th></tr>';
+    let html = '<table width="100%" border="1" style="border-collapse:collapse; text-align:left; font-size:13px;"><tr><th>নাম</th><th>মোবাইল</th><th>পাসওয়ার্ড</th><th>পয়েন্ট</th></tr>';
     customers.forEach(cu => { 
         html += `<tr>
-            <td>${cu.name || cu.username || ''}</td>
-            <td>${cu.phone || cu.mobile || ''}</td>
-            <td style="color: red; font-weight: bold;">${cu.password || ''}</td>
-            <td>${cu.points || 0}</td>
+            <td style="padding:5px;">${cu.name || ''}</td>
+            <td style="padding:5px;">${cu.phone || ''}</td>
+            <td style="padding:5px; color: red; font-weight: bold;">${cu.password || cu.pass || ''}</td>
+            <td style="padding:5px;">${cu.points || cu.reward || 0} Pt</td>
         </tr>`;
     });
     c.innerHTML = html + '</table>';
@@ -1173,41 +1173,86 @@ function renderAdminCustomers() {
 
 // ২. প্রোডাক্ট তালিকা রেন্ডার (এডিট ও ডিলিট বাটনসহ)
 function renderProducts() {
-    let container = document.getElementById('productList');
+    let container = document.getElementById('customerProductList') || document.getElementById('productList');
     if(!container) return;
-    if(products.length === 0) { container.innerHTML = 'পণ্য নেই।'; return; }
+    if(products.length === 0) { container.innerHTML = '<p style="color: #777; font-size: 13px; grid-column: span 2;">বর্তমানে কোনো পণ্য নেই।</p>'; return; }
     
-    let html = '<table width="100%" border="1" style="border-collapse:collapse; text-align:left;"><tr><th>নাম</th><th>মূল্য</th><th>অ্যাকশন</th></tr>';
+    let html = '';
     products.forEach(p => {
         html += `
-            <tr>
-                <td>${p.name || ''}</td>
-                <td>৳${p.price || ''}</td>
-                <td>
-                    <button onclick="editProduct('${p.id}')" style="background: #ff9800; color: white; border: none; padding: 3px 8px; border-radius: 3px; cursor: pointer; margin-right: 5px;">এডিট</button>
-                    <button onclick="deleteProduct('${p.id}')" style="background: #f44336; color: white; border: none; padding: 3px 8px; border-radius: 3px; cursor: pointer;">ডিলিট</button>
-                </td>
-            </tr>
+            <div class="product-item" style="background: white; padding: 10px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 10px;">
+                <div class="product-name">${p.name || ''}</div>
+                <div class="current-price" style="color: #28a745; font-weight: bold; margin: 5px 0;">৳${p.price || ''}</div>
+                <div style="display: flex; gap: 5px; margin-top: 8px;" class="admin-action-btns">
+                    <button onclick="editProduct('${p.id}')" style="background: #ff9800; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px;">এডিট</button>
+                    <button onclick="deleteProduct('${p.id}')" style="background: #dc3545; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px;">ডিলিট</button>
+                </div>
+            </div>
         `;
     });
-    container.innerHTML = html + '</table>';
+    container.innerHTML = html;
 }
 
-// ৩. নতুন প্রোডাক্ট ডাটাবেসে সরাসরি সেভ করার ফাংশন (ফর্ম সাবমিটের সাথে যুক্ত করতে হবে)
+// ৩. নতুন কাস্টমার রেজিস্ট্রেশন (পাসওয়ার্ড সহ ফায়ারবেসে সেভ হবে)
+function registerCustomer() {
+    let name = document.getElementById('regName').value.trim();
+    let phone = document.getElementById('regPhone').value.trim();
+    let pass = document.getElementById('regPass').value.trim();
+    let address = document.getElementById('regAddress').value.trim();
+    let affiliate = document.getElementById('regAffiliate').value.trim();
+
+    if(!name || !phone || !pass) {
+        alert("দয়া করে নাম, মোবাইল নম্বর এবং পাসওয়ার্ড দিন!");
+        return;
+    }
+
+    if(window.db) {
+        db.collection("customers").add({
+            name: name,
+            phone: phone,
+            password: pass, // <-- পাসওয়ার্ড এডমিন প্যানেলে শো করার জন্য এখানে যুক্ত করা হলো
+            address: address,
+            affiliate: affiliate,
+            points: 0,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        .then(() => {
+            alert("রেজিস্ট্রেশন সফল হয়েছে! এখন লগইন করুন।");
+            toggleAuthMode('login');
+        })
+        .catch((error) => {
+            alert("রেজিস্ট্রেশন করতে সমস্যা হয়েছে: " + error.message);
+        });
+    }
+}
+
+// ৪. কাস্টমার লগইন ফাংশন
+function loginCustomer() {
+    let phone = document.getElementById('loginPhone').value.trim();
+    let pass = document.getElementById('loginPass').value.trim();
+
+    let matched = customers.find(c => (c.phone === phone) && (c.password === pass || c.pass === pass));
+    if(matched) {
+        currentCustomer = matched;
+        document.getElementById('authSection').classList.add('hidden');
+        document.getElementById('customerPanel').classList.remove('hidden');
+        document.getElementById('profileCustName').innerText = matched.name;
+        document.getElementById('profileCustId').innerText = matched.phone;
+        document.getElementById('statReward').innerText = (matched.points || 0) + " Pt";
+        alert("সফলভাবে লগইন হয়েছে!");
+    } else {
+        alert("মোবাইল নম্বর অথবা পাসওয়ার্ড ভুল হয়েছে!");
+    }
+}
+
+// ৫. প্রোডাক্ট ডাটাবেসে সেভ করার ফাংশন
 function saveProductToFirestore(event) {
     if(event) event.preventDefault();
     
-    // আপনার ফর্মের ইনপুট ফিল্ডের আইডি অনুযায়ী এখানে নামগুলো মিল থাকতে হবে
-    let nameInput = document.querySelector('input[placeholder*="পণ্যের নাম"]') || document.getElementById('productName');
-    let priceInput = document.querySelector('input[placeholder*="বর্তমান মূল্য"]') || document.getElementById('productPrice');
+    let name = prompt("নতুন পণ্যের নাম লিখুন:");
+    let price = prompt("পণ্যের মূল্য লিখুন:");
     
-    let name = nameInput ? nameInput.value : '';
-    let price = priceInput ? priceInput.value : '';
-
-    if(!name || !price) {
-        alert("দয়া করে পণ্যের নাম এবং মূল্য লিখুন!");
-        return;
-    }
+    if(!name || !price) return;
 
     if(window.db) {
         db.collection("products").add({
@@ -1217,8 +1262,6 @@ function saveProductToFirestore(event) {
         })
         .then(() => {
             alert("পণ্য সফলভাবে সেভ হয়েছে!");
-            if(nameInput) nameInput.value = '';
-            if(priceInput) priceInput.value = '';
         })
         .catch((error) => {
             alert("সেভ করতে সমস্যা হয়েছে: " + error.message);
@@ -1255,7 +1298,77 @@ function closeView() {
     document.getElementById('viewModal').classList.add('hidden'); 
 }
 
-// ৪. ফায়ারবেস কনফিগারেশন এবং রিয়েল-টাইম লাইভ লিসেনার
+function toggleAuthMode(mode) {
+    if(mode === 'register') {
+        document.getElementById('loginFormDiv').classList.add('hidden');
+        document.getElementById('registerFormDiv').classList.remove('hidden');
+        document.getElementById('authTitle').innerText = "📝 কাস্টমার রেজিস্ট্রেশন";
+    } else {
+        document.getElementById('registerFormDiv').classList.add('hidden');
+        document.getElementById('loginFormDiv').classList.remove('hidden');
+        document.getElementById('authTitle').innerText = "👤 কাস্টমার অ্যাকাউন্ট লগইন";
+    }
+}
+
+function logoutCustomer() {
+    currentCustomer = null;
+    document.getElementById('customerPanel').classList.add('hidden');
+    document.getElementById('authSection').classList.remove('hidden');
+}
+
+function openManagerLogin() {
+    let p = prompt("ম্যানেজার পাসওয়ার্ড:");
+    if(p === managerPassword) {
+        switchTab('manager');
+    } else if(p !== null) {
+        alert("ভুল পাসওয়ার্ড!");
+    }
+}
+
+function openAdminLogin() {
+    let p = prompt("অ্যাডমিন পাসওয়ার্ড:");
+    if(p === adminPassword) {
+        switchTab('admin');
+        renderAdminCustomers();
+        renderProducts();
+    } else if(p !== null) {
+        alert("ভুল পাসওয়ার্ড!");
+    }
+}
+
+function logoutStaff() {
+    switchTab('customer');
+}
+
+function switchTab(tab) {
+    document.getElementById('authSection').classList.add('hidden');
+    document.getElementById('customerPanel').classList.add('hidden');
+    document.getElementById('managerPanel').classList.add('hidden');
+    document.getElementById('adminPanel').classList.add('hidden');
+
+    if(tab === 'customer') {
+        if(currentCustomer) {
+            document.getElementById('customerPanel').classList.remove('hidden');
+        } else {
+            document.getElementById('authSection').classList.remove('hidden');
+        }
+    } else if(tab === 'manager') {
+        document.getElementById('managerPanel').classList.remove('hidden');
+    } else if(tab === 'admin') {
+        document.getElementById('adminPanel').classList.remove('hidden');
+        renderAdminCustomers();
+        renderProducts();
+    }
+}
+
+// গ্লোবাল ভেরিয়েবল
+let customers = [];
+let products = [];
+let currentCustomer = null;
+let adminPassword = "123";
+let managerPassword = "123";
+
+// ফায়ারবেস কনফিগারেশন এবং রিয়েল-টাইম লাইভ লিসেনার
 const firebaseConfig = {
     apiKey: "AIzaSyBK2hZ9evaDdYEzMk@57xmSumj2htFcBsM",
     authDomain: "disha-mart.firebaseapp.com",
@@ -1287,6 +1400,7 @@ db.collection("products").onSnapshot((snapshot) => {
     });
     renderProducts();
 });
+
 
     </script>
 </body>
