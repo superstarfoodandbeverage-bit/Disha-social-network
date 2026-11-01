@@ -42,7 +42,6 @@
         th, td { border: 1px solid #ddd; padding: 6px; text-align: left; }
         th { background: #f0f4f8; color: #333; }
 
-        /* প্রিন্ট স্টাইল ও জলছাপ (Watermark) */
         @media print {
             body * { visibility: hidden; }
             #printableArea, #printableArea * { visibility: visible; }
@@ -144,7 +143,7 @@
             </div>
         </div>
 
-        <!-- কাস্টমার ড্যাশবোর্ড (পয়েন্ট, অ্যাফিলিয়েট ও ব্যক্তিগত মিটিং বোর্ড সহ) -->
+        <!-- কাস্টমার ড্যাশবোর্ড -->
         <div id="customerDashboard" class="card" style="display: none;">
             <h3 id="userWelcomeText" style="color: #0052D4; font-size: 16px;">স্বাগতম!</h3>
             
@@ -172,7 +171,7 @@
             <button class="btn btn-danger btn-sm" onclick="logout()">লগআউট</button>
         </div>
 
-        <!-- পণ্য তালিকা সেকশন (ছবি, ওজন, ডিসকাউন্ট ও অর্ডার করার সুবিধা সহ) -->
+        <!-- পণ্য তালিকা সেকশন -->
         <div id="productSection" class="card">
             <h4 style="color: #333; margin-bottom: 10px;">📦 আমাদের পণ্যসমূহ</h4>
             <div id="productList">
@@ -193,7 +192,7 @@
             </div>
         </div>
 
-        <!-- ম্যানেজার প্যানেল (অর্ডার প্রিন্ট ও বিল হিসাব সহ) -->
+        <!-- ম্যানেজার প্যানেল -->
         <div id="managerPanel" class="card" style="display: none; border-top: 3px solid #ffc107;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                 <h3 style="color: #d39e00; font-size: 16px;">💼 ম্যানেজার কন্ট্রোল মোড</h3>
@@ -211,46 +210,52 @@
                 <button class="btn btn-danger btn-sm" onclick="closePanel('adminPanel')">বন্ধ করুন</button>
             </div>
             
-            <!-- পাসওয়ার্ড পরিবর্তনের অপশন -->
             <div style="background: #fff3cd; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
-                <h5 style="margin-bottom: 6px; color: #856404;">🔐 অ্যাডমিন ও ম্যানেজার পাসওয়ার্ড সেট করুন</h5>
+                <h5 style="margin-bottom: 6px; color: #856404;">🔐 পাসওয়ার্ড সেট করুন</h5>
                 <input type="text" id="setAdminPass" placeholder="নতুন অ্যাডমিন পাসওয়ার্ড" class="form-control" value="Admin@786">
                 <input type="text" id="setManagerPass" placeholder="নতুন ম্যানেজার পাসওয়ার্ড" class="form-control" value="Manager@123">
                 <button class="btn btn-warning btn-sm" onclick="savePasswords()">পাসওয়ার্ড সেভ করুন</button>
             </div>
 
-            <!-- নতুন পণ্য আপলোড (ওজন, আগের রেট, ছাড় %, পয়েন্ট ও ছবি সহ) -->
+            <!-- নতুন পণ্য আপলোড -->
             <div style="background: #f8f9fa; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
                 <h5 style="margin-bottom: 6px;">নতুন পণ্য আপলোড করুন</h5>
                 <input type="text" id="pName" placeholder="পণ্যের নাম" class="form-control">
-                <input type="text" id="pWeight" placeholder="ওজন/পরিমাণ (যেমন: ১ কেজি / ৫০০ গ্রাম)" class="form-control">
+                <input type="text" id="pWeight" placeholder="ওজন/পরিমাণ (যেমন: ১ কেজি)" class="form-control">
                 <input type="number" id="oldPrice" placeholder="আগের রেট (৳)" class="form-control">
                 <input type="number" id="pDiscount" placeholder="ছাড় (%) যেমন: 10" class="form-control">
                 <input type="number" id="pPrice" placeholder="বর্তমান রেট (৳)" class="form-control">
-                <input type="text" id="pImage" placeholder="পণ্যের ছবির লিংক (Image URL)" class="form-control">
+                
+                <label style="font-size: 12px; font-weight: bold; display: block; margin-top: 5px;">পণ্যের ছবি (ঐচ্ছিক - লিংক বা ফাইল):</label>
+                <input type="text" id="pImage" placeholder="ছবির ডাইরেক্ট URL (অথবা নিচে ফাইল দিন)" class="form-control">
+                <input type="file" id="pImageFile" accept="image/*" class="form-control" style="background: white;">
+
                 <input type="number" id="pPoints" placeholder="পয়েন্ট" class="form-control">
                 <button class="btn btn-primary" onclick="addProduct()">পণ্য সেভ করুন</button>
             </div>
 
-            <!-- পয়েন্ট রূপান্তর টেবিল সেটিংস -->
-            <div style="background: #e2f0d9; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
-                <h5 style="margin-bottom: 6px; color: #385723;">💰 টাকা ও পয়েন্ট রূপান্তর টেবিল</h5>
-                <input type="number" id="takaRate" placeholder="কত টাকায় ১ পয়েন্ট? (যেমন: ১০০)" class="form-control" value="100">
-                <button class="btn btn-success btn-sm" onclick="savePointRule()">পয়েন্ট রুলস সেভ করুন</button>
-            </div>
-
-            <!-- লোগো, ব্যানার ও বিজয়ীদের ছবি ম্যানেজমেন্ট -->
+            <!-- লোগো, ব্যানার ও বিজয়ীদের ছবি আপলোড -->
             <div style="background: #eef2f7; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
                 <h5 style="margin-bottom: 6px; color: #0052D4;">🖼️ লোগো, ব্যানার ও বিজয়ীদের ছবি আপলোড</h5>
-                <input type="text" id="settingLogoUrl" placeholder="বাহির ও ভেতরের লোগো ইমেজ লিঙ্ক" class="form-control">
-                <input type="text" id="settingBannerUrl" placeholder="ব্যানার ইমেজ লিঙ্ক" class="form-control">
-                <input type="text" id="winner1Url" placeholder="১ম বিজয়ীর ছবির লিঙ্ক" class="form-control">
-                <input type="text" id="winner2Url" placeholder="২য় বিজয়ীর ছবির লিঙ্ক" class="form-control">
-                <input type="text" id="winner3Url" placeholder="৩য় বিজয়ীর ছবির লিঙ্ক" class="form-control">
-                <button class="btn btn-success btn-sm" onclick="saveSettings()">লোগো ও ছবি সেভ করুন</button>
+                
+                <label style="font-size: 12px; font-weight: bold;">লোগো ছবি:</label>
+                <input type="file" id="settingLogoFile" accept="image/*" class="form-control" style="background: white;">
+
+                <label style="font-size: 12px; font-weight: bold;">ব্যানার ছবি:</label>
+                <input type="file" id="settingBannerFile" accept="image/*" class="form-control" style="background: white;">
+
+                <label style="font-size: 12px; font-weight: bold;">১ম বিজয়ীর ছবি:</label>
+                <input type="file" id="winner1File" accept="image/*" class="form-control" style="background: white;">
+
+                <label style="font-size: 12px; font-weight: bold;">২য় বিজয়ীর ছবি:</label>
+                <input type="file" id="winner2File" accept="image/*" class="form-control" style="background: white;">
+
+                <label style="font-size: 12px; font-weight: bold;">৩য় বিজয়ীর ছবি:</label>
+                <input type="file" id="winner3File" accept="image/*" class="form-control" style="background: white;">
+
+                <button class="btn btn-success btn-sm" onclick="saveSettingsFiles()">লোগো ও ছবি সেভ করুন</button>
             </div>
 
-            <!-- কাস্টমার নাম, মোবাইল, পাসওয়ার্ড, পয়েন্ট ও রেফার বোর্ড টেবিল -->
             <h4 style="font-size: 13px; margin-top: 10px;">👥 কাস্টমার তালিকা ও পয়েন্ট বোর্ড</h4>
             <div id="adminCustomerTableContainer">
                 <p style="font-size: 12px; color: #777;">কাস্টমার লোড হচ্ছে...</p>
@@ -261,7 +266,6 @@
                 <p style="font-size: 12px; color: #777;">কোনো পেন্ডিং অর্ডার নেই।</p>
             </div>
 
-            <!-- প্রিন্ট রিপোর্ট এলাকা -->
             <div id="printableArea" style="margin-top: 15px; display: none;"></div>
 
             <div style="margin-top: 15px; border-top: 2px solid #0052D4; padding-top: 10px;">
@@ -287,7 +291,7 @@
         </button>
     </div>
 
-    <!-- ফায়ারবেস এবং সম্পূর্ণ জাভাস্ক্রিপ্ট লজিক -->
+    <!-- ফায়ারবেস এবং জাভাস্ক্রিপ্ট লজিক -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSy...",
@@ -320,15 +324,11 @@
             db.collection("settings").doc("appConfig").get().then((doc) => {
                 if(doc.exists) {
                     let data = doc.data();
-                    if(data.logo) {
-                        document.getElementById('brandLogoImg').src = data.logo;
-                        document.getElementById('settingLogoUrl').value = data.logo;
-                    }
+                    if(data.logo) document.getElementById('brandLogoImg').src = data.logo;
                     if(data.banner) {
                         let bannerEl = document.getElementById('bannerImg');
                         bannerEl.src = data.banner;
                         bannerEl.style.display = 'block';
-                        document.getElementById('settingBannerUrl').value = data.banner;
                     }
                     if(data.winners && data.winners.length > 0) {
                         let wHtml = '';
@@ -348,16 +348,43 @@
             }).catch(err => console.log(err));
         }
 
-        function saveSettings() {
-            let logo = document.getElementById('settingLogoUrl').value.trim();
-            let banner = document.getElementById('settingBannerUrl').value.trim();
-            let w1 = document.getElementById('winner1Url').value.trim();
-            let w2 = document.getElementById('winner2Url').value.trim();
-            let w3 = document.getElementById('winner3Url').value.trim();
+        function convertImageToBase64(fileInputId, callback) {
+            let fileInput = document.getElementById(fileInputId);
+            if(fileInput && fileInput.files && fileInput.files[0]) {
+                let reader = new FileReader();
+                reader.onload = function(e) { callback(e.target.result); }
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                callback(null);
+            }
+        }
 
-            db.collection("settings").doc("appConfig").set({ logo, banner, winners: [w1, w2, w3] }, { merge: true }).then(() => {
-                alert("লোগো, ব্যানার ও বিজয়ীদের ছবি সফলভাবে আপডেট করা হয়েছে!");
-                loadSettings();
+        function saveSettingsFiles() {
+            convertImageToBase64('settingLogoFile', function(logoBase64) {
+                convertImageToBase64('settingBannerFile', function(bannerBase64) {
+                    convertImageToBase64('winner1File', function(w1Base64) {
+                        convertImageToBase64('winner2File', function(w2Base64) {
+                            convertImageToBase64('winner3File', function(w3Base64) {
+                                db.collection("settings").doc("appConfig").get().then((doc) => {
+                                    let existing = doc.exists ? doc.data() : {};
+                                    let logo = logoBase64 || existing.logo || "";
+                                    let banner = bannerBase64 || existing.banner || "";
+                                    let oldW = existing.winners || ["","",""];
+                                    let w1 = w1Base64 || oldW[0] || "";
+                                    let w2 = w2Base64 || oldW[1] || "";
+                                    let w3 = w3Base64 || oldW[2] || "";
+
+                                    db.collection("settings").doc("appConfig").set({
+                                        logo, banner, winners: [w1, w2, w3]
+                                    }, { merge: true }).then(() => {
+                                        alert("লোগো ও ছবি সেভ হয়েছে!");
+                                        loadSettings();
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
             });
         }
 
@@ -365,7 +392,7 @@
             let adminPass = document.getElementById('setAdminPass').value.trim();
             let managerPass = document.getElementById('setManagerPass').value.trim();
             db.collection("settings").doc("appConfig").set({ adminPass, managerPass }, { merge: true }).then(() => {
-                alert("অ্যাডমিন ও ম্যানেজার পাসওয়ার্ড সফলভাবে আপডেট করা হয়েছে!");
+                alert("পাসওয়ার্ড আপডেট হয়েছে!");
             });
         }
 
@@ -377,7 +404,7 @@
                 });
                 renderAdminCustomerTable();
                 renderAdminCustomerMeetingList();
-            });
+            }, (err) => console.log(err));
         }
 
         function loadProducts() {
@@ -422,6 +449,35 @@
             });
         }
 
+        function addProduct() {
+            let name = document.getElementById('pName').value.trim();
+            let weight = document.getElementById('pWeight').value.trim();
+            let oldPrice = Number(document.getElementById('oldPrice').value) || 0;
+            let discount = Number(document.getElementById('pDiscount').value) || 0;
+            let price = Number(document.getElementById('pPrice').value);
+            let textImg = document.getElementById('pImage').value.trim();
+            let points = Number(document.getElementById('pPoints').value);
+
+            if(!name || !price) return alert("পণ্যের নাম ও বর্তমান রেট দিন");
+
+            convertImageToBase64('pImageFile', function(fileImg) {
+                let finalImg = fileImg || textImg || '';
+                db.collection("products").add({
+                    name, weight, oldPrice, discount, price, image: finalImg, points
+                }).then(() => {
+                    alert("পণ্য সফলভাবে সেভ হয়েছে!");
+                    document.getElementById('pName').value = '';
+                    document.getElementById('pWeight').value = '';
+                    document.getElementById('oldPrice').value = '';
+                    document.getElementById('pDiscount').value = '';
+                    document.getElementById('pPrice').value = '';
+                    document.getElementById('pImage').value = '';
+                    document.getElementById('pImageFile').value = '';
+                    document.getElementById('pPoints').value = '';
+                });
+            });
+        }
+
         function addToCart(productId) {
             if(!currentUser) {
                 alert("দয়া করে প্রথমে লগইন করুন!");
@@ -450,7 +506,7 @@
                 status: 'pending',
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
-                alert("অর্ডার সফলভাবে সাবমিট হয়েছে! অ্যাডমিন অ্যাপ্রুভালের অপেক্ষায় রয়েছে।");
+                alert("অর্ডার সফলভাবে সাবমিট হয়েছে!");
                 cart = [];
                 document.getElementById('cartCount').innerText = 0;
                 switchTab('home');
@@ -466,7 +522,7 @@
                     <div style="background:#fff3cd; padding:8px; border-radius:6px; margin-bottom:6px; font-size:12px;">
                         <b>কাস্টমার:</b> ${o.customerName} (${o.customerPhone})<br>
                         <b>মোট বিল:</b> ৳${o.totalBill} | অগ্রিম: ৳${o.advance} | বাকি: ৳${o.due}<br>
-                        <button class="btn btn-success btn-sm" style="margin-top:5px;" onclick="approveOrder('${o.id}')">অ্যাপ্রুভ করুন (ম্যানেজার প্রিন্টের জন্য)</button>
+                        <button class="btn btn-success btn-sm" style="margin-top:5px;" onclick="approveOrder('${o.id}')">অ্যাপ্রুভ করুন</button>
                     </div>
                 `;
             });
@@ -490,7 +546,7 @@
                     </div>
                 `;
             });
-            container.innerHTML = html || '<p style="font-size:12px; color:#777;">প্রিন্ট করার মতো কোনো অ্যাপ্রুভড অর্ডার নেই।</p>';
+            container.innerHTML = html || '<p style="font-size:12px; color:#777;">প্রিন্ট করার মতো কোনো অর্ডার নেই।</p>';
         }
 
         function printOrderInvoice(order) {
@@ -549,48 +605,37 @@
             }).then(() => {
                 alert("রেজিস্ট্রেশন সফল হয়েছে!");
                 toggleAuthMode('login');
-            });
+            }).catch(err => alert("ত্রুটি: " + err.message));
         }
 
         function handleLogin() {
             let phone = document.getElementById('loginPhone').value.trim();
             let pass = document.getElementById('loginPass').value.trim();
 
+            if(!phone || !pass) {
+                alert("মোবাইল নম্বর ও পাসওয়ার্ড দিন!");
+                return;
+            }
+
             db.collection("customers").doc(phone).get().then((doc) => {
-                if(doc.exists && doc.data().pass === pass) {
-                    currentUser = { id: doc.id, ...doc.data() };
-                    document.getElementById('authSection').style.display = 'none';
-                    document.getElementById('customerDashboard').style.display = 'block';
-                    document.getElementById('userWelcomeText').innerText = `স্বাগতম, ${currentUser.name}!`;
-                    document.getElementById('userPoints').innerText = currentUser.points || 0;
-                    document.getElementById('affiliatePoints').innerText = (currentUser.affiliatePoints || 0) + ' ৳';
-                    document.getElementById('myRefCode').innerText = currentUser.phone;
+                if(doc.exists) {
+                    let user = doc.data();
+                    if(user.pass === pass) {
+                        currentUser = { id: doc.id, ...user };
+                        document.getElementById('authSection').style.display = 'none';
+                        document.getElementById('customerDashboard').style.display = 'block';
+                        document.getElementById('userWelcomeText').innerText = `স্বাগতম, ${currentUser.name}!`;
+                        document.getElementById('userPoints').innerText = currentUser.points || 0;
+                        document.getElementById('affiliatePoints').innerText = (currentUser.affiliatePoints || 0) + ' ৳';
+                        document.getElementById('myRefCode').innerText = currentUser.phone;
+                    } else {
+                        alert("পাসওয়ার্ড ভুল হয়েছে!");
+                    }
                 } else {
-                    alert("নম্বর বা পাসওয়ার্ড ভুল!");
+                    alert("এই নম্বরে কোনো অ্যাকাউন্ট নেই!");
                 }
-            });
-        }
-
-        function addProduct() {
-            let name = document.getElementById('pName').value.trim();
-            let weight = document.getElementById('pWeight').value.trim();
-            let oldPrice = Number(document.getElementById('oldPrice').value) || 0;
-            let discount = Number(document.getElementById('pDiscount').value) || 0;
-            let price = Number(document.getElementById('pPrice').value);
-            let image = document.getElementById('pImage').value.trim();
-            let points = Number(document.getElementById('pPoints').value);
-
-            if(!name || !price) return alert("পণ্যের নাম ও বর্তমান রেট দিন");
-
-            db.collection("products").add({ name, weight, oldPrice, discount, price, image, points }).then(() => {
-                alert("পণ্য সেভ হয়েছে!");
-                document.getElementById('pName').value = '';
-                document.getElementById('pWeight').value = '';
-                document.getElementById('oldPrice').value = '';
-                document.getElementById('pDiscount').value = '';
-                document.getElementById('pPrice').value = '';
-                document.getElementById('pImage').value = '';
-                document.getElementById('pPoints').value = '';
+            }).catch((error) => {
+                alert("লগইন ত্রুটি: " + error.message);
             });
         }
 
