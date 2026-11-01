@@ -13,9 +13,10 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
         body { background-color: #f4f6f9; color: #333; padding-bottom: 70px; }
         
+        /* Top Navigation Header */
         .top-navbar { background: #0052D4; color: white; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .top-navbar .brand-title { font-size: 16px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
-        .top-navbar img.logo { width: 32px; height: 32px; border-radius: 50%; background: #fff; object-fit: cover; }
+        .top-navbar img.logo { width: 35px; height: 35px; border-radius: 50%; background: #fff; object-fit: cover; border: 2px solid white; }
         .nav-switch-btns { display: flex; gap: 6px; }
         .nav-switch-btn { background: rgba(255,255,255,0.2); color: white; border: none; padding: 5px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: bold; }
         .nav-switch-btn.active { background: white; color: #0052D4; }
@@ -33,17 +34,20 @@
 
         /* বড় করা লগইন নিচের ফিচার বাটন */
         .login-bottom-features { display: flex; gap: 12px; margin-top: 18px; }
-        .feature-big-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 12px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 16px; border: none; cursor: pointer; color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.15); transition: 0.2s; }
+        .feature-big-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 12px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 15px; border: none; cursor: pointer; color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.15); transition: 0.2s; }
         .feature-big-btn:active { transform: scale(0.97); }
 
+        /* Bottom Navigation Bar */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #ddd; display: flex; justify-content: space-around; padding: 8px 0; z-index: 100; }
         .bottom-nav-item { text-align: center; color: #666; font-size: 11px; text-decoration: none; cursor: pointer; background: none; border: none; flex: 1; }
         .bottom-nav-item span { display: block; font-size: 16px; margin-bottom: 2px; }
 
+        /* Table Styles */
         table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
         th, td { border: 1px solid #ddd; padding: 6px; text-align: left; }
         th { background: #f0f4f8; color: #333; }
 
+        /* Print Media Style */
         @media print {
             body * { visibility: hidden; }
             #printableArea, #printableArea * { visibility: visible; }
@@ -54,10 +58,10 @@
 </head>
 <body>
 
-    <!-- টপ নেভিগেশন হেডার -->
+    <!-- টপ নেভিগেশন হেডার ও লোগো -->
     <div class="top-navbar no-print">
         <div class="brand-title">
-            🔥 <img id="brandLogoImg" src="" alt="" class="logo" onerror="this.style.display='none'">
+            <img id="brandLogoImg" src="" alt="Logo" class="logo" onerror="this.style.display='none'">
             <span>Disha social network</span>
         </div>
         <div class="nav-switch-btns">
@@ -68,15 +72,15 @@
 
     <div class="container">
 
-        <!-- কাস্টমার লগইন / রেজিস্ট্রেশন সেকশন -->
+        <!-- কাস্টমার অ্যাকাউন্ট লগইন ও রেজিস্ট্রেশন সেকশন -->
         <div id="authSection" class="card">
             <h3 style="color: #0052D4; font-size: 16px; margin-bottom: 10px;">👤 কাস্টমার অ্যাকাউন্ট লগইন</h3>
             
             <div id="loginForm">
-                <label style="font-size: 12px;">মোবাইল নম্বর:</label>
+                <label style="font-size: 12px; font-weight: bold;">মোবাইল নম্বর:</label>
                 <input type="text" id="loginPhone" class="form-control" placeholder="019xxxxxxxx">
                 
-                <label style="font-size: 12px;">পাসওয়ার্ড:</label>
+                <label style="font-size: 12px; font-weight: bold;">পাসওয়ার্ড:</label>
                 <input type="password" id="loginPass" class="form-control" placeholder="****">
                 
                 <button class="btn btn-success" onclick="handleLogin()">লগইন করুন</button>
@@ -86,22 +90,27 @@
             </div>
 
             <div id="registerForm" style="display: none;">
-                <label style="font-size: 12px;">আপনার নাম:</label>
+                <label style="font-size: 12px; font-weight: bold;">আপনার নাম:</label>
                 <input type="text" id="regName" class="form-control" placeholder="আপনার পূর্ণ নাম">
                 
-                <label style="font-size: 12px;">মোবাইল নম্বর:</label>
+                <label style="font-size: 12px; font-weight: bold;">মোবাইল নম্বর:</label>
                 <input type="text" id="regPhone" class="form-control" placeholder="019xxxxxxxx">
                 
-                <label style="font-size: 12px;">পাসওয়ার্ড:</label>
+                <label style="font-size: 12px; font-weight: bold;">পাসওয়ার্ড:</label>
                 <input type="password" id="regPass" class="form-control" placeholder="****">
                 
-                <label style="font-size: 12px;">রেফার কোড (ঐচ্ছিক):</label>
+                <label style="font-size: 12px; font-weight: bold;">রেফার কোড (ঐচ্ছিক):</label>
                 <input type="text" id="regRef" class="form-control" placeholder="রেফারকারীর মোবাইল">
                 
                 <button class="btn btn-primary" onclick="handleRegister()">রেজিস্টার করুন</button>
                 <p style="font-size: 12px; text-align: center; margin-top: 8px;">
                     অ্যাকাউন্ট আছে? <a href="#" onclick="toggleAuthMode('login')" style="color: #0052D4;">লগইন করুন</a>
                 </p>
+            </div>
+
+            <!-- ব্যানার ইমেজ প্রদর্শন অংশ -->
+            <div style="text-align: center; margin-top: 12px;">
+                <img src="" alt="Banner" id="bannerImg" style="width: 100%; border-radius: 8px; display: none; object-fit: cover; max-height: 150px;">
             </div>
 
             <!-- Sun Super Mart এবং Disha TV বড় বাটন -->
@@ -123,7 +132,7 @@
             </div>
         </div>
 
-        <!-- কাস্টমার ড্যাশবোর্ড (লগইন করার পর দেখাবে) -->
+        <!-- কাস্টমার ড্যাশবোর্ড (পয়েন্ট ও অ্যাফিলিয়েট পয়েন্ট বোর্ড সহ) -->
         <div id="customerDashboard" class="card" style="display: none;">
             <h3 id="userWelcomeText" style="color: #0052D4; font-size: 16px;">স্বাগতম!</h3>
             
@@ -145,7 +154,7 @@
             <button class="btn btn-danger btn-sm" onclick="logout()">লগআউট</button>
         </div>
 
-        <!-- পণ্য তালিকা সেকশন (ছাড় ও ছবি সহ) -->
+        <!-- পণ্য তালিকা সেকশন (ছবি ও ডিসকাউন্ট রেট সহ) -->
         <div id="productSection" class="card">
             <h4 style="color: #333; margin-bottom: 10px;">📦 আমাদের পণ্যসমূহ</h4>
             <div id="productList">
@@ -153,7 +162,7 @@
             </div>
         </div>
 
-        <!-- ম্যানেজার মোড সেকশন -->
+        <!-- ম্যানেজার মোড সেকশন (পাসওয়ার্ড সুরক্ষিত) -->
         <div id="managerPanel" class="card" style="display: none; border-top: 3px solid #ffc107;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                 <h3 style="color: #d39e00; font-size: 16px;">💼 ম্যানেজার কন্ট্রোল মোড</h3>
@@ -164,7 +173,7 @@
             </div>
         </div>
 
-        <!-- অ্যাডমিন প্যানেল -->
+        <!-- অ্যাডমিন প্যানেল (পাসওয়ার্ড সুরক্ষিত ও সম্পূর্ণ কন্ট্রোল) -->
         <div id="adminPanel" class="card" style="display: none; border-top: 3px solid #dc3545;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                 <h3 style="color: #dc3545; font-size: 16px;">⚙️ অ্যাডমিন এডভান্সড কন্ট্রোল প্যানেল</h3>
@@ -172,13 +181,21 @@
             </div>
             
             <div style="background: #f8f9fa; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
-                <h5 style="margin-bottom: 6px;">নতুন পণ্য যোগ করুন (ছাড় সহ)</h5>
+                <h5 style="margin-bottom: 6px;">নতুন পণ্য যোগ করুন (ছবি ও ছাড় সহ)</h5>
                 <input type="text" id="pName" placeholder="পণ্যের নাম" class="form-control">
                 <input type="number" id="pPrice" placeholder="মূল্য (৳)" class="form-control">
                 <input type="number" id="pDiscount" placeholder="ছাড় (%) যেমন: 10" class="form-control">
                 <input type="text" id="pImage" placeholder="পণ্যের ছবির লিংক (Image URL)" class="form-control">
                 <input type="number" id="pPoints" placeholder="পয়েন্ট" class="form-control">
                 <button class="btn btn-primary" onclick="addProduct()">পণ্য সেভ করুন</button>
+            </div>
+
+            <!-- লোগো ও ব্যানার ম্যানেজমেন্ট -->
+            <div style="background: #eef2f7; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
+                <h5 style="margin-bottom: 6px; color: #0052D4;">🖼️ লোগো ও ব্যানার আপডেট করুন</h5>
+                <input type="text" id="settingLogoUrl" placeholder="লোগো ইমেজ লিঙ্ক (Logo URL)" class="form-control">
+                <input type="text" id="settingBannerUrl" placeholder="ব্যানার ইমেজ লিঙ্ক (Banner URL)" class="form-control">
+                <button class="btn btn-success btn-sm" onclick="saveSettings()">লোগো ও ব্যানার সেভ করুন</button>
             </div>
 
             <h4 style="font-size: 13px; margin-top: 10px;">⏳ অ্যাডমিন অ্যাপ্রুভাল ও পেন্ডিং তালিকা</h4>
@@ -210,12 +227,12 @@
         <button class="bottom-nav-item" onclick="switchTab('cart')">
             <span>🛒</span> কার্ট
         </button>
-        <button class="bottom-nav-item" onclick="switchTab('manager')">
+        <button class="bottom-nav-item" onclick="switchRole('manager')">
             <span>⚙️</span> ম্যানেজার
         </button>
     </div>
 
-    <!-- জাভাস্ক্রিপ্ট এবং ফায়ারবেস লজিক -->
+    <!-- সম্পূর্ণ ফায়ারবেস এবং জাভাস্ক্রিপ্ট লজিক -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSy...",
@@ -238,7 +255,38 @@
         window.onload = function() {
             loadCustomers();
             loadProducts();
+            loadSettings();
         };
+
+        // লোগো ও ব্যানার সেটিংস লোড
+        function loadSettings() {
+            db.collection("settings").doc("appConfig").get().then((doc) => {
+                if(doc.exists) {
+                    let data = doc.data();
+                    if(data.logo) {
+                        document.getElementById('brandLogoImg').src = data.logo;
+                        document.getElementById('settingLogoUrl').value = data.logo;
+                    }
+                    if(data.banner) {
+                        let bannerEl = document.getElementById('bannerImg');
+                        bannerEl.src = data.banner;
+                        bannerEl.style.display = 'block';
+                        document.getElementById('settingBannerUrl').value = data.banner;
+                    }
+                }
+            });
+        }
+
+        // লোগো ও ব্যানার সেভ
+        function saveSettings() {
+            let logo = document.getElementById('settingLogoUrl').value.trim();
+            let banner = document.getElementById('settingBannerUrl').value.trim();
+
+            db.collection("settings").doc("appConfig").set({ logo, banner }, { merge: true }).then(() => {
+                alert("লোগো এবং ব্যানার সফলভাবে আপডেট করা হয়েছে!");
+                loadSettings();
+            });
+        }
 
         function loadCustomers() {
             db.collection("customers").onSnapshot((snapshot) => {
@@ -252,7 +300,7 @@
             });
         }
 
-        // প্রোডাক্ট লোড (ছাড় ও ছবি সহ)
+        // প্রোডাক্ট লোড (ছবি এবং ছাড় বা ডিসকাউন্ট সহ)
         function loadProducts() {
             db.collection("products").onSnapshot((snapshot) => {
                 products = [];
@@ -267,7 +315,7 @@
                     html += `
                         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding:10px 0;">
                             <div style="display:flex; gap:10px; align-items:center;">
-                                <img src="${imgSrc}" style="width:50px; height:50px; border-radius:6px; object-fit:cover; border:1px solid #ddd;" onerror="this.src='https://via.placeholder.com/50'">
+                                <img src="${imgSrc}" style="width:55px; height:55px; border-radius:6px; object-fit:cover; border:1px solid #ddd;" onerror="this.src='https://via.placeholder.com/55'">
                                 <div>
                                     <b>${p.name}</b> ${discountBadge}<br>
                                     <small style="color:#28a745; font-weight:bold;">মূল্য: ৳${p.price} | পয়েন্ট: ${p.points || 0}</small>
