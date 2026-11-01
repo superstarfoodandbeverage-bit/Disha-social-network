@@ -42,11 +42,23 @@
         th, td { border: 1px solid #ddd; padding: 6px; text-align: left; }
         th { background: #f0f4f8; color: #333; }
 
+        /* প্রিন্ট স্টাইল ও জলছাপ (Watermark) */
         @media print {
             body * { visibility: hidden; }
             #printableArea, #printableArea * { visibility: visible; }
-            #printableArea { position: absolute; left: 0; top: 0; width: 100%; }
+            #printableArea { position: absolute; left: 0; top: 0; width: 100%; background: white; }
             .no-print { display: none !important; }
+            .watermark {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(-30deg);
+                font-size: 80px;
+                color: rgba(0, 82, 212, 0.08);
+                font-weight: bold;
+                z-index: -1;
+                pointer-events: none;
+            }
         }
     </style>
 </head>
@@ -56,7 +68,7 @@
     <div class="top-navbar no-print">
         <div class="brand-title">
             <img id="brandLogoImg" src="" alt="Logo" class="logo" onerror="this.style.display='none'">
-            <span>Disha social network</span>
+            <span id="brandNameSpan">Disha social network</span>
         </div>
         <div class="nav-switch-btns">
             <button class="nav-switch-btn" onclick="switchRole('manager')">ম্যানেজার</button>
@@ -107,6 +119,12 @@
                 <img src="" alt="Banner" id="bannerImg" style="width: 100%; border-radius: 8px; display: none; object-fit: cover; max-height: 150px;">
             </div>
 
+            <!-- বিজয়ী তিনজন ব্যক্তির ছবি প্রদর্শন সেকশন -->
+            <div id="winnersSection" class="card" style="margin-top: 12px; background: #fffbe6; border: 1px solid #ffe58f; display: none;">
+                <h4 style="color: #d48806; font-size: 13px; margin-bottom: 8px; text-align: center;">🏆 এই সপ্তাহের শীর্ষ ৩ বিজয়ী</h4>
+                <div id="winnersList" style="display: flex; justify-content: space-around; gap: 5px;"></div>
+            </div>
+
             <!-- Sun Super Mart এবং Disha TV বড় বাটন -->
             <div class="login-bottom-features">
                 <a href="https://www.facebook.com/share/1CFmgBaVq5/" target="_blank" class="feature-big-btn" style="background: linear-gradient(135deg, #ff5e00, #ff9900);">
@@ -126,7 +144,7 @@
             </div>
         </div>
 
-        <!-- কাস্টমার ড্যাশবোর্ড (লগইন করার পর দেখাবে) -->
+        <!-- কাস্টমার ড্যাশবোর্ড (পয়েন্ট, অ্যাফিলিয়েট ও ব্যক্তিগত মিটিং বোর্ড সহ) -->
         <div id="customerDashboard" class="card" style="display: none;">
             <h3 id="userWelcomeText" style="color: #0052D4; font-size: 16px;">স্বাগতম!</h3>
             
@@ -141,7 +159,6 @@
                 </div>
             </div>
 
-            <!-- পার্সোনাল মিটিং বা জুম লিঙ্ক বক্স -->
             <div id="userMeetingCard" class="card" style="background: #e8f4fd; border: 1px solid #0052D4; margin-bottom: 10px; display: none;">
                 <h4 style="color: #0052D4; font-size: 14px; margin-bottom: 5px;">🎥 আপনার নির্ধারিত জুম মিটিং</h4>
                 <p id="userMeetingInfo" style="font-size: 12px; margin-bottom: 8px;"></p>
@@ -155,7 +172,7 @@
             <button class="btn btn-danger btn-sm" onclick="logout()">লগআউট</button>
         </div>
 
-        <!-- পণ্য তালিকা সেকশন -->
+        <!-- পণ্য তালিকা সেকশন (ছবি, ওজন, ডিসকাউন্ট ও অর্ডার করার সুবিধা সহ) -->
         <div id="productSection" class="card">
             <h4 style="color: #333; margin-bottom: 10px;">📦 আমাদের পণ্যসমূহ</h4>
             <div id="productList">
@@ -163,7 +180,20 @@
             </div>
         </div>
 
-        <!-- ম্যানেজার প্যানেল -->
+        <!-- কার্ট সেকশন -->
+        <div id="cartSection" class="card" style="display: none;">
+            <h4 style="color: #0052D4; margin-bottom: 10px;">🛒 আপনার শপিং কার্ট ও অর্ডার</h4>
+            <div id="cartItemList">
+                <p style="font-size: 12px; color: #777;">কার্ট খালি আছে।</p>
+            </div>
+            <div style="margin-top: 10px;">
+                <label style="font-size: 12px;">অগ্রিম প্রদান (Advance):</label>
+                <input type="number" id="orderAdvance" class="form-control" value="0" placeholder="টাকা">
+                <button class="btn btn-success" onclick="submitOrder()">অর্ডার কনফার্ম করুন</button>
+            </div>
+        </div>
+
+        <!-- ম্যানেজার প্যানেল (অর্ডার প্রিন্ট ও বিল হিসাব সহ) -->
         <div id="managerPanel" class="card" style="display: none; border-top: 3px solid #ffc107;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                 <h3 style="color: #d39e00; font-size: 16px;">💼 ম্যানেজার কন্ট্রোল মোড</h3>
@@ -181,34 +211,58 @@
                 <button class="btn btn-danger btn-sm" onclick="closePanel('adminPanel')">বন্ধ করুন</button>
             </div>
             
+            <!-- পাসওয়ার্ড পরিবর্তনের অপশন -->
+            <div style="background: #fff3cd; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
+                <h5 style="margin-bottom: 6px; color: #856404;">🔐 অ্যাডমিন ও ম্যানেজার পাসওয়ার্ড সেট করুন</h5>
+                <input type="text" id="setAdminPass" placeholder="নতুন অ্যাডমিন পাসওয়ার্ড" class="form-control" value="Admin@786">
+                <input type="text" id="setManagerPass" placeholder="নতুন ম্যানেজার পাসওয়ার্ড" class="form-control" value="Manager@123">
+                <button class="btn btn-warning btn-sm" onclick="savePasswords()">পাসওয়ার্ড সেভ করুন</button>
+            </div>
+
+            <!-- নতুন পণ্য আপলোড (ওজন, আগের রেট, ছাড় %, পয়েন্ট ও ছবি সহ) -->
             <div style="background: #f8f9fa; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
-                <h5 style="margin-bottom: 6px;">নতুন পণ্য যোগ করুন (ছবি ও ছাড় সহ)</h5>
+                <h5 style="margin-bottom: 6px;">নতুন পণ্য আপলোড করুন</h5>
                 <input type="text" id="pName" placeholder="পণ্যের নাম" class="form-control">
-                <input type="number" id="pPrice" placeholder="মূল্য (৳)" class="form-control">
+                <input type="text" id="pWeight" placeholder="ওজন/পরিমাণ (যেমন: ১ কেজি / ৫০০ গ্রাম)" class="form-control">
+                <input type="number" id="oldPrice" placeholder="আগের রেট (৳)" class="form-control">
                 <input type="number" id="pDiscount" placeholder="ছাড় (%) যেমন: 10" class="form-control">
+                <input type="number" id="pPrice" placeholder="বর্তমান রেট (৳)" class="form-control">
                 <input type="text" id="pImage" placeholder="পণ্যের ছবির লিংক (Image URL)" class="form-control">
                 <input type="number" id="pPoints" placeholder="পয়েন্ট" class="form-control">
                 <button class="btn btn-primary" onclick="addProduct()">পণ্য সেভ করুন</button>
             </div>
 
-            <!-- লোগো ও ব্যানার ম্যানেজমেন্ট -->
+            <!-- পয়েন্ট রূপান্তর টেবিল সেটিংস -->
+            <div style="background: #e2f0d9; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
+                <h5 style="margin-bottom: 6px; color: #385723;">💰 টাকা ও পয়েন্ট রূপান্তর টেবিল</h5>
+                <input type="number" id="takaRate" placeholder="কত টাকায় ১ পয়েন্ট? (যেমন: ১০০)" class="form-control" value="100">
+                <button class="btn btn-success btn-sm" onclick="savePointRule()">পয়েন্ট রুলস সেভ করুন</button>
+            </div>
+
+            <!-- লোগো, ব্যানার ও বিজয়ীদের ছবি ম্যানেজমেন্ট -->
             <div style="background: #eef2f7; padding: 10px; border-radius: 6px; margin-bottom: 12px;">
-                <h5 style="margin-bottom: 6px; color: #0052D4;">🖼️ লোগো ও ব্যানার আপডেট করুন</h5>
-                <input type="text" id="settingLogoUrl" placeholder="লোগো ইমেজ লিঙ্ক (Logo URL)" class="form-control">
-                <input type="text" id="settingBannerUrl" placeholder="ব্যানার ইমেজ লিঙ্ক (Banner URL)" class="form-control">
-                <button class="btn btn-success btn-sm" onclick="saveSettings()">লোগো ও ব্যানার সেভ করুন</button>
+                <h5 style="margin-bottom: 6px; color: #0052D4;">🖼️ লোগো, ব্যানার ও বিজয়ীদের ছবি আপলোড</h5>
+                <input type="text" id="settingLogoUrl" placeholder="বাহির ও ভেতরের লোগো ইমেজ লিঙ্ক" class="form-control">
+                <input type="text" id="settingBannerUrl" placeholder="ব্যানার ইমেজ লিঙ্ক" class="form-control">
+                <input type="text" id="winner1Url" placeholder="১ম বিজয়ীর ছবির লিঙ্ক" class="form-control">
+                <input type="text" id="winner2Url" placeholder="২য় বিজয়ীর ছবির লিঙ্ক" class="form-control">
+                <input type="text" id="winner3Url" placeholder="৩য় বিজয়ীর ছবির লিঙ্ক" class="form-control">
+                <button class="btn btn-success btn-sm" onclick="saveSettings()">লোগো ও ছবি সেভ করুন</button>
             </div>
 
-            <h4 style="font-size: 13px; margin-top: 10px;">⏳ অ্যাডমিন অ্যাপ্রুভাল ও পেন্ডিং তালিকা</h4>
-            <div id="adminApprovalList">
-                <p style="font-size: 12px; color: #777;">কোনো পেন্ডিং অ্যাপ্রুভাল নেই।</p>
+            <!-- কাস্টমার নাম, মোবাইল, পাসওয়ার্ড, পয়েন্ট ও রেফার বোর্ড টেবিল -->
+            <h4 style="font-size: 13px; margin-top: 10px;">👥 কাস্টমার তালিকা ও পয়েন্ট বোর্ড</h4>
+            <div id="adminCustomerTableContainer">
+                <p style="font-size: 12px; color: #777;">কাস্টমার লোড হচ্ছে...</p>
             </div>
 
-            <div id="printableArea" style="margin-top: 15px;">
-                <h4 style="font-size: 13px;">📊 প্রজেক্ট সেলস ও কাস্টমার পয়েন্ট রিপোর্ট</h4>
-                <div id="adminReportTable"></div>
+            <h4 style="font-size: 13px; margin-top: 15px;">⏳ অর্ডার অ্যাডমিন অ্যাপ্রুভাল তালিকা</h4>
+            <div id="adminOrderApprovalList">
+                <p style="font-size: 12px; color: #777;">কোনো পেন্ডিং অর্ডার নেই।</p>
             </div>
-            <button class="btn btn-warning btn-sm no-print" style="margin-top: 6px;" onclick="window.print()">🖨️ প্রিন্ট অপশন (প্রিন্ট রিপোর্ট)</button>
+
+            <!-- প্রিন্ট রিপোর্ট এলাকা -->
+            <div id="printableArea" style="margin-top: 15px; display: none;"></div>
 
             <div style="margin-top: 15px; border-top: 2px solid #0052D4; padding-top: 10px;">
                 <h4 style="color: #0052D4; font-size: 14px; margin-bottom: 8px;">👥 কাস্টমার মিটিং ও জুম লিঙ্ক অ্যাসাইন</h4>
@@ -226,14 +280,14 @@
             <span>🏠</span> হোম
         </button>
         <button class="bottom-nav-item" onclick="switchTab('cart')">
-            <span>🛒</span> কার্ট
+            <span>🛒</span> কার্ট (<span id="cartCount">0</span>)
         </button>
-        <button class="bottom-nav-item" onclick="switchRole('manager')">
+        <button class="bottom-nav-item" onclick="switchTab('manager')">
             <span>⚙️</span> ম্যানেজার
         </button>
     </div>
 
-    <!-- ফায়ারবেস এবং জাভাস্ক্রিপ্ট লজিক -->
+    <!-- ফায়ারবেস এবং সম্পূর্ণ জাভাস্ক্রিপ্ট লজিক -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSy...",
@@ -252,10 +306,13 @@
         let currentUser = null;
         let customers = [];
         let products = [];
+        let orders = [];
+        let cart = [];
 
         window.onload = function() {
             loadCustomers();
             loadProducts();
+            loadOrders();
             loadSettings();
         };
 
@@ -273,6 +330,20 @@
                         bannerEl.style.display = 'block';
                         document.getElementById('settingBannerUrl').value = data.banner;
                     }
+                    if(data.winners && data.winners.length > 0) {
+                        let wHtml = '';
+                        data.winners.forEach((wUrl, idx) => {
+                            if(wUrl) {
+                                wHtml += `<div style="text-align:center;"><img src="${wUrl}" style="width:45px; height:45px; border-radius:50%; object-fit:cover; border:2px solid #faad14;"><br><small style="font-size:10px;">${idx+1}ম স্থান</small></div>`;
+                            }
+                        });
+                        if(wHtml) {
+                            document.getElementById('winnersList').innerHTML = wHtml;
+                            document.getElementById('winnersSection').style.display = 'block';
+                        }
+                    }
+                    if(data.adminPass) document.getElementById('setAdminPass').value = data.adminPass;
+                    if(data.managerPass) document.getElementById('setManagerPass').value = data.managerPass;
                 }
             }).catch(err => console.log(err));
         }
@@ -280,10 +351,21 @@
         function saveSettings() {
             let logo = document.getElementById('settingLogoUrl').value.trim();
             let banner = document.getElementById('settingBannerUrl').value.trim();
+            let w1 = document.getElementById('winner1Url').value.trim();
+            let w2 = document.getElementById('winner2Url').value.trim();
+            let w3 = document.getElementById('winner3Url').value.trim();
 
-            db.collection("settings").doc("appConfig").set({ logo, banner }, { merge: true }).then(() => {
-                alert("লোগো এবং ব্যানার সফলভাবে আপডেট করা হয়েছে!");
+            db.collection("settings").doc("appConfig").set({ logo, banner, winners: [w1, w2, w3] }, { merge: true }).then(() => {
+                alert("লোগো, ব্যানার ও বিজয়ীদের ছবি সফলভাবে আপডেট করা হয়েছে!");
                 loadSettings();
+            });
+        }
+
+        function savePasswords() {
+            let adminPass = document.getElementById('setAdminPass').value.trim();
+            let managerPass = document.getElementById('setManagerPass').value.trim();
+            db.collection("settings").doc("appConfig").set({ adminPass, managerPass }, { merge: true }).then(() => {
+                alert("অ্যাডমিন ও ম্যানেজার পাসওয়ার্ড সফলভাবে আপডেট করা হয়েছে!");
             });
         }
 
@@ -293,11 +375,8 @@
                 snapshot.forEach((doc) => {
                     customers.push({ id: doc.id, ...doc.data() });
                 });
-                renderPublicMeetingSchedule();
+                renderAdminCustomerTable();
                 renderAdminCustomerMeetingList();
-                renderAdminReport();
-            }, (error) => {
-                console.log("কাস্টমার লোড ত্রুটি: ", error);
             });
         }
 
@@ -311,20 +390,18 @@
                     
                     let imgSrc = p.image ? p.image : 'https://via.placeholder.com/60';
                     let discountBadge = p.discount ? `<span style="background:#dc3545; color:white; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:bold;">${p.discount}% ছাড়</span>` : '';
-                    let discountedPrice = p.discount ? Math.round(p.price - (p.price * p.discount / 100)) : p.price;
                     
                     html += `
                         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding:10px 0;">
                             <div style="display:flex; gap:10px; align-items:center;">
                                 <img src="${imgSrc}" style="width:55px; height:55px; border-radius:6px; object-fit:cover; border:1px solid #ddd;" onerror="this.src='https://via.placeholder.com/55'">
                                 <div>
-                                    <b>${p.name}</b> ${discountBadge}<br>
-                                    <small style="color:#28a745; font-weight:bold;">মূল্য: ৳${discountedPrice} ${p.discount ? `<del style="color:#888; font-weight:normal;">৳${p.price}</del>` : ''} | পয়েন্ট: ${p.points || 0}</small>
+                                    <b>${p.name}</b> (${p.weight || 'স্ট্যান্ডার্ড'}) ${discountBadge}<br>
+                                    <small style="color:#28a745; font-weight:bold;">বর্তমান রেট: ৳${p.price} ${p.oldPrice ? `<del style="color:#888;">৳${p.oldPrice}</del>` : ''} | পয়েন্ট: ${p.points || 0}</small>
                                 </div>
                             </div>
                             <div>
-                                <button class="btn btn-primary btn-sm" onclick="buyProduct('${p.id}')">কিনুন</button>
-                                <button class="btn btn-warning btn-sm no-print" onclick="editProduct('${p.id}')">এডিট</button>
+                                <button class="btn btn-primary btn-sm" onclick="addToCart('${p.id}')">অর্ডার করুন</button>
                                 <button class="btn btn-danger btn-sm no-print" onclick="deleteProduct('${p.id}')">ডিলিট</button>
                             </div>
                         </div>
@@ -334,227 +411,221 @@
             });
         }
 
+        function loadOrders() {
+            db.collection("orders").onSnapshot((snapshot) => {
+                orders = [];
+                snapshot.forEach((doc) => {
+                    orders.push({ id: doc.id, ...doc.data() });
+                });
+                renderAdminOrderApproval();
+                renderManagerOrders();
+            });
+        }
+
+        function addToCart(productId) {
+            if(!currentUser) {
+                alert("দয়া করে প্রথমে লগইন করুন!");
+                return;
+            }
+            let prod = products.find(p => p.id === productId);
+            if(prod) {
+                cart.push(prod);
+                document.getElementById('cartCount').innerText = cart.length;
+                alert(`${prod.name} কার্টে যোগ করা হয়েছে!`);
+            }
+        }
+
+        function submitOrder() {
+            if(cart.length === 0) return alert("কার্ট খালি!");
+            let advance = Number(document.getElementById('orderAdvance').value) || 0;
+            let totalBill = cart.reduce((sum, item) => sum + item.price, 0);
+
+            db.collection("orders").add({
+                customerPhone: currentUser.phone,
+                customerName: currentUser.name,
+                items: cart,
+                totalBill: totalBill,
+                advance: advance,
+                due: totalBill - advance,
+                status: 'pending',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                alert("অর্ডার সফলভাবে সাবমিট হয়েছে! অ্যাডমিন অ্যাপ্রুভালের অপেক্ষায় রয়েছে।");
+                cart = [];
+                document.getElementById('cartCount').innerText = 0;
+                switchTab('home');
+            });
+        }
+
+        function renderAdminOrderApproval() {
+            let container = document.getElementById('adminOrderApprovalList');
+            let pendingOrders = orders.filter(o => o.status === 'pending');
+            let html = '';
+            pendingOrders.forEach(o => {
+                html += `
+                    <div style="background:#fff3cd; padding:8px; border-radius:6px; margin-bottom:6px; font-size:12px;">
+                        <b>কাস্টমার:</b> ${o.customerName} (${o.customerPhone})<br>
+                        <b>মোট বিল:</b> ৳${o.totalBill} | অগ্রিম: ৳${o.advance} | বাকি: ৳${o.due}<br>
+                        <button class="btn btn-success btn-sm" style="margin-top:5px;" onclick="approveOrder('${o.id}')">অ্যাপ্রুভ করুন (ম্যানেজার প্রিন্টের জন্য)</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html || '<p style="font-size:12px; color:#777;">কোনো পেন্ডিং অর্ডার নেই।</p>';
+        }
+
+        function approveOrder(orderId) {
+            db.collection("orders").doc(orderId).update({ status: 'approved' }).then(() => alert("অর্ডার অ্যাপ্রুভ করা হয়েছে!"));
+        }
+
+        function renderManagerOrders() {
+            let container = document.getElementById('managerOrderList');
+            let approvedOrders = orders.filter(o => o.status === 'approved' || o.status === 'printed');
+            let html = '';
+            approvedOrders.forEach(o => {
+                html += `
+                    <div style="background:#fff; border:1px solid #ddd; padding:10px; border-radius:8px; margin-bottom:10px; font-size:12px;">
+                        <b>কাস্টমার:</b> ${o.customerName} (${o.customerPhone})<br>
+                        <b>বিল:</b> ৳${o.totalBill} | <b>অগ্রিম:</b> ৳${o.advance} | <b>সিওডি (বাকি):</b> ৳${o.due}<br>
+                        <button class="btn btn-warning btn-sm" style="margin-top:6px;" onclick='printOrderInvoice(${JSON.stringify(o)})'>🖨️ মেমো প্রিন্ট করুন</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html || '<p style="font-size:12px; color:#777;">প্রিন্ট করার মতো কোনো অ্যাপ্রুভড অর্ডার নেই।</p>';
+        }
+
+        function printOrderInvoice(order) {
+            let printArea = document.getElementById('printableArea');
+            printArea.style.display = 'block';
+            let itemsHtml = order.items.map(i => `<tr><td>${i.name} (${i.weight || ''})</td><td>৳${i.price}</td></tr>`).join('');
+            
+            printArea.innerHTML = `
+                <div style="position:relative; padding:20px;">
+                    <div class="watermark">Sun product</div>
+                    <div style="text-align:center; margin-bottom:15px;">
+                        <h2>Sun Super Mart & Sun Product</h2>
+                        <p style="font-size:12px;">কাস্টমার: ${order.customerName} | মোবাইল: ${order.customerPhone}</p>
+                    </div>
+                    <table>
+                        <tr><th>পণ্যের বিবরণ</th><th>মূল্য</th></tr>
+                        ${itemsHtml}
+                    </table>
+                    <div style="margin-top:15px; font-size:13px;">
+                        <p><b>মোট বিল:</b> ৳${order.totalBill}</p>
+                        <p><b>অগ্রিম প্রদান (Advance):</b> ৳${order.advance}</p>
+                        <p><b>ক্যাশ অন ডেলিভারি (Due):</b> ৳${order.due}</p>
+                        <p><b>স্ট্যাটাস:</b> ${order.due === 0 ? 'PAID (পরিশোধিত)' : 'Cash On Delivery'}</p>
+                    </div>
+                </div>
+            `;
+            window.print();
+        }
+
+        function renderAdminCustomerTable() {
+            let container = document.getElementById('adminCustomerTableContainer');
+            let html = '<table><tr><th>নাম</th><th>মোবাইল</th><th>পয়েন্ট</th><th>রেফার আইডি</th><th>স্ট্যাটাস</th><th>অ্যাকশন</th></tr>';
+            customers.forEach(c => {
+                html += `<tr>
+                    <td>${c.name || ''}</td>
+                    <td>${c.phone || ''}</td>
+                    <td>${c.points || 0}</td>
+                    <td>${c.referredBy || 'নেই'}</td>
+                    <td>${c.status || 'approved'}</td>
+                    <td><button class="btn btn-danger btn-sm" onclick="deleteUser('${c.id}')">ডিলিট</button></td>
+                </tr>`;
+            });
+            container.innerHTML = html + '</table>';
+        }
+
         function handleRegister() {
             let name = document.getElementById('regName').value.trim();
             let phone = document.getElementById('regPhone').value.trim();
             let pass = document.getElementById('regPass').value.trim();
             let ref = document.getElementById('regRef').value.trim();
 
-            if(!name || !phone || !pass) {
-                alert("সবগুলো তথ্য সঠিকভাবে পূরণ করুন!");
-                return;
-            }
+            if(!name || !phone || !pass) return alert("সবগুলো তথ্য পূরণ করুন!");
 
             db.collection("customers").doc(phone).set({
-                name: name,
-                phone: phone,
-                pass: pass,
-                points: 10,
-                affiliatePoints: ref ? 20 : 0,
-                referredBy: ref || null,
-                status: 'pending',
-                meetingLink: '',
-                meetingTopic: '',
-                meetingTime: '',
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                name, phone, pass, points: 10, affiliatePoints: ref ? 20 : 0, referredBy: ref || null, status: 'approved'
             }).then(() => {
-                alert("রেজিস্ট্রেশন সফল হয়েছে! অ্যাডমিন অ্যাপ্রুভালের জন্য অপেক্ষা করুন।");
+                alert("রেজিস্ট্রেশন সফল হয়েছে!");
                 toggleAuthMode('login');
-            }).catch(err => alert("ত্রুটি: " + err.message));
+            });
         }
 
         function handleLogin() {
             let phone = document.getElementById('loginPhone').value.trim();
             let pass = document.getElementById('loginPass').value.trim();
 
-            if(!phone || !pass) {
-                alert("মোবাইল নম্বর ও পাসওয়ার্ড দিন!");
-                return;
-            }
-
             db.collection("customers").doc(phone).get().then((doc) => {
-                if(doc.exists) {
-                    let user = doc.data();
-                    if(user.pass === pass) {
-                        if(user.status === 'pending') {
-                            alert("আপনার অ্যাকাউন্টটি এখনও অ্যাডমিন দ্বারা অ্যাপ্রুভ করা হয়নি।");
-                            return;
-                        }
-                        currentUser = { id: doc.id, ...user };
-                        document.getElementById('authSection').style.display = 'none';
-                        document.getElementById('customerDashboard').style.display = 'block';
-                        document.getElementById('userWelcomeText').innerText = `স্বাগতম, ${currentUser.name}!`;
-                        document.getElementById('userPoints').innerText = currentUser.points || 0;
-                        document.getElementById('affiliatePoints').innerText = (currentUser.affiliatePoints || 0) + ' ৳';
-                        document.getElementById('myRefCode').innerText = currentUser.phone;
-
-                        // কাস্টমারের জন্য জুম মিটিং সিডিউল দেখানোর ব্যবস্থা
-                        if(currentUser.meetingLink || currentUser.meetingTopic) {
-                            document.getElementById('userMeetingCard').style.display = 'block';
-                            document.getElementById('userMeetingInfo').innerHTML = `<b>বিষয়:</b> ${currentUser.meetingTopic || 'লাইভ মিটিং'}<br><b>সময়:</b> ${currentUser.meetingTime || 'নির্ধারিত সময়ে'}`;
-                            let mBtn = document.getElementById('userMeetingBtn');
-                            mBtn.href = currentUser.meetingLink;
-                            mBtn.style.display = 'inline-block';
-                        }
-                    } else {
-                        alert("পাসওয়ার্ড ভুল হয়েছে!");
-                    }
+                if(doc.exists && doc.data().pass === pass) {
+                    currentUser = { id: doc.id, ...doc.data() };
+                    document.getElementById('authSection').style.display = 'none';
+                    document.getElementById('customerDashboard').style.display = 'block';
+                    document.getElementById('userWelcomeText').innerText = `স্বাগতম, ${currentUser.name}!`;
+                    document.getElementById('userPoints').innerText = currentUser.points || 0;
+                    document.getElementById('affiliatePoints').innerText = (currentUser.affiliatePoints || 0) + ' ৳';
+                    document.getElementById('myRefCode').innerText = currentUser.phone;
                 } else {
-                    alert("এই নম্বরে কোনো অ্যাকাউন্ট রেজিস্টার্ড নেই!");
+                    alert("নম্বর বা পাসওয়ার্ড ভুল!");
                 }
-            }).catch((error) => {
-                alert("লগইন করতে সমস্যা হয়েছে: " + error.message);
             });
-        }
-
-        function renderPublicMeetingSchedule() {
-            let container = document.getElementById('publicMeetingSchedule');
-            if (!container) return;
-
-            let scheduled = customers.filter(c => c.meetingLink || c.meetingTopic);
-            if (scheduled.length === 0) {
-                container.innerHTML = '<p style="color: #777;">বর্তমানে কোনো আপডেট মিটিং সিডিউল নেই।</p>';
-                return;
-            }
-
-            let html = '<ul style="list-style: none; padding: 0;">';
-            scheduled.forEach(m => {
-                html += `
-                    <li style="background: white; padding: 6px; border-radius: 4px; margin-bottom: 4px; border-left: 3px solid #0052D4;">
-                        <b>📌 ${m.meetingTopic || 'লাইভ মিটিং'}</b> (${m.name || m.phone})<br>
-                        <small style="color:#666;">⏰ সময়: ${m.meetingTime || 'শিগগিরই'}</small><br>
-                        ${m.meetingLink ? `<a href="${m.meetingLink}" target="_blank" style="color:#0052D4; font-weight:bold; font-size:11px;">🔗 জুমে জয়েন করুন</a>` : ''}
-                    </li>
-                `;
-            });
-            container.innerHTML = html + '</ul>';
-        }
-
-        function renderAdminCustomerMeetingList() {
-            let container = document.getElementById('adminCustomerMeetingList');
-            if (!container) return;
-
-            if(customers.length === 0) {
-                container.innerHTML = '<p style="font-size:12px; color:#777;">কোনো কাস্টমার পাওয়া যায়নি।</p>';
-                return;
-            }
-
-            let html = '<table><tr><th>কাস্টমার</th><th>বিষয় ও সময়</th><th>Zoom/Meet Link</th><th>অ্যাকশন</th></tr>';
-            customers.forEach(cu => {
-                html += `<tr>
-                    <td><b>${cu.name || ''}</b><br><small>${cu.phone || ''}</small></td>
-                    <td>
-                        <input type="text" id="topic_${cu.id}" value="${cu.meetingTopic || ''}" placeholder="বিষয়" style="width:100%; font-size:11px;">
-                        <input type="text" id="time_${cu.id}" value="${cu.meetingTime || ''}" placeholder="সময়" style="width:100%; font-size:11px; margin-top:2px;">
-                    </td>
-                    <td><input type="text" id="link_${cu.id}" value="${cu.meetingLink || ''}" placeholder="মিটিং লিঙ্ক" style="width:100%; font-size:11px;"></td>
-                    <td><button class="btn btn-success btn-sm" onclick="saveCustomerMeeting('${cu.id}')">সেভ</button></td>
-                </tr>`;
-            });
-            container.innerHTML = html + '</table>';
-        }
-
-        function saveCustomerMeeting(id) {
-            let link = document.getElementById(`link_${id}`).value.trim();
-            let topic = document.getElementById(`topic_${id}`).value.trim();
-            let time = document.getElementById(`time_${id}`).value.trim();
-
-            db.collection("customers").doc(id).update({
-                meetingLink: link,
-                meetingTopic: topic,
-                meetingTime: time
-            }).then(() => alert("মিটিং আপডেট সফল হয়েছে!")).catch(err => alert("ত্রুটি: " + err.message));
-        }
-
-        function renderAdminReport() {
-            let approvalContainer = document.getElementById('adminApprovalList');
-            let reportContainer = document.getElementById('adminReportTable');
-            
-            let pendingUsers = customers.filter(c => c.status === 'pending');
-            let pendingHtml = '';
-            
-            pendingUsers.forEach(u => {
-                pendingHtml += `
-                    <div style="display:flex; justify-content:space-between; align-items:center; background:#fff3cd; padding:6px; margin-bottom:4px; border-radius:4px;">
-                        <span>👤 ${u.name} (${u.phone})</span>
-                        <button class="btn btn-success btn-sm" onclick="approveUser('${u.id}')">অ্যাপ্রুভ করুন</button>
-                    </div>
-                `;
-            });
-            if (approvalContainer) approvalContainer.innerHTML = pendingHtml || '<p style="font-size:12px; color:#777;">কোনো পেন্ডিং অ্যাপ্রুভাল নেই।</p>';
-
-            let rHtml = '<table><tr><th>নাম</th><th>মোবাইল</th><th>পয়েন্ট</th><th>অ্যাফিলিয়েট (৳)</th><th>স্ট্যাটাস</th><th>অ্যাকশন</th></tr>';
-            customers.forEach(c => {
-                rHtml += `<tr>
-                    <td>${c.name || ''}</td>
-                    <td>${c.phone || ''}</td>
-                    <td>${c.points || 0}</td>
-                    <td>${c.affiliatePoints || 0}</td>
-                    <td>${c.status || 'approved'}</td>
-                    <td class="no-print">
-                        <button class="btn btn-danger btn-sm" onclick="deleteUser('${c.id}')">ডিলিট</button>
-                    </td>
-                </tr>`;
-            });
-            if (reportContainer) reportContainer.innerHTML = rHtml + '</table>';
-        }
-
-        function approveUser(id) {
-            db.collection("customers").doc(id).update({ status: 'approved' }).then(() => alert("ইউজার অ্যাপ্রুভ করা হয়েছে!"));
         }
 
         function addProduct() {
             let name = document.getElementById('pName').value.trim();
-            let price = Number(document.getElementById('pPrice').value);
+            let weight = document.getElementById('pWeight').value.trim();
+            let oldPrice = Number(document.getElementById('oldPrice').value) || 0;
             let discount = Number(document.getElementById('pDiscount').value) || 0;
+            let price = Number(document.getElementById('pPrice').value);
             let image = document.getElementById('pImage').value.trim();
             let points = Number(document.getElementById('pPoints').value);
 
-            if(!name || !price) return alert("পণ্যের সঠিক নাম ও মূল্য দিন");
+            if(!name || !price) return alert("পণ্যের নাম ও বর্তমান রেট দিন");
 
-            db.collection("products").add({ name, price, discount, image, points }).then(() => {
-                alert("পণ্য সফলভাবে সেভ করা হয়েছে");
+            db.collection("products").add({ name, weight, oldPrice, discount, price, image, points }).then(() => {
+                alert("পণ্য সেভ হয়েছে!");
                 document.getElementById('pName').value = '';
-                document.getElementById('pPrice').value = '';
+                document.getElementById('pWeight').value = '';
+                document.getElementById('oldPrice').value = '';
                 document.getElementById('pDiscount').value = '';
+                document.getElementById('pPrice').value = '';
                 document.getElementById('pImage').value = '';
                 document.getElementById('pPoints').value = '';
             });
         }
 
         function deleteProduct(id) {
-            if(confirm("আপনি কি পণ্যটি ডিলিট করতে চান?")) {
-                db.collection("products").doc(id).delete();
-            }
+            if(confirm("ডিলিট করতে চান?")) db.collection("products").doc(id).delete();
         }
 
         function deleteUser(id) {
-            if(confirm("ইউজারটি ডিলিট করতে চান?")) {
-                db.collection("customers").doc(id).delete();
-            }
+            if(confirm("কাস্টমার ডিলিট করতে চান?")) db.collection("customers").doc(id).delete();
         }
 
         function switchRole(role) {
-            let pass = prompt(`${role.toUpperCase()} প্যানেলে প্রবেশের পাসওয়ার্ড দিন:`);
-            if(role === 'manager' && pass === "Manager@123") {
-                document.getElementById('managerPanel').style.display = 'block';
-                document.getElementById('adminPanel').style.display = 'none';
-                document.getElementById('authSection').style.display = 'none';
-                document.getElementById('productSection').style.display = 'block';
-            } else if(role === 'admin' && pass === "Admin@786") {
-                document.getElementById('adminPanel').style.display = 'block';
-                document.getElementById('managerPanel').style.display = 'none';
-                document.getElementById('authSection').style.display = 'none';
-                document.getElementById('productSection').style.display = 'block';
-            } else if(pass !== null) {
-                alert("ভুল পাসওয়ার্ড!");
-            }
+            db.collection("settings").doc("appConfig").get().then((doc) => {
+                let data = doc.data() || {};
+                let aPass = data.adminPass || "Admin@786";
+                let mPass = data.managerPass || "Manager@123";
+
+                let pass = prompt(`${role.toUpperCase()} প্যানেলের পাসওয়ার্ড দিন:`);
+                if(role === 'manager' && pass === mPass) {
+                    document.getElementById('managerPanel').style.display = 'block';
+                    document.getElementById('adminPanel').style.display = 'none';
+                    document.getElementById('authSection').style.display = 'none';
+                } else if(role === 'admin' && pass === aPass) {
+                    document.getElementById('adminPanel').style.display = 'block';
+                    document.getElementById('managerPanel').style.display = 'none';
+                    document.getElementById('authSection').style.display = 'none';
+                } else if(pass !== null) {
+                    alert("ভুল পাসওয়ার্ড!");
+                }
+            });
         }
 
         function closePanel(panelId) {
             document.getElementById(panelId).style.display = 'none';
             document.getElementById('authSection').style.display = currentUser ? 'none' : 'block';
-            document.getElementById('productSection').style.display = 'block';
         }
 
         function toggleAuthMode(mode) {
@@ -563,12 +634,16 @@
         }
 
         function switchTab(tab) {
-            if(tab === 'manager') switchRole('manager');
-            else {
-                document.getElementById('adminPanel').style.display = 'none';
-                document.getElementById('managerPanel').style.display = 'none';
-                document.getElementById('authSection').style.display = currentUser ? 'none' : 'block';
+            if(tab === 'cart') {
+                let cartHtml = cart.map(i => `<div style="border-bottom:1px solid #eee; padding:5px 0;"><b>${i.name}</b> - ৳${i.price}</div>`).join('');
+                document.getElementById('cartItemList').innerHTML = cartHtml || '<p style="font-size:12px;">কার্ট খালি।</p>';
+                document.getElementById('cartSection').style.display = 'block';
+                document.getElementById('productSection').style.display = 'none';
+                document.getElementById('authSection').style.display = 'none';
+            } else {
+                document.getElementById('cartSection').style.display = 'none';
                 document.getElementById('productSection').style.display = 'block';
+                document.getElementById('authSection').style.display = currentUser ? 'none' : 'block';
             }
         }
 
@@ -580,7 +655,6 @@
             currentUser = null;
             document.getElementById('authSection').style.display = 'block';
             document.getElementById('customerDashboard').style.display = 'none';
-            document.getElementById('userMeetingCard').style.display = 'none';
         }
     </script>
 </body>
