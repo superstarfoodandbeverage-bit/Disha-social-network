@@ -13,7 +13,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
         body { background-color: #f4f6f9; color: #333; padding-bottom: 70px; }
         
-        /* Top Navigation Header */
         .top-navbar { background: #0052D4; color: white; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         .top-navbar .brand-title { font-size: 16px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
         .top-navbar img.logo { width: 35px; height: 35px; border-radius: 50%; background: #fff; object-fit: cover; border: 2px solid white; }
@@ -32,22 +31,17 @@
         .btn-warning { background: #ffc107; color: #333; }
         .btn-sm { padding: 4px 8px; font-size: 11px; width: auto; }
 
-        /* বড় করা লগইন নিচের ফিচার বাটন */
         .login-bottom-features { display: flex; gap: 12px; margin-top: 18px; }
-        .feature-big-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 12px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 15px; border: none; cursor: pointer; color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.15); transition: 0.2s; }
-        .feature-big-btn:active { transform: scale(0.97); }
+        .feature-big-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 12px; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 15px; border: none; cursor: pointer; color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
 
-        /* Bottom Navigation Bar */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #ddd; display: flex; justify-content: space-around; padding: 8px 0; z-index: 100; }
         .bottom-nav-item { text-align: center; color: #666; font-size: 11px; text-decoration: none; cursor: pointer; background: none; border: none; flex: 1; }
         .bottom-nav-item span { display: block; font-size: 16px; margin-bottom: 2px; }
 
-        /* Table Styles */
         table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
         th, td { border: 1px solid #ddd; padding: 6px; text-align: left; }
         th { background: #f0f4f8; color: #333; }
 
-        /* Print Media Style */
         @media print {
             body * { visibility: hidden; }
             #printableArea, #printableArea * { visibility: visible; }
@@ -58,7 +52,7 @@
 </head>
 <body>
 
-    <!-- টপ নেভিগেশন হেডার ও লোগো -->
+    <!-- টপ নেভিগেশন হেডার -->
     <div class="top-navbar no-print">
         <div class="brand-title">
             <img id="brandLogoImg" src="" alt="Logo" class="logo" onerror="this.style.display='none'">
@@ -108,7 +102,7 @@
                 </p>
             </div>
 
-            <!-- ব্যানার ইমেজ প্রদর্শন অংশ -->
+            <!-- ব্যানার ইমেজ -->
             <div style="text-align: center; margin-top: 12px;">
                 <img src="" alt="Banner" id="bannerImg" style="width: 100%; border-radius: 8px; display: none; object-fit: cover; max-height: 150px;">
             </div>
@@ -132,7 +126,7 @@
             </div>
         </div>
 
-        <!-- কাস্টমার ড্যাশবোর্ড (পয়েন্ট ও অ্যাফিলিয়েট পয়েন্ট বোর্ড সহ) -->
+        <!-- কাস্টমার ড্যাশবোর্ড (লগইন করার পর দেখাবে) -->
         <div id="customerDashboard" class="card" style="display: none;">
             <h3 id="userWelcomeText" style="color: #0052D4; font-size: 16px;">স্বাগতম!</h3>
             
@@ -147,6 +141,13 @@
                 </div>
             </div>
 
+            <!-- পার্সোনাল মিটিং বা জুম লিঙ্ক বক্স -->
+            <div id="userMeetingCard" class="card" style="background: #e8f4fd; border: 1px solid #0052D4; margin-bottom: 10px; display: none;">
+                <h4 style="color: #0052D4; font-size: 14px; margin-bottom: 5px;">🎥 আপনার নির্ধারিত জুম মিটিং</h4>
+                <p id="userMeetingInfo" style="font-size: 12px; margin-bottom: 8px;"></p>
+                <a id="userMeetingBtn" href="#" target="_blank" class="btn btn-success btn-sm" style="display:none;">মিটিংয়ে জয়েন করুন</a>
+            </div>
+
             <p style="font-size: 12px; background: #fff3cd; padding: 6px; border-radius: 4px; margin-bottom: 10px;">
                 🔗 আপনার রেফার লিঙ্ক/কোড: <b id="myRefCode">...</b>
             </p>
@@ -154,7 +155,7 @@
             <button class="btn btn-danger btn-sm" onclick="logout()">লগআউট</button>
         </div>
 
-        <!-- পণ্য তালিকা সেকশন (ছবি ও ডিসকাউন্ট রেট সহ) -->
+        <!-- পণ্য তালিকা সেকশন -->
         <div id="productSection" class="card">
             <h4 style="color: #333; margin-bottom: 10px;">📦 আমাদের পণ্যসমূহ</h4>
             <div id="productList">
@@ -162,7 +163,7 @@
             </div>
         </div>
 
-        <!-- ম্যানেজার মোড সেকশন (পাসওয়ার্ড সুরক্ষিত) -->
+        <!-- ম্যানেজার প্যানেল -->
         <div id="managerPanel" class="card" style="display: none; border-top: 3px solid #ffc107;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                 <h3 style="color: #d39e00; font-size: 16px;">💼 ম্যানেজার কন্ট্রোল মোড</h3>
@@ -173,7 +174,7 @@
             </div>
         </div>
 
-        <!-- অ্যাডমিন প্যানেল (পাসওয়ার্ড সুরক্ষিত ও সম্পূর্ণ কন্ট্রোল) -->
+        <!-- অ্যাডমিন প্যানেল -->
         <div id="adminPanel" class="card" style="display: none; border-top: 3px solid #dc3545;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                 <h3 style="color: #dc3545; font-size: 16px;">⚙️ অ্যাডমিন এডভান্সড কন্ট্রোল প্যানেল</h3>
@@ -232,7 +233,7 @@
         </button>
     </div>
 
-    <!-- সম্পূর্ণ ফায়ারবেস এবং জাভাস্ক্রিপ্ট লজিক -->
+    <!-- ফায়ারবেস এবং জাভাস্ক্রিপ্ট লজিক -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSy...",
@@ -258,7 +259,6 @@
             loadSettings();
         };
 
-        // লোগো ও ব্যানার সেটিংস লোড
         function loadSettings() {
             db.collection("settings").doc("appConfig").get().then((doc) => {
                 if(doc.exists) {
@@ -274,10 +274,9 @@
                         document.getElementById('settingBannerUrl').value = data.banner;
                     }
                 }
-            });
+            }).catch(err => console.log(err));
         }
 
-        // লোগো ও ব্যানার সেভ
         function saveSettings() {
             let logo = document.getElementById('settingLogoUrl').value.trim();
             let banner = document.getElementById('settingBannerUrl').value.trim();
@@ -297,10 +296,11 @@
                 renderPublicMeetingSchedule();
                 renderAdminCustomerMeetingList();
                 renderAdminReport();
+            }, (error) => {
+                console.log("কাস্টমার লোড ত্রুটি: ", error);
             });
         }
 
-        // প্রোডাক্ট লোড (ছবি এবং ছাড় বা ডিসকাউন্ট সহ)
         function loadProducts() {
             db.collection("products").onSnapshot((snapshot) => {
                 products = [];
@@ -311,6 +311,7 @@
                     
                     let imgSrc = p.image ? p.image : 'https://via.placeholder.com/60';
                     let discountBadge = p.discount ? `<span style="background:#dc3545; color:white; padding:2px 6px; border-radius:4px; font-size:10px; font-weight:bold;">${p.discount}% ছাড়</span>` : '';
+                    let discountedPrice = p.discount ? Math.round(p.price - (p.price * p.discount / 100)) : p.price;
                     
                     html += `
                         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding:10px 0;">
@@ -318,7 +319,7 @@
                                 <img src="${imgSrc}" style="width:55px; height:55px; border-radius:6px; object-fit:cover; border:1px solid #ddd;" onerror="this.src='https://via.placeholder.com/55'">
                                 <div>
                                     <b>${p.name}</b> ${discountBadge}<br>
-                                    <small style="color:#28a745; font-weight:bold;">মূল্য: ৳${p.price} | পয়েন্ট: ${p.points || 0}</small>
+                                    <small style="color:#28a745; font-weight:bold;">মূল্য: ৳${discountedPrice} ${p.discount ? `<del style="color:#888; font-weight:normal;">৳${p.price}</del>` : ''} | পয়েন্ট: ${p.points || 0}</small>
                                 </div>
                             </div>
                             <div>
@@ -352,34 +353,57 @@
                 affiliatePoints: ref ? 20 : 0,
                 referredBy: ref || null,
                 status: 'pending',
+                meetingLink: '',
+                meetingTopic: '',
+                meetingTime: '',
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
                 alert("রেজিস্ট্রেশন সফল হয়েছে! অ্যাডমিন অ্যাপ্রুভালের জন্য অপেক্ষা করুন।");
                 toggleAuthMode('login');
-            });
+            }).catch(err => alert("ত্রুটি: " + err.message));
         }
 
         function handleLogin() {
             let phone = document.getElementById('loginPhone').value.trim();
             let pass = document.getElementById('loginPass').value.trim();
 
+            if(!phone || !pass) {
+                alert("মোবাইল নম্বর ও পাসওয়ার্ড দিন!");
+                return;
+            }
+
             db.collection("customers").doc(phone).get().then((doc) => {
-                if(doc.exists && doc.data().pass === pass) {
+                if(doc.exists) {
                     let user = doc.data();
-                    if(user.status === 'pending') {
-                        alert("আপনার অ্যাকাউন্টটি এখনও অ্যাডমিন দ্বারা অ্যাপ্রুভ করা হয়নি।");
-                        return;
+                    if(user.pass === pass) {
+                        if(user.status === 'pending') {
+                            alert("আপনার অ্যাকাউন্টটি এখনও অ্যাডমিন দ্বারা অ্যাপ্রুভ করা হয়নি।");
+                            return;
+                        }
+                        currentUser = { id: doc.id, ...user };
+                        document.getElementById('authSection').style.display = 'none';
+                        document.getElementById('customerDashboard').style.display = 'block';
+                        document.getElementById('userWelcomeText').innerText = `স্বাগতম, ${currentUser.name}!`;
+                        document.getElementById('userPoints').innerText = currentUser.points || 0;
+                        document.getElementById('affiliatePoints').innerText = (currentUser.affiliatePoints || 0) + ' ৳';
+                        document.getElementById('myRefCode').innerText = currentUser.phone;
+
+                        // কাস্টমারের জন্য জুম মিটিং সিডিউল দেখানোর ব্যবস্থা
+                        if(currentUser.meetingLink || currentUser.meetingTopic) {
+                            document.getElementById('userMeetingCard').style.display = 'block';
+                            document.getElementById('userMeetingInfo').innerHTML = `<b>বিষয়:</b> ${currentUser.meetingTopic || 'লাইভ মিটিং'}<br><b>সময়:</b> ${currentUser.meetingTime || 'নির্ধারিত সময়ে'}`;
+                            let mBtn = document.getElementById('userMeetingBtn');
+                            mBtn.href = currentUser.meetingLink;
+                            mBtn.style.display = 'inline-block';
+                        }
+                    } else {
+                        alert("পাসওয়ার্ড ভুল হয়েছে!");
                     }
-                    currentUser = user;
-                    document.getElementById('authSection').style.display = 'none';
-                    document.getElementById('customerDashboard').style.display = 'block';
-                    document.getElementById('userWelcomeText').innerText = `স্বাগতম, ${user.name}!`;
-                    document.getElementById('userPoints').innerText = user.points || 0;
-                    document.getElementById('affiliatePoints').innerText = (user.affiliatePoints || 0) + ' ৳';
-                    document.getElementById('myRefCode').innerText = user.phone;
                 } else {
-                    alert("মোবাইল নম্বর বা পাসওয়ার্ড ভুল!");
+                    alert("এই নম্বরে কোনো অ্যাকাউন্ট রেজিস্টার্ড নেই!");
                 }
+            }).catch((error) => {
+                alert("লগইন করতে সমস্যা হয়েছে: " + error.message);
             });
         }
 
@@ -398,7 +422,8 @@
                 html += `
                     <li style="background: white; padding: 6px; border-radius: 4px; margin-bottom: 4px; border-left: 3px solid #0052D4;">
                         <b>📌 ${m.meetingTopic || 'লাইভ মিটিং'}</b> (${m.name || m.phone})<br>
-                        <small style="color:#666;">⏰ সময়: ${m.meetingTime || 'শিগগিরই'}</small>
+                        <small style="color:#666;">⏰ সময়: ${m.meetingTime || 'শিগগিরই'}</small><br>
+                        ${m.meetingLink ? `<a href="${m.meetingLink}" target="_blank" style="color:#0052D4; font-weight:bold; font-size:11px;">🔗 জুমে জয়েন করুন</a>` : ''}
                     </li>
                 `;
             });
@@ -408,6 +433,11 @@
         function renderAdminCustomerMeetingList() {
             let container = document.getElementById('adminCustomerMeetingList');
             if (!container) return;
+
+            if(customers.length === 0) {
+                container.innerHTML = '<p style="font-size:12px; color:#777;">কোনো কাস্টমার পাওয়া যায়নি।</p>';
+                return;
+            }
 
             let html = '<table><tr><th>কাস্টমার</th><th>বিষয় ও সময়</th><th>Zoom/Meet Link</th><th>অ্যাকশন</th></tr>';
             customers.forEach(cu => {
@@ -433,7 +463,7 @@
                 meetingLink: link,
                 meetingTopic: topic,
                 meetingTime: time
-            }).then(() => alert("মিটিং আপডেট সফল হয়েছে!"));
+            }).then(() => alert("মিটিং আপডেট সফল হয়েছে!")).catch(err => alert("ত্রুটি: " + err.message));
         }
 
         function renderAdminReport() {
@@ -550,6 +580,7 @@
             currentUser = null;
             document.getElementById('authSection').style.display = 'block';
             document.getElementById('customerDashboard').style.display = 'none';
+            document.getElementById('userMeetingCard').style.display = 'none';
         }
     </script>
 </body>
