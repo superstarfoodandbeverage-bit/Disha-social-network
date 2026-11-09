@@ -1,1175 +1,156 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disha Mart & Affiliate App</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f4f6f9; color: #333; }
-        
-        .top-brand-header {
-            background: linear-gradient(135deg, #0052D4, #4364F7);
-            padding: 12px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-        .disha-left-area { font-size: 16px; font-weight: bold; display: flex; align-items: center; gap: 5px; flex-shrink: 0; cursor: pointer; }
-        .disha-center-area { text-align: center; flex-grow: 1; padding: 0 10px; }
-        .disha-center-title { font-size: 18px; font-weight: 900; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .right-disha-logo { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.2); background: #fff; flex-shrink: 0; }
-
-        .inner-app-header {
-            background: linear-gradient(135deg, #ff5e00, #ff8c00);
-            padding: 10px 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 12px 12px 0 0;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            margin-bottom: 12px;
-        }
-        .inner-header-logo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid white; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-
-        .profile-box-modern {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: white;
-            padding: 12px 15px;
-            border-radius: 12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-            margin-bottom: 12px;
-        }
-        .profile-left-side { display: flex; align-items: center; gap: 10px; }
-        .avatar-img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid #ff5e00; background: #e0e0e0; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-        .profile-details h3 { font-size: 15px; color: #222; font-weight: 700; margin-bottom: 1px; }
-        .profile-details p { font-size: 11px; color: #666; }
-        
-        .wallet-card-right {
-            background: linear-gradient(135deg, #ff8c00, #ff5e00);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 10px;
-            text-align: right;
-            box-shadow: 0 2px 5px rgba(255,94,0,0.3);
-            cursor: pointer;
-        }
-        .wallet-title { font-size: 10px; opacity: 0.9; }
-        .wallet-btn-text { font-size: 11px; font-weight: bold; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 6px; display: inline-block; margin-top: 2px; }
-
-        .login-bottom-features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 18px;
-        }
-        .feature-big-btn {
-            background: linear-gradient(135deg, #0052D4, #4364F7);
-            color: white;
-            padding: 22px 12px;
-            border-radius: 14px;
-            text-align: center;
-            text-decoration: none;
-            box-shadow: 0 6px 15px rgba(0,82,212,0.35);
-            font-weight: 900;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            border: none;
-            transition: transform 0.2s;
-        }
-        .feature-big-btn.emart-btn {
-            background: linear-gradient(135deg, #ff5e00, #ff8c00);
-            box-shadow: 0 6px 15px rgba(255,94,0,0.35);
-        }
-        .feature-big-btn:active { transform: scale(0.96); }
-        .feature-big-icon { font-size: 32px; }
-
-        .big-cards-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        .big-card-item {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-            text-decoration: none;
-            border: 1px solid #eee;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .big-card-item:active { transform: scale(0.97); }
-        .big-card-img-box {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            background: #f0f4f8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .big-card-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .top-winners-section { background: white; padding: 12px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); text-align: center; }
-        .winners-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
-        .winner-card { background: #fdf8f0; border: 1px solid #ff8c00; padding: 8px; border-radius: 8px; text-align: center; position: relative; }
-        .winner-badge { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); background: #ff5e00; color: white; font-size: 9px; font-weight: bold; padding: 1px 6px; border-radius: 4px; }
-        .winner-img { width: 45px; height: 55px; border-radius: 5px; object-fit: cover; border: 2px solid #ff8c00; margin: 8px auto 4px auto; display: block; background: #ddd; }
-        .winner-name { font-size: 11px; font-weight: bold; color: #222; }
-
-        .search-container { background: #0052D4; padding: 0 15px 12px 15px; }
-        .search-box { background: white; display: flex; align-items: center; padding: 8px 12px; border-radius: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .search-box input { border: none; outline: none; width: 100%; margin-left: 8px; font-size: 14px; }
-
-        .nav-bar { background: #fff; padding: 8px 15px; display: flex; justify-content: flex-end; gap: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .nav-bar button { background: #e9ecef; color: #333; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px; }
-
-        .container { padding: 15px; max-width: 950px; margin: auto; margin-bottom: 60px; }
-        .card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
-        .btn { background: #0052D4; color: white; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px; }
-        .btn-success { background: #28a745; }
-        .btn-danger { background: #dc3545; }
-        .btn-warning { background: #ffc107; color: #000; }
-        .btn-info { background: #17a2b8; color: white; }
-        .hidden { display: none !important; }
-
-        .section-title-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .section-title { font-size: 16px; font-weight: 700; color: #222; }
-
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 13px; font-weight: bold; margin-bottom: 5px; color: #444; }
-        .form-control { width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
-
-        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .product-item { background: white; padding: 10px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: left; position: relative; }
-        .discount-badge { position: absolute; top: 8px; right: 8px; background: #dc3545; color: white; padding: 2px 5px; font-size: 9px; font-weight: bold; border-radius: 4px; z-index: 2; }
-        .product-img-box { width: 100%; height: 120px; object-fit: cover; border-radius: 6px; margin-bottom: 6px; border: 1px solid #eee; background: #f8f9fa; }
-        .product-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; color: #222; }
-        .product-size { font-size: 11px; color: #666; margin-bottom: 4px; }
-        .price-box { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
-        .current-price { color: #28a745; font-weight: bold; font-size: 14px; }
-
-        #printableArea { position: relative; padding: 15px; overflow: hidden; background: #fff; }
-        .watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-30deg); font-size: 45px; font-weight: 900; color: rgba(0, 82, 212, 0.06); pointer-events: none; z-index: 0; white-space: nowrap; letter-spacing: 3px; }
-        .invoice-content { position: relative; z-index: 1; }
-
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 8px 0; box-shadow: -2px -2px 8px rgba(0,0,0,0.1); z-index: 99; }
-        .bottom-nav-item { text-align: center; font-size: 11px; color: #666; cursor: pointer; font-weight: 600; }
-        .bottom-nav-item.active { color: #0052D4; }
-        .bottom-nav-item span { display: block; font-size: 18px; margin-bottom: 2px; }
-
-        @media print {
-            body * { visibility: hidden; }
-            #printableArea, #printableArea * { visibility: visible; }
-            #printableArea { position: absolute; left: 0; top: 0; width: 100%; }
-            .no-print { display: none; }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#073b2a">
+  <title>SUN-My Business</title>
+  <style>
+    :root{--green:#075333;--deep:#063d2a;--gold:#e7bd52;--bg:#f4f7f4;--ink:#17231c;--muted:#66736b}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif}
+    header{background:linear-gradient(135deg,#063d2a,#08734a);color:#fff;padding:20px 16px 18px;text-align:center}
+    .logo{width:66px;height:66px;border:2px solid #e7bd52;border-radius:50%;display:grid;place-items:center;margin:0 auto 8px;background:#fff;color:#075333;font-weight:900;font-size:25px;box-shadow:0 4px 14px #0003}
+    header h1{font-size:22px;margin:4px 0} header p{margin:4px 0 0;color:#f5e5b6;font-size:13px}
+    nav{display:flex;gap:8px;overflow-x:auto;padding:10px;background:#fff;position:sticky;top:0;z-index:5;box-shadow:0 2px 8px #00000010}
+    nav button{border:0;border-radius:20px;background:#edf3ee;color:var(--green);padding:9px 13px;white-space:nowrap;font-weight:700}
+    nav button.active{background:var(--green);color:white}
+    main{max-width:980px;margin:auto;padding:14px}
+    .hero{background:linear-gradient(120deg,#0b5737,#167a50);color:#fff;border-radius:16px;padding:22px 18px;margin-bottom:16px;min-height:145px;display:flex;align-items:center}
+    .hero h2{margin:0 0 7px;font-size:22px}.hero p{margin:0;color:#e8f5eb;font-size:14px}
+    .section{display:none}.section.active{display:block}
+    .heading{font-size:19px;color:var(--green);margin:10px 0 12px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    @media(min-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    .card,.panel{background:white;border-radius:14px;padding:13px;box-shadow:0 3px 12px #1231;border:1px solid #e6eee8}
+    .product-art{height:105px;border-radius:10px;background:linear-gradient(135deg,#eaf4ed,#d8eadc);display:grid;place-items:center;color:var(--green);font-weight:900;font-size:23px;margin-bottom:10px}
+    .product-name{font-weight:800;margin:4px 0}.price{color:var(--green);font-weight:800}.discount{color:#b07900;font-size:13px}
+    .qty{width:100%;padding:9px;border:1px solid #cbd8ce;border-radius:8px;margin:9px 0}
+    .btn{border:0;background:var(--green);color:#fff;padding:10px 13px;border-radius:9px;font-weight:700;cursor:pointer}
+    .btn.secondary{background:#eaf2ec;color:var(--green)}
+    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}
+    .stat{background:#fff;border-radius:12px;padding:14px;border-left:4px solid var(--gold);box-shadow:0 2px 8px #0000000d}
+    .stat small{display:block;color:var(--muted)}.stat strong{font-size:22px;color:var(--green)}
+    table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}
+    th{background:var(--deep);color:#fff}th,td{padding:11px 8px;text-align:center;border-bottom:1px solid #e8eee9;font-size:14px}
+    tr:nth-child(even) td{background:#f4f8f4}
+    .note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:10px}
+    .empty{padding:25px;text-align:center;color:var(--muted);background:#fff;border-radius:12px}
+    footer{text-align:center;padding:22px;color:var(--muted);font-size:12px}
+  </style>
 </head>
 <body>
-
-    <header class="top-brand-header">
-        <div class="disha-left-area" onclick="switchTab('customer')"><span>🏠</span> হোম</div>
-        <div class="disha-center-area"><div class="disha-center-title">Disha social network</div></div>
-        <img id="brandLogoImg" src="" alt="Disha Logo" class="right-disha-logo">
-    </header>
-
-    <div class="search-container">
-        <div class="search-box">
-            <span>🔍</span>
-            <input type="text" placeholder="Search in Home...">
-        </div>
+<header>
+  <div class="logo">SUN</div>
+  <h1>SUN-My Business</h1>
+  <p>এক সাথে এগিয়ে চলি সফলতার পথে</p>
+</header>
+<nav aria-label="প্রধান মেনু">
+  <button class="active" data-page="home">হোম</button>
+  <button data-page="products">SUN Products</button>
+  <button data-page="reselling">Reselling</button>
+  <button data-page="cart">কার্ট</button>
+  <button data-page="points">My Points</button>
+  <button data-page="media">Media</button>
+</nav>
+<main>
+  <section id="home" class="section active">
+    <div class="hero"><div><h2>স্বাগতম SUN-এ</h2><p>পণ্য দেখুন, অর্ডারের তালিকা তৈরি করুন এবং আপনার পয়েন্টের হিসাব দেখুন।</p></div></div>
+    <h2 class="heading">আপনার ড্যাশবোর্ড</h2>
+    <div class="stats">
+      <div class="stat"><small>আমার পয়েন্ট</small><strong id="homePoints">0</strong></div>
+      <div class="stat"><small>কার্টে পণ্য</small><strong id="homeCart">0</strong></div>
     </div>
+    <div class="panel"><b>শুরু করুন</b><p class="note">SUN Products থেকে পণ্য বেছে কার্টে যোগ করুন। My Points অংশে নমুনা পয়েন্ট টেবিল দেখতে পারবেন।</p><button class="btn" onclick="showPage('products')">পণ্য দেখুন</button></div>
+  </section>
 
-    <div class="nav-bar" id="topNavBar">
-        <button id="btnMgr" onclick="openManagerLogin()">ম্যানেজার</button>
-        <button id="btnAdmin" onclick="openAdminLogin()">অ্যাডমিন</button>
+  <section id="products" class="section">
+    <h2 class="heading">SUN Products</h2>
+    <div id="productGrid" class="grid"></div>
+    <p class="note">এগুলো নমুনা পণ্য। পরে অ্যাডমিন প্যানেল ও Firebase যুক্ত করে আসল পণ্য, ছবি, দাম ও স্টক নিয়ন্ত্রণ করা হবে।</p>
+  </section>
+
+  <section id="reselling" class="section">
+    <h2 class="heading">SUN Reselling</h2>
+    <div class="panel"><h3>Reselling Board</h3><p>এখানে ভবিষ্যতে রিসেলিংয়ের জন্য অনুমোদিত পণ্য, বিক্রয়মূল্য ও শেয়ার করার লিংক দেখানো হবে।</p><p class="note">এই প্রাথমিক সংস্করণে রিসেলিং অর্ডার বা কমিশন চালু নেই।</p></div>
+  </section>
+
+  <section id="cart" class="section">
+    <h2 class="heading">আমার কার্ট</h2>
+    <div id="cartList" class="panel"></div>
+    <p class="note">এটি আপাতত এই ব্রাউজারে নমুনা কার্ট। এখনো অর্ডার জমা বা পেমেন্ট হয় না।</p>
+  </section>
+
+  <section id="points" class="section">
+    <h2 class="heading">SUN Points & Rewards</h2>
+    <div class="stats">
+      <div class="stat"><small>আমার পয়েন্ট</small><strong id="myPoints">0</strong></div>
+      <div class="stat"><small>পরবর্তী ধাপ</small><strong>১০০</strong></div>
     </div>
-
-    <div class="container">
-
-        <!-- লগইন / রেজিস্ট্রেশন সেকশন -->
-        <div id="authSection" class="card">
-            <h3 id="authTitle" style="color: #0052D4; margin-bottom: 15px;">👤 কাস্টমার অ্যাকাউন্ট লগইন</h3>
-            
-            <div id="loginFormDiv">
-                <div class="form-group">
-                    <label>মোবাইল নম্বর:</label>
-                    <input type="text" id="loginPhone" class="form-control" placeholder="আপনার মোবাইল নম্বর">
-                </div>
-                <div class="form-group">
-                    <label>পাসওয়ার্ড:</label>
-                    <input type="password" id="loginPass" class="form-control" placeholder="পাসওয়ার্ড দিন">
-                </div>
-                <button class="btn btn-success" style="width: 100%; margin-bottom: 10px;" onclick="loginCustomer()">লগইন করুন</button>
-                <p style="font-size: 13px; text-align: center;">একাউন্ট নেই? <span style="color: #0052D4; cursor: pointer; font-weight: bold;" onclick="toggleAuthMode('register')">রেজিস্ট্রেশন করুন</span></p>
-            </div>
-
-            <div id="registerFormDiv" class="hidden">
-                <div class="form-group">
-                    <label>পূর্ণ নাম:</label>
-                    <input type="text" id="regName" class="form-control" placeholder="আপনার নাম">
-                </div>
-                <div class="form-group">
-                    <label>মোবাইল নম্বর:</label>
-                    <input type="text" id="regPhone" class="form-control" placeholder="আপনার মোবাইল নম্বর">
-                </div>
-                <div class="form-group">
-                    <label>পাসওয়ার্ড তৈরি করুন:</label>
-                    <input type="password" id="regPass" class="form-control" placeholder="পাসওয়ার্ড দিন">
-                </div>
-                <div class="form-group">
-                    <label>ঠিকানা:</label>
-                    <input type="text" id="regAddress" class="form-control" placeholder="আপনার ঠিকানা লিখুন">
-                </div>
-                <div class="form-group">
-                    <label>এফিলিয়েট আইডি (রেফারেন্স, যদি থাকে):</label>
-                    <input type="text" id="regAffiliate" class="form-control" placeholder="যেমন: 1681646 (ঐচ্ছিক)">
-                </div>
-                <button class="btn" style="width: 100%; margin-bottom: 10px;" onclick="registerCustomer()">রেজিস্ট্রেশন সম্পন্ন করুন</button>
-                <p style="font-size: 13px; text-align: center;">ইতিমধ্যে অ্যাকাউন্ট আছে? <span style="color: #0052D4; cursor: pointer; font-weight: bold;" onclick="toggleAuthMode('login')">লগইন করুন</span></p>
-            </div>
-
-            <div class="login-banner" style="text-align: center; margin-top: 15px;">
-                <img id="loginBannerImg" src="" alt="Disha Social Network Banner" style="max-width: 100%; height: auto; border-radius: 8px;">
-            </div>
-
-            <div class="login-bottom-features">
-                <a href="https://www.facebook.com/share/1CFmgBaVq5/" target="_blank" class="feature-big-btn emart-btn">
-                    <span class="feature-big-icon">🛒</span>
-                    <span>Sun Super Mart</span>
-                </a>
-                <button class="feature-big-btn" onclick="openDishaTVModal()">
-                    <span class="feature-big-icon">📺</span>
-                    <span>Disha TV</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- কাস্টমার ড্যাশবোর্ড -->
-        <div id="customerPanel" class="hidden">
-            <div class="inner-app-header">
-                <img id="innerCustomLogoImg" src="" alt="Inner Logo" class="inner-header-logo">
-            </div>
-
-            <div class="profile-box-modern">
-                <div class="profile-left-side">
-                    <div class="avatar-img">👤</div>
-                    <div class="profile-details">
-                        <h3 id="profileCustName">Pervej Ahmed</h3>
-                        <p>Affiliate ID : <span id="profileCustId" style="font-weight: bold; color: #ff5e00;">1681646</span></p>
-                    </div>
-                </div>
-                <div class="wallet-card-right">
-                    <div class="wallet-title">ওয়ালেট ব্যালেন্স</div>
-                    <div class="wallet-btn-text" id="statReward">0 Pt</div>
-                </div>
-            </div>
-
-            <!-- জুম মিটিং সিডিউল ও জয়েন করার কার্ড -->
-            <div class="card" id="customerZoomCard" style="border: 2px solid #0052D4; background: #f0f4f8; margin-bottom: 15px; display: none;">
-                <h3 style="color: #0052D4; font-size: 15px; margin-bottom: 6px;">🎥 লাইভ জুম মিটিং সিডিউল</h3>
-                <p id="customerZoomDisplay" style="font-size: 13px; color: #444; margin-bottom: 10px;"></p>
-                <a id="customerZoomJoinBtn" href="#" target="_blank" class="btn btn-success hidden" style="width: 100%; text-align: center; text-decoration: none; display: block; padding: 10px;">জুম মিটিংয়ে জয়েন করুন</a>
-            </div>
-
-            <div class="section-title-wrapper" style="margin-bottom: 8px;">
-                <div class="section-title" style="font-size: 14px;">মেনু ও ক্যাটাগরিসমূহ</div>
-            </div>
-            
-            <div class="big-cards-container">
-                <a href="https://www.facebook.com/share/1CFmgBaVq5/" target="_blank" class="big-card-item">
-                    <div class="big-card-img-box">
-                        <img id="bannerCardImg0" src="" alt="বক্স ১">
-                    </div>
-                </a>
-                
-                <a href="https://your-channel-link.com" target="_blank" class="big-card-item">
-                    <div class="big-card-img-box">
-                        <img id="bannerCardImg1" src="" alt="বক্স ২">
-                    </div>
-                </a>
-                
-                <div class="big-card-item" onclick="openFAQModal()">
-                    <div class="big-card-img-box">
-                        <img id="bannerCardImg2" src="" alt="বক্স ৩">
-                    </div>
-                </div>
-            </div>
-
-            <div class="top-winners-section">
-                <h3 style="font-size: 14px; color: #ff5e00; margin-bottom: 4px;">🏆 এই মাসের সেরা ৩ বিজয়ী কাস্টমার (Top 1, 2, 3)</h3>
-                <div class="winners-grid" id="displayWinnersGrid"></div>
-            </div>
-
-            <button class="btn btn-danger" style="padding: 4px 10px; font-size: 11px; margin-bottom: 12px;" onclick="logoutCustomer()">লগআউট</button>
-
-            <div class="section-title-wrapper">
-                <div class="section-title" style="font-size: 14px;">আমাদের জনপ্রিয় প্রোডাক্টসমূহ</div>
-            </div>
-            
-            <div class="product-grid" id="customerProductList">
-                <p style="color: #777; font-size: 13px; grid-column: span 2;">বর্তমানে কোনো পণ্য নেই।</p>
-            </div>
-
-            <div class="card" style="margin-top: 20px;">
-                <h3 style="font-size: 15px; margin-bottom: 8px;">আপনার শপিং কার্ট</h3>
-                <div id="cartItems" style="margin: 8px 0; font-size: 13px;">কার্ট খালি আছে।</div>
-                
-                <div class="form-group" style="margin-top: 12px;">
-                    <label>ডেলিভারির ঠিকানা:</label>
-                    <input type="text" id="cartDeliveryAddress" class="form-control" placeholder="আপনার পূর্ণ ঠিকানা লিখুন">
-                </div>
-
-                <div class="form-group">
-                    <label>পেমেন্ট পদ্ধতি:</label>
-                    <select id="cartPaymentMethod" class="form-control">
-                        <option value="Cash on Delivery">ক্যাশ অন ডেলিভারি (Cash on Delivery)</option>
-                        <option value="Paid">অগ্রিম পরিশোধিত (Paid)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>অগ্রিম প্রদান (৳):</label>
-                    <input type="number" id="cartAdvance" class="form-control" value="0" placeholder="অগ্রিম কত টাকা দিয়েছেন">
-                </div>
-
-                <button class="btn btn-success" style="width: 100%; margin-top: 8px;" onclick="sendOrder()">অর্ডার কনফার্ম করুন</button>
-            </div>
-        </div>
-
-        <!-- ম্যানেজার প্যানেল -->
-        <div id="managerPanel" class="hidden">
-            <div class="card">
-                <h3>🖨️ ম্যানেজার অর্ডার চেক ও প্রিন্ট প্যানেল</h3>
-                <button class="btn btn-danger" style="margin-bottom: 10px; font-size: 11px; padding: 4px 8px;" onclick="logoutStaff()">ম্যানেজার লগআউট</button>
-                <div id="managerOrderList" style="margin-top: 10px;">কোনো অনুমোদিত অর্ডার নেই।</div>
-            </div>
-        </div>
-
-        <!-- অ্যাডমিন প্যানেল -->
-        <div id="adminPanel" class="hidden">
-            <div class="card" style="display: flex; justify-content: space-between; align-items: center;">
-                <h3 style="color: #0052D4; font-size: 16px;">👑 অ্যাডমিন কন্ট্রোল প্যানেল</h3>
-                <button class="btn btn-danger" style="font-size: 11px; padding: 4px 8px;" onclick="logoutStaff()">অ্যাডমিন লগআউট</button>
-            </div>
-
-            <div class="card" style="border: 2px solid #0052D4; background: #f0f4f8;">
-                <h3 style="color: #0052D4; margin-bottom: 10px; font-size: 15px;">🎥 জুম মিটিং সিডিউল সেট করুন</h3>
-                <div class="form-group">
-                    <label>মিটিংয়ের বিবরণ ও সময়:</label>
-                    <input type="text" id="adminZoomInfo" class="form-control" placeholder="যেমন: আগামী শুক্রবার রাত ৮টা - মিটিং">
-                </div>
-                <div class="form-group">
-                    <label>জুম মিটিং লিংক (Zoom URL - ঐচ্ছিক):</label>
-                    <input type="text" id="adminZoomLink" class="form-control" placeholder="https://zoom.us/j/... (খালি রাখতে পারেন)">
-                </div>
-                <button class="btn btn-success" style="width: 100%;" onclick="saveAdminZoomMeeting()">জুম মিটিং সিডিউল প্রকাশ করুন</button>
-            </div>
-
-            <div class="card" style="border: 2px solid #d9534f; background: #fff8f8;">
-                <h3 style="color: #d9534f; margin-bottom: 10px; font-size: 15px;">🔐 পাসওয়ার্ড পরিবর্তন করুন</h3>
-                <div class="form-group">
-                    <label>নতুন ম্যানেজার পাসওয়ার্ড:</label>
-                    <input type="text" id="newMgrPassInput" class="form-control" placeholder="ম্যানেজার নতুন পাসওয়ার্ড">
-                </div>
-                <div class="form-group">
-                    <label>নতুন অ্যাডমিন পাসওয়ার্ড:</label>
-                    <input type="text" id="newAdminPassInput" class="form-control" placeholder="অ্যাডমিন নতুন পাসওয়ার্ড">
-                </div>
-                <button class="btn btn-danger" style="width: 100%;" onclick="updatePasswords()">পাসওয়ার্ড সেভ করুন</button>
-            </div>
-
-            <div class="card" style="border: 2px solid #7b2cbf; background: #faf5ff;">
-                <h3 style="color: #7b2cbf; margin-bottom: 10px; font-size: 15px;">🖼️ হোমপেজের পাশাপাশি ৩টি বক্সের ছবি পরিবর্তন</h3>
-                <div class="form-group"><label>১. বক্স ছবি ১ (Sun Super Mart লিঙ্কযুক্ত):</label><input type="file" id="cardFile0" class="form-control" accept="image/*"></div>
-                <div class="form-group"><label>২. বক্স ছবি ২:</label><input type="file" id="cardFile1" class="form-control" accept="image/*"></div>
-                <div class="form-group"><label>৩. বক্স ছবি ৩:</label><input type="file" id="cardFile2" class="form-control" accept="image/*"></div>
-                <button class="btn" style="background: #7b2cbf; width: 100%;" onclick="saveBigBannerCards()">বক্সের ছবিগুলো সেভ করুন</button>
-            </div>
-
-            <div class="card" style="border: 2px solid #17a2b8; background: #f0fbfc;">
-                <h3 style="color: #17a2b8; margin-bottom: 10px; font-size: 15px;">❓ প্রশ্ন ও উত্তর (কুইজ) ম্যানেজমেন্ট</h3>
-                <div class="form-group">
-                    <label>কাস্টমারদের জন্য নতুন প্রশ্ন লিখুন:</label>
-                    <textarea id="adminQuizQuestionInput" class="form-control" rows="3" placeholder="এখানে আজকের প্রশ্নটি লিখুন..."></textarea>
-                </div>
-                <button class="btn btn-info" style="width: 100%; margin-bottom: 15px;" onclick="saveAdminQuizQuestion()">প্রশ্ন প্রকাশ করুন</button>
-                <h4 style="font-size: 14px; margin-bottom: 8px; color: #333;">📥 কাস্টমারদের জমা দেওয়া উত্তরসমূহ:</h4>
-                <div id="adminCustomerAnswersList" style="font-size: 13px; max-height: 200px; overflow-y: auto; background: #fff; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">কোনো উত্তর জমা পড়েনি।</div>
-            </div>
-
-            <div class="card" style="border: 2px solid #28a745; background: #f4faf4;">
-                <h3 style="color: #28a745; margin-bottom: 10px; font-size: 15px;">🌙 ইসলামিক কর্নার কনটেন্ট আপডেট</h3>
-                <div class="form-group">
-                    <label>ইসলামিক কর্নারে প্রদর্শনের জন্য লেখা বা মাসয়ালা লিখুন:</label>
-                    <textarea id="adminIslamicContentInput" class="form-control" rows="4" placeholder="কুরআনের আয়াত, হাদিস বা ইসলামিক টিপস লিখুন..."></textarea>
-                </div>
-                <button class="btn btn-success" style="width: 100%;" onclick="saveAdminIslamicContent()">ইসলামিক কর্নার আপডেট করুন</button>
-            </div>
-
-            <div class="card" style="border: 2px solid #dc3545; background: #fff5f5;">
-                <h3 style="color: #dc3545; margin-bottom: 10px; font-size: 15px;">🧹 সম্পূর্ণ ডাটা রিসেট (পয়েন্ট ও অর্ডার শূন্য করুন)</h3>
-                <button class="btn btn-danger" onclick="hardResetSystem()">সব ডেটা রিসেট করুন (00)</button>
-            </div>
-
-            <div class="card" style="border: 2px solid #ff5e00; background: #fffaf0;">
-                <h3 style="color: #ff5e00; margin-bottom: 10px; font-size: 15px;">🏆 প্রতি মাসের সেরা ৩ বিজয়ী কাস্টমার আপডেট করুন</h3>
-                <div style="background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ddd;">
-                    <label style="font-weight: bold; color: #ff5e00;">১ম স্থান অধিকারী:</label>
-                    <div class="form-group" style="margin-top: 5px;"><label>নাম:</label><input type="text" id="winner1Name" class="form-control"></div>
-                    <div class="form-group"><label>ছবি:</label><input type="file" id="winner1File" class="form-control" accept="image/*"></div>
-                </div>
-                <div style="background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ddd;">
-                    <label style="font-weight: bold; color: #ff5e00;">২য় স্থান অধিকারী:</label>
-                    <div class="form-group" style="margin-top: 5px;"><label>নাম:</label><input type="text" id="winner2Name" class="form-control"></div>
-                    <div class="form-group"><label>ছবি:</label><input type="file" id="winner2File" class="form-control" accept="image/*"></div>
-                </div>
-                <div style="background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ddd;">
-                    <label style="font-weight: bold; color: #ff5e00;">৩য় স্থান অধিকারী:</label>
-                    <div class="form-group" style="margin-top: 5px;"><label>নাম:</label><input type="text" id="winner3Name" class="form-control"></div>
-                    <div class="form-group"><label>ছবি:</label><input type="file" id="winner3File" class="form-control" accept="image/*"></div>
-                </div>
-                <button class="btn" style="background: #ff5e00; width: 100%;" onclick="saveMonthlyWinners()">সেরা ৩ বিজয়ী সেভ করুন</button>
-            </div>
-
-            <div class="card" style="border: 2px solid #ff8c00; background: #fffaf0;">
-                <h3 style="color: #ff8c00; margin-bottom: 10px; font-size: 15px;">💰 এফিলিয়েট বোনাস পয়েন্ট সেট করুন</h3>
-                <div class="form-group"><label>রেফারকারী পয়েন্ট:</label><input type="number" id="adminAffiliateBonusForReferrer" class="form-control" value="5"></div>
-                <div class="form-group"><label>নতুন ব্যবহারকারী পয়েন্ট:</label><input type="number" id="adminAffiliateBonusForNewUser" class="form-control" value="2"></div>
-                <button class="btn" style="background: #ff8c00;" onclick="saveAffiliateBonusSettings()">বোনাস সেটিংস সেভ করুন</button>
-            </div>
-
-            <div class="card" style="border: 2px solid #28a745; background: #f4faf4;">
-                <h3 style="color: #28a745; margin-bottom: 10px; font-size: 15px;">🖼️ লগইন পেজ ব্যানার পরিবর্তন করুন</h3>
-                <div class="form-group"><label>ব্যানার ছবি:</label><input type="file" id="loginBannerFile" class="form-control" accept="image/*"></div>
-                <button class="btn btn-success" onclick="updateLoginBanner()">ব্যানার আপডেট করুন</button>
-            </div>
-
-            <div class="card" style="border: 2px solid #ff5e00; background: #fffaf0;">
-                <h3 style="color: #ff5e00; margin-bottom: 10px; font-size: 15px;">🖼️ অ্যাপের ভেতরের লোগো পরিবর্তন করুন</h3>
-                <div class="form-group"><label>লোগো ছবি:</label><input type="file" id="innerLogoFile" class="form-control" accept="image/*"></div>
-                <button class="btn" style="background: #ff5e00;" onclick="updateInnerLogo()">ভিতরের লোগো সেভ করুন</button>
-            </div>
-
-            <div class="card" style="border: 2px solid #0052D4; background: #f0f4f8;">
-                <h3 style="color: #0052D4; margin-bottom: 10px; font-size: 15px;">🖼️ বাইরের অ্যাপ লোগো পরিবর্তন</h3>
-                <div class="form-group"><label>লোগো সিলেক্ট:</label><input type="file" id="logoFile" class="form-control" accept="image/*"></div>
-                <button class="btn" onclick="updateAppLogo()">বাইরের লোগো আপডেট করুন</button>
-            </div>
-
-            <div class="card" style="border: 2px solid #17a2b8;">
-                <h3 style="color: #17a2b8; margin-bottom: 10px; font-size: 15px;">👥 রেজিস্টার্ড কাস্টমার তালিকা</h3>
-                <div id="adminCustomerList" style="font-size: 13px; overflow-x: auto;">কোনো কাস্টমার নেই।</div>
-            </div>
-
-            <div class="card" style="border: 2px solid #0052D4;" id="productFormCard">
-                <h3 id="productFormTitle" style="color: #0052D4; margin-bottom: 12px; font-size: 15px;">➕ নতুন পণ্য যোগ করুন</h3>
-                <input type="hidden" id="editProductId" value="">
-                <div class="form-group"><label>পণ্যের ছবি:</label><input type="file" id="pImageFile" class="form-control" accept="image/*"></div>
-                <div class="form-group"><label>পণ্যের নাম:</label><input type="text" id="pName" class="form-control"></div>
-                <div class="form-group"><label>বর্তমান মূল্য (৳):</label><input type="number" id="pPrice" class="form-control"></div>
-                <div class="form-group"><label>আগের মূল্য (৳):</label><input type="number" id="pOldPrice" class="form-control"></div>
-                <div class="form-group"><label>ছাড়:</label><input type="text" id="pDiscount" class="form-control" placeholder="১৫% ছাড়"></div>
-                <div class="form-group"><label>সাইজ:</label><input type="text" id="pSize" class="form-control" placeholder="M, L, XL"></div>
-                <div style="display: flex; gap: 8px;">
-                    <button class="btn btn-success" style="flex: 1;" id="saveProductBtn" onclick="saveOrUpdateProduct()">পণ্য প্রকাশ করুন</button>
-                    <button class="btn btn-danger hidden" id="cancelEditBtn" style="flex: 1;" onclick="resetProductForm()">বাতিল</button>
-                </div>
-            </div>
-
-            <div class="card" style="border: 2px solid #28a745;">
-                <h3 style="color: #28a745; margin-bottom: 12px; font-size: 15px;">📦 পণ্য তালিকা</h3>
-                <div id="adminProductList" style="font-size: 13px;">কোনো পণ্য নেই।</div>
-            </div>
-
-            <div class="card">
-                <h3>👑 অ্যাডমিন অর্ডার পারমিশন</h3>
-                <div id="adminOrderList" style="margin-top: 10px;">কোনো অর্ডার নেই।</div>
-            </div>
-        </div>
-
+    <div class="panel">
+      <h3 style="color:#075333;margin-top:0">নমুনা পয়েন্ট টেবিল</h3>
+      <table><thead><tr><th>যোগ্যতা (পয়েন্ট)</th><th>পুরস্কার স্তর</th></tr></thead>
+      <tbody><tr><td>১০০</td><td>Bronze</td></tr><tr><td>৩০০</td><td>Silver</td></tr><tr><td>১,০০০</td><td>Gold</td></tr><tr><td>২,০০০</td><td>Platinum</td></tr><tr><td>৪,৫০০</td><td>Star</td></tr></tbody></table>
+      <p class="note">এগুলো শুধু ডিজাইনের নমুনা, কোনো নিশ্চিত বোনাস বা আয়ের প্রতিশ্রুতি নয়। চূড়ান্ত নিয়ম অ্যাডমিন নির্ধারণ করবেন। পয়েন্ট কেবল যাচাইকৃত কেনাকাটা ও প্রকৃত বিক্রির ভিত্তিতে গণনা করার পরিকল্পনা থাকবে।</p>
     </div>
+  </section>
 
-    <!-- Disha TV পপআপ মোডাল -->
-    <div id="dishaTVModal" class="card hidden" style="border: 2px solid #ff5e00; margin-top: 15px;">
-        <h3 style="color: #ff5e00; margin-bottom: 10px;">📺 Disha TV - লাইভ চ্যানেল</h3>
-        <p style="font-size: 13px; color: #666; margin-bottom: 10px;">এখানে আপনার পছন্দের টিভি চ্যানেল বা লাইভ স্ট্রিম দেখতে পাবেন।</p>
-        <div style="width: 100%; height: 220px; background: #000; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; margin-bottom: 12px;">
-            <p>📺 লাইভ টিভি প্লেয়ার লোড হচ্ছে...</p>
-        </div>
-        <button class="btn btn-danger" style="width: 100%;" onclick="closeDishaTVModal()">বন্ধ করুন</button>
+  <section id="media" class="section">
+    <h2 class="heading">SUN Media</h2>
+    <div class="grid">
+      <div class="card"><b>Facebook Page</b><p class="note">পেজের লিংক পরে যোগ হবে।</p></div>
+      <div class="card"><b>YouTube Channel</b><p class="note">চ্যানেলের লিংক পরে যোগ হবে।</p></div>
+      <div class="card"><b>Video Gallery</b><p class="note">ভিডিও পরে যোগ হবে।</p></div>
+      <div class="card"><b>SUN জীবনের গল্প</b><p class="note">লাইভ প্রোগ্রামের তথ্য পরে যোগ হবে।</p></div>
     </div>
-
-    <!-- প্রশ্ন-উত্তর পপআপ মোডাল -->
-    <div id="faqModal" class="card hidden" style="border: 2px solid #17a2b8; margin-top: 15px;">
-        <h3 style="color: #17a2b8; margin-bottom: 10px;">❓ আজকের প্রশ্ন ও উত্তর পর্ব</h3>
-        <div id="customerQuizDisplay" style="font-size: 14px; margin-bottom: 12px; font-weight: bold; color: #333;">অ্যাডমিন এখনও কোনো প্রশ্ন সেট করেননি।</div>
-        <div class="form-group">
-            <label>আপনার উত্তর লিখুন:</label>
-            <textarea id="customerAnswerInput" class="form-control" rows="3" placeholder="আপনার উত্তর এখানে লিখুন..."></textarea>
-        </div>
-        <button class="btn btn-success" style="width: 100%; margin-bottom: 8px;" onclick="submitCustomerAnswer()">উত্তর জমা দিন</button>
-        <button class="btn btn-danger" style="width: 100%;" onclick="closeFAQModal()">বন্ধ করুন</button>
-    </div>
-
-    <!-- ইনভয়েস প্রিন্ট মোডাল -->
-    <div id="viewModal" class="card hidden" style="border: 2px dashed #0052D4; margin-top: 15px;">
-        <h3 style="color: #0052D4; margin-bottom: 10px;">🔍 ম্যানেজার ভিউ চেক প্যানেল</h3>
-        <div id="printableArea">
-            <div class="watermark">Sun product</div>
-            <div class="invoice-content">
-                <h2 style="font-size: 16px; color: #0052D4;">Sun product</h2>
-                <p id="printTimestamp" style="font-weight: bold; font-size: 11px; color: #555; margin-top: 4px;"></p>
-                <hr style="margin: 8px 0;">
-                <div id="printDetails" style="font-size: 13px;"></div>
-            </div>
-        </div>
-        <div style="margin-top: 12px; display: flex; gap: 8px;" class="no-print">
-            <button class="btn btn-success" style="flex:1;" onclick="window.print()">সরাসরি প্রিন্ট করুন</button>
-            <button class="btn btn-danger" style="flex:1;" onclick="closeView()">বন্ধ করুন</button>
-        </div>
-    </div>
-
-    <div class="bottom-nav">
-        <div class="bottom-nav-item active" onclick="switchTab('customer')"><span>🏠</span>হোম</div>
-        <div class="bottom-nav-item" onclick="alert('কার্ট অপশন')"><span>🛒</span>Cart</div>
-        <div class="bottom-nav-item" id="bottomManagerNav" onclick="openManagerLogin()"><span>⚙️</span>Manager</div>
-    </div>
-
-    <script>
-        let managerPassword = "m123";
-        let adminPassword = "a123";
-        let rewardPointsPer100 = 5;
-        let affiliateBonusForReferrer = 5; 
-        let affiliateBonusForNewUser = 2; 
-
-        let customers = []; 
-        let currentCustomer = null; 
-        let products = [];
-        let cart = [];
-        let orders = [];
-        let quizAnswers = [];
-
-        window.onload = function() {
-            let savedMgrPass = localStorage.getItem('disha_manager_password');
-            if(savedMgrPass) managerPassword = savedMgrPass;
-            let savedAdminPass = localStorage.getItem('disha_admin_password');
-            if(savedAdminPass) adminPassword = savedAdminPass;
-
-            let savedReferrerBonus = localStorage.getItem('disha_referrer_bonus');
-            if(savedReferrerBonus !== null) affiliateBonusForReferrer = Number(savedReferrerBonus);
-            let savedNewUserBonus = localStorage.getItem('disha_new_user_bonus');
-            if(savedNewUserBonus !== null) affiliateBonusForNewUser = Number(savedNewUserBonus);
-
-            let refInput = document.getElementById('adminAffiliateBonusForReferrer');
-            let newObjInput = document.getElementById('adminAffiliateBonusForNewUser');
-            if(refInput) refInput.value = affiliateBonusForReferrer;
-            if(newObjInput) newObjInput.value = affiliateBonusForNewUser;
-
-            let savedBanner = localStorage.getItem('disha_login_banner');
-            if(savedBanner) {
-                document.getElementById('loginBannerImg').src = savedBanner;
-            } else {
-                document.getElementById('loginBannerImg').src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="150"><rect width="600" height="150" fill="%230052D4"/><text x="300" y="75" font-size="24" fill="white" text-anchor="middle">Disha Social Network</text></svg>';
-            }
-
-            let savedLogo = localStorage.getItem('disha_app_logo');
-            if(savedLogo) { document.getElementById('brandLogoImg').src = savedLogo; } 
-            else { document.getElementById('brandLogoImg').src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><circle cx="25" cy="25" r="23" fill="%230052D4"/><text x="25" y="30" font-size="14" fill="white" text-anchor="middle">LOGO</text></svg>'; }
-
-            let savedInnerLogo = localStorage.getItem('disha_inner_app_logo');
-            if(savedInnerLogo) { document.getElementById('innerCustomLogoImg').src = savedInnerLogo; } 
-            else { document.getElementById('innerCustomLogoImg').src = document.getElementById('brandLogoImg').src; }
-
-            loadBigBannerCards();
-
-            let savedProducts = localStorage.getItem('disha_products');
-            if(savedProducts) { products = JSON.parse(savedProducts); }
-
-            let savedCustomers = localStorage.getItem('disha_customers');
-            if(savedCustomers) { customers = JSON.parse(savedCustomers); }
-
-            let savedOrders = localStorage.getItem('disha_orders');
-            if(savedOrders) { orders = JSON.parse(savedOrders); }
-
-            let savedAnswers = localStorage.getItem('disha_quiz_answers');
-            if(savedAnswers) { quizAnswers = JSON.parse(savedAnswers); }
-
-            let activeCustPhone = localStorage.getItem('disha_active_customer');
-            if(activeCustPhone) {
-                let found = customers.find(c => c.phone === activeCustPhone);
-                if(found) {
-                    currentCustomer = found;
-                    document.getElementById('authSection').classList.add('hidden');
-                    document.getElementById('customerPanel').classList.remove('hidden');
-                    document.getElementById('topNavBar').classList.add('hidden');
-                    document.getElementById('bottomManagerNav').classList.add('hidden');
-                    updateCustomerDashboard();
-                }
-            }
-
-            loadCustomerQuiz();
-            loadCustomerZoom();
-            renderCustomerProducts();
-            renderTopWinners();
-            renderAdminCustomerAnswers();
-        };
-
-        function loadBigBannerCards() {
-            let cards = JSON.parse(localStorage.getItem('disha_three_side_banners')) || ['', '', ''];
-            for(let i=0; i<3; i++) {
-                let imgEl = document.getElementById(`bannerCardImg${i}`);
-                if(imgEl) {
-                    if(cards[i]) {
-                        imgEl.src = cards[i];
-                    } else {
-                        imgEl.src = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='140'><rect width='120' height='140' fill='%23e0e0e0'/><text x='60' y='75' font-size='12' fill='%23666' text-anchor='middle'>বক্স ${i+1}</text></svg>`;
-                    }
-                }
-            }
-        }
-
-        function saveBigBannerCards() {
-            let cards = JSON.parse(localStorage.getItem('disha_three_side_banners')) || ['', '', ''];
-            let pending = 0;
-
-            for(let i=0; i<3; i++) {
-                let file = document.getElementById(`cardFile${i}`).files[0];
-                if(file) {
-                    pending++;
-                    let reader = new FileReader();
-                    reader.onload = (function(index) {
-                        return function(e) {
-                            cards[index] = e.target.result;
-                            pending--;
-                            if(pending <= 0) finishCardSave(cards);
-                        };
-                    })(i);
-                    reader.readAsDataURL(file);
-                }
-            }
-
-            if(pending === 0) {
-                alert('দয়া করে অন্তত একটি ছবি সিলেক্ট করুন!');
-                return;
-            }
-
-            function finishCardSave(data) {
-                localStorage.setItem('disha_three_side_banners', JSON.stringify(data));
-                alert('পাশাপাশি ৩টি বক্সের ছবি সফলভাবে সেভ হয়েছে!');
-                loadBigBannerCards();
-            }
-        }
-
-        function saveAdminZoomMeeting() {
-            let info = document.getElementById('adminZoomInfo').value.trim();
-            let link = document.getElementById('adminZoomLink').value.trim();
-            if(!info) { alert('মিটিংয়ের বিবরণ দিন!'); return; }
-            localStorage.setItem('disha_zoom_info', info);
-            localStorage.setItem('disha_zoom_link', link || '#');
-            alert('জুম মিটিং সিডিউল সফলভাবে প্রকাশ করা হয়েছে!');
-            loadCustomerZoom();
-        }
-
-        function loadCustomerZoom() {
-            let info = localStorage.getItem('disha_zoom_info');
-            let link = localStorage.getItem('disha_zoom_link');
-            let card = document.getElementById('customerZoomCard');
-            let display = document.getElementById('customerZoomDisplay');
-            let btn = document.getElementById('customerZoomJoinBtn');
-            
-            if(info) {
-                if(card) card.style.display = 'block';
-                if(display) display.innerText = info;
-                if(btn && link && link !== '#') {
-                    btn.href = link;
-                    btn.classList.remove('hidden');
-                } else if(btn) {
-                    btn.classList.add('hidden');
-                }
-            } else {
-                if(card) card.style.display = 'none';
-            }
-
-            let adminInfo = document.getElementById('adminZoomInfo');
-            let adminLink = document.getElementById('adminZoomLink');
-            if(adminInfo) adminInfo.value = info || '';
-            if(adminLink) adminLink.value = (link && link !== '#') ? link : '';
-        }
-
-        function openDishaTVModal() {
-            document.getElementById('dishaTVModal').classList.remove('hidden');
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        }
-        function closeDishaTVModal() {
-            document.getElementById('dishaTVModal').classList.add('hidden');
-        }
-
-        function updatePasswords() {
-            let newMgr = document.getElementById('newMgrPassInput').value.trim();
-            let newAdmin = document.getElementById('newAdminPassInput').value.trim();
-            if(!newMgr && !newAdmin) { alert('দয়া করে পাসওয়ার্ড লিখুন!'); return; }
-            if(newMgr) { managerPassword = newMgr; localStorage.setItem('disha_manager_password', newMgr); }
-            if(newAdmin) { adminPassword = newAdmin; localStorage.setItem('disha_admin_password', newAdmin); }
-            document.getElementById('newMgrPassInput').value = '';
-            document.getElementById('newAdminPassInput').value = '';
-            alert('পাসওয়ার্ড সফলভাবে সেভ করা হয়েছে!');
-        }
-
-        function saveAdminQuizQuestion() {
-            let qText = document.getElementById('adminQuizQuestionInput').value.trim();
-            if(!qText) { alert('প্রশ্ন লিখুন!'); return; }
-            localStorage.setItem('disha_active_quiz', qText);
-            alert('প্রশ্ন সেট করা হয়েছে!');
-            loadCustomerQuiz();
-        }
-
-        function loadCustomerQuiz() {
-            let q = localStorage.getItem('disha_active_quiz') || 'অ্যাডমিন এখনও কোনো প্রশ্ন সেট করেননি।';
-            let display = document.getElementById('customerQuizDisplay');
-            if(display) display.innerText = q;
-            let adminInput = document.getElementById('adminQuizQuestionInput');
-            if(adminInput) adminInput.value = localStorage.getItem('disha_active_quiz') || '';
-        }
-
-        function submitCustomerAnswer() {
-            if(!currentCustomer) { alert('আগে লগইন করুন!'); return; }
-            let ansText = document.getElementById('customerAnswerInput').value.trim();
-            let currentQ = localStorage.getItem('disha_active_quiz');
-            if(!currentQ) { alert('কোনো প্রশ্ন নেই!'); return; }
-            if(!ansText) { alert('উত্তর লিখুন!'); return; }
-
-            quizAnswers.push({
-                customerName: currentCustomer.name,
-                customerId: currentCustomer.id,
-                customerPhone: currentCustomer.phone,
-                question: currentQ,
-                answer: ansText,
-                time: new Date().toLocaleString()
-            });
-            localStorage.setItem('disha_quiz_answers', JSON.stringify(quizAnswers));
-            document.getElementById('customerAnswerInput').value = '';
-            alert('উত্তর জমা হয়েছে!');
-            closeFAQModal();
-        }
-
-        function renderAdminCustomerAnswers() {
-            let container = document.getElementById('adminCustomerAnswersList');
-            if(!container) return;
-            if(quizAnswers.length === 0) { container.innerHTML = 'কোনো উত্তর জমা পড়েনি।'; return; }
-            let html = '';
-            quizAnswers.forEach((qa) => {
-                html += `<div style="border-bottom:1px solid #ddd; padding:6px 0;">
-                    <b>গ্রাহক:</b> ${qa.customerName} (আইডি: ${qa.customerId})<br>
-                    <b>উত্তর:</b> <span style="color:#0052D4; font-weight:bold;">${qa.answer}</span>
-                </div>`;
-            });
-            container.innerHTML = html;
-        }
-
-        function saveAdminIslamicContent() {
-            let content = document.getElementById('adminIslamicContentInput').value.trim();
-            if(!content) { alert('কিছু লিখুন!'); return; }
-            localStorage.setItem('disha_islamic_content', content);
-            alert('ইসলামিক কর্নার আপডেট হয়েছে!');
-        }
-
-        function openFAQModal() { document.getElementById('faqModal').classList.remove('hidden'); window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); }
-        function closeFAQModal() { document.getElementById('faqModal').classList.add('hidden'); }
-
-        function saveMonthlyWinners() {
-            let winners = [
-                {name: document.getElementById('winner1Name').value.trim(), img: ''},
-                {name: document.getElementById('winner2Name').value.trim(), img: ''},
-                {name: document.getElementById('winner3Name').value.trim(), img: ''}
-            ];
-            let f1 = document.getElementById('winner1File').files[0];
-            let f2 = document.getElementById('winner2File').files[0];
-            let f3 = document.getElementById('winner3File').files[0];
-            
-            let oldW = JSON.parse(localStorage.getItem('disha_top_winners')) || [{},{},{}];
-            for(let i=0; i<3; i++) { if(!winners[i].name) winners[i].name = oldW[i].name || ''; winners[i].img = oldW[i].img || ''; }
-
-            let pending = 0;
-            if(f1) pending++; if(f2) pending++; if(f3) pending++;
-            if(pending === 0) { saveW(winners); return; }
-
-            if(f1) { let r1 = new FileReader(); r1.onload = e => { winners[0].img = e.target.result; checkDone(); }; r1.readAsDataURL(f1); }
-            if(f2) { let r2 = new FileReader(); r2.onload = e => { winners[1].img = e.target.result; checkDone(); }; r2.readAsDataURL(f2); }
-            if(f3) { let r3 = new FileReader(); r3.onload = e => { winners[2].img = e.target.result; checkDone(); }; r3.readAsDataURL(f3); }
-
-            function checkDone() {
-                pending--;
-                if(pending <= 0) saveW(winners);
-            }
-            function saveW(data) {
-                localStorage.setItem('disha_top_winners', JSON.stringify(data));
-                alert('বিজয়ী কাস্টমারদের তথ্য সেভ হয়েছে!');
-                renderTopWinners();
-            }
-        }
-
-        function renderTopWinners() {
-            let container = document.getElementById('displayWinnersGrid');
-            if(!container) return;
-            let winners = JSON.parse(localStorage.getItem('disha_top_winners')) || [{name:'১ম'}, {name:'২য়'}, {name:'৩য়'}];
-            let html = '';
-            let badges = ['1st', '2nd', '3rd'];
-            for(let i=0; i<3; i++) {
-                let w = winners[i] || {};
-                let imgTag = w.img ? `<img src="${w.img}" class="winner-img">` : `<div class="winner-img" style="display:flex;align-items:center;justify-content:center;font-size:10px;">ছবি</div>`;
-                html += `<div class="winner-card"><div class="winner-badge">${badges[i]}</div>${imgTag}<div class="winner-name">${w.name || 'বিজয়ী'}</div></div>`;
-            }
-            container.innerHTML = html;
-        }
-
-        function saveAffiliateBonusSettings() {
-            affiliateBonusForReferrer = Number(document.getElementById('adminAffiliateBonusForReferrer').value) || 0;
-            affiliateBonusForNewUser = Number(document.getElementById('adminAffiliateBonusForNewUser').value) || 0;
-            localStorage.setItem('disha_referrer_bonus', affiliateBonusForReferrer);
-            localStorage.setItem('disha_new_user_bonus', affiliateBonusForNewUser);
-            alert('বোনাস সেটিংস সেভ হয়েছে!');
-        }
-
-        function updateLoginBanner() {
-            let f = document.getElementById('loginBannerFile').files[0];
-            if(f) {
-                let r = new FileReader();
-                r.onload = e => {
-                    localStorage.setItem('disha_login_banner', e.target.result);
-                    document.getElementById('loginBannerImg').src = e.target.result;
-                    alert('ব্যানার আপডেট হয়েছে!');
-                };
-                r.readAsDataURL(f);
-            }
-        }
-
-        function hardResetSystem() {
-            if(confirm('সব ডাটা মুছে ফেলতে চান?')) {
-                localStorage.clear();
-                location.reload();
-            }
-        }
-
-        function updateAppLogo() {
-            let f = document.getElementById('logoFile').files[0];
-            if(f) {
-                let r = new FileReader();
-                r.onload = e => {
-                    localStorage.setItem('disha_app_logo', e.target.result);
-                    document.getElementById('brandLogoImg').src = e.target.result;
-                    alert('লোগো আপডেট হয়েছে!');
-                };
-                r.readAsDataURL(f);
-            }
-        }
-
-        function updateInnerLogo() {
-            let f = document.getElementById('innerLogoFile').files[0];
-            if(f) {
-                let r = new FileReader();
-                r.onload = e => {
-                    localStorage.setItem('disha_inner_app_logo', e.target.result);
-                    document.getElementById('innerCustomLogoImg').src = e.target.result;
-                    alert('ভিতরের লোগো আপডেট হয়েছে!');
-                };
-                r.readAsDataURL(f);
-            }
-        }
-
-        function toggleAuthMode(m) {
-            if(m === 'register') {
-                document.getElementById('authTitle').innerText = "📝 রেজিস্ট্রেশন";
-                document.getElementById('loginFormDiv').classList.add('hidden');
-                document.getElementById('registerFormDiv').classList.remove('hidden');
-            } else {
-                document.getElementById('authTitle').innerText = "👤 কাস্টমার অ্যাকাউন্ট লগইন";
-                document.getElementById('registerFormDiv').classList.add('hidden');
-                document.getElementById('loginFormDiv').classList.remove('hidden');
-            }
-        }
-
-        function registerCustomer() {
-            let name = document.getElementById('regName').value.trim();
-            let phone = document.getElementById('regPhone').value.trim();
-            let pass = document.getElementById('regPass').value.trim();
-            let address = document.getElementById('regAddress').value.trim();
-            let affiliate = document.getElementById('regAffiliate').value.trim();
-
-            if(!name || !phone || !pass || !address) { alert('সব ফিল্ড পূরণ করুন!'); return; }
-            if(customers.some(c => c.phone === phone)) { alert('নম্বরটি আগে থেকেই রেজিস্টার্ড!'); return; }
-
-            let uniqueId = "16" + Math.floor(10000 + Math.random() * 90000);
-            let pts = 0;
-            if(affiliate) {
-                let ref = customers.find(c => String(c.id) === String(affiliate));
-                if(ref) { ref.rewardPoints += affiliateBonusForReferrer; pts += affiliateBonusForNewUser; }
-            }
-
-            customers.push({ id: uniqueId, name, phone, pass, address, affiliateRef: affiliate || 'None', rewardPoints: pts, totalOrdersCount: 0 });
-            localStorage.setItem('disha_customers', JSON.stringify(customers));
-            alert('রেজিস্ট্রেশন সফল! আপনার আইডি: ' + uniqueId);
-            toggleAuthMode('login');
-        }
-
-        function loginCustomer() {
-            let phone = document.getElementById('loginPhone').value.trim();
-            let pass = document.getElementById('loginPass').value.trim();
-            let found = customers.find(c => c.phone === phone && c.pass === pass);
-            if(found) {
-                currentCustomer = found;
-                localStorage.setItem('disha_active_customer', found.phone);
-                document.getElementById('authSection').classList.add('hidden');
-                document.getElementById('customerPanel').classList.remove('hidden');
-                document.getElementById('topNavBar').classList.add('hidden');
-                document.getElementById('bottomManagerNav').classList.add('hidden');
-                updateCustomerDashboard();
-                renderCustomerProducts();
-            } else { alert('ভুল তথ্য!'); }
-        }
-
-        function logoutCustomer() {
-            currentCustomer = null;
-            localStorage.removeItem('disha_active_customer');
-            location.reload();
-        }
-
-        function logoutStaff() { switchTab('customer'); }
-
-        function updateCustomerDashboard() {
-            if(!currentCustomer) return;
-            document.getElementById('profileCustName').innerText = currentCustomer.name;
-            document.getElementById('profileCustId').innerText = currentCustomer.id;
-            document.getElementById('statReward').innerText = currentCustomer.rewardPoints + " Pt";
-            if(currentCustomer.address) document.getElementById('cartDeliveryAddress').value = currentCustomer.address;
-        }
-
-        function renderCustomerProducts() {
-            let container = document.getElementById('customerProductList');
-            if(!container) return;
-            if(products.length === 0) { container.innerHTML = '<p style="font-size:13px; color:#777; grid-column:span 2;">পণ্য নেই।</p>'; return; }
-            let html = '';
-            products.forEach(p => {
-                let imgTag = p.image ? `<img src="${p.image}" class="product-img-box">` : `<div class="product-img-box" style="display:flex;align-items:center;justify-content:center;">ছবি নেই</div>`;
-                html += `<div class="product-item">
-                    <div class="discount-badge">${p.discount || ''}</div>
-                    ${imgTag}
-                    <div class="product-name">${p.name}</div>
-                    <div class="product-size">সাইজ: <b>${p.size || ''}</b></div>
-                    <div class="price-box"><span class="current-price">৳ ${p.price}</span></div>
-                    <button class="btn" style="padding: 5px; font-size:11px; width:100%;" onclick="addToCart(${p.id})">🛒 অর্ডার নাও</button>
-                </div>`;
-            });
-            container.innerHTML = html;
-        }
-
-        function renderAdminProductList() {
-            let container = document.getElementById('adminProductList');
-            if(!container) return;
-            if(products.length === 0) { container.innerHTML = 'পণ্য নেই।'; return; }
-            let html = '<table width="100%" border="1" style="border-collapse:collapse;"><tr><th>নাম</th><th>মূল্য</th><th>অ্যাকশন</th></tr>';
-            products.forEach(p => {
-                html += `<tr><td>${p.name}</td><td>৳ ${p.price}</td><td><button class="btn btn-danger" style="padding:2px 5px; font-size:10px;" onclick="deleteProduct(${p.id})">ডিলিট</button></td></tr>`;
-            });
-            container.innerHTML = html + '</table>';
-        }
-
-        function saveOrUpdateProduct() {
-            let editId = document.getElementById('editProductId').value;
-            let name = document.getElementById('pName').value.trim();
-            let price = document.getElementById('pPrice').value.trim();
-            let oldPrice = document.getElementById('pOldPrice').value.trim();
-            let discount = document.getElementById('pDiscount').value.trim();
-            let size = document.getElementById('pSize').value.trim();
-            let file = document.getElementById('pImageFile').files[0];
-
-            if(!name || !price) { alert('নাম ও মূল্য দিন!'); return; }
-
-            if(file) {
-                let reader = new FileReader();
-                reader.onload = e => saveProd(editId, name, price, oldPrice, discount, size, e.target.result);
-                reader.readAsDataURL(file);
-            } else {
-                let img = editId !== "" ? (products.find(p => String(p.id) === String(editId))?.image || '') : '';
-                saveProd(editId, name, price, oldPrice, discount, size, img);
-            }
-        }
-
-        function saveProd(editId, name, price, oldPrice, discount, size, img) {
-            if(editId !== "") {
-                let p = products.find(prod => String(prod.id) === String(editId));
-                if(p) { p.name = name; p.price = Number(price); p.image = img; }
-            } else {
-                products.push({ id: Date.now(), name, price: Number(price), oldPrice: Number(oldPrice)||0, discount, size, image: img });
-            }
-            localStorage.setItem('disha_products', JSON.stringify(products));
-            alert('পণ্য সেভ হয়েছে!');
-            resetProductForm();
-            renderCustomerProducts();
-            renderAdminProductList();
-        }
-
-        function deleteProduct(id) {
-            products = products.filter(p => String(p.id) !== String(id));
-            localStorage.setItem('disha_products', JSON.stringify(products));
-            renderCustomerProducts();
-            renderAdminProductList();
-        }
-
-        function resetProductForm() {
-            document.getElementById('pName').value = '';
-            document.getElementById('pPrice').value = '';
-            document.getElementById('editProductId').value = '';
-        }
-
-        function addToCart(id) {
-            let item = products.find(p => String(p.id) === String(id));
-            if(item) { cart.push(item); updateCartUI(); alert('কার্টে যোগ হয়েছে!'); }
-        }
-
-        function updateCartUI() {
-            let container = document.getElementById('cartItems');
-            if(!container) return;
-            if(cart.length === 0) { container.innerHTML = 'কার্ট খালি।'; return; }
-            let html = '<ul>', total = 0;
-            cart.forEach((c, idx) => {
-                html += `<li>${c.name} - ৳ ${c.price} <button onclick="cart.splice(${idx},1);updateCartUI();" style="color:red;border:none;background:none;">[বাদ]</button></li>`;
-                total += c.price;
-            });
-            container.innerHTML = html + `</ul><b>মোট: ৳ ${total}</b>`;
-        }
-
-        function sendOrder() {
-            if(cart.length === 0) { alert('কার্ট খালি!'); return; }
-            if(!currentCustomer) { alert('লগইন করুন!'); return; }
-            let address = document.getElementById('cartDeliveryAddress').value.trim();
-            if(!address) { alert('ঠিকানা দিন!'); return; }
-            let total = cart.reduce((s, i) => s + i.price, 0);
-            let adv = Number(document.getElementById('cartAdvance').value) || 0;
-            
-            let newOrd = {
-                id: String(Date.now()),
-                customerName: currentCustomer.name,
-                customerId: currentCustomer.id,
-                customerPhone: currentCustomer.phone,
-                customerAddress: address,
-                items: [...cart],
-                total: total,
-                advance: adv,
-                due: total - adv > 0 ? total - adv : 0,
-                adminApproved: false,
-                orderTime: new Date().toLocaleString()
-            };
-            orders.push(newOrd);
-            localStorage.setItem('disha_orders', JSON.stringify(orders));
-            cart = [];
-            updateCartUI();
-            alert('অর্ডার সফল হয়েছে!');
-            renderAdminOrders();
-        }
-
-        function openManagerLogin() {
-            let p = prompt('ম্যানেজার পাসওয়ার্ড:');
-            if(p === managerPassword) switchTab('manager');
-            else if(p !== null) alert('ভুল পাসওয়ার্ড!');
-        }
-
-        function openAdminLogin() {
-            let p = prompt('অ্যাডমিন পাসওয়ার্ড:');
-            if(p === adminPassword) {
-                switchTab('admin');
-                renderAdminCustomers();
-                renderAdminProductList();
-                renderAdminOrders();
-                renderAdminCustomerAnswers();
-            } else if(p !== null) alert('ভুল পাসওয়ার্ড!');
-        }
-
-        function switchTab(tab) {
-            document.getElementById('authSection').classList.add('hidden');
-            document.getElementById('customerPanel').classList.add('hidden');
-            document.getElementById('managerPanel').classList.add('hidden');
-            document.getElementById('adminPanel').classList.add('hidden');
-            document.getElementById('viewModal').classList.add('hidden');
-            document.getElementById('faqModal').classList.add('hidden');
-            document.getElementById('dishaTVModal').classList.add('hidden');
-
-            if(tab === 'customer') {
-                if(currentCustomer) document.getElementById('customerPanel').classList.remove('hidden');
-                else document.getElementById('authSection').classList.remove('hidden');
-            } else if(tab === 'manager') {
-                document.getElementById('managerPanel').classList.remove('hidden');
-                renderManagerOrders();
-            } else if(tab === 'admin') {
-                document.getElementById('adminPanel').classList.remove('hidden');
-            }
-        }
-
-        function renderAdminCustomers() {
-            let c = document.getElementById('adminCustomerList');
-            if(!c) return;
-            if(customers.length === 0) { c.innerHTML = 'কাস্টমার নেই।'; return; }
-            let html = '<table width="100%" border="1" style="border-collapse:collapse;"><tr><th>নাম</th><th>মোবাইল</th><th>পাসওয়ার্ড</th></tr>';
-            customers.forEach(cu => { html += `<tr><td>${cu.name}</td><td>${cu.phone}</td><td style="color:red;">${cu.pass}</td></tr>`; });
-            c.innerHTML = html + '</table>';
-        }
-
-        function renderManagerOrders() {
-            let c = document.getElementById('managerOrderList');
-            if(!c) return;
-            let appO = orders.filter(o => o.adminApproved === true);
-            if(appO.length === 0) { c.innerHTML = 'অনুমোদিত অর্ডার নেই।'; return; }
-            let html = '';
-            appO.forEach(o => {
-                html += `<div class="card"><b>ইনভয়েস: #${o.id}</b><br>গ্রাহক: ${o.customerName}<br><button class="btn btn-info" onclick="viewOrder('${o.id}')">প্রিন্ট ভিউ</button></div>`;
-            });
-            c.innerHTML = html;
-        }
-
-        function renderAdminOrders() {
-            let c = document.getElementById('adminOrderList');
-            if(!c) return;
-            if(orders.length === 0) { c.innerHTML = 'অর্ডার নেই।'; return; }
-            let html = '';
-            orders.forEach(o => {
-                html += `<div class="card">Invoice: #${o.id} - মোট: ৳ ${o.total}<br>${!o.adminApproved ? `<button class="btn btn-warning" onclick="approveOrder('${o.id}')">অ্যাপ্রুভ দিন</button>` : '<b style="color:green;">অ্যাপ্রুভড</b>'}</div>`;
-            });
-            c.innerHTML = html;
-        }
-
-        function approveOrder(id) {
-            let o = orders.find(ord => String(ord.id) === String(id));
-            if(o) { o.adminApproved = true; localStorage.setItem('disha_orders', JSON.stringify(orders)); renderAdminOrders(); renderManagerOrders(); alert('অ্যাপ্রুভ করা হয়েছে!'); }
-        }
-
-        function viewOrder(id) {
-            let ord = orders.find(o => String(o.id) === String(id));
-            if(ord) {
-                let itemsHtml = '<ul>';
-                ord.items.forEach(i => { itemsHtml += `<li>${i.name} - ৳ ${i.price}</li>`; });
-                itemsHtml += '</ul>';
-                document.getElementById('printTimestamp').innerHTML = `ইনভয়েস: #${ord.id}<br>সময়: ${ord.orderTime}`;
-                document.getElementById('printDetails').innerHTML = `নাম: ${ord.customerName}<br>ঠিকানা: ${ord.customerAddress}<br>${itemsHtml}<b>মোট: ৳ ${ord.total}</b>`;
-                document.getElementById('viewModal').classList.remove('hidden');
-                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-            }
-        }
-        function closeView() { document.getElementById('viewModal').classList.add('hidden'); }
-    </script>
+  </section>
+</main>
+<footer>© SUN-My Business · প্রাথমিক ডিজাইন সংস্করণ</footer>
+
+<script>
+const products = [
+  {id:1,name:"Sun Detergent",price:120,discount:"নমুনা মূল্য"},
+  {id:2,name:"SUNMARK Mustard Oil",price:180,discount:"নমুনা মূল্য"},
+  {id:3,name:"VITA-C",price:25,discount:"নমুনা মূল্য"}
+];
+let cart = [];
+function showPage(id){
+  document.querySelectorAll(".section").forEach(s=>s.classList.toggle("active",s.id===id));
+  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+  if(id==="cart") renderCart();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+function renderProducts(){
+  document.getElementById("productGrid").innerHTML=products.map(p=>`
+    <article class="card">
+      <div class="product-art">SUN</div>
+      <div class="product-name">${p.name}</div>
+      <div class="price">৳ ${p.price}</div>
+      <div class="discount">${p.discount}</div>
+      <input class="qty" type="number" min="1" max="100" value="1" id="qty-${p.id}" aria-label="পরিমাণ">
+      <button class="btn" onclick="addToCart(${p.id})">কার্টে যোগ করুন</button>
+    </article>`).join("");
+}
+function addToCart(id){
+  const p=products.find(x=>x.id===id);
+  const qty=Math.max(1,Math.min(100,Number(document.getElementById("qty-"+id).value)||1));
+  const old=cart.find(x=>x.id===id);
+  if(old) old.qty+=qty; else cart.push({...p,qty});
+  updateCounts();
+  alert("পণ্যটি কার্টে যোগ হয়েছে (নমুনা)।");
+}
+function renderCart(){
+  const el=document.getElementById("cartList");
+  if(!cart.length){el.innerHTML='<div class="empty">আপনার কার্ট খালি।</div>';return;}
+  el.innerHTML=cart.map(x=>`<p><b>${x.name}</b> — ${x.qty} × ৳${x.price} = ৳${x.qty*x.price}</p>`).join("")+
+    `<hr><b>মোট: ৳${cart.reduce((a,x)=>a+x.qty*x.price,0)}</b><p><button class="btn secondary" onclick="clearCart()">কার্ট খালি করুন</button></p>`;
+}
+function clearCart(){cart=[];renderCart();updateCounts();}
+function updateCounts(){
+  const n=cart.reduce((a,x)=>a+x.qty,0);
+  document.getElementById("homeCart").textContent=n;
+}
+renderProducts();updateCounts();
+</script>
 </body>
 </html>
