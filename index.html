@@ -1,156 +1,81 @@
 <!doctype html>
 <html lang="bn">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#073b2a">
-  <title>SUN-My Business</title>
-  <style>
-    :root{--green:#075333;--deep:#063d2a;--gold:#e7bd52;--bg:#f4f7f4;--ink:#17231c;--muted:#66736b}
-    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif}
-    header{background:linear-gradient(135deg,#063d2a,#08734a);color:#fff;padding:20px 16px 18px;text-align:center}
-    .logo{width:66px;height:66px;border:2px solid #e7bd52;border-radius:50%;display:grid;place-items:center;margin:0 auto 8px;background:#fff;color:#075333;font-weight:900;font-size:25px;box-shadow:0 4px 14px #0003}
-    header h1{font-size:22px;margin:4px 0} header p{margin:4px 0 0;color:#f5e5b6;font-size:13px}
-    nav{display:flex;gap:8px;overflow-x:auto;padding:10px;background:#fff;position:sticky;top:0;z-index:5;box-shadow:0 2px 8px #00000010}
-    nav button{border:0;border-radius:20px;background:#edf3ee;color:var(--green);padding:9px 13px;white-space:nowrap;font-weight:700}
-    nav button.active{background:var(--green);color:white}
-    main{max-width:980px;margin:auto;padding:14px}
-    .hero{background:linear-gradient(120deg,#0b5737,#167a50);color:#fff;border-radius:16px;padding:22px 18px;margin-bottom:16px;min-height:145px;display:flex;align-items:center}
-    .hero h2{margin:0 0 7px;font-size:22px}.hero p{margin:0;color:#e8f5eb;font-size:14px}
-    .section{display:none}.section.active{display:block}
-    .heading{font-size:19px;color:var(--green);margin:10px 0 12px}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-    @media(min-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-    .card,.panel{background:white;border-radius:14px;padding:13px;box-shadow:0 3px 12px #1231;border:1px solid #e6eee8}
-    .product-art{height:105px;border-radius:10px;background:linear-gradient(135deg,#eaf4ed,#d8eadc);display:grid;place-items:center;color:var(--green);font-weight:900;font-size:23px;margin-bottom:10px}
-    .product-name{font-weight:800;margin:4px 0}.price{color:var(--green);font-weight:800}.discount{color:#b07900;font-size:13px}
-    .qty{width:100%;padding:9px;border:1px solid #cbd8ce;border-radius:8px;margin:9px 0}
-    .btn{border:0;background:var(--green);color:#fff;padding:10px 13px;border-radius:9px;font-weight:700;cursor:pointer}
-    .btn.secondary{background:#eaf2ec;color:var(--green)}
-    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}
-    .stat{background:#fff;border-radius:12px;padding:14px;border-left:4px solid var(--gold);box-shadow:0 2px 8px #0000000d}
-    .stat small{display:block;color:var(--muted)}.stat strong{font-size:22px;color:var(--green)}
-    table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}
-    th{background:var(--deep);color:#fff}th,td{padding:11px 8px;text-align:center;border-bottom:1px solid #e8eee9;font-size:14px}
-    tr:nth-child(even) td{background:#f4f8f4}
-    .note{font-size:12px;color:var(--muted);line-height:1.5;margin-top:10px}
-    .empty{padding:25px;text-align:center;color:var(--muted);background:#fff;border-radius:12px}
-    footer{text-align:center;padding:22px;color:var(--muted);font-size:12px}
-  </style>
-</head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#172554">
+<title>SUN-My Business</title>
+<style>
+:root{--navy:#172554;--blue:#2457c5;--sky:#eaf1ff;--gold:#f2bd45;--ink:#172033;--muted:#68758b;--bg:#f4f6fb;--line:#e4e9f2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif}
+header{background:linear-gradient(130deg,#172554 0%,#2457c5 65%,#5488e8 100%);color:white;padding:20px 16px 24px;text-align:center}
+.logo{width:68px;height:68px;border:3px solid var(--gold);border-radius:50%;display:grid;place-items:center;margin:0 auto 8px;background:#fff;color:#193778;font-weight:950;font-size:25px;box-shadow:0 5px 18px #07163d55}
+header h1{font-size:22px;margin:4px 0}header p{margin:5px 0 0;color:#ffe7a6;font-size:13px}
+nav{display:flex;gap:7px;overflow-x:auto;padding:10px;background:white;position:sticky;top:0;z-index:10;box-shadow:0 2px 10px #14234b12}
+nav button{border:0;border-radius:22px;background:#edf2ff;color:#1e428f;padding:9px 13px;white-space:nowrap;font-weight:750;cursor:pointer}
+nav button.active{background:var(--blue);color:#fff}
+main{max-width:1050px;margin:auto;padding:14px}.section{display:none}.section.active{display:block}
+.hero{border-radius:18px;padding:22px 18px;margin-bottom:16px;min-height:150px;color:#fff;background:linear-gradient(115deg,#172554,#3268d6);display:flex;align-items:center;position:relative;overflow:hidden}
+.hero:after{content:"SUN";position:absolute;right:10px;bottom:-25px;font-size:100px;font-weight:950;color:#ffffff12}
+.hero h2{margin:0 0 7px;font-size:23px}.hero p{margin:0;color:#e7edff;font-size:14px;max-width:75%}
+.heading{font-size:19px;color:var(--navy);margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}@media(min-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.card,.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 3px 12px #14234b0a}
+.tile{display:flex;align-items:center;gap:12px;min-height:82px;text-align:left;color:var(--ink);cursor:pointer}
+.tile-icon{width:43px;height:43px;flex:0 0 43px;border-radius:12px;background:var(--sky);display:grid;place-items:center;color:var(--blue);font-size:22px}
+.tile b{display:block;font-size:14px}.tile small{color:var(--muted);font-size:11px}
+.product-art{height:105px;border-radius:10px;background:linear-gradient(135deg,#eef3ff,#dce7ff);display:grid;place-items:center;color:#244ba2;font-weight:900;font-size:22px;margin-bottom:10px}
+.product-name{font-weight:800;margin:4px 0}.price{color:#1e4fb3;font-weight:850}.discount{color:#a66b00;font-size:12px}
+.qty,input,select,textarea{width:100%;padding:10px;border:1px solid #ccd5e5;border-radius:9px;margin:7px 0;background:#fff;font:inherit}
+.btn{border:0;background:var(--blue);color:white;padding:10px 14px;border-radius:9px;font-weight:750;cursor:pointer}.btn.gold{background:#f2bd45;color:#202b45}.btn.light{background:#eaf1ff;color:#214aab}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}.stat{background:#fff;border-radius:12px;padding:14px;border-left:4px solid var(--gold);box-shadow:0 2px 8px #0000000a}.stat small{display:block;color:var(--muted)}.stat strong{font-size:22px;color:var(--navy)}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}th{background:#203d82;color:#fff}th,td{padding:11px 8px;text-align:center;border-bottom:1px solid var(--line);font-size:13px}tr:nth-child(even) td{background:#f5f7fc}
+.note{font-size:12px;color:var(--muted);line-height:1.55;margin-top:10px}.tag{display:inline-block;background:#fff2cf;color:#7c5500;border-radius:20px;padding:4px 9px;font-size:11px;font-weight:750}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:1}.empty{padding:24px;text-align:center;color:var(--muted)}
+footer{text-align:center;padding:22px;color:var(--muted);font-size:12px}
+</style></head>
 <body>
-<header>
-  <div class="logo">SUN</div>
-  <h1>SUN-My Business</h1>
-  <p>এক সাথে এগিয়ে চলি সফলতার পথে</p>
-</header>
-<nav aria-label="প্রধান মেনু">
-  <button class="active" data-page="home">হোম</button>
-  <button data-page="products">SUN Products</button>
-  <button data-page="reselling">Reselling</button>
-  <button data-page="cart">কার্ট</button>
-  <button data-page="points">My Points</button>
-  <button data-page="media">Media</button>
+<header><div class="logo">SUN</div><h1>SUN-My Business</h1><p>এক সাথে এগিয়ে চলি সফলতার পথে</p></header>
+<nav>
+<button class="active" data-page="home">হোম</button><button data-page="products">SUN Products</button><button data-page="reselling">Reselling</button><button data-page="other">অন্যান্য পণ্য</button><button data-page="dealer">Dealer</button><button data-page="affiliate">Affiliate</button><button data-page="cart">কার্ট</button><button data-page="points">My Points</button><button data-page="media">Media</button><button data-page="meeting">Zoom Meeting</button><button data-page="account">আমার অ্যাকাউন্ট</button><button data-page="admin">Admin</button><button data-page="manager">Manager</button>
 </nav>
 <main>
-  <section id="home" class="section active">
-    <div class="hero"><div><h2>স্বাগতম SUN-এ</h2><p>পণ্য দেখুন, অর্ডারের তালিকা তৈরি করুন এবং আপনার পয়েন্টের হিসাব দেখুন।</p></div></div>
-    <h2 class="heading">আপনার ড্যাশবোর্ড</h2>
-    <div class="stats">
-      <div class="stat"><small>আমার পয়েন্ট</small><strong id="homePoints">0</strong></div>
-      <div class="stat"><small>কার্টে পণ্য</small><strong id="homeCart">0</strong></div>
-    </div>
-    <div class="panel"><b>শুরু করুন</b><p class="note">SUN Products থেকে পণ্য বেছে কার্টে যোগ করুন। My Points অংশে নমুনা পয়েন্ট টেবিল দেখতে পারবেন।</p><button class="btn" onclick="showPage('products')">পণ্য দেখুন</button></div>
-  </section>
-
-  <section id="products" class="section">
-    <h2 class="heading">SUN Products</h2>
-    <div id="productGrid" class="grid"></div>
-    <p class="note">এগুলো নমুনা পণ্য। পরে অ্যাডমিন প্যানেল ও Firebase যুক্ত করে আসল পণ্য, ছবি, দাম ও স্টক নিয়ন্ত্রণ করা হবে।</p>
-  </section>
-
-  <section id="reselling" class="section">
-    <h2 class="heading">SUN Reselling</h2>
-    <div class="panel"><h3>Reselling Board</h3><p>এখানে ভবিষ্যতে রিসেলিংয়ের জন্য অনুমোদিত পণ্য, বিক্রয়মূল্য ও শেয়ার করার লিংক দেখানো হবে।</p><p class="note">এই প্রাথমিক সংস্করণে রিসেলিং অর্ডার বা কমিশন চালু নেই।</p></div>
-  </section>
-
-  <section id="cart" class="section">
-    <h2 class="heading">আমার কার্ট</h2>
-    <div id="cartList" class="panel"></div>
-    <p class="note">এটি আপাতত এই ব্রাউজারে নমুনা কার্ট। এখনো অর্ডার জমা বা পেমেন্ট হয় না।</p>
-  </section>
-
-  <section id="points" class="section">
-    <h2 class="heading">SUN Points & Rewards</h2>
-    <div class="stats">
-      <div class="stat"><small>আমার পয়েন্ট</small><strong id="myPoints">0</strong></div>
-      <div class="stat"><small>পরবর্তী ধাপ</small><strong>১০০</strong></div>
-    </div>
-    <div class="panel">
-      <h3 style="color:#075333;margin-top:0">নমুনা পয়েন্ট টেবিল</h3>
-      <table><thead><tr><th>যোগ্যতা (পয়েন্ট)</th><th>পুরস্কার স্তর</th></tr></thead>
-      <tbody><tr><td>১০০</td><td>Bronze</td></tr><tr><td>৩০০</td><td>Silver</td></tr><tr><td>১,০০০</td><td>Gold</td></tr><tr><td>২,০০০</td><td>Platinum</td></tr><tr><td>৪,৫০০</td><td>Star</td></tr></tbody></table>
-      <p class="note">এগুলো শুধু ডিজাইনের নমুনা, কোনো নিশ্চিত বোনাস বা আয়ের প্রতিশ্রুতি নয়। চূড়ান্ত নিয়ম অ্যাডমিন নির্ধারণ করবেন। পয়েন্ট কেবল যাচাইকৃত কেনাকাটা ও প্রকৃত বিক্রির ভিত্তিতে গণনা করার পরিকল্পনা থাকবে।</p>
-    </div>
-  </section>
-
-  <section id="media" class="section">
-    <h2 class="heading">SUN Media</h2>
-    <div class="grid">
-      <div class="card"><b>Facebook Page</b><p class="note">পেজের লিংক পরে যোগ হবে।</p></div>
-      <div class="card"><b>YouTube Channel</b><p class="note">চ্যানেলের লিংক পরে যোগ হবে।</p></div>
-      <div class="card"><b>Video Gallery</b><p class="note">ভিডিও পরে যোগ হবে।</p></div>
-      <div class="card"><b>SUN জীবনের গল্প</b><p class="note">লাইভ প্রোগ্রামের তথ্য পরে যোগ হবে।</p></div>
-    </div>
-  </section>
-</main>
-<footer>© SUN-My Business · প্রাথমিক ডিজাইন সংস্করণ</footer>
-
+<section id="home" class="section active">
+<div class="hero"><div><h2>স্বাগতম SUN-এ</h2><p>পণ্য, অর্ডার, ডিলার, রিসেলিং ও রিওয়ার্ড—সবকিছু এক জায়গায়।</p><br><span class="tag">SUN-My Business</span></div></div>
+<h2 class="heading">আপনার ড্যাশবোর্ড</h2><div class="stats"><div class="stat"><small>আমার পয়েন্ট</small><strong id="homePoints">0</strong></div><div class="stat"><small>কার্টে পণ্য</small><strong id="homeCart">0</strong></div></div>
+<h2 class="heading">সকল মডিউল</h2><div class="grid">
+<div class="card tile" onclick="showPage('products')"><div class="tile-icon">🛍️</div><div><b>SUN Products</b><small>নিজস্ব পণ্য ও অর্ডার</small></div></div>
+<div class="card tile" onclick="showPage('reselling')"><div class="tile-icon">🔁</div><div><b>Reselling Board</b><small>রিসেলিং পণ্য ও বিক্রি</small></div></div>
+<div class="card tile" onclick="showPage('other')"><div class="tile-icon">📦</div><div><b>অন্যান্য পণ্য</b><small>অন্যান্য ব্র্যান্ড</small></div></div>
+<div class="card tile" onclick="showPage('dealer')"><div class="tile-icon">🏪</div><div><b>Dealer Bulk Order</b><small>বাল্ক অর্ডার ও চালান</small></div></div>
+<div class="card tile" onclick="showPage('affiliate')"><div class="tile-icon">🤝</div><div><b>Affiliate & Team</b><small>যাচাইকৃত বিক্রির হিসাব</small></div></div>
+<div class="card tile" onclick="showPage('points')"><div class="tile-icon">⭐</div><div><b>My Points</b><small>পয়েন্ট ও পুরস্কার</small></div></div>
+<div class="card tile" onclick="showPage('media')"><div class="tile-icon">🎬</div><div><b>Media</b><small>ভিডিও ও আপডেট</small></div></div>
+<div class="card tile" onclick="showPage('meeting')"><div class="tile-icon">📹</div><div><b>Zoom Live Meeting</b><small>মিটিং তথ্য</small></div></div>
+<div class="card tile" onclick="showPage('account')"><div class="tile-icon">👤</div><div><b>আমার অ্যাকাউন্ট</b><small>প্রোফাইল ও অর্ডার</small></div></div>
+<div class="card tile" onclick="showPage('admin')"><div class="tile-icon">⚙️</div><div><b>Admin Panel</b><small>প্রশাসনিক নিয়ন্ত্রণ</small></div></div>
+<div class="card tile" onclick="showPage('manager')"><div class="tile-icon">📊</div><div><b>Manager Panel</b><small>রিপোর্ট ও প্রিন্ট</small></div></div>
+</div><p class="note">প্রাথমিক ডেমোতে Admin ও Manager মেনু দৃশ্যমান। বাস্তব সংস্করণে লগইন ও ভূমিকা অনুযায়ী কাস্টমারদের কাছ থেকে এগুলো সম্পূর্ণ লুকানো থাকবে।</p>
+</section>
+<section id="products" class="section"><h2 class="heading">SUN Products</h2><div id="productGrid" class="grid"></div><p class="note">নমুনা পণ্য। পরে Admin থেকে ছবি, দাম, ডিসকাউন্ট ও স্টক পরিচালনা হবে।</p></section>
+<section id="reselling" class="section"><h2 class="heading">SUN Reselling Board</h2><div class="panel"><h3>রিসেলিং পণ্য</h3><p>অনুমোদিত SUN পণ্য শেয়ার, রিসেলিং মূল্য, অর্ডার ও বিক্রির হিসাব এখানে থাকবে।</p><span class="tag">পরবর্তী ধাপে চালু হবে</span></div></section>
+<section id="other" class="section"><h2 class="heading">অন্যান্য কোম্পানির পণ্য</h2><div class="panel"><p>এখানে SUN-এর বাইরের অনুমোদিত ব্র্যান্ডের পণ্য আলাদা ক্যাটাগরিতে থাকবে।</p><span class="tag">অ্যাডমিন নিয়ন্ত্রিত</span></div></section>
+<section id="dealer" class="section"><h2 class="heading">Dealer Bulk Order</h2><div class="panel"><p>ডিলার একসঙ্গে একাধিক পণ্য ও পরিমাণ দিয়ে বাল্ক অর্ডার তৈরি করতে পারবেন।</p><div class="row"><input placeholder="Dealer ID"><input placeholder="ডিলারের নাম"></div><textarea placeholder="পণ্য ও পরিমাণের তালিকা লিখুন"></textarea><button class="btn" onclick="alert('ডিলার অর্ডার ব্যবস্থা Firebase যুক্ত হলে চালু হবে।')">অর্ডার তৈরি</button><p class="note">ডিলার মূল্য, ইনভয়েস ও অর্ডার ইতিহাস Firebase সংযোগের পর যুক্ত হবে।</p></div></section>
+<section id="affiliate" class="section"><h2 class="heading">Affiliate & Team Performance</h2><div class="stats"><div class="stat"><small>Affiliate ID</small><strong>—</strong></div><div class="stat"><small>যাচাইকৃত বিক্রি</small><strong>0</strong></div></div><div class="panel">কমিশন ও টিম পয়েন্ট কেবল যাচাইকৃত প্রকৃত পণ্য বিক্রির ভিত্তিতে হিসাব হবে। নিয়ম ও সীমা Admin নিয়ন্ত্রণ করবেন।</div></section>
+<section id="cart" class="section"><h2 class="heading">আমার কার্ট</h2><div id="cartList" class="panel"></div><p class="note">এটি আপাতত ব্রাউজারের নমুনা কার্ট; অর্ডার জমা বা পেমেন্ট এখনো চালু নয়।</p></section>
+<section id="points" class="section"><h2 class="heading">SUN Points & Rewards</h2><div class="stats"><div class="stat"><small>আমার পয়েন্ট</small><strong id="myPoints">0</strong></div><div class="stat"><small>পরবর্তী স্তর</small><strong>১০০</strong></div></div><div class="panel"><h3 style="color:#203d82">পয়েন্ট টেবিল — নমুনা</h3><table><thead><tr><th>পয়েন্ট</th><th>স্তর</th></tr></thead><tbody><tr><td>১০০</td><td>Bronze</td></tr><tr><td>৩০০</td><td>Silver</td></tr><tr><td>১,০০০</td><td>Gold</td></tr><tr><td>২,০০০</td><td>Platinum</td></tr><tr><td>৪,৫০০</td><td>Star</td></tr></tbody></table><p class="note">পয়েন্ট কেনাকাটা ও যাচাইকৃত বিক্রির নিয়ম অনুযায়ী হবে। পুরস্কার/বোনাসের পরিমাণ Admin নির্ধারণ করবেন। মাসিক ৩ জন বিজয়ী নির্বাচনের মডিউলও থাকবে।</p></div></section>
+<section id="media" class="section"><h2 class="heading">SUN Media</h2><div class="grid"><div class="card"><b>Facebook Page</b><p class="note">লিংক পরে যুক্ত হবে</p></div><div class="card"><b>YouTube Channel</b><p class="note">লিংক পরে যুক্ত হবে</p></div><div class="card"><b>Video Gallery</b><p class="note">ভিডিও পরে যুক্ত হবে</p></div><div class="card"><b>Product Updates</b><p class="note">পণ্যের আপডেট</p></div><div class="card"><b>SUN জীবনের গল্প</b><p class="note">লাইভ প্রোগ্রাম</p></div></div></section>
+<section id="meeting" class="section"><h2 class="heading">Zoom Live Meeting</h2><div class="panel"><p>লাইভ মিটিংয়ের সময়সূচি, নির্দেশনা ও Zoom লিংক এখানে থাকবে।</p><span class="tag">লিংক পরে যোগ হবে</span></div></section>
+<section id="account" class="section"><h2 class="heading">আমার অ্যাকাউন্ট</h2><div class="panel"><input placeholder="নাম"><input placeholder="মোবাইল নম্বর"><input placeholder="Customer / Dealer / Affiliate ID"><button class="btn" onclick="alert('লগইন ও প্রোফাইল Firebase যুক্ত হলে চালু হবে।')">লগইন / প্রোফাইল</button><p class="note">নিরাপদ লগইন, পাসওয়ার্ড রিসেট, অর্ডার ইতিহাস ও প্রোফাইল Firebase Authentication যুক্ত হলে চালু হবে।</p></div></section>
+<section id="admin" class="section"><h2 class="heading">Admin Panel</h2><div class="grid"><div class="card">পণ্য ও ছবি ব্যবস্থাপনা</div><div class="card">দাম, অফার ও স্টক</div><div class="card">অর্ডার অনুমোদন</div><div class="card">কাস্টমার ও ডিলার</div><div class="card">পয়েন্ট ও কমিশন</div><div class="card">মডিউল ও অ্যাপ আপডেট</div><div class="card">পাসওয়ার্ড রিসেট</div><div class="card">Audit Log</div></div><p class="note">এগুলো পরিকল্পিত Admin সুবিধা; নিরাপদ Admin লগইন ও Firebase Rules ছাড়া কোনো প্রশাসনিক কাজ সক্রিয় নয়।</p></section>
+<section id="manager" class="section"><h2 class="heading">Manager Panel</h2><div class="panel"><b>শুধু দেখার অনুমতি</b><p>রিপোর্ট দেখা, Print Preview ও স্পষ্ট অনুমতিতে প্রিন্ট।</p><p class="note">Manager পণ্য/দাম/স্টক/পয়েন্ট পরিবর্তন, অর্ডার অনুমোদন বা ব্যবহারকারী ব্যবস্থাপনা করতে পারবেন না।</p><button class="btn light" onclick="window.print()">Print Preview / Print</button></div></section>
+</main><footer>© SUN-My Business · প্রাথমিক UI ডেমো</footer>
 <script>
-const products = [
-  {id:1,name:"Sun Detergent",price:120,discount:"নমুনা মূল্য"},
-  {id:2,name:"SUNMARK Mustard Oil",price:180,discount:"নমুনা মূল্য"},
-  {id:3,name:"VITA-C",price:25,discount:"নমুনা মূল্য"}
-];
-let cart = [];
-function showPage(id){
-  document.querySelectorAll(".section").forEach(s=>s.classList.toggle("active",s.id===id));
-  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
-  if(id==="cart") renderCart();
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
-function renderProducts(){
-  document.getElementById("productGrid").innerHTML=products.map(p=>`
-    <article class="card">
-      <div class="product-art">SUN</div>
-      <div class="product-name">${p.name}</div>
-      <div class="price">৳ ${p.price}</div>
-      <div class="discount">${p.discount}</div>
-      <input class="qty" type="number" min="1" max="100" value="1" id="qty-${p.id}" aria-label="পরিমাণ">
-      <button class="btn" onclick="addToCart(${p.id})">কার্টে যোগ করুন</button>
-    </article>`).join("");
-}
-function addToCart(id){
-  const p=products.find(x=>x.id===id);
-  const qty=Math.max(1,Math.min(100,Number(document.getElementById("qty-"+id).value)||1));
-  const old=cart.find(x=>x.id===id);
-  if(old) old.qty+=qty; else cart.push({...p,qty});
-  updateCounts();
-  alert("পণ্যটি কার্টে যোগ হয়েছে (নমুনা)।");
-}
-function renderCart(){
-  const el=document.getElementById("cartList");
-  if(!cart.length){el.innerHTML='<div class="empty">আপনার কার্ট খালি।</div>';return;}
-  el.innerHTML=cart.map(x=>`<p><b>${x.name}</b> — ${x.qty} × ৳${x.price} = ৳${x.qty*x.price}</p>`).join("")+
-    `<hr><b>মোট: ৳${cart.reduce((a,x)=>a+x.qty*x.price,0)}</b><p><button class="btn secondary" onclick="clearCart()">কার্ট খালি করুন</button></p>`;
-}
-function clearCart(){cart=[];renderCart();updateCounts();}
-function updateCounts(){
-  const n=cart.reduce((a,x)=>a+x.qty,0);
-  document.getElementById("homeCart").textContent=n;
-}
+const products=[{id:1,name:"Sun Detergent",price:120},{id:2,name:"SUNMARK Mustard Oil",price:180},{id:3,name:"VITA-C",price:25}];let cart=[];
+function showPage(id){document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));if(id==='cart')renderCart();window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function renderProducts(){document.getElementById('productGrid').innerHTML=products.map(p=>`<article class="card"><div class="product-art">SUN</div><div class="product-name">${p.name}</div><div class="price">৳ ${p.price}</div><div class="discount">নমুনা মূল্য</div><input class="qty" type="number" min="1" max="100" value="1" id="qty-${p.id}"><button class="btn" onclick="addToCart(${p.id})">কার্টে যোগ করুন</button></article>`).join('');}
+function addToCart(id){let p=products.find(x=>x.id===id),qty=Math.max(1,Math.min(100,Number(document.getElementById('qty-'+id).value)||1)),old=cart.find(x=>x.id===id);if(old)old.qty+=qty;else cart.push({...p,qty});updateCounts();alert('নমুনা কার্টে পণ্য যোগ হয়েছে।');}
+function renderCart(){let el=document.getElementById('cartList');if(!cart.length){el.innerHTML='<div class="empty">আপনার কার্ট খালি।</div>';return;}el.innerHTML=cart.map(x=>`<p><b>${x.name}</b> — ${x.qty} × ৳${x.price} = ৳${x.qty*x.price}</p>`).join('')+`<hr><b>মোট: ৳${cart.reduce((a,x)=>a+x.qty*x.price,0)}</b><p><button class="btn light" onclick="cart=[];renderCart();updateCounts()">কার্ট খালি করুন</button></p>`;}
+function updateCounts(){document.getElementById('homeCart').textContent=cart.reduce((a,x)=>a+x.qty,0);}
 renderProducts();updateCounts();
-</script>
-</body>
-</html>
+</script></body></html>
