@@ -3,315 +3,718 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SUN-My Business</title>
+
 <style>
-:root {
-  --blue:#1746a2;
-  --gold:#f5bd35;
-  --red:#d92735;
-  --white:#fff;
-  --bg:#f2f5fc;
-  --text:#17233d;
+:root{
+ --blue:#1746A2;
+ --gold:#F5BD35;
+ --red:#D92735;
+ --white:#FFFFFF;
+ --bg:#F2F5FC;
+ --text:#17233D;
+ --card:#FFFFFF;
 }
-body {
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
+*{box-sizing:border-box}
+body{
+ margin:0;font-family:Arial,sans-serif;
+ background:var(--bg);color:var(--text);
 }
-header {
-  background:linear-gradient(120deg,var(--blue),#3976d5);
-  color:white;
-  text-align:center;
-  padding:22px 12px;
+header{
+ background:linear-gradient(120deg,var(--blue),#3976D5);
+ color:white;text-align:center;padding:20px 10px;
 }
-.logo {
-  font-size:38px;
-  font-weight:900;
-  color:var(--gold);
-  text-shadow:2px 2px var(--red);
+.logo{
+ font-size:40px;font-weight:900;color:var(--gold);
+ text-shadow:2px 2px var(--red);
 }
-header p {margin:6px 0}
-nav {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
-  padding:12px;
+header h2{color:white;margin:5px}
+nav{
+ display:grid;grid-template-columns:repeat(2,1fr);
+ gap:8px;padding:12px;
 }
-button {
-  border:0;
-  padding:12px;
-  border-radius:9px;
-  background:var(--blue);
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
+button{
+ border:0;border-radius:9px;padding:12px;
+ background:var(--blue);color:white;
+ font-weight:bold;cursor:pointer;margin:3px;
 }
-button.gold {background:var(--gold);color:#222}
-button.red {background:var(--red)}
-main {padding:12px}
-.panel {
-  background:white;
-  padding:16px;
-  margin-bottom:13px;
-  border-radius:12px;
-  box-shadow:0 2px 9px #0001;
+button.gold{background:var(--gold);color:#222}
+button.red{background:var(--red)}
+main{padding:12px;max-width:900px;margin:auto}
+.panel{
+ background:var(--card);padding:16px;
+ border-radius:12px;margin-bottom:14px;
+ box-shadow:0 2px 9px #0001;
 }
-h2 {color:var(--blue);font-size:20px}
-input,select,textarea {
-  width:100%;
-  box-sizing:border-box;
-  padding:11px;
-  margin:6px 0 12px;
-  border:1px solid #ccd3e0;
-  border-radius:7px;
+h2{color:var(--blue);font-size:21px}
+input,select,textarea{
+ width:100%;padding:11px;margin:6px 0 12px;
+ border:1px solid #ccd3e0;border-radius:7px;
 }
-.hidden {display:none}
-.product {
-  border:1px solid #e1e5ee;
-  padding:12px;
-  border-radius:9px;
-  margin:9px 0;
+label{font-weight:bold}
+.product{
+ border:1px solid #e1e5ee;padding:12px;
+ border-radius:9px;margin:9px 0;
 }
-footer {
-  text-align:center;
-  padding:20px;
-  color:#68748a;
+.hidden{display:none!important}
+footer{text-align:center;padding:20px}
+.preview{
+ padding:20px;border-radius:12px;text-align:center;
+ margin:12px 0;
 }
 </style>
 </head>
+
 <body>
 
 <header>
-  <div class="logo">SUN</div>
-  <h2 style="color:white">SUN-My Business</h2>
-  <p>এক সাথে এগিয়ে চলি সফলতার পথে</p>
+ <div class="logo">SUN</div>
+ <h2>SUN-My Business</h2>
+ <p>এক সাথে এগিয়ে চলি সফলতার পথে</p>
 </header>
 
-<nav>
-  <button onclick="show('home')">হোম</button>
-  <button onclick="show('products')">SUN Products</button>
-  <button onclick="show('resell')">Reselling</button>
-  <button onclick="show('orders')">My Orders</button>
-  <button onclick="show('points')">My Points</button>
-  <button onclick="show('dealer')">Dealer Order</button>
-  <button onclick="show('partner')">Business Partner</button>
-  <button onclick="show('media')">Media</button>
-  <button onclick="show('manager')">Manager</button>
-  <button onclick="show('admin')">Admin Panel</button>
-</nav>
-
+<!-- LOGIN -->
 <main>
-<section id="home" class="panel">
-  <h2>স্বাগতম SUN-এ</h2>
-  <p>Shopping • Reselling • Rewards • Business</p>
-  <p>আপনার ব্যবসার সব কার্যক্রম এক জায়গায়।</p>
+<section id="login" class="panel">
+ <h2>Welcome to SUN</h2>
+ <h3>Login</h3>
+
+ <label>আপনার নাম</label>
+ <input id="loginName" placeholder="নাম লিখুন">
+
+ <label>মোবাইল নম্বর</label>
+ <input id="loginMobile" placeholder="মোবাইল নম্বর">
+
+ <label>Demo Login Type</label>
+ <select id="loginRole">
+  <option value="customer">Customer</option>
+  <option value="dealer">Dealer</option>
+  <option value="manager">Manager</option>
+  <option value="admin">Admin</option>
+ </select>
+
+ <button onclick="loginSUN()">Login করুন</button>
+ <p id="loginMessage"></p>
+ <small>Demo login: এখানে Role নির্বাচন নিরাপদ পরিচয় যাচাই নয়।</small>
 </section>
 
+<nav id="mainNav" class="hidden"></nav>
+
+<!-- HOME -->
+<section id="home" class="panel hidden">
+ <h2>স্বাগতম SUN-এ</h2>
+ <div id="bannerDisplay"></div>
+ <p>Shopping • Reselling • Rewards • Business</p>
+ <p>আপনার ব্যবসার সব কার্যক্রম এক জায়গায়।</p>
+</section>
+
+<!-- PRODUCTS -->
 <section id="products" class="panel hidden">
-  <h2>SUN Products</h2>
-  <div id="productList"></div>
-  <h3>Admin: পণ্য যোগ করুন</h3>
+ <h2>SUN Products</h2>
+ <div id="productList"></div>
+
+ <div id="productAdmin" class="hidden">
+  <h3>নতুন পণ্য যোগ করুন</h3>
   <input id="pname" placeholder="পণ্যের নাম">
   <input id="pprice" type="number" placeholder="মূল্য">
   <button onclick="addProduct()">পণ্য যোগ করুন</button>
+ </div>
 </section>
 
+<!-- RESELL -->
 <section id="resell" class="panel hidden">
-  <h2>SUN Reselling Board</h2>
-  <p>রিসেলিং পণ্যের তালিকা এখানে দেখা যাবে।</p>
+ <h2>SUN Reselling Board</h2>
+ <p>রিসেলিং পণ্যের তালিকা</p>
+ <div id="resellList"></div>
 </section>
 
+<!-- ORDERS -->
 <section id="orders" class="panel hidden">
-  <h2>Customer Order</h2>
-  <input id="cname" placeholder="আপনার নাম">
-  <input id="mobile" placeholder="মোবাইল নম্বর">
-  <textarea id="address" placeholder="সম্পূর্ণ ঠিকানা"></textarea>
-  <input id="orderProduct" placeholder="পণ্যের নাম">
-  <input id="qty" type="number" min="1" value="1" placeholder="পরিমাণ">
-  <button onclick="placeOrder()">অর্ডার জমা দিন</button>
-  <div id="orderMessage"></div>
+ <h2>Customer Order</h2>
+ <input id="cname" placeholder="আপনার নাম">
+ <input id="mobile" placeholder="মোবাইল নম্বর">
+ <textarea id="address" placeholder="সম্পূর্ণ ঠিকানা"></textarea>
+ <select id="orderProduct"></select>
+ <input id="qty" type="number" min="1" value="1">
+ <button onclick="placeOrder()">অর্ডার জমা দিন</button>
+ <p id="orderMessage"></p>
+ <div id="myOrders"></div>
 </section>
 
+<!-- POINTS -->
 <section id="points" class="panel hidden">
-  <h2>My Points & Rank</h2>
-  <p>Silver → Gold → Platinum → Diamond → Crown</p>
-  <p>পয়েন্ট ও পদমর্যাদা অ্যাডমিন নির্ধারণ করবেন।</p>
+ <h2>My Points & Rank</h2>
+ <h3>Silver → Gold → Platinum → Diamond → Crown</h3>
+ <p>আপনার পয়েন্ট: <b id="myPoint">0</b></p>
+ <p>পয়েন্টের নিয়ম Admin নির্ধারণ করবেন।</p>
 </section>
 
+<!-- DEALER -->
 <section id="dealer" class="panel hidden">
-  <h2>Dealer Bulk Order</h2>
-  <p>একাধিক পণ্য ও পরিমাণ দিয়ে ডিলার অর্ডারের ব্যবস্থা।</p>
+ <h2>Dealer Bulk Order</h2>
+ <input id="dealerName" placeholder="ডিলারের নাম">
+ <input id="dealerMobile" placeholder="মোবাইল নম্বর">
+ <textarea id="dealerItems" placeholder="পণ্যের নাম ও পরিমাণ লিখুন"></textarea>
+ <button onclick="dealerSubmit()">Dealer Order Submit</button>
+ <p id="dealerMessage"></p>
 </section>
 
+<!-- PARTNER -->
 <section id="partner" class="panel hidden">
-  <h2>Business Partner</h2>
-  <p>ব্যবসায়িক অংশীদারিত্বের তথ্য ও চুক্তি ব্যবস্থাপনা।</p>
+ <h2>Business Partner</h2>
 
-  <div class="product">
-    <h3>1. Capital Protected</h3>
-    <p>চুক্তি ও আইনগত সুরক্ষা যাচাই সাপেক্ষে মূলধন ফেরতের কাঠামো।</p>
-    <p>মেয়াদ: ৬ মাস (প্রস্তাবিত)</p>
-    <button onclick="partnerInfo('Capital Protected')">বিস্তারিত</button>
-  </div>
+ <div class="product">
+  <h3>1. Capital Protected</h3>
+  <p>মূলধন সুরক্ষার কাঠামো। আইনগত যাচাই ও বাস্তব সুরক্ষা ছাড়া কোনো নিশ্চয়তা নয়।</p>
+  <p>প্রস্তাবিত মেয়াদ: ৬ মাস</p>
+  <button onclick="partnerInfo('Capital Protected')">বিস্তারিত</button>
+ </div>
 
-  <div class="product">
-    <h3>2. Risk-Based Investment</h3>
-    <p>প্রকৃত ব্যবসায়িক লাভ বা লোকসান চুক্তি অনুযায়ী ভাগ হবে।</p>
-    <p>মেয়াদ: ৬ মাস (প্রস্তাবিত)</p>
-    <button onclick="partnerInfo('Risk-Based Investment')">বিস্তারিত</button>
-  </div>
+ <div class="product">
+  <h3>2. Risk-Based</h3>
+  <p>প্রকৃত লাভ-লোকসান চুক্তি অনুযায়ী হিসাবের ধারণা।</p>
+  <p>প্রস্তাবিত মেয়াদ: ৬ মাস</p>
+  <button onclick="partnerInfo('Risk-Based')">বিস্তারিত</button>
+ </div>
 
-  <div id="partnerDetails"></div>
-  <p><b>Demo only:</b> এখানে বাস্তব বিনিয়োগ গ্রহণ বা লাভের নিশ্চয়তা দেওয়া হয় না।</p>
+ <div id="partnerDetails"></div>
+ <p><b>Demo only:</b> বাস্তব বিনিয়োগ বা অর্থ গ্রহণের ব্যবস্থা নেই।</p>
 </section>
 
+<!-- MEDIA -->
 <section id="media" class="panel hidden">
-  <h2>SUN Media</h2>
-  <p>Facebook Page • YouTube • Video Gallery</p>
-  <p>SUN জীবনের গল্প • Zoom Live Meeting</p>
-  <a href="https://www.facebook.com/share/1JvW7rGx3R/" target="_blank">Sun Product Facebook Page</a>
+ <h2>SUN Media</h2>
+ <p>SUN জীবনের গল্প • Video Gallery • YouTube</p>
+ <p>Zoom Live Meeting</p>
+ <a href="https://www.facebook.com/share/1JvW7rGx3R/" target="_blank">
+ Sun Product Facebook Page
+ </a>
 </section>
 
+<!-- MANAGER -->
 <section id="manager" class="panel hidden">
-  <h2>Manager Panel</h2>
-  <p>অনুমোদিত অর্ডার দেখা ও প্রিন্টের ব্যবস্থা এখানে যুক্ত হবে।</p>
-  <div id="managerOrders"></div>
+ <h2>Manager Panel</h2>
+ <p>শুধু Admin অনুমোদিত অর্ডার দেখা যাবে।</p>
+ <div id="managerOrders"></div>
 </section>
 
+<!-- ADMIN -->
 <section id="admin" class="panel hidden">
-  <h2>Admin Panel</h2>
-  <p>পণ্য, অর্ডার, ব্যানার, পয়েন্ট, থিম, ইউজার ও রিপোর্ট নিয়ন্ত্রণ।</p>
-  <h3>Customer Orders</h3>
-  <div id="adminOrders"></div>
+ <h2>Admin Control Panel</h2>
+
+ <h3>Dashboard</h3>
+ <p>মোট পণ্য: <b id="adminProductCount">0</b></p>
+ <p>মোট অর্ডার: <b id="adminOrderCount">0</b></p>
+
+ <h3>Order Management</h3>
+ <div id="adminOrders"></div>
+
+ <hr>
+ <h3>Banner Management</h3>
+ <input type="file" id="bannerFile" accept="image/*">
+ <button onclick="addBanner()">Banner যোগ করুন</button>
+ <div id="bannerList"></div>
+
+ <hr>
+ <h3>Color Customize</h3>
+ <label>Royal Blue</label>
+ <input type="color" id="sunBlue" value="#1746A2">
+
+ <label>Golden</label>
+ <input type="color" id="sunGold" value="#F5BD35">
+
+ <label>Red</label>
+ <input type="color" id="sunRed" value="#D92735">
+
+ <label>White</label>
+ <input type="color" id="sunWhite" value="#FFFFFF">
+
+ <label>Theme Mode</label>
+ <select id="sunMode">
+  <option value="light">Light Mode</option>
+  <option value="dark">Dark Mode</option>
+ </select>
+
+ <div class="preview" id="sunPreview">
+  <h1 id="previewLogo">SUN</h1>
+  <h3>SUN-My Business</h3>
+  <button id="previewButton">SUN Products</button>
+ </div>
+
+ <button onclick="saveSUNTheme()">Save Theme</button>
+ <button class="gold" onclick="resetSUNTheme()">Reset Theme</button>
+
+ <hr>
+ <h3>Points Settings</h3>
+ <input id="pointRate" type="number" min="0" placeholder="প্রতি অর্ডারে পয়েন্ট">
+ <button onclick="savePointRate()">পয়েন্ট সেট করুন</button>
+
+ <hr>
+ <h3>Backup & Restore</h3>
+ <button onclick="downloadBackup()">Backup Download</button>
+ <input type="file" id="restoreFile" accept=".json">
+ <button onclick="restoreBackup()">Restore</button>
+
+ <hr>
+ <h3>Monthly Winners</h3>
+ <input id="winnerName" placeholder="বিজয়ীর নাম">
+ <input type="file" id="winnerPhoto" accept="image/*">
+ <button onclick="addWinner()">Winner যোগ করুন</button>
+ <div id="winnerList"></div>
 </section>
+
 </main>
 
 <footer>SUN-My Business © 2026</footer>
 
 <script>
-let products = [];
-let orders = [];
+let products=[];
+let orders=[];
+let banners=[];
+let winners=[];
+let currentUser=null;
+let pointRate=1;
 
-function show(id) {
-  document.querySelectorAll('main section').forEach(s =>
-    s.classList.add('hidden')
-  );
-  document.getElementById(id).classList.remove('hidden');
+const menus={
+ customer:[
+  ["home","হোম"],["products","SUN Products"],
+  ["resell","Reselling"],["orders","My Orders"],
+  ["points","My Points"],["partner","Business Partner"],
+  ["media","Media"]
+ ],
+ dealer:[
+  ["home","হোম"],["products","SUN Products"],
+  ["dealer","Dealer Bulk Order"],["orders","My Orders"],
+  ["media","Media"]
+ ],
+ manager:[
+  ["home","হোম"],["manager","Manager Panel"]
+ ],
+ admin:[
+  ["home","হোম"],["products","SUN Products"],
+  ["resell","Reselling"],["orders","Orders"],
+  ["dealer","Dealer Order"],["points","Points"],
+  ["partner","Business Partner"],["media","Media"],
+  ["admin","Admin Panel"]
+ ]
+};
+
+function saveData(){
+ localStorage.setItem("SUN_DATA",JSON.stringify({
+  products,orders,banners,winners,pointRate
+ }));
 }
 
-function addProduct() {
-  const name = document.getElementById('pname').value.trim();
-  const price = Number(document.getElementById('pprice').value);
-  if (!name || !Number.isFinite(price) || price <= 0) {
-    alert('সঠিক পণ্যের নাম ও মূল্য দিন');
-    return;
-  }
-  products.push({name,price,available:true});
-  document.getElementById('pname').value='';
-  document.getElementById('pprice').value='';
-  renderProducts();
+function loadData(){
+ try{
+  const d=JSON.parse(localStorage.getItem("SUN_DATA")||"{}");
+  products=d.products||[];
+  orders=d.orders||[];
+  banners=d.banners||[];
+  winners=d.winners||[];
+  pointRate=d.pointRate||1;
+ }catch(e){}
+ renderProducts();
+ renderOrders();
+ renderBanners();
+ renderWinners();
 }
 
-function renderProducts() {
-  document.getElementById('productList').innerHTML =
-    products.map((p,i) => `
-      <div class="product">
-        <b>${escapeHTML(p.name)}</b>
-        <p>৳${p.price}</p>
-        <p>${p.available?'স্টক আছে':'স্টক নেই'}</p>
-        <button onclick="orderProduct(${i})">অর্ডার</button>
-      </div>
-    `).join('');
+function loginSUN(){
+ const name=document.getElementById("loginName").value.trim();
+ const mobile=document.getElementById("loginMobile").value.trim();
+ const role=document.getElementById("loginRole").value;
+
+ if(!name||!mobile){
+  alert("নাম ও মোবাইল নম্বর দিন");
+  return;
+ }
+
+ currentUser={name,mobile,role};
+ document.getElementById("login").classList.add("hidden");
+ document.getElementById("mainNav").classList.remove("hidden");
+
+ document.getElementById("productAdmin").classList.toggle("hidden",role!=="admin");
+
+ renderMenu();
+ show("home");
 }
 
-function orderProduct(i) {
-  document.getElementById('orderProduct').value=products[i].name;
-  show('orders');
+function renderMenu(){
+ const nav=document.getElementById("mainNav");
+ nav.innerHTML=menus[currentUser.role].map(item=>
+  `<button onclick="show('${item[0]}')">${item[1]}</button>`
+ ).join("");
+
+ nav.innerHTML+=`<button class="red" onclick="logoutSUN()">Logout</button>`;
 }
 
-function placeOrder() {
-  const name=document.getElementById('cname').value.trim();
-  const mobile=document.getElementById('mobile').value.trim();
-  const address=document.getElementById('address').value.trim();
-  const product=document.getElementById('orderProduct').value.trim();
-  const qty=Number(document.getElementById('qty').value);
+function show(id){
+ if(!currentUser)return;
 
-  if(!name || !mobile || !address || !product || !Number.isInteger(qty) || qty<1) {
-    alert('সব তথ্য সঠিকভাবে পূরণ করুন');
-    return;
-  }
+ const allowed=menus[currentUser.role].some(x=>x[0]===id);
+ if(!allowed){
+  alert("আপনার অনুমতি নেই");
+  return;
+ }
 
-  orders.push({
-    id:'SUN-'+Date.now(),
-    name,mobile,address,product,qty,
-    status:'Pending'
-  });
+ document.querySelectorAll("main section").forEach(s=>
+  s.classList.add("hidden")
+ );
+ document.getElementById(id).classList.remove("hidden");
 
-  document.getElementById('orderMessage').textContent =
-    'অর্ডার জমা হয়েছে। Admin অনুমোদনের অপেক্ষায়।';
-  renderOrders();
+ if(id==="admin")renderAdmin();
+ if(id==="manager")renderOrders();
+ if(id==="products")renderProducts();
+ if(id==="orders")renderMyOrders();
+ if(id==="home")renderBanners();
+ if(id==="points")renderPoints();
 }
 
-function renderOrders() {
-  const html=orders.map((o,i)=>`
-    <div class="product">
-      <b>${escapeHTML(o.id)}</b>
-      <p>${escapeHTML(o.name)} — ${escapeHTML(o.product)} × ${o.qty}</p>
-      <p>অবস্থা: ${o.status}</p>
-      ${o.status==='Pending'?
-        `<button onclick="approveOrder(${i})">Admin Approve</button>`:''}
-      ${o.status==='Approved'?
-        `<button class="gold" onclick="printMemo(${i})">Print Memo</button>`:''}
-    </div>
-  `).join('');
-
-  document.getElementById('adminOrders').innerHTML=html;
-  document.getElementById('managerOrders').innerHTML=
-    orders.filter(o=>o.status==='Approved').map((o)=>`
-      <div class="product">
-        ${escapeHTML(o.id)} — ${escapeHTML(o.name)}
-        <button onclick="printMemo(${orders.indexOf(o)})">Print Preview</button>
-      </div>
-    `).join('');
+function logoutSUN(){
+ currentUser=null;
+ document.getElementById("mainNav").classList.add("hidden");
+ document.querySelectorAll("main section").forEach(s=>
+  s.classList.add("hidden")
+ );
+ document.getElementById("login").classList.remove("hidden");
 }
 
-function approveOrder(i) {
-  orders[i].status='Approved';
-  renderOrders();
+function addProduct(){
+ const name=document.getElementById("pname").value.trim();
+ const price=Number(document.getElementById("pprice").value);
+
+ if(!name||!Number.isFinite(price)||price<=0){
+  alert("সঠিক নাম ও মূল্য দিন");return;
+ }
+
+ products.push({name,price,available:true});
+ document.getElementById("pname").value="";
+ document.getElementById("pprice").value="";
+ saveData();renderProducts();
 }
 
-function printMemo(i) {
-  const o=orders[i];
-  const w=window.open('','_blank');
-  if(!w) { alert('প্রিন্ট উইন্ডো খুলতে অনুমতি দিন'); return; }
-  w.document.write(`
-    <h2>Sun Product</h2>
-    <h3>Customer Memo</h3>
-    <p>Memo: ${escapeHTML(o.id)}</p>
-    <p>Customer: ${escapeHTML(o.name)}</p>
-    <p>Mobile: ${escapeHTML(o.mobile)}</p>
-    <p>Address: ${escapeHTML(o.address)}</p>
-    <p>Product: ${escapeHTML(o.product)}</p>
-    <p>Quantity: ${o.qty}</p>
-    <p>Status: ${o.status}</p>
-    <script>window.onload=()=>window.print();<\/script>
-  `);
-  w.document.close();
+function renderProducts(){
+ document.getElementById("productList").innerHTML=
+ products.map((p,i)=>`
+  <div class="product">
+   <b>${escapeHTML(p.name)}</b>
+   <p>৳${p.price}</p>
+   <p>${p.available?"স্টক আছে":"স্টক নেই"}</p>
+   ${p.available?`<button onclick="orderProduct(${i})">অর্ডার</button>`:""}
+   ${currentUser?.role==="admin"?
+    `<button class="red" onclick="toggleStock(${i})">Stock ON/OFF</button>`:""}
+  </div>
+ `).join("");
+
+ document.getElementById("orderProduct").innerHTML=
+ '<option value="">পণ্য নির্বাচন করুন</option>'+
+ products.filter(p=>p.available).map(p=>
+  `<option value="${escapeHTML(p.name)}">${escapeHTML(p.name)} - ৳${p.price}</option>`
+ ).join("");
+
+ document.getElementById("resellList").innerHTML=
+ products.filter(p=>p.available).map(p=>
+  `<div class="product">${escapeHTML(p.name)} — ৳${p.price}</div>`
+ ).join("");
 }
 
-function partnerInfo(type) {
-  document.getElementById('partnerDetails').textContent =
-    type+' : এটি কেবল তথ্য প্রদর্শনের ডেমো। বাস্তব চুক্তি ও লেনদেন চালুর আগে আইনগত যাচাই প্রয়োজন।';
+function toggleStock(i){
+ products[i].available=!products[i].available;
+ saveData();renderProducts();
 }
 
-function escapeHTML(value) {
-  return String(value).replace(/[&<>"']/g, c => ({
-    '&':'&amp;','<':'&lt;','>':'&gt;',
-    '"':'&quot;',"'":'&#39;'
-  })[c]);
+function orderProduct(i){
+ document.getElementById("orderProduct").value=products[i].name;
+ show("orders");
 }
+
+function placeOrder(){
+ const name=document.getElementById("cname").value.trim();
+ const mobile=document.getElementById("mobile").value.trim();
+ const address=document.getElementById("address").value.trim();
+ const product=document.getElementById("orderProduct").value;
+ const qty=Number(document.getElementById("qty").value);
+
+ if(!name||!mobile||!address||!product||!Number.isInteger(qty)||qty<1){
+  alert("সব তথ্য সঠিকভাবে পূরণ করুন");return;
+ }
+
+ const p=products.find(x=>x.name===product&&x.available);
+ if(!p){alert("পণ্যটি বর্তমানে পাওয়া যাচ্ছে না");return;}
+
+ orders.push({
+  id:"SUN-"+Date.now(),name,mobile,address,
+  product,qty,price:p.price,total:p.price*qty,
+  advance:0,status:"Pending",
+  date:new Date().toLocaleString("bn-BD")
+ });
+
+ saveData();renderOrders();renderMyOrders();
+ document.getElementById("orderMessage").textContent=
+ "অর্ডার জমা হয়েছে। Admin অনুমোদনের অপেক্ষায়।";
+}
+
+function renderOrders(){
+ const html=orders.map((o,i)=>`
+  <div class="product">
+   <b>${escapeHTML(o.id)}</b>
+   <p>${escapeHTML(o.name)} — ${escapeHTML(o.product)} × ${o.qty}</p>
+   <p>মোট: ৳${o.total} | অবস্থা: ${o.status}</p>
+   ${currentUser?.role==="admin"&&o.status==="Pending"?
+    `<button onclick="approveOrder(${i})">Approve</button>`:""}
+   ${o.status==="Approved"?
+    `<button class="gold" onclick="printMemo(${i})">Print Memo</button>`:""}
+  </div>
+ `).join("");
+
+ document.getElementById("adminOrders").innerHTML=html;
+ document.getElementById("managerOrders").innerHTML=
+ orders.filter(o=>o.status==="Approved").map(o=>
+  `<div class="product">${escapeHTML(o.id)} — ${escapeHTML(o.name)}
+   <button onclick="printMemo(${orders.indexOf(o)})">Print</button>
+  </div>`
+ ).join("");
+}
+
+function approveOrder(i){
+ if(currentUser?.role!=="admin")return;
+ orders[i].status="Approved";
+ saveData();renderOrders();
+}
+
+function renderMyOrders(){
+ const mine=orders.filter(o=>
+  currentUser&&o.mobile===currentUser.mobile
+ );
+ document.getElementById("myOrders").innerHTML=mine.map(o=>
+  `<div class="product">${escapeHTML(o.id)} — ${escapeHTML(o.status)}</div>`
+ ).join("");
+}
+
+function printMemo(i){
+ const o=orders[i];
+ const w=window.open("","_blank");
+ if(!w){alert("Print window খুলতে অনুমতি দিন");return;}
+
+ const cod=o.total-(o.advance||0);
+ w.document.write(`
+ <html><meta charset="UTF-8"><title>SUN Memo</title>
+ <body style="font-family:Arial;padding:25px">
+ <h2>Sun Product</h2><h3>Customer Memo</h3>
+ <p>Memo: ${escapeHTML(o.id)}</p>
+ <p>Date: ${escapeHTML(o.date)}</p>
+ <p>Customer: ${escapeHTML(o.name)}</p>
+ <p>Mobile: ${escapeHTML(o.mobile)}</p>
+ <p>Address: ${escapeHTML(o.address)}</p>
+ <hr>
+ <p>Product: ${escapeHTML(o.product)}</p>
+ <p>Quantity: ${o.qty}</p>
+ <p>Unit Price: ৳${o.price}</p>
+ <h3>Total: ৳${o.total}</h3>
+ <p>Advance: ৳${o.advance||0}</p>
+ <h3>Cash on Delivery: ৳${cod}</h3>
+ <p>Status: ${escapeHTML(o.status)}</p>
+ <script>window.onload=()=>window.print();<\/script>
+ </body></html>`);
+ w.document.close();
+}
+
+function renderAdmin(){
+ if(currentUser?.role!=="admin")return;
+ document.getElementById("adminProductCount").textContent=products.length;
+ document.getElementById("adminOrderCount").textContent=orders.length;
+ renderOrders();
+}
+
+function partnerInfo(type){
+ document.getElementById("partnerDetails").textContent=
+ type+" — এটি তথ্য প্রদর্শনের ডেমো। বাস্তব চুক্তির আগে আইনগত যাচাই প্রয়োজন।";
+}
+
+function dealerSubmit(){
+ const name=document.getElementById("dealerName").value.trim();
+ const mobile=document.getElementById("dealerMobile").value.trim();
+ const items=document.getElementById("dealerItems").value.trim();
+ if(!name||!mobile||!items){alert("সব তথ্য দিন");return;}
+ document.getElementById("dealerMessage").textContent=
+ "Dealer Order ডেমোতে জমা হয়েছে।";
+}
+
+function renderPoints(){
+ document.getElementById("myPoint").textContent=0;
+}
+
+function savePointRate(){
+ if(currentUser?.role!=="admin")return;
+ pointRate=Number(document.getElementById("pointRate").value)||0;
+ saveData();alert("Demo points setting saved");
+}
+
+function addBanner(){
+ if(currentUser?.role!=="admin")return;
+ const file=document.getElementById("bannerFile").files[0];
+ if(!file)return alert("ছবি নির্বাচন করুন");
+
+ const reader=new FileReader();
+ reader.onload=()=>{
+  banners.push(reader.result);
+  saveData();renderBanners();
+ };
+ reader.readAsDataURL(file);
+}
+
+function renderBanners(){
+ document.getElementById("bannerList").innerHTML=
+ banners.map((b,i)=>`
+  <div class="product">
+   <img src="${b}" style="width:100%;max-height:180px;object-fit:contain">
+   <button class="red" onclick="deleteBanner(${i})">Delete</button>
+  </div>`).join("");
+
+ document.getElementById("bannerDisplay").innerHTML=
+ banners.map(b=>`<img src="${b}" style="width:100%;max-height:220px;object-fit:contain">`).join("");
+}
+
+function deleteBanner(i){
+ if(currentUser?.role!=="admin")return;
+ banners.splice(i,1);saveData();renderBanners();
+}
+
+function addWinner(){
+ if(currentUser?.role!=="admin")return;
+ const name=document.getElementById("winnerName").value.trim();
+ const file=document.getElementById("winnerPhoto").files[0];
+ if(!name||!file)return alert("নাম ও ছবি দিন");
+
+ const reader=new FileReader();
+ reader.onload=()=>{
+  winners.push({name,photo:reader.result});
+  saveData();renderWinners();
+ };
+ reader.readAsDataURL(file);
+}
+
+function renderWinners(){
+ document.getElementById("winnerList").innerHTML=
+ winners.map((w,i)=>`
+  <div class="product">
+   <img src="${w.photo}" style="width:90px;height:90px;object-fit:cover">
+   <p>${escapeHTML(w.name)}</p>
+   <button class="red" onclick="deleteWinner(${i})">Delete</button>
+  </div>`).join("");
+}
+
+function deleteWinner(i){
+ if(currentUser?.role!=="admin")return;
+ winners.splice(i,1);saveData();renderWinners();
+}
+
+function downloadBackup(){
+ if(currentUser?.role!=="admin")return;
+ const data={products,orders,banners,winners,pointRate};
+ const blob=new Blob([JSON.stringify(data)],{type:"application/json"});
+ const a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);
+ a.download="SUN-Backup.json";a.click();
+ URL.revokeObjectURL(a.href);
+}
+
+function restoreBackup(){
+ if(currentUser?.role!=="admin")return;
+ const file=document.getElementById("restoreFile").files[0];
+ if(!file)return alert("Backup file নির্বাচন করুন");
+
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const d=JSON.parse(reader.result);
+   products=d.products||[];
+   orders=d.orders||[];
+   banners=d.banners||[];
+   winners=d.winners||[];
+   pointRate=d.pointRate||1;
+   saveData();loadData();
+   alert("Backup Restore হয়েছে");
+  }catch(e){alert("ভুল Backup File");}
+ };
+ reader.readAsText(file);
+}
+
+function getTheme(){
+ return {
+  blue:document.getElementById("sunBlue").value,
+  gold:document.getElementById("sunGold").value,
+  red:document.getElementById("sunRed").value,
+  white:document.getElementById("sunWhite").value,
+  mode:document.getElementById("sunMode").value
+ };
+}
+
+function applyTheme(t){
+ document.documentElement.style.setProperty("--blue",t.blue);
+ document.documentElement.style.setProperty("--gold",t.gold);
+ document.documentElement.style.setProperty("--red",t.red);
+ document.documentElement.style.setProperty("--white",t.white);
+
+ const dark=t.mode==="dark";
+ document.documentElement.style.setProperty("--bg",dark?"#151B29":"#F2F5FC");
+ document.documentElement.style.setProperty("--text",dark?"#FFFFFF":"#17233D");
+ document.documentElement.style.setProperty("--card",dark?"#222B3D":"#FFFFFF");
+
+ document.getElementById("sunPreview").style.background=t.blue;
+ document.getElementById("previewLogo").style.color=t.gold;
+ document.getElementById("previewButton").style.background=t.red;
+ document.getElementById("previewButton").style.color=t.white;
+}
+
+function saveSUNTheme(){
+ if(currentUser?.role!=="admin")return;
+ try{
+  localStorage.setItem("SUN_THEME",JSON.stringify(getTheme()));
+  applyTheme(getTheme());
+  alert("Theme Saved");
+ }catch(e){alert("Theme Save করা যায়নি");}
+}
+
+function resetSUNTheme(){
+ if(currentUser?.role!=="admin")return;
+ localStorage.removeItem("SUN_THEME");
+ setTheme({
+  blue:"#1746A2",gold:"#F5BD35",
+  red:"#D92735",white:"#FFFFFF",mode:"light"
+ });
+}
+
+function setTheme(t){
+ document.getElementById("sunBlue").value=t.blue;
+ document.getElementById("sunGold").value=t.gold;
+ document.getElementById("sunRed").value=t.red;
+ document.getElementById("sunWhite").value=t.white;
+ document.getElementById("sunMode").value=t.mode;
+ applyTheme(t);
+}
+
+["sunBlue","sunGold","sunRed","sunWhite","sunMode"].forEach(id=>{
+ document.getElementById(id).addEventListener("input",()=>{
+  applyTheme(getTheme());
+ });
+});
+
+function escapeHTML(v){
+ return String(v).replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",
+  '"':"&quot;","'":"&#39;"
+ })[c]);
+}
+
+loadData();
+
+try{
+ const saved=JSON.parse(localStorage.getItem("SUN_THEME"));
+ if(saved)setTheme(saved);
+}catch(e){}
 </script>
 </body>
 </html>
