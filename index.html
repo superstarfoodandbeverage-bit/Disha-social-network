@@ -22,7 +22,7 @@ body{
 }
 header{
  background:linear-gradient(120deg,var(--blue),#3976D5);
- color:white;text-align:center;padding:20px 10px;
+ color:white;text-align:center;padding:15px 10px;
  display: flex;
  flex-direction: column;
  align-items: center;
@@ -35,10 +35,10 @@ header{
  margin-bottom: 5px;
 }
 .logo{
- font-size:40px;font-weight:900;color:var(--gold);
+ font-size:35px;font-weight:900;color:var(--gold);
  text-shadow:2px 2px var(--red);
 }
-header h2{color:white;margin:5px}
+header h2{color:white;margin:5px;font-size:18px;}
 nav{
  display:grid;grid-template-columns:repeat(2,1fr);
  gap:8px;padding:12px;
@@ -69,94 +69,119 @@ label{font-weight:bold}
 }
 .hidden{display:none!important}
 footer{text-align:center;padding:20px}
-.preview{
- padding:20px;border-radius:12px;text-align:center;
- margin:12px 0;
-}
 
-/* --- সুন স্টাইল (Sun Home & Card CSS) --- */
+/* --- কাস্টমার প্রোফাইল কার্ড (ছবি অনুযায়ী) --- */
+.sun-user-profile {
+  background: linear-gradient(135deg, #1746A2, #295ac7);
+  color: white;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.sun-user-info h3 { margin: 0 0 5px 0; font-size: 18px; color: #fff; }
+.sun-user-info p { margin: 0; font-size: 14px; color: #F5BD35; }
+.sun-points-box {
+  background: rgba(255,255,255,0.15);
+  padding: 8px 15px;
+  border-radius: 8px;
+  text-align: center;
+}
+.sun-points-box span { font-size: 18px; font-weight: bold; color: #F5BD35; display: block; }
+
+/* --- হোম পেজ গ্রিড ও প্রোডাক্ট কার্ড --- */
 .sun-home-header {
   text-align: center;
-  padding: 20px 10px;
+  padding: 10px;
 }
 .sun-home-header img {
-  width: 125px;
-  height: 125px;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
-}
-.sun-home-header h2 {
-  color: #17468b;
-}
-.sun-customer-profile {
-  background: #eaf3ff;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  border-left: 5px solid var(--blue);
 }
 .sun-home-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
-  padding: 12px;
+  margin-top: 15px;
 }
 .sun-home-option {
-  min-height: 105px;
+  min-height: 90px;
   background: white;
   color: #173b75;
   border: 1px solid #e1e7f0;
-  border-radius: 15px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 9px;
+  gap: 6px;
   font-weight: 600;
-  padding: 10px 5px;
+  padding: 10px;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  transition: 0.2s;
 }
-.sun-home-option:active {
-  transform: scale(0.97);
-}
-.sun-home-icon {
-  font-size: 30px;
+.sun-home-option span { font-size: 24px; }
+
+/* প্রোডাক্ট গ্রিড কার্ড (ছবির স্টাইল অনুযায়ী) */
+.sun-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  margin-top: 15px;
 }
 .sun-product-card {
-  display: inline-flex;
-  flex-direction: column;
-  vertical-align: top;
-  width: 155px;
-  margin: 7px;
-  padding: 10px;
-  border-radius: 12px;
   background: white;
   border: 1px solid #e4e4e4;
+  border-radius: 12px;
+  padding: 10px;
   text-align: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .sun-product-card img {
   width: 100%;
-  height: 115px;
+  height: 120px;
   object-fit: contain;
   margin-bottom: 8px;
 }
-.sun-upload-card,
-.sun-order-card {
+.sun-product-card h4 { margin: 5px 0; font-size: 15px; color: var(--text); }
+.sun-product-card p { margin: 5px 0; color: #D92735; font-weight: bold; font-size: 16px; }
+
+.qty-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+.qty-control button {
+  padding: 4px 10px;
+  margin: 0;
+  background: #eee;
+  color: #222;
+  font-weight: bold;
+}
+.qty-control input {
+  width: 40px;
+  text-align: center;
+  margin: 0;
+  padding: 4px;
+}
+
+.sun-upload-card, .sun-order-card {
   padding: 15px;
   margin: 12px 0;
   background: white;
   border-radius: 12px;
   border: 1px solid #e5e5e5;
 }
-@media (max-width: 360px) {
-  .sun-home-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
 
-/* --- মেমো ও ওয়াটারমার্ক CSS --- */
+/* মেমো ও ওয়াটারমার্ক CSS */
 .sun-memo {
   position: relative;
   overflow: hidden;
@@ -190,6 +215,7 @@ footer{text-align:center;padding:20px}
   z-index: 1;
   pointer-events: none;
 }
+
 @media print {
   body * { visibility: hidden; }
   #sunMemo, #sunMemo * { visibility: visible; }
@@ -209,8 +235,8 @@ footer{text-align:center;padding:20px}
  <p>এক সাথে এগিয়ে চলি সফলতার পথে</p>
 </header>
 
-<!-- LOGIN -->
 <main>
+<!-- LOGIN SECTION -->
 <section id="login" class="panel">
  <h2>Welcome to SUN</h2>
  <h3>Login</h3>
@@ -220,9 +246,6 @@ footer{text-align:center;padding:20px}
 
  <label>মোবাইল নম্বর</label>
  <input id="loginMobile" placeholder="মোবাইল নম্বর">
-
- <label>পাসওয়ার্ড</label>
- <input id="loginPassword" type="password" placeholder="পাসওয়ার্ড দিন">
 
  <label>Role নির্বাচন করুন</label>
  <select id="loginRole">
@@ -238,35 +261,45 @@ footer{text-align:center;padding:20px}
 
 <nav id="mainNav" class="hidden"></nav>
 
-<!-- HOME -->
+<!-- HOME SECTION -->
 <section id="home" class="panel hidden">
+  <div class="sun-user-profile">
+    <div class="sun-user-info">
+      <h3 id="welcomeUserName">Hello, User</h3>
+      <p>Mobile: <span id="welcomeUserMobile">01XXXXXXXXX</span></p>
+    </div>
+    <div class="sun-points-box">
+      <small>Your Points</small>
+      <span id="welcomeUserPoints">0</span>
+    </div>
+  </div>
+
   <div class="sun-home-header">
     <img id="homeSUNLogo" alt="SUN Logo">
     <h2>SUN-My Business</h2>
-    <p>এক সাথে এগিয়ে চলি সফলতার পথে</p>
-  </div>
-
-  <div id="customerProfileBox" class="sun-customer-profile hidden">
-    <h3>👤 কাস্টমার প্রোফাইল</h3>
-    <p><b>নাম:</b> <span id="profileName"></span></p>
-    <p><b>কাস্টমার আইডি:</b> <span id="profileId"></span></p>
-    <p><b>মোবাইল:</b> <span id="profileMobile"></span></p>
-    <p><b>পয়েন্ট:</b> <span id="profilePoints">0</span></p>
   </div>
 
   <div class="sun-home-grid" id="sunHomeGrid"></div>
+
+  <!-- হোম পেজেই সরাসরি প্রোডাক্ট ও অর্ডার করার সেকশন -->
+  <h3 style="margin-top:20px; color:var(--blue);">🛍️ Our Products & Order</h3>
+  <div id="homeProductList" class="sun-product-grid"></div>
 </section>
 
-<!-- PRODUCTS -->
+<!-- PRODUCTS SECTION (Admin Upload & View) -->
 <section id="products" class="panel hidden">
- <h2>SUN Products</h2>
+ <h2>SUN Products Management</h2>
  <div id="productAdmin" class="hidden">
   <div class="sun-upload-card">
     <h3>🛍️ SUN Product Upload</h3>
+    <label>Product Name</label>
     <input id="productName" type="text" placeholder="পণ্যের নাম লিখুন">
-    <input id="productPrice" type="number" min="0" placeholder="পণ্যের দাম (৳)">
+    <label>Product Price (৳)</label>
+    <input id="productPrice" type="number" min="0" placeholder="পণ্যের দাম">
+    <label>Product Image</label>
     <input id="productImage" type="file" accept="image/*" onchange="previewProductImage(event)">
-    <img id="productPreview" style="display:none;width:130px;height:130px;object-fit:contain;margin-bottom:10px;">
+    <img id="productPreview" style="display:none;width:100px;height:100px;object-fit:contain;margin-bottom:10px;">
+    <label>Availability</label>
     <select id="productStock">
       <option value="on">Available</option>
       <option value="off">Out of Stock</option>
@@ -274,39 +307,33 @@ footer{text-align:center;padding:20px}
     <button type="button" onclick="saveSUNProduct()">➕ Upload Product</button>
   </div>
  </div>
-
- <h3>পছন্দের পণ্য থেকে অর্ডার করুন</h3>
- <div id="productList"></div>
+ <div id="productList" class="sun-product-grid"></div>
 </section>
 
 <!-- ORDERS -->
 <section id="orders" class="panel hidden">
- <div class="sun-order-card">
-   <h2>Customer Order Cart</h2>
-   <input id="cname" placeholder="আপনার নাম">
-   <input id="mobile" placeholder="মোবাইল নম্বর">
-   <textarea id="address" placeholder="সম্পূর্ণ ঠিকানা"></textarea>
-   <select id="orderProduct" onchange="updateSelectedProductPrice()"></select>
-   <p><b>দাম: ৳<span id="orderProductPrice">0</span></b></p>
-   <input id="qty" type="number" min="1" value="1" oninput="calculateTotal()">
-   <p><b>মোট দাম: ৳<span id="orderTotalPrice">0</span></b></p>
-   <button onclick="placeOrder()">অর্ডার জমা দিন</button>
-   <p id="orderMessage"></p>
- </div>
+ <h2>My Orders</h2>
  <div id="myOrders"></div>
-</section>
-
-<!-- APPROVALS -->
-<section id="approvals" class="panel hidden">
-  <h2>✅ Order Approval</h2>
-  <div id="pendingOrderList"></div>
 </section>
 
 <!-- MANAGER PANEL -->
 <section id="manager" class="panel hidden">
  <h2>Manager Panel</h2>
- <p>শুধু Admin অনুমোদিত অর্ডার দেখা যাবে।</p>
+ <p>শুধু Admin অনুমোদিত অর্ডারসমূহ:</p>
  <div id="managerOrders"></div>
+</section>
+
+<!-- APPROVALS -->
+<section id="approvals" class="panel hidden">
+  <h2>✅ Order Approvals (Admin Only)</h2>
+  <div id="pendingOrderList"></div>
+</section>
+
+<!-- CUSTOMER MANAGEMENT (Admin Only) -->
+<section id="users" class="panel hidden">
+  <h2>👥 Customer Management</h2>
+  <p>রেজিস্টার্ড কাস্টমারদের তালিকা ও পয়েন্ট রিসেট করার প্যানেল:</p>
+  <div id="customerManagementList"></div>
 </section>
 
 <!-- THEME SETTINGS -->
@@ -321,35 +348,16 @@ footer{text-align:center;padding:20px}
 <section id="logo" class="panel hidden">
   <h2>🌞 SUN Logo Settings</h2>
   <input type="file" id="sunLogoFile" accept="image/*" onchange="uploadSUNLogo(event)">
-  <img id="sunLogoPreview" style="width:150px;height:150px;object-fit:contain;display:block;margin-bottom:10px;">
+  <img id="sunLogoPreview" style="width:120px;height:120px;object-fit:contain;display:block;margin-bottom:10px;">
   <button onclick="saveSUNLogo()">Save SUN Logo</button>
 </section>
 
-<!-- CUSTOMER MANAGEMENT (ADMIN) -->
-<section id="users" class="panel hidden">
-  <h2>👥 Customer Management</h2>
-  <div id="customerManagementList"></div>
-</section>
-
-<!-- ADMIN -->
+<!-- ADMIN DASHBOARD -->
 <section id="admin" class="panel hidden">
- <h2>Admin Control Panel</h2>
- <h3>Dashboard</h3>
- <p>মোট পণ্য: <b id="adminProductCount">0</b></p>
- <p>মোট অর্ডার: <b id="adminOrderCount">0</b></p>
-
- <h3>Order Management & Product Edit/Delete</h3>
+ <h2>⚙️ Admin Control Panel</h2>
+ <p>মোট পণ্য: <b id="adminProductCount">0</b> | মোট অর্ডার: <b id="adminOrderCount">0</b></p>
+ <h3>All Orders & Management</h3>
  <div id="adminOrders"></div>
-
- <hr>
- <h3>পণ্য তালিকা ও সংশোধন/মুছে ফেলা</h3>
- <div id="adminProductList"></div>
-
- <hr>
- <h3>Backup & Restore</h3>
- <button onclick="downloadBackup()">Backup Download</button>
- <input type="file" id="restoreFile" accept=".json">
- <button onclick="restoreBackup()">Restore</button>
 </section>
 
 </main>
@@ -365,16 +373,15 @@ let currentUser = null;
 let selectedProductImage = "";
 let selectedSUNLogo = "";
 
+// মেনু কনফিগারেশন (চাহিদা অনুযায়ী আলাদা করা হয়েছে)
 const menus = {
   customer: [
     ["home", "Home", "🏠"],
-    ["products", "SUN Products", "🛍️"],
-    ["orders", "Order Cart", "🛒"],
-    ["media", "Media & Live", "🎬"]
+    ["orders", "My Orders", "📦"]
   ],
   dealer: [
     ["home", "Home", "🏠"],
-    ["products", "SUN Products", "🛍️"]
+    ["orders", "My Orders", "📦"]
   ],
   manager: [
     ["home", "Home", "🏠"],
@@ -384,9 +391,9 @@ const menus = {
     ["home", "Home", "🏠"],
     ["products", "Products & Upload", "🛍️"],
     ["approvals", "Order Approval", "✅"],
-    ["orders", "All Orders", "📦"],
     ["users", "Customer Management", "👥"],
     ["logo", "Logo Settings", "🌞"],
+    ["theme", "Theme Settings", "🎨"],
     ["admin", "Admin Dashboard", "⚙️"]
   ]
 };
@@ -404,38 +411,32 @@ function uploadSUNLogo(event) {
 }
 
 function saveSUNLogo() {
-  if (currentSUNRole !== "admin") return alert("শুধুমাত্র এডমিন লোগো পরিবর্তন করতে পারবেন।");
-  if (!selectedSUNLogo) return alert("প্রথমে Logo নির্বাচন করুন");
+  if (currentSUNRole !== "admin") return alert("শুধু অ্যাডমিন লোগো পরিবর্তন করতে পারবেন!");
+  if (!selectedSUNLogo) return alert("প্রথমে লোগো নির্বাচন করুন");
+  
   localStorage.setItem("SUN_LOGO", selectedSUNLogo);
   applySUNLogo();
-  alert("SUN Logo সংরক্ষণ হয়েছে");
+  alert("SUN Logo সফলভাবে সংরক্ষণ ও আপডেট হয়েছে!");
 }
 
 function applySUNLogo() {
   const logo = localStorage.getItem("SUN_LOGO");
   if (!logo) return;
+
   const preview = document.getElementById("sunLogoPreview");
   if (preview) preview.src = logo;
-  const homeLogos = document.querySelectorAll("#homeSUNLogo");
-  homeLogos.forEach(img => img.src = logo);
+
+  document.querySelectorAll("#homeSUNLogo").forEach(img => {
+    img.src = logo;
+  });
+
   const memoLogo = document.getElementById("memoLogo");
   if (memoLogo) memoLogo.src = logo;
 }
 
 function renderSUNHome() {
   const grid = document.getElementById("sunHomeGrid");
-  const profileBox = document.getElementById("customerProfileBox");
   if (!grid || !currentSUNRole || !menus[currentSUNRole]) return;
-
-  if (currentSUNRole === "customer" && currentUser) {
-    profileBox.classList.remove("hidden");
-    document.getElementById("profileName").textContent = currentUser.name;
-    document.getElementById("profileId").textContent = currentUser.id;
-    document.getElementById("profileMobile").textContent = currentUser.mobile;
-    document.getElementById("profilePoints").textContent = currentUser.points || 0;
-  } else {
-    profileBox.classList.add("hidden");
-  }
 
   const items = menus[currentSUNRole].filter(item => item[0] !== "home");
   grid.innerHTML = items.map(item => `
@@ -444,142 +445,157 @@ function renderSUNHome() {
       <span>${item[1]}</span>
     </button>
   `).join("");
+
+  // হোম পেজে ইউজার ইনফো ও প্রোডাক্ট দেখান
+  if (currentUser) {
+    document.getElementById("welcomeUserName").textContent = currentUser.name;
+    document.getElementById("welcomeUserMobile").textContent = currentUser.mobile;
+    document.getElementById("welcomeUserPoints").textContent = currentUser.points || 0;
+  }
+
+  renderHomeProducts();
   applySUNLogo();
+}
+
+function renderHomeProducts() {
+  const container = document.getElementById("homeProductList");
+  if (!container) return;
+
+  const available = products.filter(p => p.stock === "on");
+  if (available.length === 0) {
+    container.innerHTML = "<p>বর্তমানে কোনো পণ্য উপলব্ধ নেই।</p>";
+    return;
+  }
+
+  container.innerHTML = available.map((p, index) => `
+    <div class="sun-product-card">
+      <img src="${p.image}" alt="">
+      <h4>${escapeSUNText(p.name)}</h4>
+      <p>৳${p.price}</p>
+      <div class="qty-control">
+        <button onclick="changeQty(${index}, -1)">-</button>
+        <input type="text" id="qty_${index}" value="1" readonly>
+        <button onclick="changeQty(${index}, 1)">+</button>
+      </div>
+      <button class="gold" onclick="orderDirectProduct('${escapeSUNText(p.name)}', ${p.price}, ${index})">🛒 Order Now</button>
+    </div>
+  `).join("");
+}
+
+function changeQty(index, val) {
+  const input = document.getElementById(`qty_${index}`);
+  let current = parseInt(input.value) + val;
+  if (current < 1) current = 1;
+  input.value = current;
+}
+
+function orderDirectProduct(productName, price, index) {
+  if (!currentUser) return alert("দয়া করে আগে লগইন করুন।");
+  const qty = parseInt(document.getElementById(`qty_${index}`).value) || 1;
+  
+  const newOrder = {
+    id: "SUN-" + Date.now(),
+    name: currentUser.name,
+    mobile: currentUser.mobile,
+    address: "হোম পেজ অর্ডার",
+    product: productName,
+    qty: qty,
+    price: price,
+    total: price * qty,
+    status: "Pending",
+    date: new Date().toLocaleString("bn-BD")
+  };
+
+  orders.push(newOrder);
+  localStorage.setItem("SUN_ORDERS", JSON.stringify(orders));
+
+  // পয়েন্ট যোগ করা (প্রতি অর্דר ১০ পয়েন্ট)
+  currentUser.points = (currentUser.points || 0) + (10 * qty);
+  updateCustomerPointsInStorage(currentUser.mobile, currentUser.points);
+
+  alert("অর্ডার সফলভাবে জমা হয়েছে! অ্যাডমিন অনুমোদনের অপেক্ষায় আছে।");
+  renderSUNHome();
+  renderMyOrders();
+}
+
+function updateCustomerPointsInStorage(mobile, points) {
+  let custs = JSON.parse(localStorage.getItem("SUN_CUSTOMERS") || "[]");
+  let found = custs.find(c => c.mobile === mobile);
+  if (found) {
+    found.points = points;
+  } else {
+    custs.push({ name: currentUser.name, mobile: mobile, points: points });
+  }
+  localStorage.setItem("SUN_CUSTOMERS", JSON.stringify(custs));
 }
 
 function renderSUNMenu() {
   const nav = document.getElementById("mainNav");
   if (!nav || !currentUser || !menus[currentUser.role]) return;
+  
   nav.innerHTML = menus[currentUser.role].map(item =>
     `<button onclick="show('${item[0]}')">${item[2]} ${item[1]}</button>`
   ).join("");
   nav.innerHTML += `<button class="red" onclick="logoutSUN()">🚪 Logout</button>`;
 }
 
-function setSUNBackground(mode) {
-  if (currentSUNRole !== "admin") return alert("শুধুমাত্র এডমিন ব্যাকগ্রাউন্ড থিম পরিবর্তন করতে পারবেন।");
-  const themes = {
-    white: { background: "#ffffff", color: "#222222" },
-    lightblue: { background: "#eaf3ff", color: "#173b75" },
-    dark: { background: "#172033", color: "#ffffff" }
-  };
-  const theme = themes[mode];
-  if (!theme) return;
-  document.body.style.backgroundColor = theme.background;
-  document.body.style.color = theme.color;
-  localStorage.setItem("SUN_THEME", mode);
-  alert("থিম সফলভাবে পরিবর্তন ও সংরক্ষিত হয়েছে!");
+function loginSUN(){
+ const name = document.getElementById("loginName").value.trim();
+ const mobile = document.getElementById("loginMobile").value.trim();
+ const role = document.getElementById("loginRole").value;
+
+ if(!name || !mobile){
+  alert("নাম ও মোবাইল নম্বর দিন");
+  return;
+ }
+
+ // কাস্টমার ডাটা চেক বা রেজিস্টার্ড করা
+ let custs = JSON.parse(localStorage.getItem("SUN_CUSTOMERS") || "[]");
+ let existing = custs.find(c => c.mobile === mobile);
+ let points = existing ? (existing.points || 0) : 0;
+
+ if (!existing) {
+   custs.push({ name, mobile, points });
+   localStorage.setItem("SUN_CUSTOMERS", JSON.stringify(custs));
+ }
+
+ currentUser = { name, mobile, role, points };
+ currentSUNRole = role;
+
+ document.getElementById("login").classList.add("hidden");
+ document.getElementById("mainNav").classList.remove("hidden");
+
+ const prodAdmin = document.getElementById("productAdmin");
+ if(prodAdmin) prodAdmin.classList.toggle("hidden", role !== "admin");
+
+ renderSUNMenu();
+ loadSUNTheme();
+ applySUNLogo();
+ show("home");
 }
 
-function loadSUNTheme() {
-  const mode = localStorage.getItem("SUN_THEME") || "white";
-  const theme = {
-    white: ["#ffffff", "#222222"],
-    lightblue: ["#eaf3ff", "#173b75"],
-    dark: ["#172033", "#ffffff"]
-  }[mode];
-  if (!theme) return;
-  document.body.style.backgroundColor = theme[0];
-  document.body.style.color = theme[1];
+function show(id){
+ if(!currentUser) return;
+ document.querySelectorAll("main section").forEach(s => s.classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden");
+
+ if (id === "home") renderSUNHome();
+ if (id === "theme") loadSUNTheme();
+ if (id === "logo") applySUNLogo();
+ if (id === "products") { if (typeof renderProducts === "function") renderProducts(); }
+ if (id === "admin") renderAdmin();
+ if (id === "manager") renderOrders();
+ if (id === "orders") renderMyOrders();
+ if (id === "approvals") renderOrderApprovals();
+ if (id === "users") renderCustomerManagement();
 }
 
-function saveData() {
-  localStorage.setItem("SUN_PRODUCTS", JSON.stringify(products));
-  localStorage.setItem("SUN_ORDERS", JSON.stringify(orders));
-  localStorage.setItem("SUN_CUSTOMERS", JSON.stringify(customers));
-}
-
-function loadData() {
-  try {
-    products = JSON.parse(localStorage.getItem("SUN_PRODUCTS") || "[]");
-    orders = JSON.parse(localStorage.getItem("SUN_ORDERS") || "[]");
-    customers = JSON.parse(localStorage.getItem("SUN_CUSTOMERS") || "[]");
-  } catch(e) {}
-  if (typeof renderProducts === "function") renderProducts();
-  if (typeof renderOrders === "function") renderOrders();
-  loadSUNTheme();
-  applySUNLogo();
-}
-
-function loginSUN() {
-  const name = document.getElementById("loginName").value.trim();
-  const mobile = document.getElementById("loginMobile").value.trim();
-  const password = document.getElementById("loginPassword").value.trim();
-  const role = document.getElementById("loginRole").value;
-
-  if (!name || !mobile || !password) {
-    alert("নাম, মোবাইল নম্বর এবং পাসওয়ার্ড দিন");
-    return;
-  }
-
-  if (role === "customer") {
-    let existing = customers.find(c => c.mobile === mobile);
-    if (existing) {
-      if (existing.password && existing.password !== password) {
-        alert("ভুল পাসওয়ার্ড! সঠিক পাসওয়ার্ড দিন।");
-        return;
-      }
-      currentUser = existing;
-    } else {
-      currentUser = {
-        id: "CUST-" + Math.floor(1000 + Math.random() * 9000),
-        name,
-        mobile,
-        password,
-        points: 0
-      };
-      customers.push(currentUser);
-      saveData();
-    }
-  } else {
-    currentUser = { id: "ADM-1", name, mobile, role };
-  }
-
-  currentSUNRole = role;
-  document.getElementById("login").classList.add("hidden");
-  document.getElementById("mainNav").classList.remove("hidden");
-
-  const prodAdmin = document.getElementById("productAdmin");
-  if(prodAdmin) prodAdmin.classList.toggle("hidden", role !== "admin");
-
-  renderSUNMenu();
-  loadSUNTheme();
-  applySUNLogo();
-  show("home");
-}
-
-function show(id) {
-  if (!currentUser) return;
-  const allowed = menus[currentUser.role].some(x => x[0] === id);
-  if (!allowed) {
-    alert("আপনার এই প্যানেলে প্রবেশাধিকার নেই");
-    return;
-  }
-
-  document.querySelectorAll("main section").forEach(s => s.classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
-
-  if (id === "home") renderSUNHome();
-  if (id === "admin") renderAdmin();
-  if (id === "manager") { if (typeof renderOrders === "function") renderOrders(); }
-  if (id === "orders") {
-    if(currentUser.role === "customer") {
-      document.getElementById("cname").value = currentUser.name;
-      document.getElementById("mobile").value = currentUser.mobile;
-    }
-    renderMyOrders();
-  }
-  if (id === "products") { if (typeof renderProducts === "function") renderProducts(); }
-  if (id === "approvals") renderOrderApprovals();
-  if (id === "users") renderCustomerManagement();
-}
-
-function logoutSUN() {
-  currentUser = null;
-  currentSUNRole = null;
-  document.getElementById("mainNav").classList.add("hidden");
-  document.querySelectorAll("main section").forEach(s => s.classList.add("hidden"));
-  document.getElementById("login").classList.remove("hidden");
+function logoutSUN(){
+ currentUser = null;
+ currentSUNRole = null;
+ document.getElementById("mainNav").classList.add("hidden");
+ document.querySelectorAll("main section").forEach(s => s.classList.add("hidden"));
+ document.getElementById("login").classList.remove("hidden");
 }
 
 function previewProductImage(event) {
@@ -598,79 +614,178 @@ function previewProductImage(event) {
 }
 
 function saveSUNProduct() {
-  if (currentSUNRole !== "admin") return alert("শুধুমাত্র এডমিন পণ্য আপলোড করতে পারবেন।");
+  if (currentSUNRole !== "admin") return alert("শুধুমাত্র অ্যাডমিন পণ্য আপলোড করতে পারবেন!");
   const name = document.getElementById("productName").value.trim();
   const price = Number(document.getElementById("productPrice").value);
   const stock = document.getElementById("productStock").value;
 
   if (!name || !Number.isFinite(price) || price <= 0 || !selectedProductImage) {
-    alert("পণ্যের নাম, সঠিক দাম ও ছবি দিন");
+    alert("পণ্যের সঠিক নাম, দাম ও ছবি দিন");
     return;
   }
 
-  products.push({
-    id: Date.now(),
-    name,
-    price,
-    image: selectedProductImage,
-    stock,
-    createdAt: new Date().toISOString()
-  });
+  products.push({ id: Date.now(), name, price, image: selectedProductImage, stock });
+  localStorage.setItem("SUN_PRODUCTS", JSON.stringify(products));
 
-  saveData();
   document.getElementById("productName").value = "";
   document.getElementById("productPrice").value = "";
   document.getElementById("productImage").value = "";
-  const preview = document.getElementById("productPreview");
-  if(preview) preview.style.display = "none";
+  document.getElementById("productPreview").style.display = "none";
   selectedProductImage = "";
 
-  if (typeof renderProducts === "function") renderProducts();
-  alert("পণ্য সফলভাবে যোগ হয়েছে");
+  alert("পণ্য সফলভাবে আপলোড হয়েছে!");
+  renderProducts();
 }
 
 function renderProducts() {
   const list = document.getElementById("productList");
   if (!list) return;
-
-  list.innerHTML = products.map(p => `
+  list.innerHTML = products.map((p, index) => `
     <div class="sun-product-card">
       <img src="${p.image}" alt="">
       <h4>${escapeSUNText(p.name)}</h4>
-      <p><b>৳${p.price}</b></p>
+      <p>৳${p.price}</p>
       <p>${p.stock === "on" ? "Available" : "Out of Stock"}</p>
-      ${p.stock === "on" ? `<button onclick="quickOrder('${escapeSUNText(p.name)}')">অর্ডার করুন</button>` : ""}
+      ${currentSUNRole === 'admin' ? `<button class="red" onclick="deleteProduct(${index})">Delete</button>` : ''}
     </div>
   `).join("");
+}
 
-  const orderProd = document.getElementById("orderProduct");
-  if(orderProd) {
-    orderProd.innerHTML = '<option value="">পণ্য নির্বাচন করুন</option>' +
-      products.filter(p => p.stock === "on").map(p =>
-        `<option value="${escapeSUNText(p.name)}" data-price="${p.price}">${escapeSUNText(p.name)} - ৳${p.price}</option>`
-      ).join("");
+function deleteProduct(index) {
+  if (currentSUNRole !== "admin") return alert("অনুমতি নেই!");
+  products.splice(index, 1);
+  localStorage.setItem("SUN_PRODUCTS", JSON.stringify(products));
+  renderProducts();
+}
+
+function renderOrders(){
+  const adminOrders = document.getElementById("adminOrders");
+  const managerOrders = document.getElementById("managerOrders");
+  
+  const html = orders.map((o, i) => `
+    <div class="product">
+     <b>${escapeSUNText(o.id)}</b> — গ্রাহক: ${escapeSUNText(o.name)} (${escapeSUNText(o.mobile)})
+     <p>পণ্য: ${escapeSUNText(o.product)} × ${o.qty} | মোট: ৳${o.total} | স্ট্যাটাস: ${o.status}</p>
+     ${currentSUNRole === 'admin' ? `<button class="red" onclick="deleteOrder(${i})">ডিলিট/সংশোধন</button>` : ''}
+    </div>
+  `).join("") || "<p>কোনো অর্ডার নেই।</p>";
+
+  if(adminOrders) adminOrders.innerHTML = html;
+  if(managerOrders) {
+    managerOrders.innerHTML = orders.filter(o => o.status === "Approved").map(o => `
+      <div class="product">${escapeSUNText(o.id)} — ${escapeSUNText(o.name)} (${escapeSUNText(o.product)})</div>
+    `).join("") || "<p>কোনো অনুমোদিত অর্ডার নেই।</p>";
   }
 }
 
-function quickOrder(productName) {
-  show("orders");
-  const select = document.getElementById("orderProduct");
-  select.value = productName;
-  updateSelectedProductPrice();
+function deleteOrder(i) {
+  if (currentSUNRole !== "admin") return alert("শুধুমাত্র অ্যাডমিন অর্ডার সংশোধন বা ডিলিট করতে পারবেন!");
+  if (confirm("আপনি কি এই অর্ডারটি ডিলিট করতে চান?")) {
+    orders.splice(i, 1);
+    localStorage.setItem("SUN_ORDERS", JSON.stringify(orders));
+    renderOrders();
+    renderOrderApprovals();
+  }
 }
 
-function updateSelectedProductPrice() {
-  const select = document.getElementById("orderProduct");
-  const selectedOption = select.options[select.selectedIndex];
-  const price = selectedOption ? Number(selectedOption.getAttribute("data-price") || 0) : 0;
-  document.getElementById("orderProductPrice").textContent = price;
-  calculateTotal();
+function renderOrderApprovals(){
+ const pendingOrderList = document.getElementById("pendingOrderList");
+ if(pendingOrderList) {
+  pendingOrderList.innerHTML = orders.filter(o => o.status === "Pending").map((o, i) => {
+   let realIndex = orders.indexOf(o);
+   return `
+   <div class="product">
+    <b>${escapeSUNText(o.id)}</b>
+    <p>গ্রাহক: ${escapeSUNText(o.name)} (${escapeSUNText(o.mobile)})</p>
+    <p>পণ্য: ${escapeSUNText(o.product)} × ${o.qty} | মোট: ৳${o.total}</p>
+    <button onclick="approveOrder(${realIndex})">Approve</button>
+    <button class="red" onclick="deleteOrder(${realIndex})">Reject/Delete</button>
+   </div>
+  `;
+  }).join("") || "<p>কোনো পেন্ডিং অর্ডার নেই।</p>";
+ }
 }
 
-function calculateTotal() {
-  const price = Number(document.getElementById("orderProductPrice").textContent) || 0;
-  const qty = Number(document.getElementById("qty").value) || 1;
-  document.getElementById("orderTotalPrice").textContent = price * qty;
+function approveOrder(i){
+ if(currentSUNRole !== "admin") return alert("অনুমতি নেই!");
+ orders[i].status = "Approved";
+ localStorage.setItem("SUN_ORDERS", JSON.stringify(orders));
+ renderOrders();
+ renderOrderApprovals();
+ alert("অর্ডার সফলভাবে অ্যাপ্রুভ করা হয়েছে!");
+}
+
+function renderMyOrders(){
+ const mine = orders.filter(o => currentUser && o.mobile === currentUser.mobile);
+ const myOrd = document.getElementById("myOrders");
+ if(myOrd) {
+  myOrd.innerHTML = mine.map(o => `
+   <div class="product">
+     <b>${escapeSUNText(o.id)}</b> — ${escapeSUNText(o.product)} (qty: ${o.qty}) 
+     <br>মোট: ৳${o.total} | স্ট্যাটাস: <b>${escapeSUNText(o.status)}</b>
+   </div>
+  `).join("") || "<p>আপনার কোনো অর্ডার নেই।</p>";
+ }
+}
+
+function renderCustomerManagement() {
+  const container = document.getElementById("customerManagementList");
+  if (!container) return;
+  let custs = JSON.parse(localStorage.getItem("SUN_CUSTOMERS") || "[]");
+
+  container.innerHTML = custs.map((c, idx) => `
+    <div class="product">
+      <p><b>নাম:</b> ${escapeSUNText(c.name)} | <b>মোবাইল:</b> ${escapeSUNText(c.mobile)}</p>
+      <p><b>পয়েন্ট:</b> <span id="pt_${idx}">${c.points || 0}</span></p>
+      <button onclick="resetCustomerPoints(${idx})">পয়েন্ট রিসেট (0)</button>
+      <button class="red" onclick="deleteCustomer(${idx})">কাস্টমার ডিলিট</button>
+    </div>
+  `).join("") || "<p>কোনো কাস্টমার রেজিস্টার্ড নেই।</p>";
+}
+
+function resetCustomerPoints(idx) {
+  if (currentSUNRole !== "admin") return alert("অনুমতি নেই!");
+  let custs = JSON.parse(localStorage.getItem("SUN_CUSTOMERS") || "[]");
+  custs[idx].points = 0;
+  localStorage.setItem("SUN_CUSTOMERS", JSON.stringify(custs));
+  renderCustomerManagement();
+  alert("পয়েন্ট সফলভাবে রিসেট করা হয়েছে!");
+}
+
+function deleteCustomer(idx) {
+  if (currentSUNRole !== "admin") return alert("অনুমতি নেই!");
+  let custs = JSON.parse(localStorage.getItem("SUN_CUSTOMERS") || "[]");
+  custs.splice(idx, 1);
+  localStorage.setItem("SUN_CUSTOMERS", JSON.stringify(custs));
+  renderCustomerManagement();
+}
+
+function setSUNBackground(mode) {
+  if (currentSUNRole !== "admin") return alert("শুধু অ্যাডমিন থিম পরিবর্তন করতে পারবেন!");
+  const themes = {
+    white: { background: "#ffffff", color: "#222222" },
+    lightblue: { background: "#eaf3ff", color: "#173b75" },
+    dark: { background: "#172033", color: "#ffffff" }
+  };
+  const theme = themes[mode];
+  if (!theme) return;
+  document.body.style.backgroundColor = theme.background;
+  document.body.style.color = theme.color;
+  localStorage.setItem("SUN_THEME", mode);
+  alert("থিম সংরক্ষিত হয়েছে!");
+}
+
+function loadSUNTheme() {
+  const mode = localStorage.getItem("SUN_THEME") || "white";
+  const themes = {
+    white: ["#ffffff", "#222222"],
+    lightblue: ["#eaf3ff", "#173b75"],
+    dark: ["#172033", "#ffffff"]
+  };
+  const theme = themes[mode];
+  if (!theme) return;
+  document.body.style.backgroundColor = theme[0];
+  document.body.style.color = theme[1];
 }
 
 function escapeSUNText(value) {
@@ -680,236 +795,9 @@ function escapeSUNText(value) {
   })[char]);
 }
 
-function placeOrder() {
-  const name = document.getElementById("cname").value.trim();
-  const mobile = document.getElementById("mobile").value.trim();
-  const address = document.getElementById("address").value.trim();
-  const product = document.getElementById("orderProduct").value;
-  const qty = Number(document.getElementById("qty").value);
-
-  if (!name || !mobile || !address || !product || !Number.isInteger(qty) || qty < 1) {
-    alert("সব তথ্য সঠিকভাবে পূরণ করুন"); return;
-  }
-
-  const p = products.find(x => x.name === product && x.stock === "on");
-  if (!p) { alert("পণ্যটি বর্তমানে পাওয়া যাচ্ছে না"); return; }
-
-  const total = p.price * qty;
-  orders.push({
-    id: "SUN-" + Date.now(),
-    name, mobile, address,
-    product, qty, price: p.price, total,
-    status: "Pending",
-    date: new Date().toLocaleString("bn-BD")
-  });
-
-  saveData();
-  if (typeof renderOrders === "function") renderOrders();
-  renderMyOrders();
-  alert("অর্ডার সফলভাবে জমা হয়েছে। এডমিন অনুমোদনের অপেক্ষায়।");
-}
-
-function renderOrders() {
-  const html = orders.map((o, i) => `
-    <div class="product">
-     <b>${escapeSUNText(o.id)}</b>
-     <p>${escapeSUNText(o.name)} — ${escapeSUNText(o.product)} × ${o.qty}</p>
-     <p>মোট: ৳${o.total} | অবস্থা: ${o.status}</p>
-     ${currentSUNRole === "admin" && o.status === "Pending" ? `<button onclick="approveOrder(${i})">Approve</button>` : ""}
-     ${currentSUNRole === "admin" ? `<button class="red" onclick="deleteOrder(${i})">ডিলিট</button>` : ""}
-     ${o.status === "Approved" ? `<button class="gold" onclick="printMemo(${i})">Print Memo</button>` : ""}
-    </div>
-  `).join("");
-
-  const adminOrders = document.getElementById("adminOrders");
-  if (adminOrders) adminOrders.innerHTML = html;
-
-  const managerOrders = document.getElementById("managerOrders");
-  if (managerOrders) {
-    managerOrders.innerHTML = orders.filter(o => o.status === "Approved").map(o =>
-      `<div class="product">${escapeSUNText(o.id)} — ${escapeSUNText(o.name)} — ${escapeSUNText(o.product)}
-        <button onclick="printMemo(${orders.indexOf(o)})">Print Memo</button>
-       </div>`
-    ).join("") || "<p>কোনো অনুমোদিত অর্ডার নেই।</p>";
-  }
-}
-
-function renderOrderApprovals() {
-  const pendingOrderList = document.getElementById("pendingOrderList");
-  if (pendingOrderList) {
-    pendingOrderList.innerHTML = orders.filter(o => o.status === "Pending").map((o, i) => `
-     <div class="product">
-      <b>${escapeSUNText(o.id)}</b>
-      <p>গ্রাহক: ${escapeSUNText(o.name)} (${escapeSUNText(o.mobile)})</p>
-      <p>পণ্য: ${escapeSUNText(o.product)} × ${o.qty}</p>
-      <p>মোট: ৳${o.total}</p>
-      <button onclick="approveOrder(${orders.indexOf(o)})">Approve</button>
-      <button class="red" onclick="deleteOrder(${orders.indexOf(o)})">বাতিল / ডিলিট</button>
-     </div>
-    `).join("") || "<p>কোনো পেন্ডিং অর্ডার নেই।</p>";
-  }
-}
-
-function approveOrder(i) {
-  if (currentSUNRole !== "admin") return alert("শুধুমাত্র এডমিন অর্ডার অ্যাপ্রুভ করতে পারবেন।");
-  orders[i].status = "Approved";
-  
-  // পয়েন্ট যোগ করা
-  let cust = customers.find(c => c.mobile === orders[i].mobile);
-  if(cust) {
-    cust.points = (cust.points || 0) + 10; // প্রতি অর্ডারে ১০ পয়েন্ট
-  }
-
-  saveData();
-  renderOrders();
-  renderOrderApprovals();
-  alert("অর্ডার সফলভাবে অ্যাপ্রুভ করা হয়েছে!");
-}
-
-function deleteOrder(i) {
-  if (currentSUNRole !== "admin") return alert("শুধুমাত্র এডমিন ডিলিট করতে পারবেন।");
-  if (confirm("আপনি কি এই অর্ডারটি ডিলিট করতে চান?")) {
-    orders.splice(i, 1);
-    saveData();
-    renderOrders();
-    renderOrderApprovals();
-  }
-}
-
-function renderMyOrders() {
-  const mine = orders.filter(o => currentUser && o.mobile === currentUser.mobile);
-  const myOrd = document.getElementById("myOrders");
-  if (myOrd) {
-    myOrd.innerHTML = mine.map(o =>
-      `<div class="product"><b>${escapeSUNText(o.id)}</b> — ${escapeSUNText(o.product)} (${o.qty} টি) — অবস্থা: <b>${escapeSUNText(o.status)}</b></div>`
-    ).join("") || "<p>আপনার কোনো অর্ডার নেই।</p>";
-  }
-}
-
-function renderCustomerManagement() {
-  const list = document.getElementById("customerManagementList");
-  if (!list) return;
-
-  list.innerHTML = customers.map((c, i) => `
-    <div class="product">
-      <p><b>আইডি:</b> ${c.id}</p>
-      <p><b>নাম:</b> ${escapeSUNText(c.name)}</p>
-      <p><b>মোবাইল:</b> ${c.mobile}</p>
-      <p><b>পয়েন্ট:</b> ${c.points || 0}</p>
-      <label>নতুন পাসওয়ার্ড:</label>
-      <input type="password" id="resetPass_${i}" placeholder="নতুন পাসওয়ার্ড দিন">
-      <button onclick="resetCustomerPassword(${i})">পাসওয়ার্ড রিসেট করুন</button>
-    </div>
-  `).join("") || "<p>কোনো কাস্টমার নেই।</p>";
-}
-
-function resetCustomerPassword(i) {
-  if (currentSUNRole !== "admin") return alert("শুধুমাত্র এডমিন পাসওয়ার্ড পরিবর্তন করতে পারবেন।");
-  const newPass = document.getElementById(`resetPass_${i}`).value.trim();
-  if (!newPass) return alert("দয়া করে নতুন পাসওয়ার্ড লিখুন।");
-  
-  customers[i].password = newPass;
-  saveData();
-  alert("কাস্টমার পাসওয়ার্ড সফলভাবে পরিবর্তন করা হয়েছে!");
-  renderCustomerManagement();
-}
-
-function renderAdmin() {
-  if (currentSUNRole !== "admin") return;
-  document.getElementById("adminProductCount").textContent = products.length;
-  document.getElementById("adminOrderCount").textContent = orders.length;
-  renderOrders();
-
-  const adminProdList = document.getElementById("adminProductList");
-  if (adminProdList) {
-    adminProdList.innerHTML = products.map((p, i) => `
-      <div class="product">
-        <img src="${p.image}" style="width:60px;height:60px;object-fit:contain">
-        <b>${escapeSUNText(p.name)}</b> — ৳${p.price}
-        <button class="red" onclick="deleteProduct(${i})">মুছে ফেলুন</button>
-      </div>
-    `).join("") || "<p>কোনো পণ্য নেই।</p>";
-  }
-}
-
-function deleteProduct(i) {
-  if (currentSUNRole !== "admin") return alert("শুধুমাত্র এডমিন পণ্য মুছে ফেলতে পারবেন।");
-  if (confirm("আপনি কি এই পণ্যটি মুছে ফেলতে চান?")) {
-    products.splice(i, 1);
-    saveData();
-    renderAdmin();
-    if (typeof renderProducts === "function") renderProducts();
-  }
-}
-
-function printMemo(i) {
-  const o = orders[i];
-  const w = window.open("", "_blank");
-  if (!w) { alert("Print window খুলতে অনুমতি দিন"); return; }
-  const savedLogo = localStorage.getItem("SUN_LOGO") || "";
-
-  w.document.write(`
-  <html><meta charset="UTF-8"><title>SUN Memo</title>
-  <head>
-  <style>
-  .sun-memo { position: relative; overflow: hidden; background: white; color: #222; padding: 22px; border: 1px solid #ddd; font-family: Arial, sans-serif; }
-  .memo-header { display: flex; justify-content: space-between; align-items: center; }
-  .memo-header img { width: 65px; height: 65px; object-fit: contain; }
-  .sun-watermark { position: absolute; top: 42%; left: 50%; transform: translate(-50%, -50%) rotate(-25deg); font-size: 95px; font-weight: 900; color: rgba(30, 70, 140, 0.07); z-index: 1; pointer-events: none; }
-  @media print { body * { visibility: hidden; } #sunMemo, #sunMemo * { visibility: visible; } #sunMemo { position: absolute; top: 0; left: 0; width: 100%; border: none; } }
-  </style>
-  </head>
-  <body>
-  <div id="sunMemo" class="sun-memo">
-    <div class="sun-watermark">SUN</div>
-    <div class="memo-header">
-      <div><h2>Sun Product</h2><h3>Customer Memo</h3></div>
-      ${savedLogo ? `<img src="${savedLogo}" alt="Logo">` : ""}
-    </div>
-    <hr>
-    <p><b>Memo ID:</b> ${escapeSUNText(o.id)}</p>
-    <p><b>Date:</b> ${escapeSUNText(o.date)}</p>
-    <p><b>Customer:</b> ${escapeSUNText(o.name)}</p>
-    <p><b>Mobile:</b> ${escapeSUNText(o.mobile)}</p>
-    <p><b>Address:</b> ${escapeSUNText(o.address)}</p>
-    <hr>
-    <p><b>Product:</b> ${escapeSUNText(o.product)}</p>
-    <p><b>Quantity:</b> ${o.qty}</p>
-    <p><b>Unit Price:</b> ৳${o.price}</p>
-    <h3>Total: ৳${o.total}</h3>
-    <p>Status: ${escapeSUNText(o.status)}</p>
-  </div>
-  <script>window.onload=()=>window.print();<\/script>
-  </body></html>`);
-  w.document.close();
-}
-
-function downloadBackup() {
-  if (currentSUNRole !== "admin") return;
-  const data = { products, orders, customers };
-  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "SUN-Backup.json"; a.click();
-  URL.revokeObjectURL(a.href);
-}
-
-function restoreBackup() {
-  if (currentSUNRole !== "admin") return;
-  const file = document.getElementById("restoreFile").files[0];
-  if (!file) return alert("Backup file নির্বাচন করুন");
-  const reader = new FileReader();
-  reader.onload = () => {
-    try {
-      const d = JSON.parse(reader.result);
-      products = d.products || [];
-      orders = d.orders || [];
-      customers = d.customers || [];
-      saveData(); loadData();
-      alert("Backup Restore হয়েছে");
-    } catch(e) { alert("ভুল Backup File"); }
-  };
-  reader.readAsText(file);
+function loadData(){
+ loadSUNTheme();
+ applySUNLogo();
 }
 
 loadData();
