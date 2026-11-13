@@ -19,7 +19,7 @@ body{
  margin:0;font-family:Arial,sans-serif;
  background:var(--bg);color:var(--text); padding-bottom: 70px;
 }
-/* টপ হেডার (ছবির মতো) */
+/* টপ হেডার - লোগো একদম মাঝখানে */
 header{
  background: linear-gradient(135deg, #0d2b6b, #1746A2, #3976D5);
  color: white; padding: 12px 15px;
@@ -27,10 +27,19 @@ header{
  position: sticky; top: 0; z-index: 1000;
  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
-.header-left { display: flex; align-items: center; gap: 12px; }
+.header-center {
+ position: absolute;
+ left: 50%;
+ transform: translateX(-50%);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
 .header-logo { width: 45px; height: 45px; object-fit: contain; }
-.header-actions { display: flex; gap: 12px; align-items: center; }
-.icon-btn { background: rgba(255,255,255,0.15); border: none; color: white; padding: 8px 10px; border-radius: 50%; font-size: 16px; cursor: pointer; position: relative; }
+.header-title-text { font-size: 22px; font-weight: 900; color: var(--gold); text-shadow: 2px 2px var(--red); margin: 0; }
+
+.header-actions { display: flex; gap: 8px; align-items: center; margin-left: auto; z-index: 2; }
+.icon-btn { background: rgba(255,255,255,0.15); border: none; color: white; padding: 8px 10px; border-radius: 50%; font-size: 14px; cursor: pointer; position: relative; }
 .badge { position: absolute; top: -3px; right: -3px; background: var(--red); color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: bold; }
 
 main{padding:10px;max-width:600px;margin:auto}
@@ -41,7 +50,7 @@ button { border: 0; border-radius: 8px; padding: 10px 15px; background: var(--bl
 button.gold { background: var(--gold); color: #222; }
 button.red { background: var(--red); color: white; }
 
-/* ইউজার প্রোফাইল কার্ড (ছবির আদলে) */
+/* ইউজার প্রোফাইল কার্ড */
 .sun-user-profile {
   background: linear-gradient(135deg, #1746A2, #2458c8);
   color: white; padding: 14px; border-radius: 14px; margin-bottom: 12px;
@@ -72,7 +81,11 @@ button.red { background: var(--red); color: white; }
 .promo-banner h2 { margin: 0 0 5px 0; font-size: 20px; color: var(--gold); text-shadow: 1px 1px #D92735; }
 .promo-banner p { margin: 0; font-size: 12px; color: #eaf3ff; }
 
-/* ফিচার আইকন গ্রিড (৬টি অপশন) */
+/* হোম পেজ লোগো হেডার */
+.sun-home-header { text-align: center; padding: 10px; }
+.sun-home-header img { width: 100px; height: 100px; object-fit: contain; margin-bottom: 5px; }
+
+/* ফিচার আইকন গ্রিড */
 .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
 .feature-item {
   background: white; border: 1px solid #eaeaea; border-radius: 12px; padding: 12px 5px;
@@ -104,7 +117,7 @@ button.red { background: var(--red); color: white; }
 .qty-box input { width: 30px; text-align: center; border: none; padding: 2px; margin: 0; font-size: 13px; }
 .add-cart-btn { background: var(--blue); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; }
 
-/* বটম নেভিগেশন বার (ছবির মতো ফিক্সড) */
+/* বটম নেভিগেশন বার */
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; width: 100%; background: #0e296b;
   display: flex; justify-content: space-around; padding: 8px 0; z-index: 1000;
@@ -123,11 +136,12 @@ button.red { background: var(--red); color: white; }
 
 <body>
 
-<!-- টপ হেডার -->
+<!-- টপ হেডার (মাঝখানে লোগো বা নাম) -->
 <header>
- <div class="header-left">
+ <div style="width: 30px;"></div> <!-- ব্যালেন্স করার জন্য ফাঁকা জায়গা -->
+ <div class="header-center">
    <img id="headerLogoImg" class="header-logo" src="" alt="Logo" style="display:none;">
-   <h1 style="margin:0; font-size:24px; color:var(--gold); text-shadow:2px 2px var(--red);">SUN</h1>
+   <h1 id="headerTitleText" class="header-title-text">SUN</h1>
  </div>
  <div class="header-actions">
    <button class="icon-btn" onclick="alert('কোনো নতুন নোটিফিকেশন নেই!')">🔔<span class="badge">3</span></button>
@@ -155,10 +169,9 @@ button.red { background: var(--red); color: white; }
  <button onclick="loginSUN()" style="width:100%; margin-top:10px;">লগইন করুন</button>
 </section>
 
-<!-- HOME DASHBOARD SECTION (ছবির ডিজাইনের মূল অংশ) -->
+<!-- HOME DASHBOARD SECTION -->
 <section id="home" class="panel hidden" style="background:transparent; padding:0; box-shadow:none;">
   
-  <!-- ১. ইউজার প্রফাইল কার্ড -->
   <div class="sun-user-profile">
     <div class="user-info-left">
       <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" class="user-avatar" alt="User">
@@ -173,8 +186,13 @@ button.red { background: var(--red); color: white; }
     </div>
   </div>
 
-  <!-- ২. সার্চ ও ফিল্টার বার -->
-  <div class="search-filter-box">
+  <div class="sun-home-header">
+    <img id="homeLogoImg" src="" alt="SUN Logo" style="display:none;">
+    <h2 style="color:var(--blue); margin:5px 0;">SUN-My Business</h2>
+    <p style="margin:0; font-size:12px; color:#666;">এক সাথে এগিয়ে চলি সফলতার পথে</p>
+  </div>
+
+  <div class="search-filter-box" style="margin-top:12px;">
     <div class="search-input-wrap">
       <span class="search-icon">🔍</span>
       <input type="text" placeholder="Search products...">
@@ -182,7 +200,6 @@ button.red { background: var(--red); color: white; }
     <button class="filter-btn" onclick="alert('ফিল্টার অপশন')">⚙️ Filter</button>
   </div>
 
-  <!-- ৩. প্রমোশনাল ব্যানার -->
   <div class="promo-banner">
     <div>
       <h2>Sun Detergent</h2>
@@ -194,7 +211,7 @@ button.red { background: var(--red); color: white; }
     </div>
   </div>
 
-  <!-- ৪. ফিচার আইকন গ্রিড (৬টি অপশন - ছবির মতো) -->
+  <!-- সব আগের অপশনসহ ফিচার গ্রিড -->
   <div class="features-grid">
     <div class="feature-item" onclick="show('products')">
       <span class="feature-icon">🛍️</span>
@@ -208,34 +225,43 @@ button.red { background: var(--red); color: white; }
       <span class="feature-icon">⭐</span>
       <span class="feature-title">My Points</span>
     </div>
-    <div class="feature-item" onclick="alert('Coupons & Offers')">
-      <span class="feature-icon">🎟️</span>
-      <span class="feature-title">Coupons</span>
+    <div class="feature-item" onclick="show('resell')">
+      <span class="feature-icon">💼</span>
+      <span class="feature-title">Reselling</span>
     </div>
-    <div class="feature-item" onclick="show('rewards')">
-      <span class="feature-icon">🏆</span>
-      <span class="feature-title">My Rewards</span>
+    <div class="feature-item" onclick="show('dealer')">
+      <span class="feature-icon">🚚</span>
+      <span class="feature-title">Dealer Order</span>
     </div>
     <div class="feature-item" onclick="show('partner')">
       <span class="feature-icon">🤝</span>
-      <span class="feature-title">Business Apply</span>
+      <span class="feature-title">Business Partner</span>
+    </div>
+    <div class="feature-item" onclick="show('media')">
+      <span class="feature-icon">🎬</span>
+      <span class="feature-title">Media & Live</span>
+    </div>
+    <div class="feature-item" onclick="show('banners')">
+      <span class="feature-icon">🖼️</span>
+      <span class="feature-title">Banners</span>
+    </div>
+    <div class="feature-item" onclick="show('logo')">
+      <span class="feature-icon">🌞</span>
+      <span class="feature-title">Logo Settings</span>
     </div>
   </div>
 
-  <!-- ৫. প্রোডাক্ট লিস্ট সেকশন -->
   <div class="section-header">
     <h3>Our Products</h3>
     <a href="#" onclick="show('products'); return false;">See All →</a>
   </div>
 
-  <div id="homeProductContainer">
-    <!-- ডাইনামিক প্রোডাক্ট কার্ড এখানে রেন্ডার হবে -->
-  </div>
+  <div id="homeProductContainer"></div>
 </section>
 
 <!-- PRODUCTS SECTION -->
 <section id="products" class="panel hidden">
- <h2>SUN Products</h2>
+ <h2>SUN Products Management</h2>
  <div id="adminProductUploadBox" class="hidden" style="background:#f9f9f9; padding:10px; border-radius:8px; margin-bottom:12px;">
    <h4>পণ্য আপলোড (অ্যাডমিন)</h4>
    <input id="newProdName" placeholder="পণ্যের নাম">
@@ -245,6 +271,38 @@ button.red { background: var(--red); color: white; }
    <button onclick="addNewProduct()">পণ্য যোগ করুন</button>
  </div>
  <div id="fullProductList"></div>
+ <button onclick="show('home')" style="margin-top:10px;">🏠 হোম পেজে ফিরে যান</button>
+</section>
+
+<!-- LOGO SETTINGS SECTION -->
+<section id="logo" class="panel hidden">
+ <h2>🌞 SUN Logo Settings</h2>
+ <p>আপনার লোগো সিলেক্ট করুন। এটি হেডার এবং হোম পেজের মাঝখানে শো করবে।</p>
+ <input type="file" id="sunLogoFileInput" accept="image/*" onchange="previewLogoFile(event)">
+ <div style="margin: 10px 0;">
+   <img id="logoPreviewImg" style="width:100px; height:100px; object-fit:contain; display:none; border:1px solid #ddd; border-radius:8px; padding:5px;">
+ </div>
+ <button class="gold" onclick="saveSUNLogoImage()">Save SUN Logo</button>
+ <br><br>
+ <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
+</section>
+
+<!-- RESELL SECTION -->
+<section id="resell" class="panel hidden">
+ <h2>SUN Reselling Board</h2>
+ <p>রিসেলিং পণ্যের তালিকা ও ডিল শেয়ারিং অপশন।</p>
+ <div id="resellList"></div>
+ <button onclick="show('home')" style="margin-top:10px;">🏠 হোম পেজে ফিরে যান</button>
+</section>
+
+<!-- DEALER SECTION -->
+<section id="dealer" class="panel hidden">
+ <h2>Dealer Bulk Order</h2>
+ <input id="dealerName" placeholder="ডিলারের নাম">
+ <input id="dealerMobile" placeholder="মোবাইল নম্বর">
+ <textarea id="dealerItems" placeholder="পাইকারি পণ্যের নাম ও পরিমাণ লিখুন"></textarea>
+ <button onclick="dealerSubmit()">Dealer Order Submit</button>
+ <p id="dealerMessage"></p>
  <button onclick="show('home')" style="margin-top:10px;">🏠 হোম পেজে ফিরে যান</button>
 </section>
 
@@ -264,11 +322,21 @@ button.red { background: var(--red); color: white; }
  <button onclick="show('home')" style="margin-top:10px;">🏠 হোম পেজে ফিরে যান</button>
 </section>
 
-<!-- POINTS & RANK SECTION -->
+<!-- POINTS SECTION -->
 <section id="points" class="panel hidden">
  <h2>⭐ My Points & Rank</h2>
  <p>আপনার বর্তমান পয়েন্ট: <b id="displayPoints" style="color:var(--gold); font-size:20px;">0</b></p>
  <p>র‍্যাংক: <b>Silver → Gold → Platinum → Diamond → Crown</b></p>
+ <button onclick="show('home')" style="margin-top:10px;">🏠 হোম পেজে ফিরে যান</button>
+</section>
+
+<!-- PARTNER SECTION -->
+<section id="partner" class="panel hidden">
+ <h2>🤝 Business Partner Apply</h2>
+ <div class="product" style="background:#fff; padding:10px; border-radius:8px; margin-bottom:8px;">
+  <h3>1. Capital Protected</h3>
+  <p>মূলধন সুরক্ষার কাঠামো ও বাস্তব সহযোগিতা।</p>
+ </div>
  <button onclick="show('home')" style="margin-top:10px;">🏠 হোম পেজে ফিরে যান</button>
 </section>
 
@@ -280,23 +348,18 @@ button.red { background: var(--red); color: white; }
  <br><br><button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
 </section>
 
-<!-- ADMIN / MANAGER / PARTNER SECTIONS -->
-<section id="partner" class="panel hidden">
- <h2>🤝 Business Partner Apply</h2>
- <p>মূলধন সুরক্ষা ও রিসেলিং পার্টনারশিপ সংক্রান্ত তথ্য।</p>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
-</section>
-
+<!-- ADMIN SECTION -->
 <section id="admin" class="panel hidden">
  <h2>⚙️ Admin Control Panel</h2>
  <p>পণ্য ও অর্ডার ম্যানেজমেন্ট প্যানেল।</p>
+ <button onclick="show('logo')" style="margin-bottom:10px;">🌞 লোগো সেটিংস এ যান</button>
  <div id="adminOrderList"></div>
  <button onclick="show('home')" style="margin-top:10px;">🏠 হোম পেজে ফিরে যান</button>
 </section>
 
 </main>
 
-<!-- ফিক্সড বটম নেভিগেশন বার (ছবির মতো) -->
+<!-- ফিক্সড বটম নেভিগেশন বার -->
 <nav class="bottom-nav" id="bottomNav">
   <button class="nav-tab active" onclick="show('home')">
     <span>🏠</span>Home
@@ -325,6 +388,53 @@ let products = JSON.parse(localStorage.getItem("SUN_PRODUCTS") || JSON.stringify
 let orders = JSON.parse(localStorage.getItem("SUN_ORDERS") || "[]");
 let cart = [];
 let tempImg = "";
+let selectedLogoBase64 = "";
+
+window.onload = function() {
+  applyStoredLogo();
+};
+
+function applyStoredLogo() {
+  const savedLogo = localStorage.getItem("SUN_LOGO_IMAGE");
+  if(savedLogo) {
+    const headerImg = document.getElementById("headerLogoImg");
+    const homeImg = document.getElementById("homeLogoImg");
+    const titleText = document.getElementById("headerTitleText");
+
+    headerImg.src = savedLogo;
+    headerImg.style.display = "block";
+    titleText.style.display = "none"; // লোগো থাকলে টেক্সট হাইড হবে
+
+    if(homeImg) {
+      homeImg.src = savedLogo;
+      homeImg.style.display = "inline-block";
+    }
+  }
+}
+
+function previewLogoFile(event) {
+  const file = event.target.files[0];
+  if(file) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      selectedLogoBase64 = e.target.result;
+      const previewImg = document.getElementById("logoPreviewImg");
+      previewImg.src = selectedLogoBase64;
+      previewImg.style.display = "block";
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function saveSUNLogoImage() {
+  if(!selectedLogoBase64) {
+    alert("দয়া করে প্রথমে একটি লোগো ছবি সিলেক্ট করুন!");
+    return;
+  }
+  localStorage.setItem("SUN_LOGO_IMAGE", selectedLogoBase64);
+  applyStoredLogo();
+  alert("SUN Logo সফলভাবে মাঝখানে সেট ও সংরক্ষণ করা হয়েছে!");
+}
 
 function loginSUN() {
   const name = document.getElementById("loginName").value.trim();
@@ -339,12 +449,10 @@ function loginSUN() {
   currentUser = { name, mobile, role, points: 2580 };
   document.getElementById("login").classList.add("hidden");
   
-  // প্রোফাইল আপডেট
   document.getElementById("profileName").textContent = `Hello, ${name}`;
   document.getElementById("profilePoints").textContent = currentUser.points;
   document.getElementById("displayPoints").textContent = currentUser.points;
 
-  // অ্যাডমিন বক্স টগল
   if(role === 'admin') {
     document.getElementById("adminProductUploadBox").classList.remove("hidden");
   }
@@ -365,6 +473,7 @@ function show(id) {
   if(id === 'cart') renderCart();
   if(id === 'orders') renderMyOrders();
   if(id === 'admin') renderAdminOrders();
+  if(id === 'resell') renderResell();
 }
 
 function renderHomeProducts() {
@@ -476,6 +585,25 @@ function renderMyOrders() {
       মোট: ৳${o.total} | স্ট্যাটাস: <b style="color:var(--blue);">${o.status}</b>
     </div>
   `).join("") || "<p>কোনো অর্ডার পাওয়া যায়নি।</p>";
+}
+
+function renderResell() {
+  const list = document.getElementById("resellList");
+  list.innerHTML = products.map(p => `
+    <div style="border:1px solid #ddd; padding:10px; border-radius:8px; margin-bottom:8px; background:#fff;">
+      <h4>${p.name}</h4>
+      <p>মূল্য: ৳${p.price}</p>
+      <button class="gold" onclick="alert('রিসেলিং লিংক কপি হয়েছে!')">রিসেল লিংক শেয়ার করুন</button>
+    </div>
+  `).join("");
+}
+
+function dealerSubmit() {
+  const name = document.getElementById("dealerName").value;
+  const mobile = document.getElementById("dealerMobile").value;
+  const items = document.getElementById("dealerItems").value;
+  if(!name || !mobile || !items) return alert("সব তথ্য পূরণ করুন!");
+  document.getElementById("dealerMessage").textContent = "ডিলার বাল্ক অর্ডার সফলভাবে জমা হয়েছে!";
 }
 
 function previewImage(event) {
