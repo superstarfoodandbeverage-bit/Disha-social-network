@@ -1,474 +1,123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SUN-My Business v2</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102b63"><title>SUN-My Business | Version 1.5.0</title>
 <style>
-:root{--blue:#1746A2;--gold:#F5BD35;--red:#D92735;--white:#FFFFFF;--bg:#113886;--text:#17233D;}
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#103375,#1746A2,#2458c8);color:var(--text);padding-bottom:75px;min-height:100vh;}
-header{background:linear-gradient(180deg,#0a2456,#103375);color:white;padding:12px 15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;border-bottom:1px solid rgba(255,255,255,0.1);}
-.header-center{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;}
-.header-center img{height:35px;object-fit:contain;}
-.header-center h1{font-size:24px;font-weight:900;color:var(--gold);text-shadow:2px 2px var(--red);margin:0;}
-main{padding:12px;max-width:600px;margin:auto;}
-.panel{background:var(--white);padding:15px;border-radius:14px;margin-bottom:12px;box-shadow:0 4px 15px rgba(0,0,0,0.15);}
-input,select,textarea{width:100%;padding:10px;margin:6px 0 10px;border:1px solid #ccd3e0;border-radius:8px;}
-button{border:0;border-radius:8px;padding:10px 15px;background:var(--blue);color:white;font-weight:bold;cursor:pointer;}
-button.gold{background:var(--gold);color:#222;}
-button.red{background:var(--red);color:white;}
-button.green{background:#27ae60;color:white;}
-.sun-user-profile{background:linear-gradient(135deg,#1746A2,#295ac7);color:white;padding:14px;border-radius:14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;}
-.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:15px;}
-.feature-box{background:white;border:1px solid #e8ecf5;border-radius:12px;padding:12px 6px;text-align:center;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.04);}
-.product-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-.product-card-2{background:white;border:1px solid #e2e8f2;border-radius:12px;padding:10px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
-.product-card-2 img{width:100%;height:110px;object-fit:contain;margin-bottom:8px;}
-.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#0c265c;display:flex;justify-content:space-around;padding:8px 0;z-index:1000;border-top:1px solid rgba(255,255,255,0.1);}
-.nav-tab{background:none;border:none;color:#9bb2e5;display:flex;flex-direction:column;align-items:center;font-size:10px;cursor:pointer;}
-.nav-tab span{font-size:18px;}
-.nav-tab.active{color:var(--gold);font-weight:bold;}
-.memo-box{background:white;padding:20px;border:2px solid var(--blue);border-radius:10px;color:#222;}
-.hidden{display:none!important;}
-</style>
-</head>
-<body>
-
-<header>
- <button onclick="show('admin')" style="background:none;color:white;border:none;font-size:22px;cursor:pointer;">☰</button>
- <div class="header-center">
-   <img id="headerLogoImg" src="" alt="" style="display:none;">
-   <h1 id="headerTitleText">SUN</h1>
- </div>
- <button onclick="show('cart')" style="background:rgba(255,255,255,0.15);border:none;color:white;padding:6px 10px;border-radius:50%;position:relative;">🛒<span id="cartCount" style="position:absolute;top:-3px;right:-3px;background:var(--red);color:white;font-size:10px;padding:2px 5px;border-radius:50%;">0</span></button>
-</header>
-
-<main>
-<!-- LOGIN SECTION -->
-<section id="login" class="panel">
- <h2>SUN-My Business Login (v2)</h2>
- <label>মোবাইল নম্বর</label><input id="loginMobile" placeholder="যেমন: 01800000000">
- <label>পাসওয়ার্ড</label><input id="loginPass" type="password" placeholder="যেমন: 1234">
- <button onclick="loginSUN()" style="width:100%;margin-top:10px;">লগইন করুন</button>
- <div style="margin-top:12px;background:#f2f5fc;padding:10px;border-radius:8px;font-size:12px;">
-   <b>লগইন তথ্য:</b><br>
-   👑 <b>অ্যাডমিন:</b> 01800000000 | পাস: 1234<br>
-   📋 <b>ম্যানেজার:</b> 01700000000 | পাস: 1234<br>
-   🛍️ <b>কাস্টমার:</b> 01913979131 | পাস: 1234
- </div>
-</section>
-
-<!-- HOME DASHBOARD -->
-<section id="home" class="panel hidden" style="background:transparent;padding:0;box-shadow:none;">
-  <div class="sun-user-profile">
-    <div>
-      <h3 id="profileName" style="margin:0 0 3px 0;">Hello, User</h3>
-      <p style="margin:0;font-size:12px;color:var(--gold);">🆔 ID: <span id="profileId">SUN-1001</span> | ⭐ <span id="profileRank">Gold Member</span></p>
-    </div>
-    <div style="background:rgba(255,255,255,0.15);padding:6px 12px;border-radius:8px;text-align:center;">
-      <small style="font-size:10px;">Points</small><br>
-      <span id="profilePoints" style="font-weight:bold;color:var(--gold);">2,580</span>
-    </div>
-  </div>
-
-  <div class="features-grid">
-    <div class="feature-box" onclick="show('products')"><span>🛍️</span><br><b style="font-size:12px;">Shop</b></div>
-    <div class="feature-box" onclick="show('orders')"><span>📦</span><br><b style="font-size:12px;">Orders</b></div>
-    <div class="feature-box" onclick="show('points')"><span>⭐</span><br><b style="font-size:12px;">My Points</b></div>
-    <div class="feature-box" onclick="show('rewards')"><span>🏆</span><br><b style="font-size:12px;">Rewards</b></div>
-    <div class="feature-box" onclick="show('media')"><span>🎬</span><br><b style="font-size:12px;">Media</b></div>
-    <div class="feature-box" onclick="show('profile')"><span>👤</span><br><b style="font-size:12px;">Profile</b></div>
-  </div>
-
-  <h3 style="color:white;">Our Products (প্রতি লাইনে ২টি)</h3>
-  <div id="homeProductContainer" class="product-grid-2"></div>
-</section>
-
-<!-- PRODUCTS SHOP -->
-<section id="products" class="panel hidden">
- <h2>🛍️ Shop Products</h2>
- <div id="adminUpload" class="hidden" style="background:#f9f9f9;padding:10px;border-radius:8px;margin-bottom:10px;">
-   <h4>পণ্য আপলোড (অ্যাডমিন)</h4>
-   <input id="pName" placeholder="পণ্যের নাম">
-   <input id="pWeight" placeholder="ওজন/পরিমাণ (যেমন: 1kg)">
-   <input id="pPrice" type="number" placeholder="দাম (৳)">
-   <input id="pImage" placeholder="ছবির লিংক (URL)">
-   <button onclick="addProduct()">পণ্য যোগ করুন</button>
- </div>
- <div id="fullProductList" class="product-grid-2"></div>
- <button onclick="show('home')" style="margin-top:10px;">হোমে যান</button>
-</section>
-
-<!-- CART & CHECKOUT -->
-<section id="cart" class="panel hidden">
- <h2>🛒 Shopping Cart</h2>
- <div id="cartList"></div>
- <h3 id="cartTotal"></h3>
- <label>অগ্রিম পেমেন্ট (যদি থাকে)</label><input id="advancePay" type="number" value="0" placeholder="0">
- <label>ডেলিভারি ঠিকানা</label><textarea id="orderAddress" placeholder="পূর্ণ ঠিকানা"></textarea>
- <button class="gold" onclick="checkoutOrder()">অর্ডার কনফার্ম করুন (COD)</button>
- <button onclick="show('home')" style="margin-top:10px;">হোমে যান</button>
-</section>
-
-<!-- ORDERS & APPROVAL -->
-<section id="orders" class="panel hidden">
- <h2>📦 Order Status & Approval</h2>
- <div id="orderListContainer"></div>
- <button onclick="show('home')" style="margin-top:10px;">হোমে যান</button>
-</section>
-
-<!-- MANAGER & PRINT PREVIEW -->
-<section id="managerPanel" class="panel hidden">
- <h2>📋 Manager Print Preview</h2>
- <div id="managerOrderList"></div>
- <button onclick="show('home')" style="margin-top:10px;">হোমে যান</button>
-</section>
-
-<section id="printMemoSection" class="panel hidden">
- <h2>🧾 মেমো প্রিভিউ ও প্রিন্ট</h2>
- <div id="memoPreviewContent" class="memo-box"></div>
- <button class="green" onclick="window.print()" style="margin-top:10px;">প্রিন্ট করুন</button>
- <button onclick="show('managerPanel')" style="margin-top:10px;">ম্যানেজার প্যানেলে ফিরুন</button>
-</section>
-
-<!-- MY POINTS & RANK TABLE -->
-<section id="points" class="panel hidden">
- <h2>⭐ My Points & Rank Table</h2>
- <p>আপনার পয়েন্ট: <b id="dispPoints" style="color:var(--blue);font-size:18px;">0</b></p>
- <h3>র‍্যাংক ও পয়েন্ট টেবিল:</h3>
- <ul>
-   <li>Silver: 0 - 999 Points</li>
-   <li>Gold: 1000 - 4999 Points</li>
-   <li>Platinum: 5000 - 9999 Points</li>
-   <li>Diamond: 10000 - 19999 Points</li>
-   <li>Crown: 20000+ Points</li>
- </ul>
- <button onclick="show('home')">হোমে যান</button>
-</section>
-
-<!-- REWARDS & WINNERS -->
-<section id="rewards" class="panel hidden">
- <h2>🏆 Monthly Winners & Rewards</h2>
- <p>🥇 ১ম বিজয়ী: Rahim Ahmed</p>
- <p>🥈 ২য় বিজয়ী: Karim Uddin</p>
- <p>🥉 ৩য় বিজয়ী: Rina Akter</p>
- <button onclick="show('home')" style="margin-top:10px;">হোমে যান</button>
-</section>
-
-<!-- MEDIA & ZOOM -->
-<section id="media" class="panel hidden">
- <h2>🎬 Media & Live Updates</h2>
- <p>🎥 Zoom মিটিং রুম</p>
- <p>🔴 Sun লাইভ ব্রডকাস্ট</p>
- <p>🛒 Sun Super Mart আপডেট</p>
- <p>🧼 সান ডিটারজেন্ট পাউডার ভিডিও</p>
- <button onclick="show('home')">হোমে যান</button>
-</section>
-
-<!-- PROFILE & AFFILIATE -->
-<section id="profile" class="panel hidden">
- <h2>👤 User Profile & Affiliate</h2>
- <p id="profileDetails"></p>
- <p><b>অ্যাফিলিয়েট আইডি / লিংক:</b> <span id="affiliateLink" style="color:var(--blue);">sun.business/ref/1001</span></p>
- <button class="red" onclick="logoutSUN()">লগআউট</button>
- <button onclick="show('home')">হোমে যান</button>
-</section>
-
-<!-- ADMIN MASTER PANEL -->
-<section id="admin" class="panel hidden">
- <h2>⚙️ Admin Control Panel</h2>
- <button onclick="show('logoSettings')" style="margin-bottom:8px;width:100%;">🌞 লোগো ও থিম সেটিংস</button>
- <button onclick="show('customerMgmt')" style="margin-bottom:8px;width:100%;">👥 কাস্টমার ম্যানেজমেন্ট ও পাসওয়ার্ড রিসেট</button>
- <button onclick="show('products')" style="margin-bottom:8px;width:100%;">🛍️ প্রোডাক্ট আপলোড</button>
- <button onclick="show('managerPanel')" style="margin-bottom:8px;width:100%;">📋 ম্যানেজার মোড (প্রিন্ট)</button>
- <button onclick="show('home')" style="width:100%;">হোমে যান</button>
-</section>
-
-<!-- LOGO & THEME SETTINGS -->
-<section id="logoSettings" class="panel hidden">
- <h2>🌞 Logo & Theme Settings</h2>
- <label>লোগো ছবির লিংক (URL)</label><input id="logoUrlInput" placeholder="https://...">
- <button class="gold" onclick="saveLogoUrl()">লোগো সেভ করুন</button>
- <br><br>
- <label>অ্যাপ থিম কালার</label>
- <button onclick="setTheme('#113886')" class="green">Default Blue</button>
- <button onclick="setTheme('#8e44ad')">Purple</button>
- <button onclick="setTheme('#16a085')">Teal</button>
- <button onclick="show('admin')" style="margin-top:10px;">অ্যাডমিনে ফিরুন</button>
-</section>
-
-<!-- CUSTOMER MANAGEMENT & PASS RESET -->
-<section id="customerMgmt" class="panel hidden">
- <h2>👥 Customer Management</h2>
- <div id="customerListContainer"></div>
- <button onclick="show('admin')" style="margin-top:10px;">অ্যাডমিনে ফিরুন</button>
-</section>
-</main>
-
-<nav class="bottom-nav">
-  <button class="nav-tab active" onclick="show('home')"><span>🏠</span>Home</button>
-  <button class="nav-tab" onclick="show('products')"><span>🛍️</span>Shop</button>
-  <button class="nav-tab" onclick="show('points')"><span>⭐</span>Points</button>
-  <button class="nav-tab" onclick="show('media')"><span>🎬</span>Media</button>
-  <button class="nav-tab" onclick="show('profile')"><span>👤</span>Profile</button>
-</nav>
-
+:root{--navy:#2f72b8;--blue:#78b9f2;--cyan:#edf7ff;--gold:#e7b84f;--ink:#26384d;--muted:#65778d;--bg:#f5faff;--card:#fff;--line:#dceaf7;--green:#14845b;--red:#c23b4a;--shadow:0 8px 24px #2c659015}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:10px 14px;background:var(--blue);color:#fff;font-weight:650}button.secondary{background:#eaf1fb;color:var(--navy)}button.danger{background:#fff0f1;color:var(--red)}button.good{background:#e8f7ef;color:var(--green)}button:disabled{opacity:.45;cursor:not-allowed}.app{max-width:1200px;margin:auto;min-height:100vh}.top{background:linear-gradient(120deg,var(--header,#eaf6ff),var(--blue,#78b9f2) 72%,var(--gold,#f8e8bd));color:#183c63;padding:18px 20px 22px;border-radius:0 0 24px 24px}.brand{display:flex;align-items:center;gap:12px}.logo{width:54px;height:54px;border-radius:17px;background:#fff;color:#1456a8;display:grid;place-items:center;font-size:23px;font-weight:950;box-shadow:0 5px 15px #0002;overflow:hidden}.logo img{width:100%;height:100%;object-fit:contain}.brand h1{font-size:22px;margin:0}.brand p{margin:3px 0 0;color:#476987;font-size:12px}.topline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.topline select{background:#fff;color:var(--navy);border:0;border-radius:10px;padding:9px}.slogan{text-align:center;margin:17px 0 0;font-weight:700;letter-spacing:.2px}.nav{display:flex;gap:8px;overflow:auto;padding:13px 14px;background:#fff;position:sticky;top:0;z-index:5;box-shadow:0 3px 12px #17365d0b}.nav button{white-space:nowrap;background:#edf3fb;color:#24446f;font-size:13px;padding:9px 12px}.nav button.active{background:linear-gradient(110deg,#438bd0,#e4b84e);color:#fff}.main{padding:18px}.pagehead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:2px 0 15px;flex-wrap:wrap}.pagehead h2{margin:0;font-size:22px}.muted{color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:16px;box-shadow:var(--shadow)}.stat{font-size:25px;font-weight:850;color:var(--navy);margin-top:5px}.tile{display:flex;align-items:center;gap:13px;text-align:left;background:white;color:var(--ink);border:1px solid var(--line);padding:16px;box-shadow:var(--shadow);width:100%}.tile .ico{font-size:25px;background:var(--cyan);width:45px;height:45px;border-radius:13px;display:grid;place-items:center}.tile b{display:block}.tile small{color:var(--muted);font-weight:400}.section{margin:18px 0}.section h3{margin:0 0 10px}.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.field{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}.field label{font-size:13px;color:#52617a;font-weight:650}.field input,.field select,.field textarea{width:100%;padding:11px 12px;border:1px solid #d5dfed;border-radius:11px;background:#fff;color:var(--ink)}.field textarea{min-height:75px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.between{display:flex;justify-content:space-between;align-items:center;gap:10px}.pill{display:inline-block;padding:4px 9px;border-radius:30px;background:#eaf2ff;color:#1854a0;font-size:11px;font-weight:750}.pill.green{background:#e7f7ef;color:#14724f}.pill.orange{background:#fff4dc;color:#926100}.pill.red{background:#fff0f1;color:#b52e40}.product{overflow:hidden;padding:0}.product .photo{height:125px;background:linear-gradient(135deg,#e5f1ff,#f9fbff);display:grid;place-items:center;font-size:48px;color:#1769d2}.product .pbody{padding:13px}.price{font-weight:850;color:#123b7a}.old{text-decoration:line-through;color:#8994a7;font-size:12px;margin-left:5px}.tablewrap{overflow:auto;background:white;border:1px solid var(--line);border-radius:14px}table{width:100%;border-collapse:collapse;min-width:650px}th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);font-size:13px}th{background:linear-gradient(90deg,#e8f4ff,#fff3d6);color:#355675}tr:last-child td{border-bottom:0}.empty{text-align:center;color:var(--muted);padding:30px}.notice{padding:12px 14px;background:#fff8e8;border:1px solid #f2dfad;border-radius:12px;color:#775414;font-size:13px;margin:12px 0}.hidden{display:none!important}.footer{text-align:center;color:#8994a7;padding:25px;font-size:12px}.modal{position:fixed;inset:0;background:#07152c88;display:grid;place-items:center;padding:15px;z-index:10}.modalbox{background:white;border-radius:18px;padding:20px;max-width:520px;width:100%;max-height:90vh;overflow:auto}.modalbox h3{margin-top:0}.rank{border-left:4px solid var(--gold)}.slogan{color:#765719}.stat{color:#3976b9}.logo{border:0}.hero{background:linear-gradient(110deg,#e7f4ff,#c5e3fb 75%,#fff0ca);color:#244d78;border:1px solid #d5e8f8;border-radius:18px;padding:20px;margin-bottom:14px}.hero h2{margin:0 0 6px}.hero p{margin:0;color:#476987}.small{font-size:12px}.memo{position:relative;background:white;border:1px solid #dce6f1;padding:16px;color:#26384d}.memohead{display:flex;justify-content:space-between;gap:12px}.memohead>b{font-size:22px;color:#3976b9}.memocust{text-align:right;font-size:12px;line-height:1.6}.watermark{position:absolute;top:40%;left:35%;font-size:76px;font-weight:900;color:#3976b9;opacity:.07;pointer-events:none}.memo table{width:100%;border-collapse:collapse;margin-top:18px;min-width:0}.memo th,.memo td{border:1px solid #dce6f1;padding:8px;font-size:12px}.memo th{background:#eff7ff}.right{text-align:right}
+@media(max-width:600px){.main{padding:13px}.top{padding:15px}.brand h1{font-size:19px}.pagehead h2{font-size:19px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tile{padding:12px;gap:8px}.tile .ico{width:38px;height:38px;font-size:21px}.tile small{font-size:10px}.card{padding:13px}}
+</style></head>
+<body><div class="app">
+<header class="top"><div class="topline"><div class="brand"><div class="logo" id="brandLogo">SUN</div><div><h1>SUN-My Business</h1><p>Digital Business Platform</p></div></div><div class="row"><select id="roleSelect" aria-label="Demo role"><option value="customer">Customer Mode</option><option value="manager">Manager Mode</option><option value="admin">Admin Mode</option></select><button class="secondary" id="resetDemo" title="ডেমো ডেটা রিসেট">Reset</button></div></div><div class="slogan">এক সাথে এগিয়ে চলি সফলতার পথে</div></header>
+<nav class="nav" id="nav"></nav><main class="main" id="view"></main><div class="footer">SUN-My Business • Version 1.5.0 • Local Demo • Firebase/Server Security এখনো সংযুক্ত নয়</div></div>
+<div id="modal" class="modal hidden"><div class="modalbox" id="modalbox"></div></div>
 <script>
-let currentUser = null;
-let products = JSON.parse(localStorage.getItem("SUN_PRODUCTS_V2") || JSON.stringify([
-  {name: "Sun Detergent Powder", weight: "1kg", price: 120, image: "https://i.ibb.co.com/846z9x3/detergent.png"},
-  {name: "Sunmar Gold Oil", weight: "1Ltr", price: 180, image: "https://via.placeholder.com/100"}
-]));
-let orders = JSON.parse(localStorage.getItem("SUN_ORDERS_V2") || "[]");
-
-let defaultCustomers = [
-  {id: "SUN-1001", name: "Riya Akter", mobile: "01913979131", pass: "1234", role: "customer", points: 2580},
-  {id: "SUN-M01", name: "Manager Rahim", mobile: "01700000000", pass: "1234", role: "manager", points: 0},
-  {id: "SUN-A01", name: "Admin Salman", mobile: "01800000000", pass: "1234", role: "admin", points: 0}
-];
-let customers = JSON.parse(localStorage.getItem("SUN_CUSTOMERS_V2") || JSON.stringify(defaultCustomers));
-
-let cart = [];
-
-window.onload = function() {
-  localStorage.setItem("SUN_CUSTOMERS_V2", JSON.stringify(customers));
-  applyStoredLogo();
-  applyStoredTheme();
+const KEY='sun_my_business_demo_v1';
+const defaults={
+ version:'1.5.0',releaseNotes:'Customer-focused home, profile details, product weights, improved image compression, role-based screens and Digital Business Platform branding',pointsPer100:1,sharePoints:5,rankRules:[{name:'Silver',points:100},{name:'Gold',points:300},{name:'Platinum',points:1000},{name:'Diamond',points:2000},{name:'Crown',points:3250},{name:'Star Crown',points:4500}],
+ products:[
+ {id:1,name:'SUN Power White Detergent 500g',category:'SUN Products',price:65,discountType:'none',discount:0,stock:100,active:true,icon:'🧼',desc:'দৈনন্দিন কাপড় পরিষ্কারের ডিটারজেন্ট'},
+ {id:2,name:'SUNMARK Mustard Oil 500ml',category:'SUN Products',price:150,discountType:'none',discount:0,stock:60,active:true,icon:'🫙',desc:'সরিষার তেল'},
+ {id:3,name:'VITA-C Orange',category:'SUN Products',price:20,discountType:'none',discount:0,stock:120,active:true,icon:'🍊',desc:'ভিটামিন ড্রিংক'},
+ {id:4,name:'Special Curry Masala',category:'SUN Products',price:45,discountType:'none',discount:0,stock:45,active:true,icon:'🌶️',desc:'স্পেশাল কারি মসলা'},
+ {id:5,name:'Honey 250g',category:'SUN Products',price:180,discountType:'none',discount:0,stock:30,active:true,icon:'🍯',desc:'মধু'},
+ {id:6,name:'Reselling Demo Product',category:'SUN Reselling',price:100,discountType:'none',discount:0,stock:50,active:true,icon:'📦',desc:'রিসেলিং বোর্ডের নমুনা'}
+ ],orders:[],customers:[{id:'SUN1001',name:'Demo Customer',phone:'01XXXXXXXXX',points:0}],dealers:[{id:'DL1001',name:'Demo Dealer',phone:'01XXXXXXXXX'}],logs:[],media:[{name:'Sun Product Facebook Page',url:'https://www.facebook.com/share/1JvW7rGx3R/'},{name:'YouTube Channel',url:'https://youtube.com/'},{name:'SUN জীবনের গল্প',url:''},{name:'Zoom Live Meeting',url:''}],teamSales:[],updates:[],photos:{},cart:[],shareClaims:[],winners:[],auth:{},settings:{businessName:'Sun Super Mart',currency:'৳',bgColor:'#ffffff',headerColor:'#123db5',primaryColor:'#1746a2',darkColor:'#092b86',accentColor:'#f5bd35',whiteBackground:true}
 };
+let db=load(),role='customer',page='home',category='All';if(db.pointsPer100===undefined)db.pointsPer100=1;if(!db.winners)db.winners=[];if(!db.photos)db.photos={};if(!db.settings)db.settings={businessName:'Sun Super Mart',currency:'৳'};if(!db.auth)db.auth={};if(!Array.isArray(db.updates))db.updates=[];if(!Array.isArray(db.orders))db.orders=[];if(!Array.isArray(db.customers))db.customers=[];if(!Array.isArray(db.products))db.products=[];if(!Array.isArray(db.logs))db.logs=[];if(!Array.isArray(db.rankRules))db.rankRules=structuredClone(defaults.rankRules);if(!Array.isArray(db.cart))db.cart=[];save();
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||structuredClone(defaults)}catch(e){return structuredClone(defaults)}}
+// Migration: preserve existing local demo data and append the supplied Facebook page only if missing.
+if(!Array.isArray(db.media)) db.media=[];
+if(!db.media.some(m=>m.url==='https://www.facebook.com/share/1JvW7rGx3R/')) db.media.unshift({name:'Sun Product Facebook Page',url:'https://www.facebook.com/share/1JvW7rGx3R/'});
+if(!db.version || ['1.1.0','1.1.1'].includes(db.version)) db.version='1.2.0';
+if(db.version==='1.3.0'){db.updates.unshift({version:'1.4.0',notes:'Custom app colors; improved product photo compression; customer profile login and home dashboard',date:new Date().toLocaleDateString('bn-BD')});db.version='1.4.0';db.releaseNotes='Custom app colors; improved photo upload; customer name, ID, points and rank on home after login';}
+if(!db.updates.some(u=>u.version==='1.2.0')) db.updates.unshift({version:'1.2.0',notes:'Light blue + gold theme; fixed checkout address/COD fields and dealer memo details',date:new Date().toLocaleDateString('bn-BD')});
+save();
 
-function applyStoredLogo() {
-  const saved = localStorage.getItem("SUN_LOGO_URL_V2");
-  if(saved) {
-    document.getElementById("headerLogoImg").src = saved;
-    document.getElementById("headerLogoImg").style.display = "block";
-    document.getElementById("headerTitleText").style.display = "none";
-  }
-}
+function applyBranding(){let box=document.getElementById('brandLogo');if(box){box.innerHTML=db.settings?.logo?`<img src="${db.settings.logo}" alt="SUN Logo">`:'SUN'}let st=db.settings||{};let root=document.documentElement;root.style.setProperty('--bg',st.whiteBackground===false?(st.bgColor||'#f5faff'):'#ffffff');root.style.setProperty('--blue',st.primaryColor||'#1746a2');root.style.setProperty('--navy',st.darkColor||'#092b86');root.style.setProperty('--gold',st.accentColor||'#f5bd35');root.style.setProperty('--header',st.headerColor||'#123db5');let tagline=document.querySelector('.brand p');if(tagline)tagline.textContent='Digital Business Platform';let reset=document.getElementById('resetDemo');if(reset)reset.style.display=role==='admin'?'':'none'}
 
-function saveLogoUrl() {
-  const url = document.getElementById("logoUrlInput").value.trim();
-  if(!url) return alert("লিংক দিন!");
-  localStorage.setItem("SUN_LOGO_URL_V2", url);
-  applyStoredLogo();
-  alert("লোগো সফলভাবে সেট হয়েছে!");
-}
+function setWhiteBackground(on){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');db.settings.whiteBackground=!!on;save();applyBranding();log('Background Updated',on?'White':'Soft Blue');render()}
+function saveColors(){if(role!=='admin')return alert('শুধু Admin কালার পরিবর্তন করতে পারবেন');let st=db.settings;st.bgColor=document.getElementById('cBg').value;st.headerColor=document.getElementById('cHeader').value;st.primaryColor=document.getElementById('cPrimary').value;st.darkColor=document.getElementById('cDark').value;st.accentColor=document.getElementById('cAccent').value;save();log('App Colors Updated');applyBranding();render();alert('অ্যাপের কালার সংরক্ষণ হয়েছে')}
+function saveLogo(){if(role!=='admin')return;let f=document.getElementById('logoFile')?.files?.[0];if(!f)return alert('প্রথমে লোগো ছবি নির্বাচন করুন');if(!f.type.startsWith('image/'))return alert('ছবি ফাইল নির্বাচন করুন');if(f.size>50*1024*1024)return alert('ছবির সাইজ ৫০ MB-এর কম রাখুন');compressImage(f,900,.78,data=>{db.settings.logo=data;try{save();log('SUN Logo Updated');render();alert('SUN লোগো সংরক্ষণ হয়েছে')}catch(e){alert('লোগো সংরক্ষণ করা যায়নি। ছোট ছবি ব্যবহার করুন।')}},()=>alert('লোগো পড়া যায়নি।'))}
+function saveBanner(){if(role!=='admin')return;let f=document.getElementById('bannerFile')?.files?.[0];if(!f)return alert('ব্যানার ছবি নির্বাচন করুন');if(!f.type.startsWith('image/'))return alert('ছবি নির্বাচন করুন');if(f.size>50*1024*1024)return alert('ছবির সাইজ ৫০ MB-এর কম রাখুন');compressImage(f,1400,.78,data=>{db.settings.banner=data;try{save();log('Home Banner Updated');render();alert('ব্যানার সংরক্ষণ হয়েছে')}catch(e){alert('স্টোরেজ পূর্ণ। ব্যাকআপ নিয়ে পুরোনো ছবি সরিয়ে চেষ্টা করুন।')}},()=>alert('ছবি পড়া যায়নি'))}
+function removeBanner(){if(role!=='admin')return;delete db.settings.banner;save();log('Home Banner Removed');render()}
+function removeLogo(){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');if(!confirm('ডিফল্ট SUN লেখা ফিরিয়ে আনবেন?'))return;delete db.settings.logo;save();log('SUN Logo Reset');render()}
 
-function setTheme(color) {
-  document.body.style.background = color;
-  localStorage.setItem("SUN_THEME_BG_V2", color);
-}
+function save(){localStorage.setItem(KEY,JSON.stringify(db))}
+function log(action,detail=''){db.logs.unshift({time:new Date().toLocaleString('bn-BD'),role,action,detail});db.logs=db.logs.slice(0,250);save()}
+function money(n){return '৳'+Number(n||0).toLocaleString('en-US')}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function price(p){let v=Number(p.price);if(p.discountType==='percent')v-=v*Number(p.discount)/100;if(p.discountType==='fixed')v-=Number(p.discount);return Math.max(0,Math.round(v*100)/100)}
+function navItems(){let base=[['home','🏠','হোম'],['products','🛍️','SUN Products'],['other','🧺','Other Products'],['resell','📦','Reselling Board'],['affiliate','🔗','Affiliate'],['cart','🛒','Cart'],['orders','🧾','Orders'],['points','🏆','My Points'],['media','🎬','Media']];if(role==='manager')base=[['home','🏠','হোম'],['products','🛍️','পণ্য'],['orders','🧾','Orders'],['dealers','👥','Dealers'],['reports','📊','Reports'],['print','🖨️','Print Preview'],['winners','🏆','Winners']];if(role==='admin')base=[['home','🏠','হোম'],['products','🛍️','Products'],['other','🧺','Other Products'],['orders','🧾','Orders'],['customers','👥','Customers'],['dealers','🚚','Dealers'],['points','🏆','Points & Ranks'],['team','🤝','Team Income'],['media','🎬','Media & Live'],['reports','📊','Reports'],['admin','⚙️','Admin Control'],['updates','🔄','Smart Update'],['winners','🏆','Winners'],['audit','📋','Audit Log']];return base}
+function render(){applyBranding();document.getElementById('roleSelect').value=role;document.getElementById('nav').innerHTML=navItems().map(([id,ic,n])=>`<button class="${page===id?'active':''}" onclick="go('${id}')">${ic} ${n}</button>`).join('');let f=({home,products,other,resell,affiliate,cart,orders,points,media,bulk,dealers,reports,print,customers,team,admin,updates,winners,audit})[page]||home;document.getElementById('view').innerHTML=f()}
+function go(p){let allowed=role==='admin'?['home','products','other','resell','affiliate','cart','orders','points','media','bulk','dealers','reports','print','customers','team','admin','updates','winners','audit']:role==='manager'?['home','products','orders','dealers','reports','print','winners']:['home','products','other','resell','affiliate','cart','orders','points','media'];if(!allowed.includes(p)){alert('এই অপশনটি আপনার মুডে অনুমোদিত নয়');return}page=p;render()}
+function currentCustomer(){return db.customers.find(c=>c.id===db.currentCustomerId)||db.customers.find(c=>c.phone===db.currentCustomerPhone)||null}
+function customerLogin(){showModal(`<h3>কাস্টমার লগইন</h3><p class="muted">আপনার Customer ID ও নিবন্ধিত মোবাইল নম্বর দিন।</p><div class="field"><label>Customer ID</label><input id="loginCid" placeholder="যেমন SUN1001"></div><div class="field"><label>মোবাইল নম্বর</label><input id="loginPhone" inputmode="tel" placeholder="01XXXXXXXXX"></div><button onclick="verifyCustomerLogin()">লগইন</button> <button class="secondary" onclick="closeModal()">বন্ধ</button>`)}
+function verifyCustomerLogin(){let id=document.getElementById('loginCid').value.trim(),phone=document.getElementById('loginPhone').value.trim();let norm=v=>String(v||'').replace(/[^0-9]/g,'').replace(/^880/,'0');let c=db.customers.find(x=>x.id.toLowerCase()===id.toLowerCase()&&norm(x.phone)===norm(phone));if(!c)return alert('Customer ID বা মোবাইল নম্বর মেলেনি। Admin-এর কাছ থেকে সঠিক তথ্য নিন।');db.currentCustomerId=c.id;db.currentCustomerPhone=c.phone;save();closeModal();page='home';render()}
+function customerLogout(){delete db.currentCustomerId;delete db.currentCustomerPhone;save();render()}
+function home(){let me=currentCustomer(),pts=Number(me?.points||0),rank=[...db.rankRules].sort((a,b)=>a.points-b.points).filter(r=>pts>=r.points).at(-1)?.name||'Member';if(role==='customer'){let profile=me?`<div class="card section"><div class="between"><h3>আপনার অ্যাকাউন্ট</h3><button class="secondary" onclick="customerLogout()">Logout</button></div><div class="grid"><div><div class="muted">নাম</div><b>${esc(me.name)}</b></div><div><div class="muted">Customer ID</div><b>${esc(me.id)}</b></div><div><div class="muted">মোবাইল নম্বর</div><b>${esc(me.phone)}</b></div><div><div class="muted">পয়েন্ট</div><div class="stat">${pts.toLocaleString('en-US')}</div></div><div><div class="muted">সদস্য পদবি</div><b>${esc(rank)}</b></div></div></div>`:`<div class="card section"><h3>কাস্টমার লগইন</h3><p class="muted">লগইন করলে আপনার নাম, Customer ID, মোবাইল নম্বর ও পয়েন্ট এখানে দেখা যাবে।</p><button onclick="customerLogin()">Customer Login</button></div>`;let quick=[['products','🛒','Shop'],['points','🎁','Rewards'],['points','⭐','My Points'],['media','🎧','Support']];let featured=db.products.filter(p=>p.category==='SUN Products'&&p.active).slice(0,4);return `${profile}${db.settings.banner?`<img src="${db.settings.banner}" alt="SUN Banner" style="width:100%;max-height:250px;object-fit:cover;border-radius:18px;margin:10px 0">`:`<div class="hero"><h2>স্মার্ট কেনাকাটা, সুন্দর জীবন</h2><p>এক সাথে এগিয়ে চলি সফলতার পথে</p></div>`}<div class="grid">${quick.map(([id,ic,n])=>`<button class="tile" onclick="go('${id}')"><span class="ico">${ic}</span><span><b>${n}</b></span></button>`).join('')}</div><div class="pagehead section"><h2>Our Products</h2><button class="secondary" onclick="go('products')">See All →</button></div><div class="grid">${featured.map(productCard).join('')||'<div class="empty card">Admin এখনো পণ্য যোগ করেননি</div>'}</div><div class="notice">অর্ডার অনুমোদিত হলে কেনাকাটার পয়েন্ট আপনার অ্যাকাউন্টে যোগ হবে।</div>`}let total=db.orders.filter(o=>o.status==='Approved').reduce((s,o)=>s+o.total,0),pending=db.orders.filter(o=>o.status==='Pending').length;if(role==='manager')return `<div class="hero"><h2>Manager Dashboard</h2><p>শুধু অনুমোদিত অর্ডার দেখুন এবং মেমো প্রিন্ট করুন।</p></div><div class="grid"><div class="card"><div class="muted">অনুমোদিত অর্ডার</div><div class="stat">${db.orders.filter(o=>o.status==='Approved').length}</div></div><div class="card"><div class="muted">অনুমোদিত বিক্রয়</div><div class="stat">${money(total)}</div></div></div><div class="grid section"><button class="tile" onclick="go('orders')">🧾 Approved Orders</button><button class="tile" onclick="go('reports')">📊 Reports</button><button class="tile" onclick="go('print')">🖨️ Print Preview</button></div>`;return `<div class="hero"><h2>Admin Dashboard</h2><p>পণ্য, অর্ডার, কাস্টমার ও অ্যাপের সব নিয়ন্ত্রণ।</p></div><div class="grid"><div class="card"><div class="muted">মোট পণ্য</div><div class="stat">${db.products.length}</div></div><div class="card"><div class="muted">মোট অর্ডার</div><div class="stat">${db.orders.length}</div></div><div class="card"><div class="muted">অপেক্ষমাণ অর্ডার</div><div class="stat">${pending}</div></div><div class="card"><div class="muted">অনুমোদিত বিক্রয়</div><div class="stat">${money(total)}</div></div></div><div class="grid section">${navItems().filter(x=>x[0]!=='home').map(([id,ic,n])=>`<button class="tile" onclick="go('${id}')"><span class="ico">${ic}</span><span><b>${n}</b></span></button>`).join('')}</div>`}
 
-function applyStoredTheme() {
-  const bg = localStorage.getItem("SUN_THEME_BG_V2");
-  if(bg) document.body.style.background = bg;
-}
+function productCard(p){let img=db.photos[p.id]?`<img src="${db.photos[p.id]}" style="width:100%;height:125px;object-fit:cover">`:`<div class="photo">${p.icon||'📦'}</div>`;return `<div class="card product">${img}<div class="pbody"><div class="pill">${esc(p.category)}</div><b>${esc(p.name)}</b><div class="muted small">${esc(p.weight||'ওজন উল্লেখ নেই')} • ${esc(p.desc||'')}</div><div style="margin:8px 0"><span class="price">${money(price(p))}</span>${price(p)<p.price?`<span class="old">${money(p.price)}</span>`:''}</div><div class="muted small">স্টক: ${p.stock>0?p.stock:'শেষ'} ${p.active?'':'• বন্ধ'}</div>${role==='customer'?'<button style="width:100%;margin-top:9px" '+((!p.active||p.stock<=0)?'disabled':'')+' onclick="addCart('+p.id+')">কার্টে যোগ করুন</button>':''}</div></div>`}
+function products(){let list=db.products.filter(p=>p.category==='SUN Products'&&p.active);return `<div class="pagehead"><h2>SUN Products</h2>${role==='admin'?'<button onclick="productForm()">+ পণ্য যোগ</button>':''}</div><div class="row section"><button class="secondary" onclick="category='All';render()">সব পণ্য</button><button class="secondary" onclick="category='SUN Products';render()">SUN Products</button></div><div class="grid">${list.map(productCard).join('')||'<div class="empty">এখনো পণ্য নেই</div>'}</div>`}
+function other(){let list=db.products.filter(p=>p.category==='Other Products'&&p.active);return `<div class="pagehead"><h2>Other Products</h2>${role==='admin'?'<button onclick="productForm()">+ পণ্য যোগ</button>':''}</div><p class="muted">SUN ব্র্যান্ডের বাইরের পণ্য বিক্রির জন্য আলাদা বিভাগ।</p><div class="grid">${list.map(productCard).join('')||'<div class="empty">এখনো পণ্য নেই</div>'}</div>`}
+function affiliate(){let id=db.customers[0]?.id||'SUN1001';return `<div class="pagehead"><h2>Affiliate & Referral</h2></div><div class="card"><div class="muted">আপনার Demo Affiliate ID</div><div class="stat">${esc(id)}</div><p class="muted">এই ডেমোতে রেফারেল আইডি দেখানো হচ্ছে। প্রকৃত রেফারেল ট্র্যাকিং, কমিশন ও সদস্য-সংযোগ Firebase যুক্ত করার পর নিরাপদভাবে চালু হবে।</p><button onclick="navigator.clipboard?.writeText('${esc(id)}').then(()=>alert('ID কপি হয়েছে')).catch(()=>alert('কপি করা যায়নি'))">ID Copy</button></div><div class="card section"><h3>Affiliate Rules</h3><p>কমিশন শুধুমাত্র Admin-যাচাইকৃত প্রকৃত পণ্য বিক্রির ভিত্তিতে গণনা হবে।</p></div>`}
+function resell(){let list=db.products.filter(p=>p.category==='SUN Reselling'&&p.active);return `<div class="pagehead"><h2>SUN Reselling Board</h2>${role==='admin'?'<button onclick="productForm()">+ রিসেলিং পণ্য</button>':''}</div><p class="muted">রিসেলাররা পণ্য বেছে নিয়ে নিজের গ্রাহকের অর্ডার তৈরি করতে পারবেন।</p><div class="grid">${list.map(productCard).join('')||'<div class="empty">রিসেলিং পণ্য যোগ করা হয়নি</div>'}</div>`}
+function addCart(id){if(role==='manager')return alert('Manager Mode-এ অর্ডার করা যাবে না');let p=db.products.find(x=>x.id===id);if(!p||!p.active||p.stock<1)return;let c=db.cart.find(x=>x.id===id);if(c)c.qty++;else db.cart.push({id,qty:1});save();alert('কার্টে যোগ হয়েছে');}
+function cart(){let rows=db.cart.map(c=>{let p=db.products.find(x=>x.id===c.id);return p?`<tr><td>${esc(p.name)}</td><td>${money(price(p))}</td><td><input type="number" min="1" max="${p.stock}" value="${c.qty}" style="width:65px" onchange="qtyCart(${p.id},this.value)"></td><td>${money(price(p)*c.qty)}</td><td><button class="danger" onclick="removeCart(${p.id})">বাদ</button></td></tr>`:''}).join('');let total=db.cart.reduce((s,c)=>{let p=db.products.find(x=>x.id===c.id);return s+(p?price(p)*c.qty:0)},0);return `<div class="pagehead"><h2>Shopping Cart</h2></div><div class="tablewrap"><table><tr><th>পণ্য</th><th>দাম</th><th>পরিমাণ</th><th>মোট</th><th></th></tr>${rows||'<tr><td colspan="5" class="empty">কার্ট খালি</td></tr>'}</table></div><div class="card section"><div class="between"><b>সর্বমোট</b><div class="stat">${money(total)}</div></div><div class="formgrid"><div class="field"><label>গ্রাহকের নাম</label><input id="buyerName" value="${esc(currentCustomer()?.name||'')}" autocomplete="name"></div><div class="field"><label>মোবাইল</label><input id="buyerPhone" value="${esc(currentCustomer()?.phone||'')}" placeholder="01XXXXXXXXX" inputmode="tel" autocomplete="tel"></div></div><div class="field"><label>সম্পূর্ণ ঠিকানা</label><textarea id="buyerAddress" placeholder="বাড়ি/রোড, এলাকা, থানা, জেলা" autocomplete="street-address"></textarea></div><div class="field"><label>পেমেন্ট পদ্ধতি</label><label style="font-weight:500"><input id="payCOD" type="checkbox" checked style="width:auto"> Cash on Delivery (পণ্য হাতে পেয়ে মূল্য পরিশোধ)</label></div><div class="field"><label>অগ্রিম জমা (৳) — না দিলে ০</label><input id="buyerAdvance" type="number" min="0" value="0"></div><button onclick="checkout()" ${!db.cart.length?'disabled':''}>অর্ডার জমা দিন</button></div>`}
+function qtyCart(id,v){let c=db.cart.find(x=>x.id===id),p=db.products.find(x=>x.id===id);if(c)c.qty=Math.max(1,Math.min(p.stock,Number(v)||1));save();render()}
+function removeCart(id){db.cart=db.cart.filter(c=>c.id!==id);save();render()}
+function checkout(){let name=document.getElementById('buyerName').value.trim(),phone=document.getElementById('buyerPhone').value.trim(),address=document.getElementById('buyerAddress')?.value.trim()||'',cod=document.getElementById('payCOD')?.checked!==false,advance=Number(document.getElementById('buyerAdvance')?.value||0);if(!name||!phone||!address)return alert('নাম, মোবাইল ও ঠিকানা দিন');for(let c of db.cart){let p=db.products.find(x=>x.id===c.id);if(!p||!p.active||p.stock<c.qty)return alert('স্টক পর্যাপ্ত নেই: '+(p?.name||''))}let items=db.cart.map(c=>{let p=db.products.find(x=>x.id===c.id);return {id:p.id,name:p.name,qty:c.qty,price:price(p),cost:Number(p.cost||0)}}),total=items.reduce((s,x)=>s+x.qty*x.price,0);if(advance<0||advance>total)return alert('অগ্রিম টাকা মোট টাকার বেশি হতে পারবে না');db.orders.unshift({id:'SUN-'+Date.now().toString().slice(-7),name,phone,address,items,total,advance,balance:total-advance,status:'Pending',date:new Date().toLocaleString('bn-BD'),type:'Customer',payment:cod?'Cash on Delivery':'Other'});db.currentCustomerPhone=phone;let logged=db.customers.find(c=>c.phone===phone);if(logged)db.currentCustomerId=logged.id;db.cart=[];log('Order Created',name+' • '+money(total));save();alert('অর্ডার মেমো তৈরি হয়েছে। Admin Approval-এর অপেক্ষায়।');go('orders')}
+function orders(){let list=role==='manager'?db.orders.filter(o=>o.status==='Approved'):role==='customer'?db.orders.filter(o=>{let c=currentCustomer();return c&&(o.phone===c.phone||o.phone===db.currentCustomerPhone)}):db.orders;return `<div class="pagehead"><h2>Orders</h2></div>${list.length?`<div class="tablewrap"><table><tr><th>Order ID</th><th>গ্রাহক</th><th>পণ্য</th><th>মোট</th><th>অবস্থা</th><th>তারিখ</th>${role==='admin'?'<th>কাজ</th>':''}</tr>${list.map(o=>`<tr><td>${o.id}</td><td>${esc(o.name)}<br>${esc(o.phone)}</td><td>${o.items.map(i=>esc(i.name)+' × '+i.qty).join('<br>')}</td><td>${money(o.total)}</td><td><span class="pill ${o.status==='Approved'?'green':o.status==='Rejected'?'red':'orange'}">${o.status}</span></td><td>${o.date}</td>${role==='admin'?`<td>${o.status==='Pending'?`<button class="good" onclick="approve('${o.id}')">Approve</button> <button class="danger" onclick="reject('${o.id}')">Reject</button>`:'—'}</td>`:''}</tr>`).join('')}</table></div>`:'<div class="empty card">এখনো কোনো অর্ডার নেই</div>'}`}
+function approve(id){if(role!=='admin')return alert('শুধু Admin অর্ডার অনুমোদন করতে পারবেন');let o=db.orders.find(x=>x.id===id);if(!o||o.status!=='Pending')return;for(let i of o.items){let p=db.products.find(x=>x.id===i.id);if(!p||p.stock<i.qty)return alert('স্টক কম: '+i.name)}o.items.forEach(i=>db.products.find(p=>p.id===i.id).stock-=i.qty);o.status='Approved';let customer=db.customers.find(c=>c.phone===o.phone)||{id:'SUN'+Date.now().toString().slice(-6),name:o.name,phone:o.phone,points:0};if(!db.customers.some(c=>c.phone===o.phone))db.customers.push(customer);customer.points+=Math.floor(o.total/100*db.pointsPer100);if(db.currentCustomerPhone===o.phone){db.currentCustomerId=customer.id;}log('Order Approved',id);save();render()}
+function reject(id){if(role!=='admin')return alert('শুধু Admin অর্ডার বাতিল করতে পারবেন');let o=db.orders.find(x=>x.id===id);if(o){o.status='Rejected';log('Order Rejected',id);save();render()}}
+function points(){let me=currentCustomer()||{points:0},pts=me.points||0,rank=[...db.rankRules].sort((a,b)=>a.points-b.points).filter(r=>pts>=r.points).at(-1)?.name||'Member';return `<div class="pagehead"><h2>My Points & পদবি</h2></div><div class="grid"><div class="card"><div class="muted">আপনার পয়েন্ট</div><div class="stat">${pts.toLocaleString('en-US')}</div></div><div class="card"><div class="muted">বর্তমান পদবি</div><div class="stat">${rank}</div></div></div><div class="card section rank"><h3>🏅 পদবি ও পয়েন্ট টেবিল</h3><div class="tablewrap"><table><tr><th>ক্রম</th><th>পদবি</th><th>প্রয়োজনীয় পয়েন্ট</th></tr>${[...db.rankRules].sort((a,b)=>a.points-b.points).map((r,i)=>`<tr><td>${i+1}</td><td><b>${esc(r.name)}</b></td><td>${r.points.toLocaleString('en-US')} PV</td></tr>`).join('')}</table></div><p class="muted small">প্রতি ১০০ টাকা অনুমোদিত কেনাকাটায় ${db.pointsPer100} পয়েন্ট। পদবি ও টার্গেট Admin পরিবর্তন করতে পারবেন।</p></div><div class="card section"><h3>শেয়ার পয়েন্ট</h3><p class="muted">ডেমো পরীক্ষার জন্য একবার শেয়ার পয়েন্ট যোগ হবে। প্রকৃত শেয়ার যাচাই সার্ভার থেকে করতে হবে।</p><button onclick="claimShare()">🔗 শেয়ার পয়েন্ট দাবি করুন (+${db.sharePoints})</button></div>`}
+function claimShare(){let me=currentCustomer();if(!me)return alert('প্রথমে Customer Login করুন');if(db.shareClaims.includes(me.id))return alert('এই অ্যাকাউন্টে শেয়ার পয়েন্ট আগে নেওয়া হয়েছে');db.shareClaims.push(me.id);me.points=(me.points||0)+db.sharePoints;log('Share Points Claimed','Demo');save();render()}
+function media(){return `<div class="pagehead"><h2>Media & Live Programs</h2>${role==='admin'?'<button onclick="mediaForm()">+ লিংক যোগ</button>':''}</div><div class="grid">${db.media.map((m,i)=>`<div class="card"><div class="stat">${['📘','▶️','🎤','📹'][i%4]}</div><h3>${esc(m.name)}</h3>${m.url?`<a href="${esc(m.url)}" target="_blank" rel="noopener">লিংক খুলুন ↗</a>`:'<span class="muted">লিংক পরে Admin যোগ করবেন</span>'}${role==='admin'?`<button class="secondary" style="margin-left:8px" onclick="editMedia(${i})">Edit</button>`:''}</div>`).join('')}</div>`}
+function bulk(){return `<div class="pagehead"><h2>Dealer Bulk Order</h2></div><div class="card"><p class="muted">এক অর্ডারে একাধিক পণ্য ও পরিমাণ দিন। ডেমোতে ডিলার মূল্য সাধারণ বিক্রয়মূল্যের সমান; Admin পরে আলাদা Dealer Price নির্ধারণ করতে পারবেন।</p><div id="bulkRows">${bulkRow()}</div><button class="secondary" onclick="document.getElementById('bulkRows').insertAdjacentHTML('beforeend',${JSON.stringify(bulkRow())})">+ আরেকটি পণ্য</button><div class="field" style="margin-top:12px"><label>ডিলারের নাম</label><input id="bulkName" value="Demo Dealer"></div><div class="field"><label>মোবাইল</label><input id="bulkPhone" placeholder="01XXXXXXXXX"></div><div class="field"><label>ঠিকানা</label><textarea id="bulkAddress" placeholder="ডিলারের ঠিকানা"></textarea></div><button onclick="submitBulk()">Bulk Order জমা দিন</button></div>`}
+function bulkRow(){return `<div class="row" style="margin:8px 0"><select class="bulkProd" style="flex:2;padding:10px;border:1px solid #d5dfed;border-radius:10px">${db.products.filter(p=>p.active).map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select><input class="bulkQty" type="number" min="1" value="1" style="width:75px;padding:10px;border:1px solid #d5dfed;border-radius:10px"></div>`}
+function submitBulk(){let rows=[...document.querySelectorAll('#bulkRows .row')],items=rows.map(r=>{let p=db.products.find(x=>x.id===Number(r.querySelector('.bulkProd').value));return p?{id:p.id,name:p.name,qty:Number(r.querySelector('.bulkQty').value)||1,price:price(p),cost:Number(p.cost||0)}:null}).filter(Boolean);if(!items.length)return;let name=document.getElementById('bulkName').value,phone=document.getElementById('bulkPhone').value,address=document.getElementById('bulkAddress').value;if(!name||!phone||!address)return alert('নাম, মোবাইল ও ঠিকানা দিন');for(let i of items){let p=db.products.find(x=>x.id===i.id);if(!p||p.stock<i.qty)return alert('স্টক পর্যাপ্ত নেই: '+i.name)}let total=items.reduce((s,i)=>s+i.qty*i.price,0);db.orders.unshift({id:'DL-'+Date.now().toString().slice(-7),name,phone,address,items,total,status:'Pending',date:new Date().toLocaleString('bn-BD'),type:'Dealer',advance:0,balance:total,payment:'Cash on Delivery'});log('Dealer Bulk Order',name);save();alert('ডিলার অর্ডার জমা হয়েছে');go('orders')}
+function dealers(){return `<div class="pagehead"><h2>Dealers</h2>${role==='admin'?'<button onclick="dealerForm()">+ Dealer যোগ</button>':''}</div>${simpleTable(db.dealers,['id','name','phone'])}`}
+function customers(){return `<div class="pagehead"><h2>Customers</h2><button onclick="customerForm()">+ Customer যোগ</button></div>${simpleTable(db.customers,['id','name','phone','points'])}`}
+function simpleTable(arr,keys){return `<div class="tablewrap"><table><tr>${keys.map(k=>`<th>${k}</th>`).join('')}</tr>${arr.map(x=>`<tr>${keys.map(k=>`<td>${esc(x[k])}</td>`).join('')}</tr>`).join('')||`<tr><td colspan="${keys.length}" class="empty">কোনো তথ্য নেই</td></tr>`}</table></div>`}
+function reports(){let approved=db.orders.filter(o=>o.status==='Approved'),sum=approved.reduce((s,o)=>s+o.total,0),gross=approved.reduce((s,o)=>s+o.items.reduce((a,i)=>a+(Number(i.price)-Number(i.cost||0))*i.qty,0),0);return `<div class="pagehead"><h2>Reports</h2></div><div class="grid"><div class="card"><div class="muted">অনুমোদিত বিক্রয়</div><div class="stat">${money(sum)}</div></div><div class="card"><div class="muted">অনুমোদিত অর্ডার</div><div class="stat">${approved.length}</div></div><div class="card"><div class="muted">পণ্য সংখ্যা</div><div class="stat">${db.products.length}</div></div><div class="card"><div class="muted">আনুমানিক মোট লাভ</div><div class="stat">${money(gross)}</div></div></div><div class="section">${simpleTable(approved.map(o=>({id:o.id,name:o.name,total:money(o.total),date:o.date})),['id','name','total','date'])}</div>`}
+function print(){let approved=db.orders.filter(o=>o.status==='Approved');return `<div class="pagehead"><h2>Manager Memo Preview & Print</h2></div><div class="notice">শুধু Admin Approved মেমো এখানে আসবে। Manager শুধু Preview ও Print করতে পারবেন।</div>${approved.map(o=>`<div class="card between"><div><b>${o.id}</b><div class="muted">${esc(o.name)} • ${money(o.total)}</div></div><button onclick="previewMemo('${o.id}')">View / Print</button></div>`).join('')||'<div class="empty card">এখনো Admin Approved মেমো নেই</div>'}`}
+function memoMarkup(o){return `<div class="memo"><div class="memohead"><b>SUN Product</b><div class="memocust"><b>Customer Details</b><br>নাম: ${esc(o.name)}<br>মোবাইল: ${esc(o.phone)}<br>ঠিকানা: ${esc(o.address||'—')}<br>তারিখ ও সময়: ${esc(o.date)}</div></div><div class="watermark">SUN</div><h2 style="text-align:center">ORDER MEMO</h2><p>Memo No: ${esc(o.id)} <span style="float:right">${esc(o.payment||'Cash on Delivery')}</span></p><p>মোট আইটেম: ${o.items.reduce((n,i)=>n+Number(i.qty||0),0)}</p><table><tr><th>পণ্যের নাম</th><th>পরিমাণ</th><th>একক মূল্য</th><th>মোট</th></tr>${o.items.map(i=>`<tr><td>${esc(i.name)}</td><td>${i.qty}</td><td>${money(i.price)}</td><td>${money(i.qty*i.price)}</td></tr>`).join('')}</table><h3 style="text-align:right">সর্বমোট: ${money(o.total)}</h3><p style="text-align:right">অগ্রিম: ${money(o.advance||0)}<br><b>বাকি / Cash on Delivery: ${money(o.balance??(o.total-(o.advance||0)))}</b></p><p>পেমেন্ট: ${esc(o.payment||'Cash on Delivery')}</p><p style="text-align:center;margin-top:50px">ধন্যবাদ • SUN Product</p></div>`}
+function previewMemo(id){let o=db.orders.find(x=>x.id===id);if(!o||o.status!=='Approved')return;showModal(`<div class="between"><h3>মেমো প্রিভিউ</h3><button class="secondary" onclick="closeModal()">বন্ধ</button></div>${memoMarkup(o)}<button style="width:100%;margin-top:12px" onclick="printMemo('${id}')">🖨️ Print Memo</button>`)}
+function printMemo(id){let o=db.orders.find(x=>x.id===id);if(!o||o.status!=='Approved')return;let w=window.open('','_blank');if(!w)return alert('Print window blocked. Browser pop-up allow করুন।');w.document.write('<html><head><meta charset="utf-8"><title>SUN Memo</title><style>body{font-family:Arial,sans-serif;padding:25px;color:#26384d}.memo{position:relative;border:1px solid #ddd;padding:25px}.memohead{display:flex;justify-content:space-between;gap:20px}.memohead>b{font-size:25px;color:#3976b9}.memocust{text-align:right;line-height:1.7}.watermark{position:absolute;top:42%;left:30%;font-size:100px;font-weight:900;color:#3976b9;opacity:.07;z-index:-1}.memo table{width:100%;border-collapse:collapse;margin-top:25px}.memo th,.memo td{border:1px solid #ccc;padding:10px;text-align:left}.memo th{background:#eff7ff}@media print{body{padding:0}}</style></head><body>'+memoMarkup(o)+'</body></html>');w.document.close();w.focus();w.print()}
+function team(){return `<div class="pagehead"><h2>Team Income & Verified Sales</h2></div><div class="notice">শুধু Admin যাচাইকৃত প্রকৃত বিক্রির ভিত্তিতে টিম বোনাস অনুমোদন করবেন। Demo-তে কমিশন হার নির্ধারিত নয়।</div><div class="card"><h3>যাচাইকৃত বিক্রির রেকর্ড</h3><div class="field"><label>সদস্য/টিম লিডার</label><input id="teamName" placeholder="নাম বা ID"></div><div class="field"><label>যাচাইকৃত বিক্রির পরিমাণ (৳)</label><input id="teamSale" type="number" min="0"></div><button onclick="addTeamSale()">রেকর্ড যোগ</button></div>${simpleTable(db.teamSales,['name','amount','verified','date'])}`}
+function addTeamSale(){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');let n=document.getElementById('teamName').value,a=Number(document.getElementById('teamSale').value);if(!n||a<=0)return alert('সঠিক তথ্য দিন');db.teamSales.unshift({name:n,amount:a,verified:'Admin Verified',date:new Date().toLocaleString('bn-BD')});log('Verified Team Sale Added',n+' '+a);save();render()}
+function admin(){let pending=db.orders.filter(o=>o.status==='Pending');return `<div class="pagehead"><h2>Admin Control</h2></div><div class="section card"><div class="between"><h3>অর্ডার অ্যাপ্রুভাল</h3><span class="pill orange">Pending: ${pending.length}</span></div>${pending.length?pending.map(o=>`<div class="between" style="padding:10px 0;border-bottom:1px solid var(--line)"><div><b>${esc(o.id)} • ${esc(o.name)}</b><div class="muted small">${esc(o.phone)} • ${money(o.total)} • ${esc(o.date)}</div></div><div class="row"><button class="good" onclick="approve('${o.id}')">Approve</button><button class="danger" onclick="reject('${o.id}')">Reject</button></div></div>`).join(''):'<p class="muted">নতুন Pending অর্ডার নেই।</p>'}<button class="secondary" onclick="go('orders')">সব অর্ডার দেখুন</button></div><div class="grid"><button class="tile" onclick="productForm()"><span class="ico">➕</span><span><b>পণ্য যোগ/সম্পাদনা</b><small>দাম, ছাড়, স্টক, ছবি</small></span></button><button class="tile" onclick="customerForm()"><span class="ico">👤</span><span><b>Customer তৈরি</b><small>নাম, ID, পয়েন্ট</small></span></button><button class="tile" onclick="rankForm()"><span class="ico">🏅</span><span><b>পয়েন্ট ও র‍্যাঙ্ক সেটিংস</b><small>টার্গেট পরিবর্তন</small></span></button><button class="tile" onclick="settingsForm()"><span class="ico">⚙️</span><span><b>Business Settings</b><small>পয়েন্ট হার, শেয়ার পয়েন্ট</small></span></button></div><div class="section card"><h3>Product Management</h3>${db.products.map(p=>`<div class="between" style="padding:9px 0;border-bottom:1px solid var(--line)"><div><b>${esc(p.name)}</b><div class="muted small">${money(p.price)} • Stock ${p.stock} • ${p.active?'Active':'Off'}</div></div><div class="row"><button class="secondary" onclick="editProduct(${p.id})">Edit</button><button class="${p.active?'danger':'good'}" onclick="toggleProduct(${p.id})">${p.active?'Off':'On'}</button></div></div>`).join('')}</div><div class="section card"><h3>অ্যাপের কালার পরিবর্তন</h3><p class="muted small">পছন্দের রং নির্বাচন করে Save Colors চাপুন।</p><div class="formgrid"><div class="field"><label>অ্যাপের ব্যাকগ্রাউন্ড</label><input id="cBg" type="color" value="${db.settings.bgColor||'#ffffff'}"></div><div class="field"><label>হেডার কালার</label><input id="cHeader" type="color" value="${db.settings.headerColor||'#eaf6ff'}"></div><div class="field"><label>প্রধান বাটন কালার</label><input id="cPrimary" type="color" value="${db.settings.primaryColor||'#78b9f2'}"></div><div class="field"><label>গাঢ় নীল</label><input id="cDark" type="color" value="${db.settings.darkColor||'#2f72b8'}"></div><div class="field"><label>গোল্ডেন / অ্যাকসেন্ট</label><input id="cAccent" type="color" value="${db.settings.accentColor||'#e7b84f'}"></div></div><button onclick="saveColors()">Save Colors</button><button class="secondary" onclick="db.settings={...db.settings,bgColor:'#ffffff',headerColor:'#eaf6ff',primaryColor:'#78b9f2',darkColor:'#2f72b8',accentColor:'#e7b84f'};save();render()">ডিফল্ট কালার</button></div><div class="section card"><h3>হোম পেজ ব্যানার</h3><div class="field"><label>ব্যানার ছবি আপলোড</label><input id="bannerFile" type="file" accept="image/*"></div><div class="row"><button onclick="saveBanner()">ব্যানার সংরক্ষণ</button><button class="secondary" onclick="removeBanner()">ব্যানার বাদ</button></div></div><div class="section card"><h3>SUN Logo & App Background</h3><div class="field"><label>নতুন SUN লোগো আপলোড (PNG/JPG/WebP)</label><input id="logoFile" type="file" accept="image/png,image/jpeg,image/webp"></div><div class="row"><button onclick="saveLogo()">লোগো সংরক্ষণ</button><button class="secondary" onclick="removeLogo()">ডিফল্ট SUN লোগো</button></div><div class="field" style="margin-top:14px"><label><input id="whiteBg" type="checkbox" style="width:auto" ${db.settings.whiteBackground!==false?'checked':''} onchange="setWhiteBackground(this.checked)"> অ্যাপের ব্যাকগ্রাউন্ড সাদা রাখুন</label></div></div><div class="section card"><h3>Admin / Manager Password</h3><button class="secondary" onclick="changePass(&quot;admin&quot;)">Admin Password</button> <button class="secondary" onclick="changePass(&quot;manager&quot;)">Manager Password</button></div><div class="section card"><h3>Data Backup & Restore</h3><p class="muted small">সব ডেমো ডেটা JSON ফাইলে ডাউনলোড বা পুনরুদ্ধার করুন।</p><div class="row"><button onclick="backup()">Backup Download</button><label class="secondary" style="padding:10px 14px;border-radius:12px;cursor:pointer">Restore JSON <input type="file" accept="application/json" hidden onchange="restore(event)"></label></div></div>`}
+function productForm(p={}){if(role!=='admin')return;showModal(`<h3>${p.id?'পণ্য সম্পাদনা':'নতুন পণ্য'}</h3><div class="field"><label>পণ্যের নাম</label><input id="fName" value="${esc(p.name||'')}"></div><div class="field"><label>ক্যাটাগরি</label><select id="fCat"><option ${p.category==='SUN Products'?'selected':''}>SUN Products</option><option ${p.category==='SUN Reselling'?'selected':''}>SUN Reselling</option><option>Other Products</option></select></div><div class="formgrid"><div class="field"><label>মূল্য</label><input id="fPrice" type="number" value="${p.price??0}"></div><div class="field"><label>ছাড়ের ধরন</label><select id="fType"><option value="none">ছাড় নেই</option><option value="percent" ${p.discountType==='percent'?'selected':''}>শতকরা %</option><option value="fixed" ${p.discountType==='fixed'?'selected':''}>নির্দিষ্ট টাকা</option></select></div><div class="field"><label>ছাড়ের পরিমাণ</label><input id="fDiscount" type="number" value="${p.discount||0}"></div><div class="field"><label>স্টক</label><input id="fStock" type="number" value="${p.stock??0}"></div><div class="field"><label>ক্রয়/উৎপাদন খরচ (প্রতি ইউনিট)</label><input id="fCost" type="number" value="${p.cost??0}"></div></div><div class="field"><label>ওজন / পরিমাণ (যেমন 500g, 1kg, 500ml)</label><input id="fWeight" value="${esc(p.weight||'')}"></div><div class="field"><label>বর্ণনা</label><input id="fDesc" value="${esc(p.desc||'')}"></div><div class="field"><label>পণ্যের ছবি আপলোড</label><input id="fPhoto" type="file" accept="image/png,image/jpeg,image/webp"><small class="muted">ছবি নির্বাচন করার পর Save চাপুন।</small></div><div class="row"><button onclick="saveProduct(${p.id||0})">Save</button><button class="secondary" onclick="closeModal()">Cancel</button></div>`)}
+function editProduct(id){productForm(db.products.find(p=>p.id===id))}
+function saveProduct(id){if(role!=='admin')return alert('শুধু Admin পণ্য যোগ করতে পারবেন');if(role!=='admin')return alert('শুধু Admin পণ্য যোগ করতে পারবেন');let p=db.products.find(x=>x.id===id)||{id:Date.now(),active:true,icon:'📦'};p.name=document.getElementById('fName').value.trim();p.category=document.getElementById('fCat').value;p.price=Number(document.getElementById('fPrice').value);p.discountType=document.getElementById('fType').value;p.discount=Number(document.getElementById('fDiscount').value)||0;p.stock=Number(document.getElementById('fStock').value);p.cost=Number(document.getElementById('fCost').value)||0;p.weight=document.getElementById('fWeight').value.trim();p.desc=document.getElementById('fDesc').value;if(!p.name||!Number.isFinite(p.price)||p.price<0||!Number.isFinite(p.stock)||p.stock<0)return alert('পণ্যের নাম, সঠিক দাম ও স্টক দিন');let file=document.getElementById('fPhoto').files[0];if(file&&!file.type.startsWith('image/'))return alert('শুধু ছবি ফাইল নির্বাচন করুন');const finish=()=>{if(!db.products.some(x=>x.id===p.id))db.products.push(p);try{save();closeModal();log('Product Saved',p.name);render();alert('পণ্য সফলভাবে সংরক্ষণ হয়েছে।')}catch(e){alert('ফোনের ব্রাউজার স্টোরেজ পূর্ণ। পুরোনো অপ্রয়োজনীয় ছবি/ডেটা ব্যাকআপ নিয়ে সরিয়ে আবার চেষ্টা করুন।')}};if(file){if(file.size>50*1024*1024)return alert('ছবির সাইজ ৫০ MB-এর কম রাখুন');compressImage(file,1100,.78,data=>{db.photos=db.photos||{};db.photos[p.id]=data;finish()},()=>alert('ছবি পড়া যায়নি। অন্য ছবি দিন।'))}else finish()}
+function compressImage(file,maxSide,quality,onDone,onError){let reader=new FileReader();reader.onerror=onError;reader.onload=()=>{let img=new Image();img.onerror=onError;img.onload=()=>{let scale=Math.min(1,maxSide/Math.max(img.width,img.height)),canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));let ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,canvas.width,canvas.height);let q=quality,data=canvas.toDataURL('image/jpeg',q);while(data.length>360000&&q>.42){q-=.08;data=canvas.toDataURL('image/jpeg',q)}if(data.length>520000){let factor=.78;canvas.width=Math.max(1,Math.round(canvas.width*factor));canvas.height=Math.max(1,Math.round(canvas.height*factor));ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,canvas.width,canvas.height);data=canvas.toDataURL('image/jpeg',.55)}onDone(data)};img.src=reader.result};reader.readAsDataURL(file)}
 
-function loginSUN() {
-  const mobile = document.getElementById("loginMobile").value.trim();
-  const pass = document.getElementById("loginPass").value.trim();
-
-  let found = customers.find(c => c.mobile === mobile && c.pass === pass);
-  if(!found) {
-    alert("মোবাইল নম্বর বা পাসওয়ার্ড ভুল!");
-    return;
-  }
-
-  currentUser = found;
-  document.getElementById("login").classList.add("hidden");
-  
-  document.getElementById("profileName").textContent = `Hello, ${currentUser.name}`;
-  document.getElementById("profileId").textContent = currentUser.id || "SUN-1001";
-  document.getElementById("profilePoints").textContent = currentUser.points;
-  document.getElementById("dispPoints").textContent = currentUser.points;
-  document.getElementById("profileDetails").innerHTML = `<b>নাম:</b> ${currentUser.name}<br><b>মোবাইল:</b> ${currentUser.mobile}<br><b>আইডি:</b> ${currentUser.id}<br><b>রোল:</b> ${currentUser.role}`;
-
-  show('home');
-  renderProducts();
-  renderOrders();
-  renderManagerOrders();
-  renderCustomerMgmt();
-}
-
-function logoutSUN() {
-  currentUser = null;
-  document.querySelectorAll("main > section").forEach(s => s.classList.add("hidden"));
-  document.getElementById("login").classList.remove("hidden");
-}
-
-function show(id) {
-  if(!currentUser && id !== 'login') return alert("আগে লগইন করুন!");
-  document.querySelectorAll("main > section").forEach(s => s.classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
-  if(id === 'products' && currentUser.role === 'admin') {
-    document.getElementById("adminUpload").classList.remove("hidden");
-  }
-}
-
-function renderProducts() {
-  const html = products.map((p, idx) => `
-    <div class="product-card-2">
-      <img src="${p.image}" alt="">
-      <div>
-        <h4 style="margin:0 0 4px 0;font-size:14px;">${p.name}</h4>
-        <p style="margin:0 0 6px 0;font-size:11px;color:#666;">ওজন: ${p.weight}</p>
-        <p style="margin:0 0 8px 0;font-weight:bold;color:var(--red);">৳${p.price}</p>
-        <button onclick="addToCart(${idx})" style="width:100%;padding:6px;font-size:12px;">Add to Cart</button>
-      </div>
-    </div>
-  `).join("");
-  document.getElementById("homeProductContainer").innerHTML = html;
-  document.getElementById("fullProductList").innerHTML = html;
-}
-
-function addToCart(idx) {
-  let p = products[idx];
-  let exist = cart.find(item => item.name === p.name);
-  if(exist) exist.qty += 1;
-  else cart.push({...p, qty: 1});
-  
-  let totalCount = cart.reduce((sum, i) => sum + i.qty, 0);
-  document.getElementById("cartCount").textContent = totalCount;
-  alert(`${p.name} কার্টে যোগ হয়েছে!`);
-}
-
-function checkoutOrder() {
-  if(cart.length === 0) return alert("কার্ট খালি!");
-  const address = document.getElementById("orderAddress").value.trim() || "ঠিকানা দেওয়া হয়নি";
-  const advance = parseFloat(document.getElementById("advancePay").value) || 0;
-  
-  let totalAmount = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
-  let dueAmount = totalAmount - advance;
-  let earnedPoints = Math.floor(totalAmount / 100) * 10;
-
-  let newOrder = {
-    id: "ORD-" + Date.now(),
-    customerName: currentUser.name,
-    mobile: currentUser.mobile,
-    address: address,
-    items: [...cart],
-    total: totalAmount,
-    advance: advance,
-    due: dueAmount,
-    status: "Pending (অ্যাডমিন এপ্রুভালের অপেক্ষায়)",
-    date: new Date().toLocaleDateString()
-  };
-
-  orders.push(newOrder);
-  localStorage.setItem("SUN_ORDERS_V2", JSON.stringify(orders));
-
-  currentUser.points += earnedPoints;
-  let cIndex = customers.findIndex(c => c.mobile === currentUser.mobile);
-  if(cIndex !== -1) {
-    customers[cIndex].points = currentUser.points;
-    localStorage.setItem("SUN_CUSTOMERS_V2", JSON.stringify(customers));
-  }
-
-  document.getElementById("profilePoints").textContent = currentUser.points;
-  document.getElementById("dispPoints").textContent = currentUser.points;
-
-  cart = [];
-  document.getElementById("cartCount").textContent = 0;
-  alert(`অর্ডার সফল হয়েছে! আপনি ${earnedPoints} পয়েন্ট অর্জন করেছেন।`);
-  show('orders');
-  renderOrders();
-  renderManagerOrders();
-}
-
-function renderOrders() {
-  const container = document.getElementById("orderListContainer");
-  let myOrders = orders.filter(o => o.mobile === currentUser.mobile || currentUser.role === 'admin');
-  container.innerHTML = myOrders.map(o => `
-    <div style="border:1px solid #ddd;padding:10px;border-radius:8px;margin-bottom:8px;">
-      <b>অর্ডার আইডি: ${o.id}</b><br>
-      গ্রাহক: ${o.customerName} (${o.mobile})<br>
-      ঠিকানা: ${o.address}<br>
-      সর্বমোট: ৳${o.total} | অগ্রিম: ৳${o.advance} | <b>COD বাকি: ৳${o.due}</b><br>
-      স্ট্যাটাস: <b style="color:var(--blue);">${o.status}</b>
-      ${currentUser.role === 'admin' && o.status.includes('Pending') ? `<button class="green" onclick="approveOrder('${o.id}')" style="margin-top:5px;display:block;">অ্যাডমিন এপ্রুভ করুন</button>` : ''}
-    </div>
-  `).join("") || "<p>কোনো অর্ডার নেই।</p>";
-}
-
-function approveOrder(id) {
-  let o = orders.find(x => x.id === id);
-  if(o) {
-    o.status = "Approved (ম্যানেজার মোডে প্রস্তুত)";
-    localStorage.setItem("SUN_ORDERS_V2", JSON.stringify(orders));
-    renderOrders();
-    renderManagerOrders();
-    alert("অর্ডার এপ্রুভ করা হয়েছে!");
-  }
-}
-
-function renderManagerOrders() {
-  const container = document.getElementById("managerOrderList");
-  let approved = orders.filter(o => o.status.includes("Approved") || currentUser.role === 'manager' || currentUser.role === 'admin');
-  container.innerHTML = approved.map(o => `
-    <div style="border:1px solid #ddd;padding:10px;border-radius:8px;margin-bottom:8px;">
-      <b>ID: ${o.id}</b> - ${o.customerName}<br>
-      মোট: ৳${o.total} | COD বাকি: ৳${o.due}<br>
-      <button class="gold" onclick="previewMemo('${o.id}')" style="margin-top:5px;">মেমো প্রিন্ট প্রিভিউ</button>
-    </div>
-  `).join("") || "<p>কোনো অনুমোদিত অর্ডার নেই।</p>";
-}
-
-function previewMemo(id) {
-  let o = orders.find(x => x.id === id);
-  if(!o) return;
-  
-  let itemsHtml = o.items.map(i => `<tr><td>${i.name} (${i.weight})</td><td>${i.qty}</td><td>৳${i.price * i.qty}</td></tr>`).join("");
-
-  document.getElementById("memoPreviewContent").innerHTML = `
-    <div style="display:flex; justify-content:space-between; border-bottom:2px solid var(--blue); padding-bottom:10px; margin-bottom:10px;">
-      <div><h2 style="margin:0; color:var(--blue);">Sun Product</h2><small>ডিজিটাল ক্যাশ মেমো</small></div>
-      <div style="text-align:right;">
-        <b>গ্রাহক:</b> ${o.customerName}<br>
-        <b>মোবাইল:</b> ${o.mobile}<br>
-        <b>ঠিকানা:</b> ${o.address}
-      </div>
-    </div>
-    <table width="100%" border="1" cellspacing="0" cellpadding="6" style="border-collapse:collapse; margin-bottom:10px;">
-      <tr><th>পণ্যের নাম</th><th>পরিমাণ</th><th>দাম</th></tr>
-      ${itemsHtml}
-    </table>
-    <p><b>সর্বমোট বিল:</b> ৳${o.total}</p>
-    <p><b>অগ্রিম পরিশোধ:</b> ৳${o.advance}</p>
-    <h3 style="color:var(--red);">ক্যাশ অন ডেলিভারি (COD বাকি): ৳${o.due}</h3>
-  `;
-  show('printMemoSection');
-}
-
-function renderCustomerMgmt() {
-  const container = document.getElementById("customerListContainer");
-  container.innerHTML = customers.map((c, i) => `
-    <div style="border:1px solid #ddd;padding:8px;margin-bottom:6px;border-radius:6px;">
-      <b>নাম:</b> ${c.name} | <b>মোবাইল:</b> ${c.mobile} | <b>রোল:</b> ${c.role}<br>
-      <b>পাসওয়ার্ড:</b> <input type="text" id="pass_${i}" value="${c.pass}" style="width:100px;display:inline-block;padding:2px;">
-      <button onclick="updatePass(${i})" style="padding:4px 8px;font-size:11px;">পাসওয়ার্ড আপডেট</button>
-    </div>
-  `).join("");
-}
-
-function updatePass(i) {
-  let newPass = document.getElementById(`pass_${i}`).value;
-  customers[i].pass = newPass;
-  localStorage.setItem("SUN_CUSTOMERS_V2", JSON.stringify(customers));
-  alert("পাসওয়ার্ড সফলভাবে পরিবর্তন করা হয়েছে!");
-}
-
-function addProduct() {
-  let name = document.getElementById("pName").value;
-  let weight = document.getElementById("pWeight").value;
-  let price = parseFloat(document.getElementById("pPrice").value);
-  let image = document.getElementById("pImage").value || "https://via.placeholder.com/100";
-  
-  if(!name || !price) return alert("নাম ও দাম দিন!");
-  products.push({name, weight, price, image});
-  localStorage.setItem("SUN_PRODUCTS_V2", JSON.stringify(products));
-  renderProducts();
-  alert("পণ্য যোগ হয়েছে!");
-}
-</script>
-</body>
-</html>
+function toggleProduct(id){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');let p=db.products.find(x=>x.id===id);p.active=!p.active;log('Product Availability Changed',p.name+' '+p.active);save();render()}
+function customerForm(){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');showModal(`<h3>Customer যোগ</h3><div class="field"><label>নাম</label><input id="cName"></div><div class="field"><label>মোবাইল</label><input id="cPhone"></div><div class="field"><label>পয়েন্ট</label><input id="cPoints" type="number" value="0"></div><button onclick="saveCustomer()">Save</button>`)}
+function saveCustomer(){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');let name=document.getElementById('cName').value,phone=document.getElementById('cPhone').value;if(!name||!phone)return alert('নাম ও ফোন দিন');db.customers.push({id:'SUN'+Date.now().toString().slice(-6),name,phone,points:Number(document.getElementById('cPoints').value)||0});log('Customer Added',name);save();closeModal();render()}
+function dealerForm(){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');showModal(`<h3>Dealer যোগ</h3><div class="field"><label>নাম</label><input id="dName"></div><div class="field"><label>মোবাইল</label><input id="dPhone"></div><button onclick="saveDealer()">Save</button>`)}
+function saveDealer(){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');let name=document.getElementById('dName').value,phone=document.getElementById('dPhone').value;if(!name||!phone)return;db.dealers.push({id:'DL'+Date.now().toString().slice(-6),name,phone});log('Dealer Added',name);save();closeModal();render()}
+function rankForm(){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');showModal(`<h3>Rank & Points</h3><p class="muted">প্রতিটি পদের নাম ও প্রয়োজনীয় পয়েন্ট দিন।</p>${db.rankRules.map((r,i)=>`<div class="formgrid"><div class="field"><label>পদের নাম</label><input id="rn${i}" value="${esc(r.name)}"></div><div class="field"><label>পয়েন্ট</label><input id="rp${i}" type="number" value="${r.points}"></div></div>`).join('')}<button onclick="saveRanks()">Save Ranks</button>`)}
+function saveRanks(){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');db.rankRules=db.rankRules.map((r,i)=>({name:document.getElementById('rn'+i).value,points:Number(document.getElementById('rp'+i).value)||0}));db.rankRules.sort((a,b)=>a.points-b.points);log('Rank Rules Updated');save();closeModal();render()}
+function settingsForm(){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');showModal(`<h3>Business Settings</h3><div class="field"><label>প্রতি ১০০ টাকা কেনাকাটায় পয়েন্ট</label><input id="sRate" type="number" value="${db.pointsPer100}"></div><div class="field"><label>শেয়ার পয়েন্ট</label><input id="sShare" type="number" value="${db.sharePoints}"></div><button onclick="saveSettings()">Save</button>`)}
+function saveSettings(){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');db.pointsPer100=Number(document.getElementById('sRate').value)||0;db.sharePoints=Number(document.getElementById('sShare').value)||0;log('Settings Updated');save();closeModal();render()}
+function mediaForm(){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');showModal(`<h3>Media Link যোগ</h3><div class="field"><label>নাম</label><input id="mName"></div><div class="field"><label>URL</label><input id="mUrl"></div><button onclick="db.media.push({name:document.getElementById('mName').value,url:document.getElementById('mUrl').value});log('Media Link Added');save();closeModal();render()">Save</button>`)}
+function editMedia(i){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');let m=db.media[i];showModal(`<h3>Media Edit</h3><div class="field"><label>নাম</label><input id="mName" value="${esc(m.name)}"></div><div class="field"><label>URL</label><input id="mUrl" value="${esc(m.url)}"></div><button onclick="db.media[${i}]={name:document.getElementById('mName').value,url:document.getElementById('mUrl').value};log('Media Updated');save();closeModal();render()">Save</button>`)}
+function updates(){return `<div class="pagehead"><h2>SUN Smart Update</h2><span class="pill green">Version ${esc(db.version)}</span></div><div class="card"><h3>Version Control</h3><p>${esc(db.releaseNotes)}</p><div class="notice">এই ডেমোতে ভার্সন নোট, ডেটা ব্যাকআপ ও রিস্টোর পরীক্ষা করা যাবে। আসল অ্যাপ কোড আপডেট GitHub Pages-এ নতুন কোড প্রকাশ করে হবে; Firebase যোগ হলে ডেটা migration ও server-side backup যুক্ত করতে হবে।</div>${role==='admin'?`<div class="field"><label>নতুন Version</label><input id="newVersion" placeholder="যেমন 1.1.0"></div><div class="field"><label>Update Notes</label><textarea id="newNotes"></textarea></div><button onclick="publishVersion()">Publish Version Note</button>`:''}</div><div class="card section"><h3>Version History</h3>${db.updates.map(u=>`<p><b>${esc(u.version)}</b> — ${esc(u.notes)} <span class="muted">${esc(u.date)}</span></p>`).join('')||'<p class="muted">কোনো নতুন ভার্সন নোট নেই।</p>'}</div>`}
+function publishVersion(){let v=document.getElementById('newVersion').value.trim(),n=document.getElementById('newNotes').value.trim();if(!v)return alert('Version দিন');db.updates.unshift({version:db.version,notes:db.releaseNotes,date:new Date().toLocaleDateString('bn-BD')});db.version=v;db.releaseNotes=n;log('Version Note Published',v);save();render()}
+function winners(){return `<div class="pagehead"><h2>মাসিক ৩ জন বিজয়ী</h2>${role==='admin'?'<button onclick="winnerForm()">+ বিজয়ী যোগ</button>':''}</div><div class="grid">${[0,1,2].map(n=>{let w=db.winners[n];return `<div class="card" style="text-align:center"><div class="muted">Winner ${n+1}</div>${w?.photo?`<img src="${w.photo}" style="width:100px;height:100px;border-radius:50%;object-fit:cover">`:'<div style="font-size:55px">🏆</div>'}<h3>${esc(w?.name||'বিজয়ীর নাম')}</h3><p class="muted">${esc(w?.title||'পুরস্কার / পদবি')}</p></div>`}).join('')}</div>`}
+function winnerForm(){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');showModal(`<h3>বিজয়ীর ছবি ও তথ্য আপলোড</h3><div class="field"><label>বিজয়ী</label><select id="wIndex"><option value="0">১ম বিজয়ী</option><option value="1">২য় বিজয়ী</option><option value="2">৩য় বিজয়ী</option></select></div><div class="field"><label>নাম</label><input id="wName"></div><div class="field"><label>পুরস্কার / পদবি</label><input id="wTitle"></div><div class="field"><label>ছবি</label><input id="wPhoto" type="file" accept="image/*"></div><button onclick="saveWinner()">Save Winner</button>`)}
+function saveWinner(){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');let f=document.getElementById('wPhoto').files[0],idx=Number(document.getElementById('wIndex').value);if(!f)return alert('ছবি নির্বাচন করুন');let r=new FileReader();r.onload=()=>{db.winners[idx]={name:document.getElementById('wName').value,title:document.getElementById('wTitle').value,photo:r.result};log('Winner Updated','Winner '+(idx+1));save();closeModal();render()};r.readAsDataURL(f)}
+function audit(){return `<div class="pagehead"><h2>Audit Log</h2></div><div class="notice">Admin-এর গুরুত্বপূর্ণ কার্যক্রমের ডেমো রেকর্ড।</div>${db.logs.length?`<div class="tablewrap"><table><tr><th>সময়</th><th>Mode</th><th>Action</th><th>Details</th></tr>${db.logs.map(x=>`<tr><td>${esc(x.time)}</td><td>${esc(x.role)}</td><td>${esc(x.action)}</td><td>${esc(x.detail)}</td></tr>`).join('')}</table></div>`:'<div class="empty card">এখনো কোনো লগ নেই</div>'}`}
+function changePass(k){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');let old=db.auth?.[k];if(old&&prompt('বর্তমান পাসওয়ার্ড দিন')!==old)return alert('বর্তমান পাসওয়ার্ড মেলেনি');let n=prompt('নতুন পাসওয়ার্ড দিন');if(!n)return;db.auth=db.auth||{};db.auth[k]=n;save();alert('পাসওয়ার্ড পরিবর্তন হয়েছে')}
+function backup(){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SUN-My-Business-backup.json';a.click();URL.revokeObjectURL(a.href);log('Backup Downloaded')}
+function restore(e){if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let d=JSON.parse(r.result);if(!d.products||!d.orders)throw Error();db=d;save();alert('Backup Restore সম্পন্ন');render()}catch(err){alert('ভুল বা অসম্পূর্ণ Backup ফাইল')}};r.readAsText(f)}
+function showModal(s){document.getElementById('modalbox').innerHTML=s;document.getElementById('modal').classList.remove('hidden')}
+function closeModal(){document.getElementById('modal').classList.add('hidden')}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+document.getElementById('roleSelect').addEventListener('change',e=>{let next=e.target.value;if(next==='admin'||next==='manager'){db.auth=db.auth||{};if(!db.auth[next]){let pw=prompt(next.toUpperCase()+' প্যানেলের নতুন পাসওয়ার্ড সেট করুন');if(!pw){e.target.value=role;return}db.auth[next]=pw;save()}else if(prompt(next.toUpperCase()+' প্যানেলের পাসওয়ার্ড দিন')!==db.auth[next]){alert('ভুল পাসওয়ার্ড');e.target.value=role;return}}role=next;page='home';render()});
+document.getElementById('resetDemo').addEventListener('click',()=>{if(role!=='admin')return alert('শুধু Admin এই কাজ করতে পারবেন');if(confirm('সব ডেমো ডেটা মুছে ডিফল্টে ফিরবেন?')){db=structuredClone(defaults);save();role='customer';page='home';render()}});
+window.addEventListener('storage',()=>{db=load();render()});
+render();
+</script></body></html>
