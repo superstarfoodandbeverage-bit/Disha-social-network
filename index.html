@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SUN-My Business</title>
+<title>SUN-My Business v2</title>
 <style>
 :root{--blue:#1746A2;--gold:#F5BD35;--red:#D92735;--white:#FFFFFF;--bg:#113886;--text:#17233D;}
 *{box-sizing:border-box}
@@ -47,13 +47,16 @@ button.green{background:#27ae60;color:white;}
 <main>
 <!-- LOGIN SECTION -->
 <section id="login" class="panel">
- <h2>SUN-My Business Login</h2>
- <label>আপনার নাম</label><input id="loginName" value="Riya Akter">
- <label>মোবাইল নম্বর</label><input id="loginMobile" value="01913979131">
- <label>পাসওয়ার্ড</label><input id="loginPass" type="password" value="1234">
- <label>রোল নির্বাচন করুন</label>
- <select id="loginRole"><option value="customer">Customer</option><option value="manager">Manager</option><option value="admin">Admin</option></select>
+ <h2>SUN-My Business Login (v2)</h2>
+ <label>মোবাইল নম্বর</label><input id="loginMobile" placeholder="যেমন: 01800000000">
+ <label>পাসওয়ার্ড</label><input id="loginPass" type="password" placeholder="যেমন: 1234">
  <button onclick="loginSUN()" style="width:100%;margin-top:10px;">লগইন করুন</button>
+ <div style="margin-top:12px;background:#f2f5fc;padding:10px;border-radius:8px;font-size:12px;">
+   <b>লগইন তথ্য:</b><br>
+   👑 <b>অ্যাডমিন:</b> 01800000000 | পাস: 1234<br>
+   📋 <b>ম্যানেজার:</b> 01700000000 | পাস: 1234<br>
+   🛍️ <b>কাস্টমার:</b> 01913979131 | পাস: 1234
+ </div>
 </section>
 
 <!-- HOME DASHBOARD -->
@@ -147,7 +150,9 @@ button.green{background:#27ae60;color:white;}
 <!-- REWARDS & WINNERS -->
 <section id="rewards" class="panel hidden">
  <h2>🏆 Monthly Winners & Rewards</h2>
- <div id="winnerDisplay"></div>
+ <p>🥇 ১ম বিজয়ী: Rahim Ahmed</p>
+ <p>🥈 ২য় বিজয়ী: Karim Uddin</p>
+ <p>🥉 ৩য় বিজয়ী: Rina Akter</p>
  <button onclick="show('home')" style="margin-top:10px;">হোমে যান</button>
 </section>
 
@@ -211,25 +216,29 @@ button.green{background:#27ae60;color:white;}
 
 <script>
 let currentUser = null;
-let products = JSON.parse(localStorage.getItem("SUN_PRODUCTS") || JSON.stringify([
+let products = JSON.parse(localStorage.getItem("SUN_PRODUCTS_V2") || JSON.stringify([
   {name: "Sun Detergent Powder", weight: "1kg", price: 120, image: "https://i.ibb.co.com/846z9x3/detergent.png"},
   {name: "Sunmar Gold Oil", weight: "1Ltr", price: 180, image: "https://via.placeholder.com/100"}
 ]));
-let orders = JSON.parse(localStorage.getItem("SUN_ORDERS") || "[]");
-let customers = JSON.parse(localStorage.getItem("SUN_CUSTOMERS") || JSON.stringify([
+let orders = JSON.parse(localStorage.getItem("SUN_ORDERS_V2") || "[]");
+
+let defaultCustomers = [
   {id: "SUN-1001", name: "Riya Akter", mobile: "01913979131", pass: "1234", role: "customer", points: 2580},
   {id: "SUN-M01", name: "Manager Rahim", mobile: "01700000000", pass: "1234", role: "manager", points: 0},
   {id: "SUN-A01", name: "Admin Salman", mobile: "01800000000", pass: "1234", role: "admin", points: 0}
-]));
+];
+let customers = JSON.parse(localStorage.getItem("SUN_CUSTOMERS_V2") || JSON.stringify(defaultCustomers));
+
 let cart = [];
 
 window.onload = function() {
+  localStorage.setItem("SUN_CUSTOMERS_V2", JSON.stringify(customers));
   applyStoredLogo();
   applyStoredTheme();
 };
 
 function applyStoredLogo() {
-  const saved = localStorage.getItem("SUN_LOGO_URL");
+  const saved = localStorage.getItem("SUN_LOGO_URL_V2");
   if(saved) {
     document.getElementById("headerLogoImg").src = saved;
     document.getElementById("headerLogoImg").style.display = "block";
@@ -240,25 +249,24 @@ function applyStoredLogo() {
 function saveLogoUrl() {
   const url = document.getElementById("logoUrlInput").value.trim();
   if(!url) return alert("লিংক দিন!");
-  localStorage.setItem("SUN_LOGO_URL", url);
+  localStorage.setItem("SUN_LOGO_URL_V2", url);
   applyStoredLogo();
   alert("লোগো সফলভাবে সেট হয়েছে!");
 }
 
 function setTheme(color) {
   document.body.style.background = color;
-  localStorage.setItem("SUN_THEME_BG", color);
+  localStorage.setItem("SUN_THEME_BG_V2", color);
 }
 
 function applyStoredTheme() {
-  const bg = localStorage.getItem("SUN_THEME_BG");
+  const bg = localStorage.getItem("SUN_THEME_BG_V2");
   if(bg) document.body.style.background = bg;
 }
 
 function loginSUN() {
   const mobile = document.getElementById("loginMobile").value.trim();
   const pass = document.getElementById("loginPass").value.trim();
-  const role = document.getElementById("loginRole").value;
 
   let found = customers.find(c => c.mobile === mobile && c.pass === pass);
   if(!found) {
@@ -331,7 +339,7 @@ function checkoutOrder() {
   
   let totalAmount = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
   let dueAmount = totalAmount - advance;
-  let earnedPoints = Math.floor(totalAmount / 100) * 10; // প্রতি ১০০ টাকায় ১০ পয়েন্ট অটো
+  let earnedPoints = Math.floor(totalAmount / 100) * 10;
 
   let newOrder = {
     id: "ORD-" + Date.now(),
@@ -347,9 +355,15 @@ function checkoutOrder() {
   };
 
   orders.push(newOrder);
-  localStorage.setItem("SUN_ORDERS", JSON.stringify(orders));
+  localStorage.setItem("SUN_ORDERS_V2", JSON.stringify(orders));
 
   currentUser.points += earnedPoints;
+  let cIndex = customers.findIndex(c => c.mobile === currentUser.mobile);
+  if(cIndex !== -1) {
+    customers[cIndex].points = currentUser.points;
+    localStorage.setItem("SUN_CUSTOMERS_V2", JSON.stringify(customers));
+  }
+
   document.getElementById("profilePoints").textContent = currentUser.points;
   document.getElementById("dispPoints").textContent = currentUser.points;
 
@@ -380,7 +394,7 @@ function approveOrder(id) {
   let o = orders.find(x => x.id === id);
   if(o) {
     o.status = "Approved (ম্যানেজার মোডে প্রস্তুত)";
-    localStorage.setItem("SUN_ORDERS", JSON.stringify(orders));
+    localStorage.setItem("SUN_ORDERS_V2", JSON.stringify(orders));
     renderOrders();
     renderManagerOrders();
     alert("অর্ডার এপ্রুভ করা হয়েছে!");
@@ -429,7 +443,7 @@ function renderCustomerMgmt() {
   const container = document.getElementById("customerListContainer");
   container.innerHTML = customers.map((c, i) => `
     <div style="border:1px solid #ddd;padding:8px;margin-bottom:6px;border-radius:6px;">
-      <b>নাম:</b> ${c.name} | <b>মোবাইল:</b> ${c.mobile}<br>
+      <b>নাম:</b> ${c.name} | <b>মোবাইল:</b> ${c.mobile} | <b>রোল:</b> ${c.role}<br>
       <b>পাসওয়ার্ড:</b> <input type="text" id="pass_${i}" value="${c.pass}" style="width:100px;display:inline-block;padding:2px;">
       <button onclick="updatePass(${i})" style="padding:4px 8px;font-size:11px;">পাসওয়ার্ড আপডেট</button>
     </div>
@@ -439,6 +453,7 @@ function renderCustomerMgmt() {
 function updatePass(i) {
   let newPass = document.getElementById(`pass_${i}`).value;
   customers[i].pass = newPass;
+  localStorage.setItem("SUN_CUSTOMERS_V2", JSON.stringify(customers));
   alert("পাসওয়ার্ড সফলভাবে পরিবর্তন করা হয়েছে!");
 }
 
@@ -450,7 +465,7 @@ function addProduct() {
   
   if(!name || !price) return alert("নাম ও দাম দিন!");
   products.push({name, weight, price, image});
-  localStorage.setItem("SUN_PRODUCTS", JSON.stringify(products));
+  localStorage.setItem("SUN_PRODUCTS_V2", JSON.stringify(products));
   renderProducts();
   alert("পণ্য যোগ হয়েছে!");
 }
