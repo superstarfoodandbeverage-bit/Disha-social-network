@@ -4,719 +4,282 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SUN-My Business</title>
-
 <style>
-:root{
- --blue:#1746A2;
- --gold:#F5BD35;
- --red:#D92735;
- --white:#FFFFFF;
- --bg:#113886;
- --text:#17233D;
-}
+:root{--blue:#1746A2;--gold:#F5BD35;--red:#D92735;--white:#FFFFFF;--bg:#113886;--text:#17233D;}
 *{box-sizing:border-box}
-body{
- margin:0;font-family:Arial,sans-serif;
- background: linear-gradient(180deg, #103375, #1746A2, #2458c8);
- color:var(--text); padding-bottom: 80px; min-height: 100vh;
-}
-
-/* টপ হেডার (ছবির মতো হুবহু এবং মাঝখানে লোগো) */
-header{
- background: linear-gradient(180deg, #0a2456, #103375);
- color: white; padding: 12px 15px;
- display: flex; justify-content: space-between; align-items: center;
- position: sticky; top: 0; z-index: 1000;
- border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-.menu-icon-btn { background: none; border: none; color: white; font-size: 24px; cursor: pointer; padding: 0; }
-.header-center-logo {
- position: absolute; left: 50%; transform: translateX(-50%);
- display: flex; align-items: center; justify-content: center;
-}
-.header-center-logo img { height: 38px; width: auto; object-fit: contain; }
-.header-center-logo h1 { font-size: 26px; font-weight: 900; color: var(--gold); text-shadow: 2px 2px var(--red); margin: 0; }
-
-.header-right-actions { display: flex; gap: 10px; align-items: center; margin-left: auto; }
-.top-icon-btn { background: rgba(255,255,255,0.15); border: none; color: white; padding: 6px 9px; border-radius: 50%; font-size: 16px; cursor: pointer; position: relative; }
-.badge { position: absolute; top: -3px; right: -3px; background: var(--red); color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: bold; }
-
-/* সাইডবার মেনু (বাম পাশের ☰ বাটনে ক্লিক করলে সব অপশন আসবে) */
-.side-drawer {
-  position: fixed; top: 0; left: -280px; width: 270px; height: 100%;
-  background: #0c265c; color: white; z-index: 2000; transition: 0.3s;
-  padding: 15px; overflow-y: auto; box-shadow: 4px 0 15px rgba(0,0,0,0.4);
-}
-.side-drawer.open { left: 0; }
-.drawer-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 10px; margin-bottom: 10px; }
-.drawer-item {
-  width: 100%; text-align: left; background: rgba(255,255,255,0.08); color: white;
-  border: none; padding: 11px 12px; border-radius: 8px; margin-bottom: 6px;
-  font-size: 14px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px;
-}
-.drawer-item:hover { background: var(--gold); color: #111; }
-.drawer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1999; display: none; }
-.drawer-overlay.open { display: block; }
-
-main{padding:12px;max-width:600px;margin:auto}
-.panel{ background: var(--white); padding: 15px; border-radius: 16px; margin-bottom: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-.panel h2 { color: var(--blue); margin-top: 0; font-size: 20px; border-bottom: 2px solid #f0f4ff; padding-bottom: 8px; }
-
-input, select, textarea { width: 100%; padding: 10px; margin: 6px 0 12px; border: 1px solid #ccd3e0; border-radius: 8px; font-size: 14px; }
-label { font-weight: bold; font-size: 13px; color: #333; }
-button { border: 0; border-radius: 8px; padding: 10px 15px; background: var(--blue); color: white; font-weight: bold; cursor: pointer; margin: 2px; }
-button.gold { background: var(--gold); color: #222; }
-button.red { background: var(--red); color: white; }
-button.green { background: #27ae60; color: white; }
-
-.item-card { border: 1px solid #e1e5ee; padding: 12px; border-radius: 10px; margin-bottom: 10px; background: #fafbfe; }
-
-/* ১. ইউজার প্রোফাইল কার্ড */
-.sun-user-profile {
-  background: linear-gradient(135deg, #1746A2, #295ac7);
-  color: white; padding: 12px 15px; border-radius: 14px; margin-bottom: 12px;
-  display: flex; justify-content: space-between; align-items: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.1);
-}
-.user-info-left { display: flex; align-items: center; gap: 12px; }
-.user-avatar { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--gold); object-fit: cover; background: #fff; }
-.user-info-left h3 { margin: 0 0 2px 0; font-size: 16px; color: #fff; }
-.user-info-left p { margin: 0; font-size: 12px; color: var(--gold); font-weight: bold; }
-.sun-points-box { background: rgba(255,255,255,0.12); padding: 6px 14px; border-radius: 10px; text-align: center; border: 1px solid rgba(245,189,53,0.3); }
-.sun-points-box small { font-size: 10px; color: #ddd; display: block; }
-.sun-points-box span { font-size: 17px; font-weight: bold; color: var(--gold); }
-
-/* ২. সার্চ ও ফিল্টার বার */
-.search-filter-box { display: flex; gap: 8px; margin-bottom: 12px; }
-.search-input-wrap { position: relative; flex: 1; }
-.search-input-wrap input { margin: 0; padding-left: 36px; border-radius: 25px; background: #fff; border: 1px solid #ddd; height: 40px; }
-.search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #777; }
-.filter-btn { background: var(--blue); color: white; border: none; border-radius: 25px; padding: 0 16px; font-weight: bold; height: 40px; margin: 0; }
-
-/* ৩. প্রমোশনাল ব্যানার */
-.promo-banner-card {
-  background: linear-gradient(135deg, #0d3278, #1746A2, #2964db);
-  border-radius: 16px; color: white; padding: 16px; margin-bottom: 12px;
-  display: flex; justify-content: space-between; align-items: center;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.15);
-}
-.banner-left h2 { margin: 0 0 2px 0; font-size: 22px; color: var(--gold); text-shadow: 2px 2px #D92735; font-weight: 900; border: none; padding: 0; }
-.banner-left p { margin: 0 0 8px 0; font-size: 13px; color: #f0f4ff; font-weight: bold; }
-.badge-tag { background: #D92735; color: white; font-size: 10px; padding: 3px 8px; border-radius: 12px; font-weight: bold; display: inline-block; }
-.banner-features { font-size: 11px; margin-top: 8px; display: flex; flex-direction: column; gap: 2px; color: #d4e3fc; }
-
-/* ৪. ফিচার আইকন গ্রিড (৬টি মূল অপশন) */
-.features-grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; }
-.feature-box {
-  background: white; border: 1px solid #e8ecf5; border-radius: 14px; padding: 14px 6px;
-  text-align: center; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-}
-.feature-box:active { transform: scale(0.96); }
-.feature-icon-wrap { font-size: 26px; margin-bottom: 5px; display: block; }
-.feature-label { font-size: 12px; font-weight: bold; color: var(--text); }
-
-/* ৫. প্রোডাক্ট কার্ড */
-.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; background: rgba(255,255,255,0.9); padding: 8px 12px; border-radius: 10px; }
-.section-header h3 { margin: 0; color: var(--blue); font-size: 17px; }
-.section-header a { color: var(--blue); font-size: 13px; text-decoration: none; font-weight: bold; }
-
-.product-card-replica {
-  background: white; border: 1px solid #e2e8f2; border-radius: 14px; padding: 12px;
-  display: flex; gap: 12px; align-items: center; margin-bottom: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.06);
-}
-.product-card-replica img { width: 95px; height: 95px; object-fit: contain; border-radius: 8px; }
-.prod-details { flex: 1; }
-.prod-details h4 { margin: 0 0 3px 0; font-size: 15px; color: #111; }
-.prod-details p { margin: 0 0 5px 0; font-size: 11px; color: #555; }
-.rating-stars { color: #f39c12; font-size: 11px; margin-bottom: 4px; }
-.price-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-.current-price { color: var(--red); font-weight: 900; font-size: 17px; }
-.old-price { text-decoration: line-through; color: #888; font-size: 13px; }
-.discount-pill { background: #27ae60; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
-
-.buy-action-row { display: flex; justify-content: space-between; align-items: center; }
-.qty-stepper { display: flex; align-items: center; border: 1px solid #d5dce8; border-radius: 6px; overflow: hidden; background: #f8fafc; }
-.qty-stepper button { background: none; color: #333; padding: 3px 9px; margin: 0; border: none; font-weight: bold; font-size: 14px; }
-.qty-stepper input { width: 30px; text-align: center; border: none; padding: 2px; margin: 0; font-size: 13px; background: transparent; font-weight: bold; }
-.add-to-cart-btn { background: var(--blue); color: white; border: none; padding: 7px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; margin: 0; }
-
-/* মেমো ডিজাইন */
-.sun-memo { background: white; color: #222; padding: 20px; border: 2px solid var(--blue); border-radius: 10px; position: relative; }
-@media print {
-  body * { visibility: hidden; }
-  #memoPrintArea, #memoPrintArea * { visibility: visible; }
-  #memoPrintArea { position: absolute; left: 0; top: 0; width: 100%; }
-}
-
-/* ৬. ফিক্সড বটম নেভিগেশন বার (ছবির হুবহু ৬টি ট্যাব) */
-.bottom-nav-bar {
-  position: fixed; bottom: 0; left: 0; width: 100%; background: #0c265c;
-  display: flex; justify-content: space-around; padding: 7px 0; z-index: 1000;
-  box-shadow: 0 -3px 12px rgba(0,0,0,0.25); border-top: 1px solid rgba(255,255,255,0.1);
-}
-.nav-tab-item {
-  background: none; border: none; color: #9bb2e5; display: flex; flex-direction: column;
-  align-items: center; font-size: 10px; cursor: pointer; padding: 0; margin: 0; font-weight: 500;
-}
-.nav-tab-item span { font-size: 20px; margin-bottom: 2px; }
-.nav-tab-item.active { color: var(--gold); font-weight: bold; }
-
-.hidden { display: none !important; }
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#103375,#1746A2,#2458c8);color:var(--text);padding-bottom:75px;min-height:100vh;}
+header{background:linear-gradient(180deg,#0a2456,#103375);color:white;padding:12px 15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;border-bottom:1px solid rgba(255,255,255,0.1);}
+.header-center{position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;}
+.header-center img{height:35px;object-fit:contain;}
+.header-center h1{font-size:24px;font-weight:900;color:var(--gold);text-shadow:2px 2px var(--red);margin:0;}
+main{padding:12px;max-width:600px;margin:auto;}
+.panel{background:var(--white);padding:15px;border-radius:14px;margin-bottom:12px;box-shadow:0 4px 15px rgba(0,0,0,0.15);}
+input,select,textarea{width:100%;padding:10px;margin:6px 0 10px;border:1px solid #ccd3e0;border-radius:8px;}
+button{border:0;border-radius:8px;padding:10px 15px;background:var(--blue);color:white;font-weight:bold;cursor:pointer;}
+button.gold{background:var(--gold);color:#222;}
+button.red{background:var(--red);color:white;}
+button.green{background:#27ae60;color:white;}
+.sun-user-profile{background:linear-gradient(135deg,#1746A2,#295ac7);color:white;padding:14px;border-radius:14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:15px;}
+.feature-box{background:white;border:1px solid #e8ecf5;border-radius:12px;padding:12px 6px;text-align:center;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.04);}
+.product-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.product-card-2{background:white;border:1px solid #e2e8f2;border-radius:12px;padding:10px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.product-card-2 img{width:100%;height:110px;object-fit:contain;margin-bottom:8px;}
+.bottom-nav{position:fixed;bottom:0;left:0;width:100%;background:#0c265c;display:flex;justify-content:space-around;padding:8px 0;z-index:1000;border-top:1px solid rgba(255,255,255,0.1);}
+.nav-tab{background:none;border:none;color:#9bb2e5;display:flex;flex-direction:column;align-items:center;font-size:10px;cursor:pointer;}
+.nav-tab span{font-size:18px;}
+.nav-tab.active{color:var(--gold);font-weight:bold;}
+.memo-box{background:white;padding:20px;border:2px solid var(--blue);border-radius:10px;color:#222;}
+.hidden{display:none!important;}
 </style>
 </head>
-
 <body>
 
-<!-- বাম পাশের সাইড মেনু (যাতে আপনার আগের সব ১৫০০ লাইনের অপশন এক ক্লিকে পাওয়া যায়) -->
-<div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
-<div class="side-drawer" id="sideDrawer">
-  <div class="drawer-header">
-    <h3 style="margin:0; color:var(--gold);">SUN All Options</h3>
-    <button onclick="toggleDrawer()" style="background:none; color:white; font-size:20px; padding:0;">✕</button>
-  </div>
-  <div id="drawerMenuList"></div>
-</div>
-
-<!-- টপ হেডার (মাঝখানে লোগো) -->
 <header>
- <button class="menu-icon-btn" onclick="toggleDrawer()">☰</button>
- <div class="header-center-logo">
+ <button onclick="show('admin')" style="background:none;color:white;border:none;font-size:22px;cursor:pointer;">☰</button>
+ <div class="header-center">
    <img id="headerLogoImg" src="" alt="" style="display:none;">
    <h1 id="headerTitleText">SUN</h1>
  </div>
- <div class="header-right-actions">
-   <button class="top-icon-btn" onclick="alert('কোনো নতুন নোটিফিকেশন নেই!')">🔔<span class="badge">3</span></button>
-   <button class="top-icon-btn" onclick="show('cart')">🛒<span class="badge" id="cartBadgeCount">0</span></button>
- </div>
+ <button onclick="show('cart')" style="background:rgba(255,255,255,0.15);border:none;color:white;padding:6px 10px;border-radius:50%;position:relative;">🛒<span id="cartCount" style="position:absolute;top:-3px;right:-3px;background:var(--red);color:white;font-size:10px;padding:2px 5px;border-radius:50%;">0</span></button>
 </header>
 
 <main>
-
 <!-- LOGIN SECTION -->
 <section id="login" class="panel">
- <h2>Welcome to SUN-My Business</h2>
- <h3>Login করুন</h3>
- <label>আপনার নাম</label>
- <input id="loginName" placeholder="পূর্ণ নাম লিখুন">
- <label>মোবাইল নম্বর</label>
- <input id="loginMobile" placeholder="মোবাইল নম্বর লিখুন">
- <label>Role নির্বাচন করুন</label>
- <select id="loginRole">
-  <option value="customer">Customer</option>
-  <option value="dealer">Dealer</option>
-  <option value="manager">Manager</option>
-  <option value="admin">Admin</option>
- </select>
- <button onclick="loginSUN()" style="width:100%; margin-top:10px;">লগইন করুন</button>
+ <h2>SUN-My Business Login</h2>
+ <label>আপনার নাম</label><input id="loginName" value="Riya Akter">
+ <label>মোবাইল নম্বর</label><input id="loginMobile" value="01913979131">
+ <label>পাসওয়ার্ড</label><input id="loginPass" type="password" value="1234">
+ <label>রোল নির্বাচন করুন</label>
+ <select id="loginRole"><option value="customer">Customer</option><option value="manager">Manager</option><option value="admin">Admin</option></select>
+ <button onclick="loginSUN()" style="width:100%;margin-top:10px;">লগইন করুন</button>
 </section>
 
-<!-- HOME DASHBOARD SECTION (ছবির হুবহু আদলে তৈরি) -->
-<section id="home" class="panel hidden" style="background:transparent; padding:0; box-shadow:none;">
-  
-  <!-- ১. ইউজার প্রোফাইল কার্ড -->
+<!-- HOME DASHBOARD -->
+<section id="home" class="panel hidden" style="background:transparent;padding:0;box-shadow:none;">
   <div class="sun-user-profile">
-    <div class="user-info-left">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="user-avatar" alt="User">
-      <div>
-        <h3 id="profileName">Hello, User</h3>
-        <p id="profileRoleBadge">⭐ Gold Member</p>
-      </div>
+    <div>
+      <h3 id="profileName" style="margin:0 0 3px 0;">Hello, User</h3>
+      <p style="margin:0;font-size:12px;color:var(--gold);">🆔 ID: <span id="profileId">SUN-1001</span> | ⭐ <span id="profileRank">Gold Member</span></p>
     </div>
-    <div class="sun-points-box">
-      <small>Your Points</small>
-      <span id="profilePoints">0</span>
+    <div style="background:rgba(255,255,255,0.15);padding:6px 12px;border-radius:8px;text-align:center;">
+      <small style="font-size:10px;">Points</small><br>
+      <span id="profilePoints" style="font-weight:bold;color:var(--gold);">2,580</span>
     </div>
   </div>
 
-  <!-- ২. সার্চ ও ফিল্টার বার -->
-  <div class="search-filter-box">
-    <div class="search-input-wrap">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="homeSearchInput" onkeyup="filterHomeProducts()" placeholder="Search products...">
-    </div>
-    <button class="filter-btn" onclick="toggleDrawer()">☰ Menu</button>
+  <div class="features-grid">
+    <div class="feature-box" onclick="show('products')"><span>🛍️</span><br><b style="font-size:12px;">Shop</b></div>
+    <div class="feature-box" onclick="show('orders')"><span>📦</span><br><b style="font-size:12px;">Orders</b></div>
+    <div class="feature-box" onclick="show('points')"><span>⭐</span><br><b style="font-size:12px;">My Points</b></div>
+    <div class="feature-box" onclick="show('rewards')"><span>🏆</span><br><b style="font-size:12px;">Rewards</b></div>
+    <div class="feature-box" onclick="show('media')"><span>🎬</span><br><b style="font-size:12px;">Media</b></div>
+    <div class="feature-box" onclick="show('profile')"><span>👤</span><br><b style="font-size:12px;">Profile</b></div>
   </div>
 
-  <!-- ৩. প্রমোশনাল ব্যানার কার্ড -->
-  <div class="promo-banner-card" id="promoBannerBox">
-    <div class="banner-left">
-      <h2>Sun Detergent</h2>
-      <p>Better Wash, Better Life</p>
-      <span class="badge-tag">New Better Formula</span>
-      <div class="banner-features">
-        <span>✓ Tough Stain Removal</span>
-        <span>✓ Brighter Clothes</span>
-        <span>✓ Gentle on Fabric</span>
-      </div>
-    </div>
-    <div class="banner-right">
-      <span style="font-size:55px;">🛍️</span>
-    </div>
-  </div>
-
-  <!-- ৪. ফিচার আইকন গ্রিড (৬টি অপশন - ঠিক ছবির মতো) -->
-  <div class="features-grid-6">
-    <div class="feature-box" onclick="show('products')">
-      <span class="feature-icon-wrap">🛍️</span>
-      <span class="feature-label">Shop Products</span>
-    </div>
-    <div class="feature-box" onclick="show('orders')">
-      <span class="feature-icon-wrap">📦</span>
-      <span class="feature-label">My Orders</span>
-    </div>
-    <div class="feature-box" onclick="show('points')">
-      <span class="feature-icon-wrap">⭐</span>
-      <span class="feature-label">My Points</span>
-    </div>
-    <div class="feature-box" onclick="show('resell')">
-      <span class="feature-icon-wrap">💼</span>
-      <span class="feature-label">Reselling</span>
-    </div>
-    <div class="feature-box" onclick="show('rewards')">
-      <span class="feature-icon-wrap">🏆</span>
-      <span class="feature-label">My Rewards</span>
-    </div>
-    <div class="feature-box" onclick="show('partner')">
-      <span class="feature-icon-wrap">🤝</span>
-      <span class="feature-label">Business Apply</span>
-    </div>
-  </div>
-
-  <!-- ৫. Our Products সেকশন -->
-  <div class="section-header">
-    <h3>🛒 Our Products</h3>
-    <a href="#" onclick="show('products'); return false;">See All →</a>
-  </div>
-
-  <div id="homeProductContainer"></div>
+  <h3 style="color:white;">Our Products (প্রতি লাইনে ২টি)</h3>
+  <div id="homeProductContainer" class="product-grid-2"></div>
 </section>
 
-<!-- PRODUCTS & ADMIN UPLOAD SECTION -->
+<!-- PRODUCTS SHOP -->
 <section id="products" class="panel hidden">
- <h2>🛍️ SUN Products Management</h2>
- <div id="adminProductUploadBox" class="hidden item-card" style="background:#f0f5ff;">
-   <h3 style="margin-top:0;">➕ নতুন পণ্য আপলোড (Admin Only)</h3>
-   <label>পণ্যের নাম</label>
-   <input id="newProdName" placeholder="যেমন: Sun Detergent Powder">
-   <label>বিবরণ (ছোট করে)</label>
-   <input id="newProdDesc" placeholder="যেমন: Tough Stain Removal, Brighter Clothes">
-   <label>বিক্রয় মূল্য (৳)</label>
-   <input id="newProdPrice" type="number" placeholder="যেমন: 120">
-   <label>পূর্বের মূল্য (৳)</label>
-   <input id="newProdOldPrice" type="number" placeholder="যেমন: 150">
-   <label>পণ্যের ছবি</label>
-   <input id="newProdImage" type="file" accept="image/*" onchange="previewImage(event)">
-   <img id="previewImg" style="width:80px; height:80px; object-fit:contain; display:none; margin-bottom:8px;">
-   <button class="green" onclick="addNewProduct()">পণ্য আপলোড করুন</button>
+ <h2>🛍️ Shop Products</h2>
+ <div id="adminUpload" class="hidden" style="background:#f9f9f9;padding:10px;border-radius:8px;margin-bottom:10px;">
+   <h4>পণ্য আপলোড (অ্যাডমিন)</h4>
+   <input id="pName" placeholder="পণ্যের নাম">
+   <input id="pWeight" placeholder="ওজন/পরিমাণ (যেমন: 1kg)">
+   <input id="pPrice" type="number" placeholder="দাম (৳)">
+   <input id="pImage" placeholder="ছবির লিংক (URL)">
+   <button onclick="addProduct()">পণ্য যোগ করুন</button>
  </div>
- <div id="fullProductList"></div>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
+ <div id="fullProductList" class="product-grid-2"></div>
+ <button onclick="show('home')" style="margin-top:10px;">হোমে যান</button>
 </section>
 
-<!-- SHOPPING CART SECTION -->
+<!-- CART & CHECKOUT -->
 <section id="cart" class="panel hidden">
- <h2>🛒 My Shopping Cart</h2>
- <div id="cartItemList"></div>
- <h3 id="cartTotalPrice" style="color:var(--red);"></h3>
- <label>ডেলিভারি ঠিকানা</label>
- <textarea id="orderDeliveryAddress" placeholder="আপনার পূর্ণ ঠিকানা লিখুন..."></textarea>
- <button class="gold" onclick="checkoutCart()">✅ অর্ডার কনফার্ম করুন</button>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
+ <h2>🛒 Shopping Cart</h2>
+ <div id="cartList"></div>
+ <h3 id="cartTotal"></h3>
+ <label>অগ্রিম পেমেন্ট (যদি থাকে)</label><input id="advancePay" type="number" value="0" placeholder="0">
+ <label>ডেলিভারি ঠিকানা</label><textarea id="orderAddress" placeholder="পূর্ণ ঠিকানা"></textarea>
+ <button class="gold" onclick="checkoutOrder()">অর্ডার কনফার্ম করুন (COD)</button>
+ <button onclick="show('home')" style="margin-top:10px;">হোমে যান</button>
 </section>
 
-<!-- MY ORDERS SECTION -->
+<!-- ORDERS & APPROVAL -->
 <section id="orders" class="panel hidden">
- <h2>📦 My Orders</h2>
- <div id="myOrdersList"></div>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
+ <h2>📦 Order Status & Approval</h2>
+ <div id="orderListContainer"></div>
+ <button onclick="show('home')" style="margin-top:10px;">হোমে যান</button>
 </section>
 
-<!-- ORDER APPROVALS (ADMIN ONLY) -->
-<section id="approvals" class="panel hidden">
- <h2>✅ Order Approval Panel (Admin)</h2>
- <div id="pendingOrdersList"></div>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
+<!-- MANAGER & PRINT PREVIEW -->
+<section id="managerPanel" class="panel hidden">
+ <h2>📋 Manager Print Preview</h2>
+ <div id="managerOrderList"></div>
+ <button onclick="show('home')" style="margin-top:10px;">হোমে যান</button>
 </section>
 
-<!-- MANAGER PANEL -->
-<section id="manager" class="panel hidden">
- <h2>📋 Manager Panel</h2>
- <p>শুধুমাত্র অ্যাডমিন অনুমোদিত (Approved) ডেলিভারিযোগ্য অর্ডারসমূহ:</p>
- <div id="managerOrdersList"></div>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
+<section id="printMemoSection" class="panel hidden">
+ <h2>🧾 মেমো প্রিভিউ ও প্রিন্ট</h2>
+ <div id="memoPreviewContent" class="memo-box"></div>
+ <button class="green" onclick="window.print()" style="margin-top:10px;">প্রিন্ট করুন</button>
+ <button onclick="show('managerPanel')" style="margin-top:10px;">ম্যানেজার প্যানেলে ফিরুন</button>
 </section>
 
-<!-- RESELLING SECTION -->
-<section id="resell" class="panel hidden">
- <h2>💼 SUN Reselling Board</h2>
- <p>পণ্য শেয়ার করে ও রিসেলিং করে আয় করুন:</p>
- <div id="resellList"></div>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
-</section>
-
-<!-- DEALER BULK ORDER SECTION -->
-<section id="dealer" class="panel hidden">
- <h2>🚚 Dealer Bulk Order</h2>
- <label>ডিলারের নাম</label>
- <input id="dealerName" placeholder="ডিলারের নাম">
- <label>মোবাইল নম্বর</label>
- <input id="dealerMobile" placeholder="মোবাইল নম্বর">
- <label>পাইকারি পণ্যের বিবরণ ও পরিমাণ</label>
- <textarea id="dealerItems" placeholder="পণ্যের নাম ও বস্তা/কার্টন সংখ্যা লিখুন"></textarea>
- <button onclick="dealerSubmit()">ডিলার অর্ডার সাবমিট করুন</button>
- <p id="dealerMessage" style="color:green; font-weight:bold;"></p>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
-</section>
-
-<!-- POINTS & RANK SECTION -->
+<!-- MY POINTS & RANK TABLE -->
 <section id="points" class="panel hidden">
- <h2>⭐ My Points & Rank</h2>
- <div class="item-card">
-   <p>আপনার বর্তমান পয়েন্ট: <b id="displayPoints" style="color:var(--blue); font-size:22px;">0</b></p>
-   <p>র‍্যাংক লেভেল: <b>Silver → Gold → Platinum → Diamond → Crown</b></p>
-   <small>* প্রতিটি অর্ডারে আপনি বোনাস পয়েন্ট অর্জন করবেন।</small>
- </div>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
+ <h2>⭐ My Points & Rank Table</h2>
+ <p>আপনার পয়েন্ট: <b id="dispPoints" style="color:var(--blue);font-size:18px;">0</b></p>
+ <h3>র‍্যাংক ও পয়েন্ট টেবিল:</h3>
+ <ul>
+   <li>Silver: 0 - 999 Points</li>
+   <li>Gold: 1000 - 4999 Points</li>
+   <li>Platinum: 5000 - 9999 Points</li>
+   <li>Diamond: 10000 - 19999 Points</li>
+   <li>Crown: 20000+ Points</li>
+ </ul>
+ <button onclick="show('home')">হোমে যান</button>
 </section>
 
-<!-- REWARDS & MONTHLY WINNERS -->
+<!-- REWARDS & WINNERS -->
 <section id="rewards" class="panel hidden">
- <h2>🏆 My Rewards & Monthly Winners</h2>
- <div id="adminWinnerBox" class="hidden item-card">
-   <h4>নতুন বিজয়ী যোগ করুন (Admin)</h4>
-   <input id="winnerNameInput" placeholder="বিজয়ীর নাম">
-   <input type="file" id="winnerPhotoInput" accept="image/*">
-   <button onclick="addMonthlyWinner()">বিজয়ী যোগ করুন</button>
- </div>
- <div id="winnersDisplayList"></div>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
+ <h2>🏆 Monthly Winners & Rewards</h2>
+ <div id="winnerDisplay"></div>
+ <button onclick="show('home')" style="margin-top:10px;">হোমে যান</button>
 </section>
 
-<!-- BUSINESS PARTNER APPLY -->
-<section id="partner" class="panel hidden">
- <h2>🤝 Business Partner Apply</h2>
- <div class="item-card">
-  <h3>1. Capital Protected Partnership</h3>
-  <p>মূলধন সুরক্ষার কাঠামো ও বাস্তব ব্যবসায়িক সহযোগিতা।</p>
- </div>
- <div class="item-card">
-  <h3>2. Risk-Based Profit Sharing</h3>
-  <p>লাভ-লোকসান চুক্তি ভিত্তিক অংশীদারিত্ব হিসাব।</p>
- </div>
- <button onclick="alert('আপনার পার্টনারশিপ আবেদনটি গৃহীত হয়েছে! শীঘ্রই যোগাযোগ করা হবে।')">আবেদন করুন</button>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
-</section>
-
-<!-- MEDIA & LIVE -->
+<!-- MEDIA & ZOOM -->
 <section id="media" class="panel hidden">
- <h2>🎬 SUN Media & Live</h2>
- <div class="item-card">
-   <p>SUN জীবনের গল্প • প্রোডাক্ট রিভিউ • ভিডিও গ্যালারি</p>
-   <a href="https://www.facebook.com/share/1JvW7rGx3R/" target="_blank" style="display:inline-block; background:#1877F2; color:white; padding:10px 15px; border-radius:8px; text-decoration:none; font-weight:bold;">📘 Sun Product Facebook Page</a>
- </div>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
+ <h2>🎬 Media & Live Updates</h2>
+ <p>🎥 Zoom মিটিং রুম</p>
+ <p>🔴 Sun লাইভ ব্রডকাস্ট</p>
+ <p>🛒 Sun Super Mart আপডেট</p>
+ <p>🧼 সান ডিটারজেন্ট পাউডার ভিডিও</p>
+ <button onclick="show('home')">হোমে যান</button>
 </section>
 
-<!-- LIVE MEETING -->
-<section id="liveMeeting" class="panel hidden">
- <h2>📹 Live Meeting & Training</h2>
- <div class="item-card">
-   <p>ডিলার ও বিজনেস পার্টনারদের সাপ্তাহিক অনলাইন মিটিং রুম।</p>
-   <button class="green" onclick="alert('লাইভ মিটিং লিংক শীঘ্রই সক্রিয় হবে!')">মিটিংয়ে যুক্ত হন</button>
- </div>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
-</section>
-
-<!-- USER PROFILE -->
+<!-- PROFILE & AFFILIATE -->
 <section id="profile" class="panel hidden">
- <h2>👤 My Profile</h2>
- <div class="item-card" id="profileDetailsText"></div>
- <button class="red" onclick="logoutSUN()">🚪 Logout করুন</button>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
+ <h2>👤 User Profile & Affiliate</h2>
+ <p id="profileDetails"></p>
+ <p><b>অ্যাফিলিয়েট আইডি / লিংক:</b> <span id="affiliateLink" style="color:var(--blue);">sun.business/ref/1001</span></p>
+ <button class="red" onclick="logoutSUN()">লগআউট</button>
+ <button onclick="show('home')">হোমে যান</button>
 </section>
 
-<!-- CUSTOMER MANAGEMENT (ADMIN ONLY) -->
-<section id="users" class="panel hidden">
- <h2>👥 Customer Management (Admin Only)</h2>
- <p>সব কাস্টমারের নাম, মোবাইল নম্বর, পয়েন্ট রিসেট ও ডিলিট অপশন:</p>
- <div id="customerManagementList"></div>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
-</section>
-
-<!-- BANNER MANAGEMENT (ADMIN ONLY) -->
-<section id="banners" class="panel hidden">
- <h2>🖼️ Banner Management (Admin Only)</h2>
- <input type="file" id="bannerFileInput" accept="image/*">
- <button onclick="uploadBanner()">ব্যানার আপলোড করুন</button>
- <div id="bannerListContainer" style="margin-top:10px;"></div>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
-</section>
-
-<!-- LOGO SETTINGS (ADMIN ONLY) -->
-<section id="logo" class="panel hidden">
- <h2>🌞 SUN Logo Settings (মাঝখানে সেট হবে)</h2>
- <p>আপনার লোগো সিলেক্ট করুন। এটি হেডারের ঠিক মাঝখানে বসবে।</p>
- <input type="file" id="sunLogoFileInput" accept="image/*" onchange="previewLogoFile(event)">
- <div style="margin: 10px 0;">
-   <img id="logoPreviewImg" style="width:100px; height:100px; object-fit:contain; display:none; border:1px solid #ddd; border-radius:8px; padding:5px;">
- </div>
- <button class="gold" onclick="saveSUNLogoImage()">Save SUN Logo</button>
- <button class="red" onclick="resetSUNLogo()">Default Text Logo</button>
- <br><br>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
-</section>
-
-<!-- APP COLOR THEME SETTINGS -->
-<section id="theme" class="panel hidden">
- <h2>🎨 Apps Color Theme Settings</h2>
- <button onclick="changeAppColor('default')">🔵 Default SUN Blue</button>
- <button onclick="changeAppColor('lightblue')">🩵 Light Blue Theme</button>
- <button onclick="changeAppColor('dark')">⚫ Dark Mode Theme</button>
- <br><br>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
-</section>
-
-<!-- BACKUP & RESTORE -->
-<section id="backup" class="panel hidden">
- <h2>💾 Backup & Restore Data</h2>
- <button class="green" onclick="downloadBackup()">⬇️ Download Backup (.json)</button>
- <hr>
- <label>ব্যাকআপ ফাইল আপলোড করে রিস্টোর করুন:</label>
- <input type="file" id="restoreFileInput" accept=".json">
- <button onclick="restoreBackup()">⬆️ Restore Data</button>
- <br><br>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
-</section>
-
-<!-- APP UPDATE & AUDIT LOG -->
-<section id="updates" class="panel hidden">
- <h2>🔄 Apps Update & Audit Log</h2>
- <div class="item-card">
-   <p><b>বর্তমান ভার্সন:</b> SUN-My Business v3.5 (Latest)</p>
-   <p><b>স্ট্যাটাস:</b> সব ফিচার আপ-টু-ডেট আছে।</p>
- </div>
- <h4>সাম্প্রতিক অডিট লগ:</h4>
- <div id="auditLogList" class="item-card" style="font-size:12px;"></div>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
-</section>
-
-<!-- DIGITAL MEMO / INVOICE PRINT -->
-<section id="memoSection" class="panel hidden">
- <h2>🧾 Customer Digital Memo</h2>
- <div id="memoPrintArea" class="sun-memo">
-   <div style="text-align:center; border-bottom:2px solid var(--blue); padding-bottom:10px;">
-     <h2 style="margin:0; color:var(--blue);">SUN-My Business</h2>
-     <small>এক সাথে এগিয়ে চলি সফলতার পথে</small>
-   </div>
-   <div id="memoBodyContent" style="margin-top:15px;"></div>
- </div>
- <br>
- <button class="gold" onclick="window.print()">🖨️ মেমো প্রিন্ট / PDF সেভ করুন</button>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
-</section>
-
-<!-- ADMIN MASTER DASHBOARD -->
+<!-- ADMIN MASTER PANEL -->
 <section id="admin" class="panel hidden">
- <h2>⚙️ Admin Master Control Panel</h2>
- <div class="item-card" style="background:#eef4ff;">
-   <p>মোট পণ্য: <b id="statProd">0</b> | মোট অর্ডার: <b id="statOrd">0</b> | মোট কাস্টমার: <b id="statCust">0</b></p>
- </div>
- <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:15px;">
-   <button onclick="show('products')">🛍️ পণ্য আপলোড</button>
-   <button onclick="show('approvals')">✅ অর্ডার এপ্রুভাল</button>
-   <button onclick="show('users')">👥 কাস্টমার ও পয়েন্ট</button>
-   <button onclick="show('logo')">🌞 লোগো পরিবর্তন</button>
-   <button onclick="show('banners')">🖼️ ব্যানার সেটিংস</button>
-   <button onclick="show('theme')">🎨 অ্যাপস কালার</button>
-   <button onclick="show('backup')">💾 ব্যাকআপ/রিস্টোর</button>
-   <button onclick="show('updates')">🔄 অ্যাপস আপডেট/লগ</button>
- </div>
- <h3>সকল অর্ডার তালিকা (শুধু অ্যাডমিন ডিলিট/সংশোধন করতে পারবেন):</h3>
- <div id="adminAllOrdersList"></div>
- <button onclick="show('home')">🏠 হোম পেজে ফিরে যান</button>
+ <h2>⚙️ Admin Control Panel</h2>
+ <button onclick="show('logoSettings')" style="margin-bottom:8px;width:100%;">🌞 লোগো ও থিম সেটিংস</button>
+ <button onclick="show('customerMgmt')" style="margin-bottom:8px;width:100%;">👥 কাস্টমার ম্যানেজমেন্ট ও পাসওয়ার্ড রিসেট</button>
+ <button onclick="show('products')" style="margin-bottom:8px;width:100%;">🛍️ প্রোডাক্ট আপলোড</button>
+ <button onclick="show('managerPanel')" style="margin-bottom:8px;width:100%;">📋 ম্যানেজার মোড (প্রিন্ট)</button>
+ <button onclick="show('home')" style="width:100%;">হোমে যান</button>
 </section>
 
+<!-- LOGO & THEME SETTINGS -->
+<section id="logoSettings" class="panel hidden">
+ <h2>🌞 Logo & Theme Settings</h2>
+ <label>লোগো ছবির লিংক (URL)</label><input id="logoUrlInput" placeholder="https://...">
+ <button class="gold" onclick="saveLogoUrl()">লোগো সেভ করুন</button>
+ <br><br>
+ <label>অ্যাপ থিম কালার</label>
+ <button onclick="setTheme('#113886')" class="green">Default Blue</button>
+ <button onclick="setTheme('#8e44ad')">Purple</button>
+ <button onclick="setTheme('#16a085')">Teal</button>
+ <button onclick="show('admin')" style="margin-top:10px;">অ্যাডমিনে ফিরুন</button>
+</section>
+
+<!-- CUSTOMER MANAGEMENT & PASS RESET -->
+<section id="customerMgmt" class="panel hidden">
+ <h2>👥 Customer Management</h2>
+ <div id="customerListContainer"></div>
+ <button onclick="show('admin')" style="margin-top:10px;">অ্যাডমিনে ফিরুন</button>
+</section>
 </main>
 
-<!-- ফিক্সড বটম নেভিগেশন বার (ছবির হুবহু ৬টি ট্যাব) -->
-<nav class="bottom-nav-bar" id="bottomNav">
-  <button class="nav-tab-item active" onclick="setActiveTab(this); show('home')">
-    <span>🏠</span>Home
-  </button>
-  <button class="nav-tab-item" onclick="setActiveTab(this); show('products')">
-    <span>🛍️</span>Shop
-  </button>
-  <button class="nav-tab-item" onclick="setActiveTab(this); show('points')">
-    <span>🎁</span>Rewards
-  </button>
-  <button class="nav-tab-item" onclick="setActiveTab(this); show('media')">
-    <span>🎬</span>Media
-  </button>
-  <button class="nav-tab-item" onclick="setActiveTab(this); show('liveMeeting')">
-    <span>📹</span>Live Meeting
-  </button>
-  <button class="nav-tab-item" onclick="setActiveTab(this); show('profile')">
-    <span>👤</span>Profile
-  </button>
+<nav class="bottom-nav">
+  <button class="nav-tab active" onclick="show('home')"><span>🏠</span>Home</button>
+  <button class="nav-tab" onclick="show('products')"><span>🛍️</span>Shop</button>
+  <button class="nav-tab" onclick="show('points')"><span>⭐</span>Points</button>
+  <button class="nav-tab" onclick="show('media')"><span>🎬</span>Media</button>
+  <button class="nav-tab" onclick="show('profile')"><span>👤</span>Profile</button>
 </nav>
 
 <script>
 let currentUser = null;
 let products = JSON.parse(localStorage.getItem("SUN_PRODUCTS") || JSON.stringify([
-  {name: "Sun Detergent Powder", desc: "Tough Stain Removal, Brighter Clothes", price: 120, oldPrice: 150, image: "https://i.ibb.co.com/846z9x3/detergent.png"}
+  {name: "Sun Detergent Powder", weight: "1kg", price: 120, image: "https://i.ibb.co.com/846z9x3/detergent.png"},
+  {name: "Sunmar Gold Oil", weight: "1Ltr", price: 180, image: "https://via.placeholder.com/100"}
 ]));
 let orders = JSON.parse(localStorage.getItem("SUN_ORDERS") || "[]");
-let customers = JSON.parse(localStorage.getItem("SUN_CUSTOMERS") || "[]");
-let banners = JSON.parse(localStorage.getItem("SUN_BANNERS") || "[]");
-let winners = JSON.parse(localStorage.getItem("SUN_WINNERS") || "[]");
-let auditLogs = JSON.parse(localStorage.getItem("SUN_AUDIT") || "[]");
+let customers = JSON.parse(localStorage.getItem("SUN_CUSTOMERS") || JSON.stringify([
+  {id: "SUN-1001", name: "Riya Akter", mobile: "01913979131", pass: "1234", role: "customer", points: 2580},
+  {id: "SUN-M01", name: "Manager Rahim", mobile: "01700000000", pass: "1234", role: "manager", points: 0},
+  {id: "SUN-A01", name: "Admin Salman", mobile: "01800000000", pass: "1234", role: "admin", points: 0}
+]));
 let cart = [];
-let tempImg = "";
-let selectedLogoBase64 = "";
 
 window.onload = function() {
   applyStoredLogo();
   applyStoredTheme();
 };
 
-function addAudit(msg) {
-  auditLogs.unshift(`${new Date().toLocaleString('bn-BD')}: ${msg}`);
-  if(auditLogs.length > 30) auditLogs.pop();
-  localStorage.setItem("SUN_AUDIT", JSON.stringify(auditLogs));
-}
-
-function toggleDrawer() {
-  if(!currentUser) return alert("আগে লগইন করুন!");
-  document.getElementById("sideDrawer").classList.toggle("open");
-  document.getElementById("drawerOverlay").classList.toggle("open");
-}
-
-function buildSideDrawerMenu() {
-  const list = document.getElementById("drawerMenuList");
-  let items = [
-    ["home", "🏠 Home Dashboard"],
-    ["products", "🛍️ Shop Products"],
-    ["orders", "📦 My Orders"],
-    ["points", "⭐ My Points & Rank"],
-    ["resell", "💼 SUN Reselling"],
-    ["dealer", "🚚 Dealer Bulk Order"],
-    ["rewards", "🏆 Monthly Winners"],
-    ["partner", "🤝 Business Partner Apply"],
-    ["media", "🎬 Media & Live"],
-    ["liveMeeting", "📹 Live Meeting"],
-    ["theme", "🎨 Apps Color Theme"],
-    ["updates", "🔄 Apps Update & Log"]
-  ];
-
-  if(currentUser.role === 'manager') {
-    items.splice(1, 0, ["manager", "📋 Manager Panel"]);
-  }
-
-  if(currentUser.role === 'admin') {
-    items = [
-      ["home", "🏠 Home Dashboard"],
-      ["admin", "⚙️ Admin Master Panel"],
-      ["approvals", "✅ Order Approval"],
-      ["products", "🛍️ Product Upload & Edit"],
-      ["users", "👥 Customer & Point Reset"],
-      ["logo", "🌞 SUN Logo Settings"],
-      ["banners", "🖼️ Banner Management"],
-      ["rewards", "🏆 Monthly Winners"],
-      ["manager", "📋 Manager View"],
-      ["dealer", "🚚 Dealer Orders"],
-      ["resell", "💼 Reselling Board"],
-      ["theme", "🎨 Apps Color Theme"],
-      ["backup", "💾 Backup & Restore"],
-      ["updates", "🔄 Apps Update & Audit Log"],
-      ["media", "🎬 Media & Live"]
-    ];
-  }
-
-  list.innerHTML = items.map(i => `
-    <button class="drawer-item" onclick="show('${i[0]}'); toggleDrawer();">${i[1]}</button>
-  `).join("") + `<button class="drawer-item" style="background:var(--red); margin-top:10px;" onclick="logoutSUN(); toggleDrawer();">🚪 Logout</button>`;
-}
-
-/* লোগো ফাংশনসমূহ (মাঝখানে বসানোর জন্য) */
 function applyStoredLogo() {
-  const savedLogo = localStorage.getItem("SUN_LOGO_IMAGE");
-  const headerImg = document.getElementById("headerLogoImg");
-  const titleText = document.getElementById("headerTitleText");
-  if(savedLogo) {
-    headerImg.src = savedLogo;
-    headerImg.style.display = "block";
-    titleText.style.display = "none";
-  } else {
-    headerImg.style.display = "none";
-    titleText.style.display = "block";
+  const saved = localStorage.getItem("SUN_LOGO_URL");
+  if(saved) {
+    document.getElementById("headerLogoImg").src = saved;
+    document.getElementById("headerLogoImg").style.display = "block";
+    document.getElementById("headerTitleText").style.display = "none";
   }
 }
 
-function previewLogoFile(event) {
-  const file = event.target.files[0];
-  if(file) {
-    const reader = new FileReader();
-    reader.onload = e => {
-      selectedLogoBase64 = e.target.result;
-      const previewImg = document.getElementById("logoPreviewImg");
-      previewImg.src = selectedLogoBase64;
-      previewImg.style.display = "block";
-    };
-    reader.readAsDataURL(file);
-  }
-}
-
-function saveSUNLogoImage() {
-  if(currentUser.role !== 'admin') return alert("শুধুমাত্র অ্যাডমিন লোগো পরিবর্তন করতে পারবেন!");
-  if(!selectedLogoBase64) return alert("প্রথমে একটি লোগো ছবি সিলেক্ট করুন!");
-  localStorage.setItem("SUN_LOGO_IMAGE", selectedLogoBase64);
+function saveLogoUrl() {
+  const url = document.getElementById("logoUrlInput").value.trim();
+  if(!url) return alert("লিংক দিন!");
+  localStorage.setItem("SUN_LOGO_URL", url);
   applyStoredLogo();
-  addAudit("অ্যাডমিন নতুন SUN লোগো আপডেট করেছেন।");
-  alert("SUN Logo সফলভাবে হেডারের মাঝখানে সেট হয়েছে!");
+  alert("লোগো সফলভাবে সেট হয়েছে!");
 }
 
-function resetSUNLogo() {
-  if(currentUser.role !== 'admin') return alert("অনুমতি নেই!");
-  localStorage.removeItem("SUN_LOGO_IMAGE");
-  applyStoredLogo();
-  alert("ডিফল্ট লোগো সেট করা হয়েছে!");
+function setTheme(color) {
+  document.body.style.background = color;
+  localStorage.setItem("SUN_THEME_BG", color);
 }
 
-/* লগইন এবং রোল কন্ট্রোল */
+function applyStoredTheme() {
+  const bg = localStorage.getItem("SUN_THEME_BG");
+  if(bg) document.body.style.background = bg;
+}
+
 function loginSUN() {
-  const name = document.getElementById("loginName").value.trim();
   const mobile = document.getElementById("loginMobile").value.trim();
+  const pass = document.getElementById("loginPass").value.trim();
   const role = document.getElementById("loginRole").value;
 
-  if(!name || !mobile) return alert("নাম ও মোবাইল নম্বর দিন!");
-
-  let existing = customers.find(c => c.mobile === mobile);
-  let pts = existing ? (existing.points || 0) : 0;
-  if(!existing) {
-    customers.push({ name, mobile, role, points: 0 });
-    localStorage.setItem("SUN_CUSTOMERS", JSON.stringify(customers));
+  let found = customers.find(c => c.mobile === mobile && c.pass === pass);
+  if(!found) {
+    alert("মোবাইল নম্বর বা পাসওয়ার্ড ভুল!");
+    return;
   }
 
-  currentUser = { name, mobile, role, points: pts };
+  currentUser = found;
   document.getElementById("login").classList.add("hidden");
   
-  document.getElementById("profileName").textContent = `Hello, ${name}`;
-  document.getElementById("profileRoleBadge").textContent = `⭐ ${role.toUpperCase()} Member`;
-  document.getElementById("profilePoints").textContent = pts;
-  document.getElementById("displayPoints").textContent = pts;
-  document.getElementById("profileDetailsText").innerHTML = `<b>নাম:</b> ${name}<br><b>মোবাইল:</b> ${mobile}<br><b>অ্যাকাউন্ট টাইপ:</b> ${role.toUpperCase()}<br><b>মোট পয়েন্ট:</b> ${pts}`;
+  document.getElementById("profileName").textContent = `Hello, ${currentUser.name}`;
+  document.getElementById("profileId").textContent = currentUser.id || "SUN-1001";
+  document.getElementById("profilePoints").textContent = currentUser.points;
+  document.getElementById("dispPoints").textContent = currentUser.points;
+  document.getElementById("profileDetails").innerHTML = `<b>নাম:</b> ${currentUser.name}<br><b>মোবাইল:</b> ${currentUser.mobile}<br><b>আইডি:</b> ${currentUser.id}<br><b>রোল:</b> ${currentUser.role}`;
 
-  if(role === 'admin') {
-    document.getElementById("adminProductUploadBox").classList.remove("hidden");
-    document.getElementById("adminWinnerBox").classList.remove("hidden");
-  } else {
-    document.getElementById("adminProductUploadBox").classList.add("hidden");
-    document.getElementById("adminWinnerBox").classList.add("hidden");
-  }
-
-  buildSideDrawerMenu();
-  addAudit(`${name} (${role}) লগইন করেছেন।`);
   show('home');
+  renderProducts();
+  renderOrders();
+  renderManagerOrders();
+  renderCustomerMgmt();
 }
 
 function logoutSUN() {
@@ -728,447 +291,168 @@ function logoutSUN() {
 function show(id) {
   if(!currentUser && id !== 'login') return alert("আগে লগইন করুন!");
   document.querySelectorAll("main > section").forEach(s => s.classList.add("hidden"));
-  const target = document.getElementById(id);
-  if(target) target.classList.remove("hidden");
-
-  if(id === 'home') renderHomeProducts();
-  if(id === 'products') renderFullProducts();
-  if(id === 'cart') renderCart();
-  if(id === 'orders') renderMyOrders();
-  if(id === 'approvals') renderPendingApprovals();
-  if(id === 'manager') renderManagerOrders();
-  if(id === 'users') renderCustomerManagement();
-  if(id === 'resell') renderResellList();
-  if(id === 'rewards') renderWinnersList();
-  if(id === 'banners') renderBannersList();
-  if(id === 'updates') renderAuditLogs();
-  if(id === 'admin') renderAdminDashboard();
-}
-
-function setActiveTab(btn) {
-  document.querySelectorAll(".nav-tab-item").forEach(t => t.classList.remove("active"));
-  btn.classList.add("active");
-}
-
-/* প্রোডাক্ট ডিসপ্লে ও কার্ট */
-function renderHomeProducts() {
-  const container = document.getElementById("homeProductContainer");
-  const query = (document.getElementById("homeSearchInput")?.value || "").toLowerCase();
-  const filtered = products.filter(p => p.name.toLowerCase().includes(query));
-
-  container.innerHTML = filtered.map((p, idx) => `
-    <div class="product-card-replica">
-      <img src="${p.image || 'https://via.placeholder.com/95'}" alt="Product">
-      <div class="prod-details">
-        <h4>${p.name}</h4>
-        <p>${p.desc || 'Tough Stain Removal, Brighter Clothes'}</p>
-        <div class="rating-stars">★★★★★ <span style="color:#666;">(4.8)</span></div>
-        <div class="price-row">
-          <span class="current-price">৳${p.price}</span>
-          <span class="old-price">৳${p.oldPrice || p.price + 30}</span>
-          <span class="discount-pill">20% OFF</span>
-        </div>
-        <div class="buy-action-row">
-          <div class="qty-stepper">
-            <button onclick="adjustQty(${idx}, -1)">-</button>
-            <input type="text" id="q_${idx}" value="1" readonly>
-            <button onclick="adjustQty(${idx}, 1)">+</button>
-          </div>
-          <button class="add-to-cart-btn" onclick="addToCart(${idx})">🛒 Add to Cart</button>
-        </div>
-      </div>
-    </div>
-  `).join("") || "<p style='color:white; text-align:center;'>কোনো পণ্য পাওয়া যায়নি।</p>";
-}
-
-function filterHomeProducts() {
-  renderHomeProducts();
-}
-
-function adjustQty(idx, val) {
-  const input = document.getElementById(`q_${idx}`);
-  let q = parseInt(input.value) + val;
-  if(q < 1) q = 1;
-  input.value = q;
-}
-
-function addToCart(idx) {
-  const qty = parseInt(document.getElementById(`q_${idx}`).value);
-  const p = products[idx];
-  const existing = cart.find(item => item.name === p.name);
-  if(existing) existing.qty += qty;
-  else cart.push({...p, qty: qty});
-  updateCartBadge();
-  alert(`${qty}টি ${p.name} কার্টে যোগ করা হয়েছে!`);
-}
-
-function updateCartBadge() {
-  const total = cart.reduce((sum, i) => sum + i.qty, 0);
-  document.getElementById("cartBadgeCount").textContent = total;
-}
-
-function renderCart() {
-  const list = document.getElementById("cartItemList");
-  const totalBox = document.getElementById("cartTotalPrice");
-  if(cart.length === 0) {
-    list.innerHTML = "<p>আপনার কার্ট খালি রয়েছে।</p>";
-    totalBox.textContent = "";
-    return;
-  }
-  let sum = 0;
-  list.innerHTML = cart.map((item, i) => {
-    let sub = item.price * item.qty;
-    sum += sub;
-    return `
-      <div class="item-card" style="display:flex; justify-content:space-between; align-items:center;">
-        <div><b>${item.name}</b><br>৳${item.price} × ${item.qty} = ৳${sub}</div>
-        <button class="red" style="padding:4px 8px;" onclick="removeFromCart(${i})">বাতিল</button>
-      </div>
-    `;
-  }).join("");
-  totalBox.textContent = `সর্বমোট বিল: ৳${sum}`;
-}
-
-function removeFromCart(i) {
-  cart.splice(i, 1);
-  updateCartBadge();
-  renderCart();
-}
-
-function checkoutCart() {
-  if(cart.length === 0) return alert("কার্ট খালি!");
-  const addr = document.getElementById("orderDeliveryAddress").value.trim() || "নির্ধারিত ঠিকানা";
-  let totalAmount = cart.reduce((s, i) => s + (i.price * i.qty), 0);
-  let totalQty = cart.reduce((s, i) => s + i.qty, 0);
-
-  let orderData = {
-    id: "SUN-" + Date.now(),
-    customer: currentUser.name,
-    mobile: currentUser.mobile,
-    address: addr,
-    items: cart.map(i => `${i.name} (${i.qty})`).join(", "),
-    total: totalAmount,
-    status: "Pending",
-    date: new Date().toLocaleString('bn-BD')
-  };
-  orders.push(orderData);
-  localStorage.setItem("SUN_ORDERS", JSON.stringify(orders));
-
-  // পয়েন্ট আপডেট
-  currentUser.points = (currentUser.points || 0) + (10 * totalQty);
-  let cIndex = customers.findIndex(c => c.mobile === currentUser.mobile);
-  if(cIndex !== -1) {
-    customers[cIndex].points = currentUser.points;
-    localStorage.setItem("SUN_CUSTOMERS", JSON.stringify(customers));
-  }
-  document.getElementById("profilePoints").textContent = currentUser.points;
-  document.getElementById("displayPoints").textContent = currentUser.points;
-
-  cart = [];
-  updateCartBadge();
-  addAudit(`${currentUser.name} নতুন অর্ডার (${orderData.id}) করেছেন।`);
-  alert("অর্ডার সফলভাবে জমা হয়েছে! অ্যাডমিন অ্যাপ্রুভালের অপেক্ষায় আছে।");
-  show('orders');
-}
-
-function renderMyOrders() {
-  const list = document.getElementById("myOrdersList");
-  const mine = orders.filter(o => o.mobile === currentUser.mobile);
-  list.innerHTML = mine.map((o, idx) => `
-    <div class="item-card">
-      <b>অর্ডার আইডি: ${o.id}</b><br>
-      পণ্য: ${o.items}<br>
-      মোট: ৳${o.total} | স্ট্যাটাস: <b style="color:var(--blue);">${o.status}</b><br>
-      <button class="gold" style="margin-top:6px; padding:5px 10px; font-size:12px;" onclick="viewMemo('${o.id}')">🧾 মেমো দেখুন</button>
-    </div>
-  `).join("") || "<p>কোনো অর্ডার পাওয়া যায়নি।</p>";
-}
-
-function viewMemo(orderId) {
-  const o = orders.find(x => x.id === orderId);
-  if(!o) return;
-  document.getElementById("memoBodyContent").innerHTML = `
-    <p><b>মেমো নং:</b> ${o.id}</p>
-    <p><b>তারিখ:</b> ${o.date}</p>
-    <p><b>গ্রাহকের নাম:</b> ${o.customer} (${o.mobile})</p>
-    <p><b>ঠিকানা:</b> ${o.address}</p>
-    <hr>
-    <p><b>পণ্যের বিবরণ:</b> ${o.items}</p>
-    <h3 style="color:var(--red);">সর্বমোট বিল: ৳${o.total}</h3>
-    <p><b>অর্ডার স্ট্যাটাস:</b> ${o.status}</p>
-  `;
-  show('memoSection');
-}
-
-/* অ্যাডমিন প্রোডাক্ট আপলোড ও ডিলিট */
-function previewImage(event) {
-  const file = event.target.files[0];
-  if(file) {
-    const reader = new FileReader();
-    reader.onload = e => {
-      tempImg = e.target.result;
-      document.getElementById("previewImg").src = tempImg;
-      document.getElementById("previewImg").style.display = "block";
-    };
-    reader.readAsDataURL(file);
+  document.getElementById(id).classList.remove("hidden");
+  if(id === 'products' && currentUser.role === 'admin') {
+    document.getElementById("adminUpload").classList.remove("hidden");
   }
 }
 
-function addNewProduct() {
-  if(currentUser.role !== 'admin') return alert("শুধু অ্যাডমিন পণ্য যোগ করতে পারবেন!");
-  const name = document.getElementById("newProdName").value.trim();
-  const desc = document.getElementById("newProdDesc").value.trim() || "Premium Quality Product";
-  const price = parseFloat(document.getElementById("newProdPrice").value);
-  const oldPrice = parseFloat(document.getElementById("newProdOldPrice").value) || (price + 30);
-
-  if(!name || !price) return alert("পণ্যের নাম ও দাম দিন!");
-  products.push({ name, desc, price, oldPrice, image: tempImg || 'https://via.placeholder.com/95' });
-  localStorage.setItem("SUN_PRODUCTS", JSON.stringify(products));
-  addAudit(`অ্যাডমিন নতুন পণ্য (${name}) আপলোড করেছেন।`);
-  alert("নতুন পণ্য সফলভাবে আপলোড হয়েছে!");
-  renderFullProducts();
-  renderHomeProducts();
-}
-
-function renderFullProducts() {
-  document.getElementById("fullProductList").innerHTML = products.map((p, idx) => `
-    <div class="product-card-replica">
+function renderProducts() {
+  const html = products.map((p, idx) => `
+    <div class="product-card-2">
       <img src="${p.image}" alt="">
-      <div class="prod-details">
-        <h4>${p.name}</h4>
-        <p>${p.desc || ''}</p>
-        <span class="current-price">৳${p.price}</span>
-        ${currentUser.role === 'admin' ? `<br><button class="red" style="margin-top:5px; padding:4px 8px; font-size:11px;" onclick="deleteProduct(${idx})">ডিলিট করুন</button>` : ''}
+      <div>
+        <h4 style="margin:0 0 4px 0;font-size:14px;">${p.name}</h4>
+        <p style="margin:0 0 6px 0;font-size:11px;color:#666;">ওজন: ${p.weight}</p>
+        <p style="margin:0 0 8px 0;font-weight:bold;color:var(--red);">৳${p.price}</p>
+        <button onclick="addToCart(${idx})" style="width:100%;padding:6px;font-size:12px;">Add to Cart</button>
       </div>
     </div>
   `).join("");
+  document.getElementById("homeProductContainer").innerHTML = html;
+  document.getElementById("fullProductList").innerHTML = html;
 }
 
-function deleteProduct(idx) {
-  if(currentUser.role !== 'admin') return alert("অনুমতি নেই!");
-  if(confirm("পণ্যটি ডিলিট করতে চান?")) {
-    products.splice(idx, 1);
-    localStorage.setItem("SUN_PRODUCTS", JSON.stringify(products));
-    renderFullProducts();
-    renderHomeProducts();
-  }
+function addToCart(idx) {
+  let p = products[idx];
+  let exist = cart.find(item => item.name === p.name);
+  if(exist) exist.qty += 1;
+  else cart.push({...p, qty: 1});
+  
+  let totalCount = cart.reduce((sum, i) => sum + i.qty, 0);
+  document.getElementById("cartCount").textContent = totalCount;
+  alert(`${p.name} কার্টে যোগ হয়েছে!`);
 }
 
-/* অ্যাডমিন ড্যাশবোর্ড, এপ্রুভাল ও ম্যানেজার প্যানেল */
-function renderAdminDashboard() {
-  document.getElementById("statProd").textContent = products.length;
-  document.getElementById("statOrd").textContent = orders.length;
-  document.getElementById("statCust").textContent = customers.length;
+function checkoutOrder() {
+  if(cart.length === 0) return alert("কার্ট খালি!");
+  const address = document.getElementById("orderAddress").value.trim() || "ঠিকানা দেওয়া হয়নি";
+  const advance = parseFloat(document.getElementById("advancePay").value) || 0;
+  
+  let totalAmount = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+  let dueAmount = totalAmount - advance;
+  let earnedPoints = Math.floor(totalAmount / 100) * 10; // প্রতি ১০০ টাকায় ১০ পয়েন্ট অটো
 
-  const list = document.getElementById("adminAllOrdersList");
-  list.innerHTML = orders.map((o, idx) => `
-    <div class="item-card">
-      <b>${o.id}</b> — ${o.customer} (${o.mobile})<br>
-      পণ্য: ${o.items} | মোট: ৳${o.total}<br>
-      স্ট্যাটাস: <b>${o.status}</b><br>
-      ${o.status === 'Pending' ? `<button class="green" style="padding:4px 8px; font-size:11px;" onclick="approveOrder(${idx})">Approve</button>` : ''}
-      <button class="red" style="padding:4px 8px; font-size:11px;" onclick="deleteOrder(${idx})">Delete/সংশোধন</button>
+  let newOrder = {
+    id: "ORD-" + Date.now(),
+    customerName: currentUser.name,
+    mobile: currentUser.mobile,
+    address: address,
+    items: [...cart],
+    total: totalAmount,
+    advance: advance,
+    due: dueAmount,
+    status: "Pending (অ্যাডমিন এপ্রুভালের অপেক্ষায়)",
+    date: new Date().toLocaleDateString()
+  };
+
+  orders.push(newOrder);
+  localStorage.setItem("SUN_ORDERS", JSON.stringify(orders));
+
+  currentUser.points += earnedPoints;
+  document.getElementById("profilePoints").textContent = currentUser.points;
+  document.getElementById("dispPoints").textContent = currentUser.points;
+
+  cart = [];
+  document.getElementById("cartCount").textContent = 0;
+  alert(`অর্ডার সফল হয়েছে! আপনি ${earnedPoints} পয়েন্ট অর্জন করেছেন।`);
+  show('orders');
+  renderOrders();
+  renderManagerOrders();
+}
+
+function renderOrders() {
+  const container = document.getElementById("orderListContainer");
+  let myOrders = orders.filter(o => o.mobile === currentUser.mobile || currentUser.role === 'admin');
+  container.innerHTML = myOrders.map(o => `
+    <div style="border:1px solid #ddd;padding:10px;border-radius:8px;margin-bottom:8px;">
+      <b>অর্ডার আইডি: ${o.id}</b><br>
+      গ্রাহক: ${o.customerName} (${o.mobile})<br>
+      ঠিকানা: ${o.address}<br>
+      সর্বমোট: ৳${o.total} | অগ্রিম: ৳${o.advance} | <b>COD বাকি: ৳${o.due}</b><br>
+      স্ট্যাটাস: <b style="color:var(--blue);">${o.status}</b>
+      ${currentUser.role === 'admin' && o.status.includes('Pending') ? `<button class="green" onclick="approveOrder('${o.id}')" style="margin-top:5px;display:block;">অ্যাডমিন এপ্রুভ করুন</button>` : ''}
     </div>
   `).join("") || "<p>কোনো অর্ডার নেই।</p>";
 }
 
-function renderPendingApprovals() {
-  const list = document.getElementById("pendingOrdersList");
-  const pending = orders.filter(o => o.status === 'Pending');
-  list.innerHTML = pending.map(o => {
-    const realIdx = orders.indexOf(o);
-    return `
-      <div class="item-card">
-        <b>${o.id}</b> — ${o.customer} (${o.mobile})<br>
-        পণ্য: ${o.items} | ৳${o.total}<br>
-        <button class="green" onclick="approveOrder(${realIdx})">✅ Approve Order</button>
-        <button class="red" onclick="deleteOrder(${realIdx})">❌ Reject/Delete</button>
-      </div>
-    `;
-  }).join("") || "<p>কোনো পেন্ডিং অর্ডার নেই।</p>";
-}
-
-function approveOrder(idx) {
-  if(currentUser.role !== 'admin') return alert("শুধুমাত্র অ্যাডমিন এপ্রুভ করতে পারবেন!");
-  orders[idx].status = "Approved";
-  localStorage.setItem("SUN_ORDERS", JSON.stringify(orders));
-  addAudit(`অর্ডার (${orders[idx].id}) অ্যাপ্রুভ করা হয়েছে।`);
-  renderPendingApprovals();
-  renderAdminDashboard();
-  alert("অর্ডার অ্যাপ্রুভ করা হয়েছে!");
-}
-
-function deleteOrder(idx) {
-  if(currentUser.role !== 'admin') return alert("শুধুমাত্র অ্যাডমিন ডিলিট বা সংশোধন করতে পারবেন!");
-  if(confirm("আপনি কি নিশ্চিতভাবে এই অর্ডারটি ডিলিট করতে চান?")) {
-    addAudit(`অর্ডার (${orders[idx].id}) ডিলিট করা হয়েছে।`);
-    orders.splice(idx, 1);
+function approveOrder(id) {
+  let o = orders.find(x => x.id === id);
+  if(o) {
+    o.status = "Approved (ম্যানেজার মোডে প্রস্তুত)";
     localStorage.setItem("SUN_ORDERS", JSON.stringify(orders));
-    renderPendingApprovals();
-    renderAdminDashboard();
+    renderOrders();
+    renderManagerOrders();
+    alert("অর্ডার এপ্রুভ করা হয়েছে!");
   }
 }
 
 function renderManagerOrders() {
-  const list = document.getElementById("managerOrdersList");
-  const approved = orders.filter(o => o.status === 'Approved');
-  list.innerHTML = approved.map(o => `
-    <div class="item-card">
-      <b>${o.id}</b> — ${o.customer} (${o.mobile})<br>
-      ঠিকানা: ${o.address}<br>
-      পণ্য: ${o.items} | মোট: ৳${o.total}<br>
-      <button class="gold" style="padding:4px 8px; font-size:11px;" onclick="viewMemo('${o.id}')">🧾 ডেলিভারি মেমো</button>
+  const container = document.getElementById("managerOrderList");
+  let approved = orders.filter(o => o.status.includes("Approved") || currentUser.role === 'manager' || currentUser.role === 'admin');
+  container.innerHTML = approved.map(o => `
+    <div style="border:1px solid #ddd;padding:10px;border-radius:8px;margin-bottom:8px;">
+      <b>ID: ${o.id}</b> - ${o.customerName}<br>
+      মোট: ৳${o.total} | COD বাকি: ৳${o.due}<br>
+      <button class="gold" onclick="previewMemo('${o.id}')" style="margin-top:5px;">মেমো প্রিন্ট প্রিভিউ</button>
     </div>
   `).join("") || "<p>কোনো অনুমোদিত অর্ডার নেই।</p>";
 }
 
-/* কাস্টমার ম্যানেজমেন্ট ও পয়েন্ট রিসেট */
-function renderCustomerManagement() {
-  const list = document.getElementById("customerManagementList");
-  list.innerHTML = customers.map((c, idx) => `
-    <div class="item-card">
-      <b>নাম:</b> ${c.name} | <b>মোবাইল:</b> ${c.mobile}<br>
-      <b>রোল:</b> ${c.role} | <b>পয়েন্ট:</b> <span style="color:var(--blue); font-weight:bold;">${c.points || 0}</span><br>
-      <button class="gold" style="padding:5px 10px; font-size:12px;" onclick="resetCustomerPoints(${idx})">পয়েন্ট রিসেট (0)</button>
-      <button class="red" style="padding:5px 10px; font-size:12px;" onclick="deleteCustomer(${idx})">ডিলিট কাস্টমার</button>
+function previewMemo(id) {
+  let o = orders.find(x => x.id === id);
+  if(!o) return;
+  
+  let itemsHtml = o.items.map(i => `<tr><td>${i.name} (${i.weight})</td><td>${i.qty}</td><td>৳${i.price * i.qty}</td></tr>`).join("");
+
+  document.getElementById("memoPreviewContent").innerHTML = `
+    <div style="display:flex; justify-content:space-between; border-bottom:2px solid var(--blue); padding-bottom:10px; margin-bottom:10px;">
+      <div><h2 style="margin:0; color:var(--blue);">Sun Product</h2><small>ডিজিটাল ক্যাশ মেমো</small></div>
+      <div style="text-align:right;">
+        <b>গ্রাহক:</b> ${o.customerName}<br>
+        <b>মোবাইল:</b> ${o.mobile}<br>
+        <b>ঠিকানা:</b> ${o.address}
+      </div>
     </div>
-  `).join("") || "<p>কোনো কাস্টমার তথ্য নেই।</p>";
+    <table width="100%" border="1" cellspacing="0" cellpadding="6" style="border-collapse:collapse; margin-bottom:10px;">
+      <tr><th>পণ্যের নাম</th><th>পরিমাণ</th><th>দাম</th></tr>
+      ${itemsHtml}
+    </table>
+    <p><b>সর্বমোট বিল:</b> ৳${o.total}</p>
+    <p><b>অগ্রিম পরিশোধ:</b> ৳${o.advance}</p>
+    <h3 style="color:var(--red);">ক্যাশ অন ডেলিভারি (COD বাকি): ৳${o.due}</h3>
+  `;
+  show('printMemoSection');
 }
 
-function resetCustomerPoints(idx) {
-  if(currentUser.role !== 'admin') return alert("অনুমতি নেই!");
-  customers[idx].points = 0;
-  localStorage.setItem("SUN_CUSTOMERS", JSON.stringify(customers));
-  addAudit(`${customers[idx].name}-এর পয়েন্ট রিসেট করা হয়েছে।`);
-  renderCustomerManagement();
-  alert("কাস্টমারের পয়েন্ট রিসেট করা হয়েছে!");
-}
-
-function deleteCustomer(idx) {
-  if(currentUser.role !== 'admin') return alert("অনুমতি নেই!");
-  if(confirm("কাস্টমার অ্যাকাউন্টটি ডিলিট করতে চান?")) {
-    customers.splice(idx, 1);
-    localStorage.setItem("SUN_CUSTOMERS", JSON.stringify(customers));
-    renderCustomerManagement();
-  }
-}
-
-/* রিসেলিং, ডিলার, ব্যানার, উইনার্স, থিম, ব্যাকআপ */
-function renderResellList() {
-  document.getElementById("resellList").innerHTML = products.map(p => `
-    <div class="item-card">
-      <b>${p.name}</b> — মূল্য: ৳${p.price}<br>
-      <button class="gold" style="margin-top:5px;" onclick="alert('রিসেলিং শেয়ার লিংক কপি হয়েছে!')">🔗 রিসেলিং লিংক নিন</button>
+function renderCustomerMgmt() {
+  const container = document.getElementById("customerListContainer");
+  container.innerHTML = customers.map((c, i) => `
+    <div style="border:1px solid #ddd;padding:8px;margin-bottom:6px;border-radius:6px;">
+      <b>নাম:</b> ${c.name} | <b>মোবাইল:</b> ${c.mobile}<br>
+      <b>পাসওয়ার্ড:</b> <input type="text" id="pass_${i}" value="${c.pass}" style="width:100px;display:inline-block;padding:2px;">
+      <button onclick="updatePass(${i})" style="padding:4px 8px;font-size:11px;">পাসওয়ার্ড আপডেট</button>
     </div>
   `).join("");
 }
 
-function dealerSubmit() {
-  const name = document.getElementById("dealerName").value.trim();
-  const mobile = document.getElementById("dealerMobile").value.trim();
-  const items = document.getElementById("dealerItems").value.trim();
-  if(!name || !mobile || !items) return alert("সব ঘর পূরণ করুন!");
-  document.getElementById("dealerMessage").textContent = "✅ আপনার ডিলার বাল্ক অর্ডারটি সফলভাবে জমা হয়েছে!";
-  addAudit(`ডিলার (${name}) বাল্ক অর্ডার সাবমিট করেছেন।`);
+function updatePass(i) {
+  let newPass = document.getElementById(`pass_${i}`).value;
+  customers[i].pass = newPass;
+  alert("পাসওয়ার্ড সফলভাবে পরিবর্তন করা হয়েছে!");
 }
 
-function uploadBanner() {
-  if(currentUser.role !== 'admin') return alert("অনুমতি নেই!");
-  const file = document.getElementById("bannerFileInput").files[0];
-  if(!file) return alert("ছবি নির্বাচন করুন!");
-  const reader = new FileReader();
-  reader.onload = e => {
-    banners.push(e.target.result);
-    localStorage.setItem("SUN_BANNERS", JSON.stringify(banners));
-    renderBannersList();
-    alert("ব্যানার যুক্ত হয়েছে!");
-  };
-  reader.readAsDataURL(file);
-}
-
-function renderBannersList() {
-  document.getElementById("bannerListContainer").innerHTML = banners.map((b, i) => `
-    <div class="item-card">
-      <img src="${b}" style="width:100%; max-height:120px; object-fit:cover; border-radius:8px;">
-      <button class="red" style="margin-top:5px;" onclick="banners.splice(${i},1); localStorage.setItem('SUN_BANNERS', JSON.stringify(banners)); renderBannersList();">ডিলিট ব্যানার</button>
-    </div>
-  `).join("") || "<p>কোনো কাস্টম ব্যানার নেই।</p>";
-}
-
-function addMonthlyWinner() {
-  if(currentUser.role !== 'admin') return alert("অনুমতি নেই!");
-  const name = document.getElementById("winnerNameInput").value.trim();
-  const file = document.getElementById("winnerPhotoInput").files[0];
-  if(!name) return alert("বিজয়ীর নাম দিন!");
-  if(file) {
-    const reader = new FileReader();
-    reader.onload = e => {
-      winners.push({ name, photo: e.target.result });
-      localStorage.setItem("SUN_WINNERS", JSON.stringify(winners));
-      renderWinnersList();
-    };
-    reader.readAsDataURL(file);
-  } else {
-    winners.push({ name, photo: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png" });
-    localStorage.setItem("SUN_WINNERS", JSON.stringify(winners));
-    renderWinnersList();
-  }
-}
-
-function renderWinnersList() {
-  document.getElementById("winnersDisplayList").innerHTML = winners.map((w, i) => `
-    <div class="item-card" style="display:flex; align-items:center; gap:10px;">
-      <img src="${w.photo}" style="width:50px; height:50px; border-radius:50%; object-fit:cover;">
-      <div style="flex:1;"><b>🏆 ${w.name}</b><br><small>Monthly Top Achiever</small></div>
-      ${currentUser.role === 'admin' ? `<button class="red" onclick="winners.splice(${i},1); localStorage.setItem('SUN_WINNERS', JSON.stringify(winners)); renderWinnersList();">X</button>` : ''}
-    </div>
-  `).join("") || "<p>এখনো কোনো বিজয়ীর নাম যোগ করা হয়নি।</p>";
-}
-
-function changeAppColor(mode) {
-  localStorage.setItem("SUN_APP_THEME", mode);
-  applyStoredTheme();
-  alert("অ্যাপসের কালার থিম পরিবর্তন করা হয়েছে!");
-}
-
-function applyStoredTheme() {
-  const mode = localStorage.getItem("SUN_APP_THEME") || "default";
-  if(mode === "default") document.body.style.background = "linear-gradient(180deg, #103375, #1746A2, #2458c8)";
-  if(mode === "lightblue") document.body.style.background = "#e3eeff";
-  if(mode === "dark") document.body.style.background = "#121826";
-}
-
-function downloadBackup() {
-  const data = { products, orders, customers, banners, winners };
-  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "SUN-Business-Full-Backup.json";
-  a.click();
-}
-
-function restoreBackup() {
-  const file = document.getElementById("restoreFileInput").files[0];
-  if(!file) return alert("ব্যাকআপ ফাইল সিলেক্ট করুন!");
-  const reader = new FileReader();
-  reader.onload = e => {
-    try {
-      const d = JSON.parse(e.target.result);
-      products = d.products || [];
-      orders = d.orders || [];
-      customers = d.customers || [];
-      localStorage.setItem("SUN_PRODUCTS", JSON.stringify(products));
-      localStorage.setItem("SUN_ORDERS", JSON.stringify(orders));
-      localStorage.setItem("SUN_CUSTOMERS", JSON.stringify(customers));
-      alert("সব ডাটা সফলভাবে রিস্টোর হয়েছে!");
-      location.reload();
-    } catch(err) { alert("ভুল ফাইল!"); }
-  };
-  reader.readAsText(file);
-}
-
-function renderAuditLogs() {
-  document.getElementById("auditLogList").innerHTML = auditLogs.map(l => `<p style="margin:4px 0; border-bottom:1px solid #eee;">• ${l}</p>`).join("") || "<p>কোনো লগ নেই।</p>";
+function addProduct() {
+  let name = document.getElementById("pName").value;
+  let weight = document.getElementById("pWeight").value;
+  let price = parseFloat(document.getElementById("pPrice").value);
+  let image = document.getElementById("pImage").value || "https://via.placeholder.com/100";
+  
+  if(!name || !price) return alert("নাম ও দাম দিন!");
+  products.push({name, weight, price, image});
+  localStorage.setItem("SUN_PRODUCTS", JSON.stringify(products));
+  renderProducts();
+  alert("পণ্য যোগ হয়েছে!");
 }
 </script>
 </body>
