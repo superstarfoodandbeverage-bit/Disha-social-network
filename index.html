@@ -33,6 +33,17 @@
 <nav class="nav" id="nav"></nav><div id="navShade" onclick="toggleSidebar(false)"></div><main class="main" id="view"></main><div class="footer">SUN-My Business • Version 1.9.6 Inventory & Factory • Local Demo • Firebase/Server Security এখনো সংযুক্ত নয়</div></div>
 <div id="modal" class="modal hidden"><div class="modalbox" id="modalbox"></div></div>
 <script>
+ <script>
+const firebaseConfig = {
+  // Firebase Config
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const firebaseDB = firebase.firestore();
+const storage = firebase.storage();
+
+const KEY='sun_my_business_demo_v1';
 const KEY='sun_my_business_demo_v1';
 const defaults={
  version:'1.9.3',releaseNotes:'Centered SUN logo; larger editable tagline; brand text colors; updated home headline; improved logo and banner image handling',pointsPer100:1,affiliatePointsPer100:1,sharePoints:5,rankRules:[{name:'Silver',points:100},{name:'Gold',points:300},{name:'Platinum',points:1000},{name:'Diamond',points:2000},{name:'Crown',points:3250},{name:'Star Crown',points:4500}],
