@@ -22,7 +22,12 @@
 #navShade{display:none}
 .dealer-subtitle{font-size:12px;color:var(--muted);margin-top:4px}
 @media(max-width:700px){.panel-layout{display:block}.panel-layout>.nav{position:fixed;left:0;top:0;bottom:0;width:min(84vw,310px);height:100dvh;min-height:0;z-index:30;border-radius:0 18px 18px 0;transform:translateX(-105%);transition:transform .22s ease;box-shadow:8px 0 28px #06152d55}.panel-layout>.nav.open{transform:translateX(0)}.panel-layout>.main{padding:14px}#menuToggle{display:inline-flex;align-items:center;gap:7px}#navShade.show{display:block;position:fixed;inset:0;background:#07152c88;z-index:25}}
-</style></head>
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+</head>
 <body><div class="app">
 <header class="top"><div class="topline"><div class="brand"><div class="logo" id="brandLogo">SUN</div><p>Digital Business Platform</p></div><div class="row"><button id="menuToggle" type="button" onclick="toggleSidebar()">☰ Menu</button><select id="roleSelect" aria-label="Demo role"><option value="customer">Customer Mode</option><option value="manager">Manager Mode</option><option value="admin">Admin Mode</option></select><button class="secondary" id="resetDemo" title="ডেমো ডেটা রিসেট">Reset</button></div></div></header>
 <nav class="nav" id="nav"></nav><div id="navShade" onclick="toggleSidebar(false)"></div><main class="main" id="view"></main><div class="footer">SUN-My Business • Version 1.9.6 Inventory & Factory • Local Demo • Firebase/Server Security এখনো সংযুক্ত নয়</div></div>
